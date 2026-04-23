@@ -12,7 +12,7 @@ namespace OFFSIDESHOP
     public partial class AgregarProducto : System.Web.UI.Page
     {
       
-MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=drugstore_portillo; Uid=root;pwd = Info2026/*-");
+MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root;pwd = Info2026/*-");
 protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["username"] == null)
