@@ -1,0 +1,435 @@
+﻿
+/* ============================================
+   ESTILOS NUEVOS PARA REGISTRO (Diseño Contacto)
+   ============================================ */
+
+/* Estilos modernos inspirados en el diseño de contacto */
+/* ============================================
+   ESTILOS PARA REGISTRO - TEMA NEGRO CON BLANCO
+   ============================================ */
+
+/* Fondo con imagen */
+body {
+    font-family: 'Raleway', sans-serif;
+    background-image: url('/assets/img/loginback.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding-top: 80px;
+    position: relative;
+}
+
+    /* Capa oscura sobre la imagen de fondo para mejor contraste */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: -1;
+    }
+
+/* Navbar */
+.navbar {
+    background-color: #000000 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    border-bottom: 1px solid #333;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #ffffff !important;
+}
+
+    .navbar-brand:hover {
+        color: #cccccc !important;
+    }
+
+/* Contenedor principal de registro */
+.register-section {
+    padding: 60px 0;
+}
+
+.register-card {
+    background: #0a0a0a;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    overflow: hidden;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #333;
+}
+
+.register-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+    padding: 40px;
+    text-align: center;
+    color: white;
+    border-bottom: 1px solid #333;
+}
+
+    .register-header h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #ffffff;
+    }
+
+    .register-header h3 {
+        font-size: 1rem;
+        font-weight: 400;
+        opacity: 0.8;
+        margin: 0;
+        color: #cccccc;
+    }
+
+.register-body {
+    padding: 40px;
+}
+
+    /* Mejoras para los inputs */
+    .register-body .form-group {
+        margin-bottom: 25px;
+    }
+
+    .register-body .form-control {
+        border-radius: 10px;
+        border: 1px solid #333;
+        background-color: #1a1a1a;
+        padding: 12px 20px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        color: #ffffff;
+    }
+
+        .register-body .form-control:focus {
+            border-color: #666;
+            box-shadow: 0 0 0 3px rgba(102, 102, 102, 0.2);
+            outline: none;
+            background-color: #222;
+            color: #ffffff;
+        }
+
+        .register-body .form-control::placeholder {
+            color: #888;
+        }
+
+/* Botón de registro moderno */
+.btn-register {
+    background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    width: 100%;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+    .btn-register:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        background: linear-gradient(135deg, #444 0%, #222 100%);
+        border-color: #777;
+        color: white;
+    }
+
+    .btn-register:active {
+        transform: translateY(0);
+    }
+
+/* Enlace de login dentro del registro */
+.login-link {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+    .login-link p {
+        color: #888;
+        margin: 0;
+    }
+
+    .login-link a {
+        color: #999;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+        .login-link a:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
+
+/* Mensajes de error */
+.invalid-feedback {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #ff6b6b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .register-body {
+        padding: 30px 20px;
+    }
+
+    .register-header {
+        padding: 30px;
+    }
+
+        .register-header h2 {
+            font-size: 1.5rem;
+        }
+}
+
+/* Estilos adicionales para selects y otros inputs */
+select.form-control {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border-color: #333;
+}
+
+    select.form-control option {
+        background-color: #1a1a1a;
+        color: #ffffff;
+    }
+
+/* Checkbox y radio buttons si los usas */
+.form-check-input {
+    background-color: #1a1a1a;
+    border-color: #333;
+}
+
+.form-check-label {
+    color: #cccccc;
+}
+
+
+/* ============================================
+   ESTILOS PARA LOGIN - TEMA NEGRO
+   ============================================ */
+
+/* Fondo general - puedes cambiar la imagen aquí */
+body {
+    font-family: 'Raleway', sans-serif;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+body
+{
+    background-image: url('/assets/img/loginback2.jpeg');
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: -1;
+}
+
+
+/* Navbar */
+.navbar {
+    background-color: #000000 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+    .navbar-brand img {
+        max-height: 45px;
+        width: auto;
+    }
+
+/* Contenedor principal de login */
+.login-section {
+    padding: 60px 0;
+}
+
+.login-card {
+    background: #0a0a0a;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    overflow: hidden;
+    max-width: 500px;
+    margin: 0 auto;
+    border: 1px solid #333;
+}
+
+.login-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+    padding: 40px;
+    text-align: center;
+    color: white;
+    border-bottom: 1px solid #333;
+}
+
+    .login-header h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #ffffff;
+    }
+
+    .login-header h3 {
+        font-size: 1rem;
+        font-weight: 400;
+        opacity: 0.8;
+        margin: 0 0 5px 0;
+        color: #cccccc;
+    }
+
+    .login-header p {
+        font-size: 0.85rem;
+        opacity: 0.7;
+        margin: 10px 0 0 0;
+        color: #999999;
+    }
+
+.login-body {
+    padding: 40px;
+}
+
+    .login-body .form-group {
+        margin-bottom: 25px;
+    }
+
+    .login-body .form-control {
+        border-radius: 10px;
+        border: 1px solid #333;
+        background-color: #1a1a1a;
+        padding: 12px 20px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        color: #ffffff;
+    }
+
+        .login-body .form-control:focus {
+            border-color: #666;
+            box-shadow: 0 0 0 3px rgba(102, 102, 102, 0.2);
+            outline: none;
+            background-color: #222;
+            color: #ffffff;
+        }
+
+        .login-body .form-control::placeholder {
+            color: #888;
+        }
+
+.btn-login {
+    background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    width: 100%;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        background: linear-gradient(135deg, #444 0%, #222 100%);
+        border-color: #777;
+        color: white;
+    }
+
+    .btn-login:active {
+        transform: translateY(0);
+    }
+
+.forgot-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .forgot-link a {
+        color: #999;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+        .forgot-link a:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
+
+.register-link {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+    .register-link p {
+        margin: 0;
+        font-size: 14px;
+        color: #888;
+    }
+
+    .register-link a {
+        color: #999;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+        .register-link a:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
+
+/* Mensajes de error */
+.invalid-feedback {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-body {
+        padding: 30px 20px;
+    }
+
+    .login-header {
+        padding: 30px;
+    }
+
+        .login-header h2 {
+            font-size: 1.5rem;
+        }
+}

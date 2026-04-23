@@ -1,0 +1,475 @@
+﻿body {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #fff;
+    line-height: 30px;
+    background-color: #222733;
+    text-align: center;
+}
+
+strong {
+    font-weight: 500;
+}
+
+a, a:hover, a:focus {
+    text-decoration: none;
+}
+
+h2 {
+    margin-top: 10px;
+    font-size: 38px;
+    font-weight: 100;
+    line-height: 50px;
+}
+
+.my-content {
+    padding: 160px 0 175px 445px;
+}
+
+    .my-content .mydescription {
+        margin: 20px 0 10px 0;
+    }
+
+    .my-content .mydescription {
+        opacity: 0.8;
+    }
+
+.myform-cont {
+    overflow: hidden;
+    padding: 0 25px 15px 25px;
+    background: rgba(0,0,0,0.4);
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+.myform-bottom .mybtn {
+    width: 210px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea,
+textarea.form-control {
+    height: 50px;
+    vertical-align: middle;
+    background: #fff;
+    border: 3px solid #fff;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+}
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    textarea:focus,
+    textarea.form-control:focus {
+        background: #fff;
+        border: 2px solid #1AAE88;
+    }
+
+.myform-bottom .mybtn {
+    height: 50px;
+    background: #1AAE88;
+    border: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 40px;
+    color: #fff;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+    .myform-bottom .mybtn:hover, .myform-bottom .mybtn:active {
+        opacity: 0.6;
+        color: #fff;
+    }
+
+    .myform-bottom .mybtn:focus {
+        opacity: 0.6;
+        color: #fff;
+        background: #de651e;
+    }
+
+/* ============================================
+   ESTILOS PARA AGREGAR PRODUCTOS - STORAGE
+   TEMA: NEGRO TENUE CON DETALLES EN BLANCO/GRIS
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Varela Round', sans-serif;
+    background: #0a0a0a;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+/* ===== NAVBAR MODERNA ===== */
+.navbar {
+    background: #000000 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-brand {
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+    .navbar-brand:hover {
+        transform: scale(1.05);
+    }
+
+    .navbar-brand img {
+        max-height: 45px;
+        width: auto;
+        filter: brightness(1.1);
+    }
+
+.navbar .btn {
+    border-radius: 25px;
+    padding: 8px 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.btn-outline-success {
+    color: #ffffff;
+    border: 2px solid #1e3a6b;
+    background: linear-gradient(135deg, #1e3a6b 0%, #152c50 100%);
+}
+
+    .btn-outline-success:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #1e3a6b 100%);
+        border-color: #3b82f6;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+    }
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.my-content {
+    padding: 20px 0;
+}
+
+/* ===== TARJETA DEL FORMULARIO ===== */
+.myform-cont {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #0d0d0d;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+    .myform-cont h1 {
+        background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+        padding: 30px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+.myform-top {
+    display: none;
+}
+
+.myform-bottom {
+    padding: 40px;
+}
+
+/* ===== INPUTS MODERNOS ===== */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-control {
+    border-radius: 10px !important;
+    border: 1px solid #333 !important;
+    background-color: #1a1a1a !important;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
+    color: #ffffff !important;
+    width: 100% !important;
+}
+
+    .form-control:focus {
+        border-color: #666 !important;
+        box-shadow: 0 0 0 3px rgba(102, 102, 102, 0.2) !important;
+        outline: none !important;
+        background-color: #222 !important;
+        color: #ffffff !important;
+    }
+
+    .form-control::placeholder {
+        color: #888 !important;
+    }
+
+
+/* ===== BOTÓN AGREGAR ===== */
+.mybtn {
+    background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    width: 100%;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+    .mybtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #444 0%, #222 100%);
+        border-color: #777;
+        color: white;
+    }
+
+    .mybtn:active {
+        transform: translateY(0);
+    }
+
+/* ===== GRIDVIEW MODERNO ===== */
+.container {
+    margin-top: 40px;
+    padding: 20px;
+}
+
+#gvdlista, .GridView {
+    width: 100%;
+    background: #0d0d0d;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+    /* Header del GridView */
+    #gvdlista th, .GridView th {
+        background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+        color: #ffffff;
+        font-weight: 600;
+        padding: 15px;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #dc2626;
+    }
+
+    /* Filas del GridView */
+    #gvdlista td, .GridView td {
+        padding: 12px 15px;
+        color: #cccccc;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Filas alternadas */
+    #gvdlista tr:nth-child(even), .GridView tr:nth-child(even) {
+        background-color: #111111;
+    }
+
+    #gvdlista tr:nth-child(odd), .GridView tr:nth-child(odd) {
+        background-color: #0a0a0a;
+    }
+
+    /* Hover en filas */
+    #gvdlista tr:hover, .GridView tr:hover {
+        background-color: #1a1a1a;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Estilos específicos del GridView generado por ASP */
+    #gvdlista th a, .GridView th a {
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+        #gvdlista th a:hover, .GridView th a:hover {
+            color: #dc2626;
+        }
+
+/* ===== ALERTAS Y MENSAJES ===== */
+#alerta, .alerta {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* SweetAlert personalización */
+.swal2-popup {
+    background-color: #0d0d0d !important;
+    color: #ffffff !important;
+    border: 1px solid #333;
+}
+
+.swal2-title {
+    color: #ffffff !important;
+}
+
+.swal2-html-container {
+    color: #cccccc !important;
+}
+
+.swal2-confirm {
+    background: linear-gradient(135deg, #333 0%, #1a1a1a 100%) !important;
+    border: 1px solid #555 !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+
+    .navbar {
+        padding: 8px 0;
+    }
+
+    .navbar-brand img {
+        max-height: 35px;
+    }
+
+    .navbar .btn {
+        padding: 6px 16px;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+
+    .myform-cont {
+        margin: 0 15px;
+    }
+
+        .myform-cont h1 {
+            font-size: 1.5rem;
+            padding: 20px;
+        }
+
+    .myform-bottom {
+        padding: 30px 20px;
+    }
+
+    #gvdlista th, .GridView th {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    #gvdlista td, .GridView td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .container {
+        padding: 15px;
+        overflow-x: auto;
+    }
+
+    /* Hacer el GridView desplazable en móviles */
+    .container {
+        overflow-x: auto;
+    }
+
+    #gvdlista {
+        min-width: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .myform-cont h1 {
+        font-size: 1.2rem;
+    }
+
+    .form-control {
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+
+    .mybtn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #dc2626;
+    }
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.myform-cont, .container {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* ===== MEJORAS PARA EL FORMULARIO ===== */
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Campos requeridos */
+.form-control:required {
+    border-left: 3px solid #dc2626;
+}
+
+    .form-control:required:valid {
+        border-left: 3px solid #22c55e;
+    }
+
+/* Tooltips en inputs */
+.form-control:hover {
+    border-color: #555;
+}
+
+/* Focus visible para accesibilidad */
+.form-control:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
