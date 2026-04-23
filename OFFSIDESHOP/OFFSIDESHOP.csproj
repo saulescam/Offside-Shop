@@ -116,7 +116,7 @@
     <Content Include="css\Login.css" />
     <Content Include="css\styles.css" />
     <Content Include="Dashboard.aspx" />
-    <Content Include="Editar_producto.aspx" />
+    <Content Include="EditarProducto.aspx" />
     <Content Include="EstilosCss\EstiloInicio.css" />
     <Content Include="EstilosCss\EstilosStorage.css" />
     <Content Include="EstilosCss\Login.css" />
@@ -154,12 +154,12 @@
     </Compile>
     <Compile Include="datos.cs" />
     <Compile Include="datos1.cs" />
-    <Compile Include="Editar_producto.aspx.cs">
-      <DependentUpon>Editar_producto.aspx</DependentUpon>
+    <Compile Include="EditarProducto.aspx.cs">
+      <DependentUpon>EditarProducto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Editar_producto.aspx.designer.cs">
-      <DependentUpon>Editar_producto.aspx</DependentUpon>
+    <Compile Include="EditarProducto.aspx.designer.cs">
+      <DependentUpon>EditarProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Homepage.aspx.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
