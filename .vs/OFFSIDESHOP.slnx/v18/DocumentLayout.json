@@ -1,38 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\",
+  "WorkspaceRootPath": "C:\\Users\\1DS\\Desktop\\Offside-Shop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\1ds\\desktop\\offsideshop\\offsideshop\\recuperarcuenta.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\recuperarcuenta.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\offsideshop\\recuperarcuenta.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\recuperarcuenta.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\offsideshop\\agregarproducto.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\agregarproducto.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\Agregar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:OFFSIDESHOP\\Agregar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\offsideshop\\estiloscss\\estiloinicio.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\estiloscss\\estiloinicio.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\offsideshop\\dashboard.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\dashboard.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\offsideshop\\css\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\css\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\offsideshop\\homepage.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\homepage.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\1ds\\desktop\\offside-shop\\offsideshop\\editar_producto.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\editar_producto.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,99 +23,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RecuperarCuenta.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\RecuperarCuenta.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\RecuperarCuenta.aspx.cs",
-              "ToolTip": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\RecuperarCuenta.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\RecuperarCuenta.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T16:57:10.299Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RecuperarCuenta.aspx",
-              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\RecuperarCuenta.aspx",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\RecuperarCuenta.aspx",
-              "ToolTip": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\RecuperarCuenta.aspx",
-              "RelativeToolTip": "OFFSIDESHOP\\RecuperarCuenta.aspx",
+              "Title": "Editar_producto.aspx",
+              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\Offside-Shop\\OFFSIDESHOP\\Editar_producto.aspx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\Editar_producto.aspx",
+              "ToolTip": "C:\\Users\\1DS\\Desktop\\Offside-Shop\\OFFSIDESHOP\\Editar_producto.aspx",
+              "RelativeToolTip": "OFFSIDESHOP\\Editar_producto.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-04-16T15:00:15.079Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AgregarProducto.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\AgregarProducto.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\AgregarProducto.aspx.cs",
-              "ToolTip": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\AgregarProducto.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\AgregarProducto.aspx.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwA4AAAB2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T01:29:55.799Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Agregar.cs",
-              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\Agregar.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\Agregar.cs",
-              "ToolTip": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\Agregar.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\Agregar.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T03:02:54.037Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "EstiloInicio.css",
-              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\EstilosCss\\EstiloInicio.css",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\EstilosCss\\EstiloInicio.css",
-              "ToolTip": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\EstilosCss\\EstiloInicio.css",
-              "RelativeToolTip": "OFFSIDESHOP\\EstilosCss\\EstiloInicio.css",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAAAMAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-04-16T02:20:08.824Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Dashboard.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\Dashboard.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\Dashboard.aspx.cs",
-              "ToolTip": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\Dashboard.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\Dashboard.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T00:50:11.103Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "styles.css",
-              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\css\\styles.css",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\css\\styles.css",
-              "ToolTip": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\css\\styles.css",
-              "RelativeToolTip": "OFFSIDESHOP\\css\\styles.css",
-              "ViewState": "AgIAAJ0yAAAAAAAAAAAkwLIyAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-04-16T02:38:50.335Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Homepage.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\Homepage.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\Homepage.aspx.cs",
-              "ToolTip": "C:\\Users\\1DS\\Desktop\\OFFSIDESHOP\\OFFSIDESHOP\\Homepage.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\Homepage.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T02:32:16.297Z"
+              "WhenOpened": "2026-04-23T20:34:45.482Z",
+              "EditorCaption": ""
             }
           ]
         }
