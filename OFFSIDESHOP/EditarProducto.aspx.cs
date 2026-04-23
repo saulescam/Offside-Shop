@@ -11,7 +11,7 @@ namespace OFFSIDESHOP
 {
     public partial class EditarProducto : System.Web.UI.Page
     {
-        MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=posada; Uid=root; pwd=info2022;");
+        MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root; pwd=Info2026/*-;");
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["usermane"] == null)

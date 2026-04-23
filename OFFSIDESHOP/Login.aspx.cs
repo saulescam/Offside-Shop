@@ -28,7 +28,7 @@ namespace OFFSIDESHOP
                 contra = EncryptString(TxtContra.Text, initVector);
                 usuario = TxtUsuario.Text;
                 datos1.valorGlobal = usuario;
-                MySqlConnection conexion = new MySqlConnection("Server=127.0.0.1; database= drugstore_portillo;Uid = root; pwd = Info2026/*- ");
+                MySqlConnection conexion = new MySqlConnection("Server=127.0.0.1; database= offsideshop;Uid = root; pwd = Info2026/*- ");
             var cmd = "SELECT Id_Usuario from usuarios WHERE Nombre_Usuario='" + usuario + "' AND Password = '" + contra + "'; ";
             MySqlCommand comando = new MySqlCommand(cmd, conexion);
                 conexion.Open();

@@ -10,7 +10,7 @@ namespace OFFSIDESHOP
     {
         public static MySqlConnection ObtenerConexion()
         {
-            MySqlConnection datos = new MySqlConnection("server=127.0.0.1; database=drugstore_portillo; Uid=root; pwd=Info2026/*-");
+            MySqlConnection datos = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root; pwd=Info2026/*-");
             datos.Open();
             return datos;
         }
