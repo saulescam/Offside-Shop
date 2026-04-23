@@ -14,7 +14,7 @@ namespace OFFSIDESHOP
         MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root; pwd=Info2026/*-;");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usermane"] == null)
+            if (Session["username"] == null)
             {
                 Response.Redirect("Inicio.aspx");
             }
@@ -61,11 +61,11 @@ namespace OFFSIDESHOP
                 txtprecio.Text = "";
                 txtcantidad.Text = "";
                 txtid.Text = "";
-                alerta.Text = "<script>Swal.fire('Su producto se Editado con exito.', '¡Gracias por preferirnos!', 'success'); </script>";
+                alerta.Text = "<script>Swal.fire('Product edited correctly.', 'Thanks', 'success'); </script>";
             }
             else
             {
-                alerta.Text = "<script>Swal.fire('OOPS', 'No deje espacios en blanco', 'error') </script>";
+                alerta.Text = "<script>Swal.fire('OOPS', 'Do not leave any blank spaces', 'error') </script>";
             }
         }
         protected void Unnamed1_Click(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace OFFSIDESHOP
                 MySqlDataReader registro = comand.ExecuteReader();
                 if (registro.Read())
                 {
-                    alerta.Text = "<script>Swal.fire('Sea seleccionado con exito.', '', 'success'); </script>";
+                    alerta.Text = "<script>Swal.fire('Succesful', '', 'success'); </script>";
 
                     txtmarca.Text = registro["Marca"].ToString();
                     txtprecio.Text = registro["Precio"].ToString();
@@ -89,13 +89,13 @@ namespace OFFSIDESHOP
             }
             catch
             {
-                alerta.Text = "<script>Swal.fire('Algo salio mal Intentalo otra vez', 'Verifique que ID se correcto', 'error') </script>";
+                alerta.Text = "<script>Swal.fire('Something went wrong', 'Verify ID', 'error') </script>";
 
             }
         }
         protected void btnInicio_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Inicio.aspx");
+            Response.Redirect("Dashboard.aspx");
         }
     }
 }

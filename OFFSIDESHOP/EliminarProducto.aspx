@@ -1,9 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditarProducto.aspx.cs" Inherits="OFFSIDESHOP.EditarProducto" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EliminarProducto.aspx.cs" Inherits="OFFSIDESHOP.EliminarProducto" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="Font-awesome/css/fontawesome.min.css" rel="stylesheet" />
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -13,7 +15,7 @@
     <script src="SweetAlert/sweetalert2.js"></script>
 
 
-    <title>Editar Producto</title>
+    <title>Delete product</title>
 </head>
 <body>
     <script type="text/javascript">
@@ -34,7 +36,6 @@
             return patron.test(te); // 6
         }
     </script>
-
     <script>
         function NumCheck(e, field) {
             key = e.keyCode ? e.keyCode : e.which
@@ -58,24 +59,25 @@
     </script>
 
     <form runat="server">
-         <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+          <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
 <div class="container">
     <a class="navbar-brand" href="Inicio.aspx">
         <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP Logo" class="img-fluid" style="max-height: 45px;" />
     </a>
-       <a class="navbar-brand" href="#">Edit products</a>
+       <a class="navbar-brand" href="#">Delete products</a>
        <asp:Button ID="btnInicio" class="btn btn-outline-success my-2 my-sm-0" type="submit"
            runat="server" Text="Home" OnClick="btnInicio_Click" />
    </nav>
         <div class="my-content">
             <div class="container">
+
                 <div class="row">
                     <div class="col-sn-12">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3 myform-cont">
-                        <h1>Editar</h1>
+                        <h1>Delete</h1>
                         <div class="myform-top">
                         </div>
                         <div class="myform-bottom">
@@ -95,14 +97,13 @@
                                 <div class="form-group">
                                     <asp:TextBox ID="txtcantidad" runat="server" placeholder="Cantidad..." type="text" class="form-control" minlength="5" MaxLength="10" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="fileUploadImagen">Imagen del Medicamento:</label>
-                                    <asp:Image ID="imgProducto" runat="server" Width="200px" Height="200px" />
-                                    <asp:FileUpload ID="fileUploadImagen" CssClass="form-control" name="File" runat="server" />
-                                </div>
+
+
                                 <asp:Button runat="server" Text="Seleccionar" CssClass="mybtn" OnClick="Unnamed1_Click" Width="109px"></asp:Button>
-                                <asp:Button runat="server" Text="Editar" CssClass="mybtn" OnClick="Unnamed2_Click"></asp:Button>
+                                <asp:Button runat="server" Text="Eliminar" CssClass="mybtn" OnClick="Unnamed2_Click"></asp:Button>
                                 <asp:Literal ID="alerta" runat="server" Text=""></asp:Literal>
+
+
                             </form>
                         </div>
                     </div>
@@ -110,7 +111,7 @@
             </div>
         </div>
         <div class="container">
-            <asp:GridView ID="gvdlista" runat="server" AutoGenerateColumns="False" Width="1004px" Height="80px" CellPadding="4" ForeColor="#333333" GridLines="None">
+            <asp:GridView ID="gvdlista" runat="server" AutoGenerateColumns="False" Width="1004px" Height="270px" CellPadding="4" ForeColor="#333333" GridLines="None">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:BoundField DataField="ID" HeaderText="ID" />

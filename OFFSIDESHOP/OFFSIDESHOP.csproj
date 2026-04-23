@@ -117,6 +117,7 @@
     <Content Include="css\styles.css" />
     <Content Include="Dashboard.aspx" />
     <Content Include="EditarProducto.aspx" />
+    <Content Include="EliminarProducto.aspx" />
     <Content Include="EstilosCss\EstiloInicio.css" />
     <Content Include="EstilosCss\EstilosStorage.css" />
     <Content Include="EstilosCss\Login.css" />
@@ -159,6 +160,13 @@
     </Compile>
     <Compile Include="EditarProducto.aspx.designer.cs">
       <DependentUpon>EditarProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EliminarProducto.aspx.cs">
+      <DependentUpon>EliminarProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EliminarProducto.aspx.designer.cs">
+      <DependentUpon>EliminarProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Homepage.aspx.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>

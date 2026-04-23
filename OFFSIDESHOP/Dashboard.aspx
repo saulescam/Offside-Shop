@@ -148,6 +148,12 @@
             <form runat="server">
                 <asp:Button ID="btningresar" class="btn btn-outline-success my-2 my-sm-0" type="submit"
                     runat="server" Text="Add" OnClick="btningresar_Click" />
+                
+            <asp:Button ID="btneliminar" class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                runat="server" Text="Delete" OnClick="btneliminar_Click" />
+
+            <asp:Button ID="btneditar" class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                runat="server" Text="Edit" OnClick="btneditar_Click" />
 
                 <asp:Button ID="btncerrar" class="btn btn-outline-warning my-2 my-sm-0" type="submit"
                     runat="server" Text="logout" OnClick="btncerrar_Click" />

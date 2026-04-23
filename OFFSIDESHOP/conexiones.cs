@@ -57,5 +57,17 @@ namespace OFFSIDESHOP
             retorno = comado.ExecuteNonQuery();
             return retorno;
         }
+        //**************************** Método para eleimaar producto ****************************
+        public static int Eliminar(int pId)
+        {
+            int retorno = 0;
+            MySqlConnection conexion = datos.ObtenerConexion();
+            MySqlCommand comando = new MySqlCommand(string.Format("Delete From productos where ID={0}", pId), conexion);
+
+            retorno = comando.ExecuteNonQuery();
+            conexion.Close();
+
+            return retorno;
+        }
     }
 }

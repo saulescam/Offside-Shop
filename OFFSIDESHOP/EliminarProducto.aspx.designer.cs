@@ -11,61 +11,79 @@ namespace OFFSIDESHOP
 {
 
 
-    public partial class Dashboard
+    public partial class EliminarProducto
     {
 
         /// <summary>
-        /// Control btningresar.
+        /// Control btnInicio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btningresar;
+        protected global::System.Web.UI.WebControls.Button btnInicio;
 
         /// <summary>
-        /// Control btneliminar.
+        /// Control txtid.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btneliminar;
+        protected global::System.Web.UI.WebControls.TextBox txtid;
 
         /// <summary>
-        /// Control btneditar.
+        /// Control txtmarca.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btneditar;
+        protected global::System.Web.UI.WebControls.TextBox txtmarca;
 
         /// <summary>
-        /// Control btncerrar.
+        /// Control txtproducto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btncerrar;
+        protected global::System.Web.UI.WebControls.TextBox txtproducto;
 
         /// <summary>
-        /// Control label1.
+        /// Control txtprecio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label1;
+        protected global::System.Web.UI.WebControls.TextBox txtprecio;
 
         /// <summary>
-        /// Control label2.
+        /// Control txtcantidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label2;
+        protected global::System.Web.UI.WebControls.TextBox txtcantidad;
+
+        /// <summary>
+        /// Control alerta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal alerta;
+
+        /// <summary>
+        /// Control gvdlista.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvdlista;
     }
 }
