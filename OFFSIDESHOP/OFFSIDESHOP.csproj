@@ -127,6 +127,7 @@
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\scripts.js" />
     <Content Include="Login.aspx" />
+    <Content Include="prueba.aspx" />
     <Content Include="RecuperarCuenta.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="SweetAlert\sweetalert2.all.min.js" />
@@ -181,6 +182,13 @@
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="prueba.aspx.cs">
+      <DependentUpon>prueba.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="prueba.aspx.designer.cs">
+      <DependentUpon>prueba.aspx</DependentUpon>
     </Compile>
     <Compile Include="RecuperarCuenta.aspx.cs">
       <DependentUpon>RecuperarCuenta.aspx</DependentUpon>
