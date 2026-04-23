@@ -31,7 +31,6 @@
                 </div>
             </div>
         </nav>
-        <!-- Masthead-->
         <header class="masthead">
             <div class="container">
                 <div class="masthead-subheading">BETTER SHIRTS, BETTER PRICES</div>
