@@ -11,91 +11,89 @@ namespace OFFSIDESHOP
 {
     public partial class EditarProducto : System.Web.UI.Page
     {
-        MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root; pwd=Info2026/*-;");
+        // Cadena de conexión única
+        string cadena = "server=127.0.0.1; database=offsideshop; Uid=root; pwd=Info2026/*-;";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usermane"] == null)
+            if (Session["username"] == null)
             {
-                Response.Redirect("Inicio.aspx");
+                Response.Redirect("Login.aspx");
             }
-            conec.Open();
-            MySqlCommand cmd = conec.CreateCommand();
-            cmd.CommandText = "select * from productos";
-            cmd.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            da.Fill(dt);
-            gvdlista.DataSource = dt;
-            gvdlista.DataBind();
-            conec.Close();
-        }
-        protected void Unnamed2_Click(object sender, EventArgs e)
-        {
-            if (txtmarca.Text.Trim() != "" && txtproducto.Text.Trim() != "" && txtprecio.Text.Trim() != "" && txtcantidad.Text.Trim() != "" && txtid.Text.Trim() != "")
+
+            if (!IsPostBack) // IMPORTANTE: Solo carga la tabla la primera vez
             {
+                CargarTabla();
+            }
+        }
 
-                MySqlConnection conexion = datos.ObtenerConexion();
-                string query = "UPDATE productos SET Marca = @marca,  Producto = @producto, Precio = @precio, Cantidad=@cantidad WHERE ID=@id";
-                MySqlCommand comando = new MySqlCommand(query, conexion);
-
-                comando.Parameters.AddWithValue("@marca", txtmarca.Text);
-                comando.Parameters.AddWithValue("@producto", txtproducto.Text);
-                comando.Parameters.AddWithValue("@precio", txtprecio.Text);
-                comando.Parameters.AddWithValue("@cantidad", txtcantidad.Text);
-                comando.Parameters.AddWithValue("@ID", txtid.Text);
-                comando.ExecuteNonQuery();
-                conexion.Close();
-                conec.Open();
-                MySqlCommand cmd = conec.CreateCommand();
-                cmd.CommandText = "select * from productos";
-                cmd.ExecuteNonQuery();
-                DataTable dt = new DataTable();
+        void CargarTabla()
+        {
+            using (MySqlConnection con = new MySqlConnection(cadena))
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM productos", con);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
                 da.Fill(dt);
                 gvdlista.DataSource = dt;
                 gvdlista.DataBind();
-                conec.Close();
-
-                txtmarca.Text = "";
-                txtproducto.Text = "";
-                txtprecio.Text = "";
-                txtcantidad.Text = "";
-                txtid.Text = "";
-                alerta.Text = "<script>Swal.fire('Su producto se Editado con exito.', '¡Gracias por preferirnos!', 'success'); </script>";
-            }
-            else
-            {
-                alerta.Text = "<script>Swal.fire('OOPS', 'No deje espacios en blanco', 'error') </script>";
             }
         }
-        protected void Unnamed1_Click(object sender, EventArgs e)
+
+        // EVENTO BUSCAR/SELECCIONAR
+        protected void btnSeleccionar_Click(object sender, EventArgs e)
         {
-            try
+            using (MySqlConnection con = new MySqlConnection(cadena))
             {
-                MySqlConnection conexion = datos.ObtenerConexion();
-                MySqlCommand comand = new MySqlCommand("SELECT * FROM productos WHERE ID=@ID", conexion);
-                comand.Parameters.AddWithValue("@ID", txtid.Text);
-                MySqlDataReader registro = comand.ExecuteReader();
-                if (registro.Read())
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM productos WHERE ID=@id", con);
+                cmd.Parameters.AddWithValue("@id", txtid.Text);
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
                 {
-                    alerta.Text = "<script>Swal.fire('Sea seleccionado con exito.', '', 'success'); </script>";
-
-                    txtmarca.Text = registro["Marca"].ToString();
-                    txtprecio.Text = registro["Precio"].ToString();
-                    txtproducto.Text = registro["Producto"].ToString();
-                    txtcantidad.Text = registro["Cantidad"].ToString();
+                    txtmarca.Text = dr["Marca"].ToString();
+                    txtproducto.Text = dr["Producto"].ToString();
+                    txtprecio.Text = dr["Precio"].ToString();
+                    txtcantidad.Text = dr["Cantidad"].ToString();
+                    alerta.Text = "<script>Swal.fire('Producto Cargado', '', 'success');</script>";
                 }
-                conexion.Close();
-            }
-            catch
-            {
-                alerta.Text = "<script>Swal.fire('Algo salio mal Intentalo otra vez', 'Verifique que ID se correcto', 'error') </script>";
-
+                else
+                {
+                    alerta.Text = "<script>Swal.fire('Error', 'ID no encontrado', 'error');</script>";
+                }
             }
         }
+
+        // EVENTO EDITAR
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtid.Text)) return;
+
+            using (MySqlConnection con = new MySqlConnection(cadena))
+            {
+                con.Open();
+                string sql = "UPDATE productos SET Marca=@m, Producto=@p, Precio=@pr, Cantidad=@c WHERE ID=@id";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@m", txtmarca.Text);
+                cmd.Parameters.AddWithValue("@p", txtproducto.Text);
+                cmd.Parameters.AddWithValue("@pr", txtprecio.Text);
+                cmd.Parameters.AddWithValue("@c", txtcantidad.Text);
+                cmd.Parameters.AddWithValue("@id", txtid.Text);
+
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    alerta.Text = "<script>Swal.fire('Actualizado', 'Cambios guardados con éxito', 'success');</script>";
+                    CargarTabla(); // Refresca la tabla después de editar
+                }
+            }
+        }
+
         protected void btnInicio_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Inicio.aspx");
+            Response.Redirect("Dashboard.aspx");
         }
     }
 }
