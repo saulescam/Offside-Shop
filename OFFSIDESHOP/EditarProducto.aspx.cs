@@ -39,7 +39,7 @@ namespace OFFSIDESHOP
                 gvdlista.DataSource = dt;
                 gvdlista.DataBind();
 <<<<<<< HEAD
-                conec.Close();
+                con.Close();
 
                 txtmarca.Text = "";
                 txtproducto.Text = "";
@@ -51,8 +51,7 @@ namespace OFFSIDESHOP
             else
             {
                 alerta.Text = "<script>Swal.fire('OOPS', 'Do not leave any blank spaces', 'error') </script>";
-=======
->>>>>>> a37049107b096c909dfaca4b204b5e610cce8eac
+
             }
         }
 

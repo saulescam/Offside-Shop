@@ -1,41 +1,66 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecuperarCuenta.aspx.cs" Inherits="OFFSIDESHOP.RecuperarContrasena" %>
 
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>OffsideShop</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="assets/img/offsideshop_logo_white_letras.png" alt="..." /></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ms-1"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   <link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="Font-awesome/css/fontawesome.min.css" rel="stylesheet" />    
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Raleway:100,400&display=swap" rel="stylesheet"/>
+<link href="EstilosCss/Login.css" rel="stylesheet" />
+<script src="SweetAlert/sweetalert2.all.min.js"></script>
+ <script src="SweetAlert/sweetalert2.js"></script>
+    <title>Recuperar Usuario</title>
+</head>
+<body>
+    <form runat="server">
+    
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" >
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Full Storage</a>
+  
+  <asp:Button ID="btnregistro"  class="btn btn-outline-success my-2 my-sm-0" type="submit" runat="server" Text="Login" OnClick="btnregistro_Click"  />
+
+</nav>
+         <div class="my-content">
+        <div class="container">
+            
+
+            <div class="row">
+                <div class="col-sn-12"> 
                 </div>
             </div>
-        </nav>
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">SORRY, NOT AVAILABLE YET</div>
-                <div class="masthead-heading text-uppercase">:(</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="Registro.aspx">GO TO SIGN UP</a>
-            </div>
-        </header>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 myform-cont">
+                     <h1>  Recuperar contraseña </h1>
+                    <div class="myform-top">
+                        <div class="myform-top-left">
+                            <h3> ¿Has olvidado tu contraseña?</h3>
+                            <p> Recuperarla sin problemas. </p>
+                        </div>
+                        <div class="myform-top-reght">
+                            <%--<i class="fas fa-key"></i>--%>
+                        </div>
+                    </div>
+                    <div class="myform-bottom">
+                        <form role="form" action="" method="post" class=""> 
+                            <div class="form-group"> 
+                                <asp:TextBox ID="txtcuenta" runat="server"  placeholder="Usuaraio..." type="text" class="form-control" />
+                            </div>
+                            
+                           <asp:Button runat="server" Text="Recuperar" CssClass="mybtn" OnClick="Unnamed1_Click" ></asp:Button>  
+
+                           
+                        </form>
+                   </div>
+              </div>
+           </div>
+        </div>
+    </div>
+  <asp:Literal ID="alertas" runat="server" Text=""></asp:Literal>
+ <script src="js/bootstrap.min.js"></script> 
+</form>
+</body>
+</html>

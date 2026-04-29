@@ -58,7 +58,7 @@ namespace OFFSIDESHOP {
     }
 
 
-    private const string initVector = "emmanuelinfo2025";
+    private const string initVector = "offsideshopp2026";
     // This constant is used to determine the keysize of the encryption algorithm
     private const int keysize = 256;
     //Encrypt
