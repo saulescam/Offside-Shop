@@ -11,7 +11,7 @@ namespace OFFSIDESHOP
 {
     public partial class EditarProducto : System.Web.UI.Page
     {
-        MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root; pwd=Info2026/*-;");
+        MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root; pwd=Info2026/*/-;");
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["username"] == null)
@@ -54,12 +54,7 @@ namespace OFFSIDESHOP
                 da.Fill(dt);
                 gvdlista.DataSource = dt;
                 gvdlista.DataBind();
-<<<<<<< HEAD
                 conec.Close();
-=======
-<<<<<<< HEAD
-                con.Close();
->>>>>>> 9eba4e615d835ff4c1e1981fdcc81772fb6b7595
 
                 txtmarca.Text = "";
                 txtproducto.Text = "";
@@ -70,12 +65,7 @@ namespace OFFSIDESHOP
             }
             else
             {
-<<<<<<< HEAD
                 alerta.Text = "<script>Swal.fire('OOPS', 'No deje espacios en blanco', 'error') </script>";
-=======
-                alerta.Text = "<script>Swal.fire('OOPS', 'Do not leave any blank spaces', 'error') </script>";
-
->>>>>>> 9eba4e615d835ff4c1e1981fdcc81772fb6b7595
             }
         }
         protected void Unnamed1_Click(object sender, EventArgs e)
@@ -88,7 +78,7 @@ namespace OFFSIDESHOP
                 MySqlDataReader registro = comand.ExecuteReader();
                 if (registro.Read())
                 {
-                    alerta.Text = "<script>Swal.fire('Sea seleccionado con exito.', '', 'success'); </script>";
+                    alerta.Text = "<script>Swal.fire('Be successfully selected.', '', 'success'); </script>";
 
                     txtmarca.Text = registro["Marca"].ToString();
                     txtprecio.Text = registro["Precio"].ToString();
@@ -99,7 +89,7 @@ namespace OFFSIDESHOP
             }
             catch
             {
-                alerta.Text = "<script>Swal.fire('Algo salio mal Intentalo otra vez', 'Verifique que ID se correcto', 'error') </script>";
+                alerta.Text = "<script>Swal.fire('Something went wrong. Try again.', 'Verify that the ID is correct.', 'error') </script>";
 
             }
         }
