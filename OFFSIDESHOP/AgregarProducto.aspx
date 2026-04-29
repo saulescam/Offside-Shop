@@ -57,7 +57,7 @@
     <form runat="server">
        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
      <div class="container">
-         <a class="navbar-brand" href="Inicio.aspx">
+         <a class="navbar-brand" href="Dashboard.aspx">
              <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP Logo" class="img-fluid" style="max-height: 45px;" />
          </a>
             <a class="navbar-brand" href="#">Add products</a>
