@@ -54,7 +54,12 @@ namespace OFFSIDESHOP
                 da.Fill(dt);
                 gvdlista.DataSource = dt;
                 gvdlista.DataBind();
+<<<<<<< HEAD
                 conec.Close();
+=======
+<<<<<<< HEAD
+                con.Close();
+>>>>>>> 9eba4e615d835ff4c1e1981fdcc81772fb6b7595
 
                 txtmarca.Text = "";
                 txtproducto.Text = "";
@@ -65,7 +70,12 @@ namespace OFFSIDESHOP
             }
             else
             {
+<<<<<<< HEAD
                 alerta.Text = "<script>Swal.fire('OOPS', 'No deje espacios en blanco', 'error') </script>";
+=======
+                alerta.Text = "<script>Swal.fire('OOPS', 'Do not leave any blank spaces', 'error') </script>";
+
+>>>>>>> 9eba4e615d835ff4c1e1981fdcc81772fb6b7595
             }
         }
         protected void Unnamed1_Click(object sender, EventArgs e)
