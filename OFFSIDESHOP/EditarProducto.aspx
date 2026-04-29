@@ -1,21 +1,16 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditarProducto.aspx.cs" Inherits="OFFSIDESHOP.EditarProducto" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Editar Producto - OFFSIDESHOP</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="Font-awesome/css/fontawesome.min.css" rel="stylesheet" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet" />
     <link href="EstilosCss/EstilosStorage.css" rel="stylesheet" />
     <script src="SweetAlert/sweetalert2.all.min.js"></script>
-    <script src="SweetAlert/sweetalert2.js"></script>
-
-
-    <title>Editar Producto</title>
 </head>
 <body>
+<<<<<<< HEAD
     <script type="text/javascript">
         function validar(e) { // 1
             tecla = (document.all) ? e.keyCode : e.which; // 2
@@ -68,72 +63,56 @@
            runat="server" Text="Home" OnClick="btnInicio_Click" />
    </nav>
         <div class="my-content">
+=======
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+>>>>>>> a37049107b096c909dfaca4b204b5e610cce8eac
             <div class="container">
-                <div class="row">
-                    <div class="col-sn-12">
+                <a class="navbar-brand" href="Inicio.aspx">OFFSIDE SHOP</a>
+                <asp:Button ID="btnInicio" class="btn btn-outline-success" runat="server" Text="Home" OnClick="btnInicio_Click" />
+            </div>
+        </nav>
+
+        <div class="container" style="margin-top: 100px;">
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <h2 class="text-center">Actualizar Producto</h2>
+                    <div class="form-group mb-2">
+                        <asp:TextBox ID="txtid" runat="server" placeholder="ID producto..." class="form-control"></asp:TextBox>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3 myform-cont">
-                        <h1>Editar</h1>
-                        <div class="myform-top">
-                        </div>
-                        <div class="myform-bottom">
-                            <form role="form" action="" method="post" class="">
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtid" runat="server" placeholder="ID producto..." type="text" class="form-control" onpaste="return false" onkeypress="return NumCheck(event, this)"></asp:TextBox>
-                                </div>
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtmarca" runat="server" placeholder="Marca..." type="text" class="form-control" onpaste="return false" onkeypress="return validar(event)" minlength="1" MaxLength="12"></asp:TextBox>
-                                </div>
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtproducto" runat="server" placeholder="Producto..." type="text" class="form-control" onpaste="return false" onkeypress="return validar(event)" minlength="1" MaxLength="12"></asp:TextBox>
-                                </div>
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtprecio" runat="server" placeholder="Precio..." type="text" class="form-control" onpaste="return false" onkeypress="return NumCheck(event, this)" />
-                                </div>
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtcantidad" runat="server" placeholder="Cantidad..." type="text" class="form-control" minlength="5" MaxLength="10" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="fileUploadImagen">Imagen del Medicamento:</label>
-                                    <asp:Image ID="imgProducto" runat="server" Width="200px" Height="200px" />
-                                    <asp:FileUpload ID="fileUploadImagen" CssClass="form-control" name="File" runat="server" />
-                                </div>
-                                <asp:Button runat="server" Text="Seleccionar" CssClass="mybtn" OnClick="Unnamed1_Click" Width="109px"></asp:Button>
-                                <asp:Button runat="server" Text="Editar" CssClass="mybtn" OnClick="Unnamed2_Click"></asp:Button>
-                                <asp:Literal ID="alerta" runat="server" Text=""></asp:Literal>
-                            </form>
-                        </div>
+                    <div class="form-group mb-2">
+                        <asp:TextBox ID="txtmarca" runat="server" placeholder="Marca..." class="form-control"></asp:TextBox>
                     </div>
+                    <div class="form-group mb-2">
+                        <asp:TextBox ID="txtproducto" runat="server" placeholder="Producto..." class="form-control"></asp:TextBox>
+                    </div>
+                    <div class="form-group mb-2">
+                        <asp:TextBox ID="txtprecio" runat="server" placeholder="Precio..." class="form-control"></asp:TextBox>
+                    </div>
+                    <div class="form-group mb-3">
+                        <asp:TextBox ID="txtcantidad" runat="server" placeholder="Cantidad..." class="form-control"></asp:TextBox>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <asp:Button ID="btnSeleccionar" runat="server" Text="Buscar/Seleccionar" CssClass="btn btn-info" OnClick="btnSeleccionar_Click" Width="48%" />
+                        <asp:Button ID="btnEditar" runat="server" Text="Guardar Cambios" CssClass="btn btn-warning" OnClick="btnEditar_Click" Width="48%" />
+                    </div>
+                    <asp:Literal ID="alerta" runat="server"></asp:Literal>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <asp:GridView ID="gvdlista" runat="server" AutoGenerateColumns="False" Width="1004px" Height="80px" CellPadding="4" ForeColor="#333333" GridLines="None">
-                <AlternatingRowStyle BackColor="White" />
-                <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" />
-                    <asp:BoundField DataField="Producto" HeaderText="Producto" />
-                    <asp:BoundField DataField="Marca" HeaderText="Marca" />
-                    <asp:BoundField DataField="Precio" HeaderText="Precio" />
-                    <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
-                </Columns>
-                <EditRowStyle BackColor="#2461BF" />
-                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="#EFF3FB" />
-                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
-            </asp:GridView>
-        </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-        <script src="js/bootstrap.min.js"></script>
+            <div class="row mt-5">
+                <asp:GridView ID="gvdlista" runat="server" AutoGenerateColumns="False" CssClass="table table-dark table-striped" Width="100%">
+                    <Columns>
+                        <asp:BoundField DataField="ID" HeaderText="ID" />
+                        <asp:BoundField DataField="Producto" HeaderText="Producto" />
+                        <asp:BoundField DataField="Marca" HeaderText="Marca" />
+                        <asp:BoundField DataField="Precio" HeaderText="Precio" />
+                        <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
     </form>
 </body>
 </html>

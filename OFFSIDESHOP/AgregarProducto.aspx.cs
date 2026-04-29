@@ -11,9 +11,9 @@ namespace OFFSIDESHOP
 {
     public partial class AgregarProducto : System.Web.UI.Page
     {
-      
-MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root;pwd = Info2026/*-");
-protected void Page_Load(object sender, EventArgs e)
+
+        MySqlConnection conec = new MySqlConnection("server=127.0.0.1; database=offsideshop; Uid=root;pwd = Info2026/*-");
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["username"] == null)
             {
@@ -54,7 +54,7 @@ protected void Page_Load(object sender, EventArgs e)
                     gvdlista.DataBind();
                     conec.Close();
                     alerta.Text = "<script>Swal.fire('Your product was successfully added.', 'Thank you for choosing us!', 'success'); </script>";
-                txtproducto.Text = "";
+                    txtproducto.Text = "";
                     txtprecio.Text = "";
                     txtcantidad.Text = "";
                     txtmarca.Text = "";

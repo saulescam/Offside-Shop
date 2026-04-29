@@ -23,15 +23,15 @@
             return patron.test(te); // 6
         }
     </script>
-   <script type="text/javascript">
-       function numeros(e) {
-           tecla = (document.all) ? e.keyCode : e.which;
-           if (tecla == 8) return true;
-           patron = /\d/;
-           te = String.fromCharCode(tecla);
-           return patron.test(te);
-       }
-   </script>
+    <script type="text/javascript">
+        function numeros(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8) return true;
+            patron = /\d/;
+            te = String.fromCharCode(tecla);
+            return patron.test(te);
+        }
+    </script>
     <script>
         function NumCheck(e, field) {
 
@@ -55,6 +55,7 @@
         }
     </script>
     <form runat="server">
+<<<<<<< HEAD
        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
      <div class="container">
          <a class="navbar-brand" href="Dashboard.aspx">
@@ -63,6 +64,16 @@
             <a class="navbar-brand" href="#">Add products</a>
             <asp:Button ID="btnInicio" class="btn btn-outline-success my-2 my-sm-0" type="submit"
                 runat="server" Text="Home" OnClick="btnInicio_Click" />
+=======
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="Inicio.aspx">
+                    <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP Logo" class="img-fluid" style="max-height: 45px;" />
+                </a>
+                <a class="navbar-brand" href="#">Add products</a>
+                <asp:Button ID="btnInicio" class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                    runat="server" Text="Home" OnClick="btnInicio_Click" />
+>>>>>>> a37049107b096c909dfaca4b204b5e610cce8eac
         </nav>
         <div class="my-content">
             <div class="container">
@@ -96,13 +107,12 @@
                                 <asp:TextBox ID="txtcantidad" runat="server" placeholder="Amount..."
                                     type="text" class="form-control" minlength="1" MaxLength="10"
                                     onkeypress="return numeros(event)" />
-
-                                </div>
-
-                                <asp:Button runat="server" Text="Add" CssClass="mybtn"
-                                    OnClick="Unnamed1_Click"></asp:Button>
-                            </form>
                         </div>
+
+                        <asp:Button runat="server" Text="Add" CssClass="mybtn"
+                            OnClick="Unnamed1_Click"></asp:Button>
+    </form>
+    </div>
                     </div>
                 </div>
             </div>
@@ -131,8 +141,8 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
         </div>
-        <asp:Literal ID="alerta" runat="server" Text=""></asp:Literal>
-        <script src="js/bootstrap.min.js"></script>
+    <asp:Literal ID="alerta" runat="server" Text=""></asp:Literal>
+    <script src="js/bootstrap.min.js"></script>
     </form>
 </body>
 </html>
