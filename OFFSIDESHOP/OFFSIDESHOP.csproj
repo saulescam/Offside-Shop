@@ -121,6 +121,7 @@
     <Content Include="EstilosCss\EstiloInicio.css" />
     <Content Include="EstilosCss\EstilosStorage.css" />
     <Content Include="EstilosCss\Login.css" />
+    <Content Include="EstilosCss\Recuperar.css" />
     <Content Include="Homepage.aspx" />
     <Content Include="js\bootstrap.bundle.js" />
     <Content Include="js\bootstrap.bundle.min.js" />
