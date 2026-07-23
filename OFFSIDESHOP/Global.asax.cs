@@ -14,10 +14,13 @@ namespace OFFSIDESHOP
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            // Registra el cliente de Google con tus credenciales
+            // Primero sacas el valor del Web.config
+            string clientSecret = System.Configuration.ConfigurationManager.AppSettings["GoogleClientSecret"];
+
+            // Luego usas esa variable en tu cliente
             OAuthManager.RegisterClient(new GoogleClient(
-                "1092341039059-9sav1qu2lnbfo77204gmt4l18h0n9hki.apps.googleusercontent.com",      // ← Pon aquí tu Client ID
-                "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"   // ← Pon aquí tu Client Secret
+                "1089623650574-8alvihot7uhtkmrqcpmf50r6ko1jppi6.apps.googleusercontent.com",
+                clientSecret
             ));
         }
 

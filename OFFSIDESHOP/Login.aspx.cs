@@ -9,6 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Nemiro.OAuth.Clients;
 
 namespace OFFSIDESHOP
 {
@@ -18,6 +19,17 @@ namespace OFFSIDESHOP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!OAuthManager.IsRegisteredClient("google"))
+            {
+                OAuthManager.RegisterClient
+                (
+                    new GoogleClient(
+                        System.Configuration.ConfigurationManager.AppSettings["GoogleClientId"],
+                        System.Configuration.ConfigurationManager.AppSettings["GoogleClientSecret"]
+                    )
+                );
+            }
+
             if (!IsPostBack)
             {
                 rptCarousel.DataSource = AuthCarousel.GetActiveSlides();
@@ -33,7 +45,7 @@ namespace OFFSIDESHOP
                 else if (role == 3)
                     Response.Redirect("Homepage.aspx");
                 else if (role == 4)
-                    Response.Redirect("DeliveryDashboard.aspx"); // Redirección automática para el Repartidor
+                    Response.Redirect("DeliveryDashboard.aspx");
             }
         }
 

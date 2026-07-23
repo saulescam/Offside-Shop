@@ -13,12 +13,29 @@ namespace OFFSIDESHOP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // 1. Forzar a IIS a comunicarse usando TLS 1.2 (Requisito estricto de Google)
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+            // 2. Registrar las claves aquí mismo para asegurar que IIS no las haya olvidado
+            if (!Nemiro.OAuth.OAuthManager.IsRegisteredClient("google"))
+            {
+                Nemiro.OAuth.OAuthManager.RegisterClient(
+                    new Nemiro.OAuth.Clients.GoogleClient(
+                        System.Configuration.ConfigurationManager.AppSettings["GoogleClientId"],
+                        System.Configuration.ConfigurationManager.AppSettings["GoogleClientSecret"]
+                    )
+                );
+            }
+
             // ── Verify the OAuth response from Google ─────────────────
-            var result = OAuthWeb.VerifyAuthorization();
+            var result = Nemiro.OAuth.OAuthWeb.VerifyAuthorization();
 
             if (!result.IsSuccessfully)
             {
-                alerta.Text = "<script>Swal.fire('Error', 'We couldn\\'t sign in with Google. Please try again.', 'error')" +
+                // 3. Extraer el error EXACTO que Google nos está devolviendo
+                string errorReal = result.ErrorInfo != null ? result.ErrorInfo.Message : "Error desconocido al contactar a Google";
+
+                alerta.Text = $"<script>Swal.fire('Detalle del problema', '{HttpUtility.JavaScriptStringEncode(errorReal)}', 'error')" +
                               ".then(() => { window.location.href = 'Login.aspx'; });</script>";
                 return;
             }

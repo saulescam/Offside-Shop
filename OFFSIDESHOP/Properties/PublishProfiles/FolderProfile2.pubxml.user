@@ -2,8 +2,8 @@
 <!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\1DS\Desktop\Offsideshop-Web</_PublishTargetUrl>
-    <History>True|2026-07-23T17:27:58.2499293Z||;True|2026-07-23T11:07:57.7738949-06:00||;True|2026-07-23T11:03:10.4261244-06:00||;True|2026-07-23T11:01:19.1829831-06:00||;True|2026-07-23T10:59:02.5669570-06:00||;True|2026-07-23T10:57:54.3918738-06:00||;True|2026-07-23T10:52:38.1072694-06:00||;True|2026-07-23T10:12:09.3575867-06:00||;</History>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\Offsideshop-Web</_PublishTargetUrl>
+    <History>True|2026-07-23T20:54:04.4700917Z||;True|2026-07-23T14:49:18.9907295-06:00||;True|2026-07-23T14:44:54.5610866-06:00||;True|2026-07-23T14:43:41.8643951-06:00||;False|2026-07-23T14:35:20.5920109-06:00||;False|2026-07-23T14:30:55.6141204-06:00||;False|2026-07-23T14:30:14.6837460-06:00||;True|2026-07-23T13:54:10.1317818-06:00||;True|2026-07-23T12:24:58.1534831-06:00||;True|2026-07-23T12:18:33.3311293-06:00||;True|2026-07-23T12:09:54.1379430-06:00||;True|2026-07-23T12:07:37.9366141-06:00||;True|2026-07-23T12:06:05.9199908-06:00||;True|2026-07-23T11:44:07.9146730-06:00||;True|2026-07-23T11:42:58.0827145-06:00||;True|2026-07-23T11:40:52.6770366-06:00||;True|2026-07-23T11:37:51.0137173-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -257,10 +257,10 @@
       <publishTime>07/23/2026 07:40:23</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.dll">
-      <publishTime>07/23/2026 10:12:08</publishTime>
+      <publishTime>07/23/2026 14:54:03</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.pdb">
-      <publishTime>07/23/2026 10:12:08</publishTime>
+      <publishTime>07/23/2026 14:54:03</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/23/2026 07:40:23</publishTime>
@@ -563,7 +563,7 @@
       <publishTime>07/23/2026 07:40:21</publishTime>
     </File>
     <File Include="Homepage.aspx">
-      <publishTime>07/23/2026 07:40:21</publishTime>
+      <publishTime>07/23/2026 14:32:48</publishTime>
     </File>
     <File Include="js/bootstrap.bundle.js">
       <publishTime>07/23/2026 07:40:22</publishTime>
@@ -614,7 +614,7 @@
       <publishTime>07/23/2026 07:40:21</publishTime>
     </File>
     <File Include="ManageOffers.aspx">
-      <publishTime>07/23/2026 07:40:21</publishTime>
+      <publishTime>07/23/2026 14:32:48</publishTime>
     </File>
     <File Include="ManageOrders.aspx">
       <publishTime>07/23/2026 07:40:21</publishTime>
@@ -659,7 +659,7 @@
       <publishTime>07/23/2026 07:40:21</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/23/2026 11:07:57</publishTime>
+      <publishTime>07/23/2026 14:54:03</publishTime>
     </File>
   </ItemGroup>
 </Project>
