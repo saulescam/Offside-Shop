@@ -1,0 +1,768 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Manage Products | OffsideShop</title>
+
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,600,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="css/admin-layout.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        (function () {
+            var theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                var observer = new MutationObserver(function (mutations, obs) {
+                    if (document.body) {
+                        document.body.classList.add('dark-mode');
+                        obs.disconnect();
+                    }
+                });
+                observer.observe(document.documentElement, { childList: true, subtree: true });
+            }
+        })();
+        window.swalQueue = [];
+        window.Swal = {
+            fire: function (...args) {
+                window.swalQueue.push(args);
+            }
+        };
+    </script>
+
+    <script type="text/javascript">
+        window.onpageshow = function (event) {
+            if (event.persisted) { window.location.reload(); }
+        };
+
+        // Validate price (numbers and one decimal point)
+        function validarPrecio(e, field) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 8) return true;
+            if (key > 47 && key < 58) {
+                if (field.value === "") return true;
+                return !(/.[0-9]{2}$/.test(field.value));
+            }
+            if (key == 46) {
+                if (field.value === "") return false;
+                if (field.value.indexOf('.') !== -1) return false;
+                return /^[0-9]+$/.test(field.value);
+            }
+            return false;
+        }
+
+        // Validate year (max 4 digits)
+        function validarAnio(e) {
+            var tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8) return true;
+            var campo = document.getElementById('<%= txtYear.ClientID %>');
+            if (campo.value.length >= 4) return false;
+            return /\d/.test(String.fromCharCode(tecla));
+        }
+
+        // Validate stock (max 5 digits, no negatives)
+        function validarStock(e) {
+            var tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8) return true;
+            return /\d/.test(String.fromCharCode(tecla));
+        }
+
+        // Preview image before upload
+        function previewImage(input) {
+            var preview = document.getElementById('imgPreview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <style>
+        /* ── Status badges ── */
+        .status-badge {
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active { background: #1a7a4a; color: #a8f0c6; }
+        .status-inactive { background: #5c2323; color: #f0a8a8; }
+
+        /* ── Filters block ── */
+        .filter-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .filter-card label {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
+
+        /* ── Action form panel ── */
+        .form-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 34px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.55);
+            animation: slideDown 0.35s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-panel h4 {
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ── Action Buttons ── */
+        .btn-add-new {
+            background: var(--gradient-blue);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 22px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-add-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37,99,235,0.45);
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .btn-action {
+            border: none;
+            border-radius: 7px;
+            padding: 5px 10px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin: 2px;
+        }
+        .btn-edit { background: #1e3a8a; color: #93c5fd; }
+        .btn-toggle { background: #374151; color: #d1d5db; }
+        .btn-delete { background: #7f1d1d; color: #fca5a5; }
+        .btn-action:hover { opacity: 0.85; transform: scale(1.08); }
+
+        .btn-save {
+            background: var(--gradient-blue);
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            padding: 11px 28px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 16px rgba(37,99,235,0.4);
+        }
+
+        .btn-cancel-form {
+            background: #222;
+            color: #999;
+            border: 1px solid #333;
+            border-radius: 9px;
+            padding: 11px 24px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-cancel-form:hover { background: #2a2a2a; color: #ccc; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+        .section-header h3 {
+            font-weight: 700;
+            font-size: 1.35rem;
+            color: #e5e7eb;
+            margin: 0;
+        }
+
+        /* ── Product image thumb ── */
+        .shirt-thumb {
+            width: 46px;
+            height: 54px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* ── Paginación ── */
+        .pagination-custom td { padding: 24px 4px 10px 4px; }
+        .pagination-custom a, .pagination-custom span {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .pagination-custom a { background-color: #f9fafb; color: #b45309; border: 1px solid #f59e0b; }
+        .pagination-custom a:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #ffffff !important;
+            border-color: transparent;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+        }
+        .pagination-custom span {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            border: 1px solid transparent;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+        html.dark-mode .pagination-custom a { background-color: #1f2937; color: #fbbf24; border: 1px solid #d97706; }
+        html.dark-mode .pagination-custom a:hover {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #111827 !important;
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+        html.dark-mode .pagination-custom span {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #111827;
+            border: 1px solid transparent;
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.5);
+        }
+
+        /* ── Checkbox Dorado ── */
+        .gold-checkbox {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .gold-checkbox input[type="checkbox"] { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+        .checkmark {
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+            border: 2px solid #6c757d;
+            border-radius: 4px;
+            margin-right: 10px;
+            display: inline-block;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .gold-checkbox:hover input ~ .checkmark { border-color: #d4af37; }
+        .gold-checkbox input:checked ~ .checkmark { background-color: #d4af37; border-color: #d4af37; }
+        .checkmark:after {
+            content: ""; position: absolute; display: none; left: 6px; top: 2px;
+            width: 5px; height: 10px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg);
+        }
+        .gold-checkbox input:checked ~ .checkmark:after { display: block; }
+
+        /* ── DRAG AND DROP ZONE STYLES ── */
+        .drop-zone {
+            border: 2px dashed var(--border-color, #ccc);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        html.dark-mode .drop-zone { background: rgba(255, 255, 255, 0.02); border-color: #444; }
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #FFC800;
+            background: rgba(255, 200, 0, 0.05);
+        }
+        .drop-zone i {
+            font-size: 2.5rem;
+            color: #FFC800;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .drop-zone p {
+            margin: 0;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+        /* Ocultar el input file real dentro del dropzone */
+        .drop-zone input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server" enctype="multipart/form-data">
+
+        <!--  TOP NAVBAR  -->
+        <nav class="top-navbar">
+            <div style="display: flex; align-items: center;">
+                <a class="navbar-brand" href="Dashboard.aspx">
+                    <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
+                </a>
+            </div>
+            <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+
+        <div class="layout-wrapper">
+
+            <!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+            <aside class="sidebar fade-in">
+                <ul class="sidebar-menu">
+                    <li>
+                        <asp:Button ID="btnManageProducts" CssClass="sidebar-btn active" runat="server" Text="&#xf553; Manage Products" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                    </li>
+                    <li>
+                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d; Manage Orders</a>
+                    </li>
+                    <li>
+                        <asp:Button ID="btnManageOffers" CssClass="sidebar-btn" runat="server" Text="&#xf155; Manage Offers" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                    </li>
+                    <li>
+                        <asp:Button ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" Text="&#xf02c; Manage Coupons" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
+                    <li><a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5; Seller Requests</a></li>
+
+                    <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
+                        <asp:Button ID="btnAddLeague" CssClass="sidebar-btn" runat="server" Text="&#xf1ae; Add League" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                    </li>
+                    <li>
+                        <asp:Button ID="btnAddTeam" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Team" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                    </li>
+                    <li>
+                        <asp:Button ID="btnAddBrand" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Brand" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                    </li>
+
+                    <asp:PlaceHolder ID="phOwnerMenu" runat="server">
+                        <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
+                            <asp:Button ID="btnManageUsers" CssClass="sidebar-btn" runat="server" Text="&#xf4fe; Manage Users" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        </li>
+                        <li>
+                            <asp:Button ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" Text="&#xf0e0; SMTP Settings" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        </li>
+                        <li>
+                            <asp:Button ID="btnStats" CssClass="sidebar-btn" runat="server" Text="&#xf080; Stats" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        </li>
+                        <li>
+                            <asp:Button ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" Text="&#xf03a; Audit Logs" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        </li>
+                    </asp:PlaceHolder>
+                    <li>
+                        <asp:Button ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" Text="&#xf03e; Manage Banners" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                    </li>
+
+                    <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
+                        <asp:Button ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" Text="&#xf2f5; Logout" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
+            <main class="main-content fade-in" style="animation-delay: 0.15s;">
+                <div class="container-fluid">
+
+                    <h1 class="page-title">Product Management</h1>
+                    <p class="text-muted mb-4">Add, edit, toggle visibility, or permanently delete jersey products from the catalog.</p>
+
+                    <!-- ───────────── ACTION FORM PANEL ───────────── -->
+                    <asp:Panel ID="pnlProductForm" runat="server" Visible="false" CssClass="form-panel">
+                        <asp:HiddenField ID="hfSelectedProductId" runat="server" Value="" />
+                        <h4><asp:Label ID="lblFormTitle" runat="server" Text="Add New Shirt"></asp:Label></h4>
+
+                        <!-- Row 1: Name & Price -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Shirt Name <span class="text-danger">*</span></label>
+                                    <asp:TextBox ID="txtName" runat="server" CssClass="form-control" placeholder="e.g. FC Barcelona Home 2024" MaxLength="200"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Price (USD) <span class="text-danger">*</span></label>
+                                    <asp:TextBox ID="txtPrice" runat="server" CssClass="form-control" placeholder="e.g. 89.99" MaxLength="10" onkeypress="return validarPrecio(event, this)" onpaste="return false"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Year <span class="text-danger">*</span></label>
+                                    <asp:TextBox ID="txtYear" runat="server" CssClass="form-control" placeholder="e.g. 2024" MaxLength="4" onkeypress="return validarAnio(event)" onpaste="return false"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Brand / League / Team / Kit Type -->
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label>Brand <span class="text-danger">*</span></label>
+                                    <asp:DropDownList ID="ddlFormBrand" runat="server" CssClass="form-control"></asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label>League <span class="text-danger">*</span></label>
+                                    <asp:DropDownList ID="ddlFormLeague" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlFormLeague_SelectedIndexChanged"></asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label>Team <span class="text-danger">*</span></label>
+                                    <asp:DropDownList ID="ddlFormTeam" runat="server" CssClass="form-control"></asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label>Kit Type <span class="text-danger">*</span></label>
+                                    <asp:DropDownList ID="ddlFormKitType" runat="server" CssClass="form-control"></asp:DropDownList>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: Stock per Size -->
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="d-block mb-2" style="color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">Stock per Size <small class="text-muted">(enter 0 to skip a size)</small></label>
+                            </div>
+                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">S</label><asp:TextBox ID="txtStockS" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">M</label><asp:TextBox ID="txtStockM" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">L</label><asp:TextBox ID="txtStockL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">XL</label><asp:TextBox ID="txtStockXL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">XXL</label><asp:TextBox ID="txtStockXXL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                        </div>
+
+                        <!-- Row 4: Image Upload (DRAG & DROP) -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Product Image <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
+                                    <div class="drop-zone" id="dzMainImage">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p id="lblMainImageText">Drag & Drop main image here or click to browse</p>
+                                        <!-- FileUpload Oculto que procesa el backend -->
+                                        <asp:FileUpload ID="fileImagen" runat="server" accept="image/png, image/jpeg, image/jpg, image/webp" />
+                                    </div>
+                                    <asp:Label ID="lblCurrentImage" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
+                                    <img id="imgPreview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 200px; margin-top: 10px; border-radius: 8px; object-fit: contain;" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Gallery Images <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
+                                    <div class="drop-zone" id="dzGalleryImages">
+                                        <i class="fas fa-images"></i>
+                                        <p id="lblGalleryImagesText">Drag & Drop up to 4 images here or click to browse</p>
+                                        <!-- FileUpload Múltiple Oculto -->
+                                        <asp:FileUpload ID="fuExtraImages" runat="server" AllowMultiple="true" accept="image/png, image/jpeg, image/jpg, image/webp" />
+                                    </div>
+                                    <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 4px;">Optional: Upload up to 4 extra gallery images.</span>
+                                    <asp:Label ID="lblCurrentExtraImages" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 5: Description & Customization -->
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="d-flex justify-content-between align-items-end mb-2">
+                                        <label class="mb-0">Description <small class="text-muted">(optional)</small></label>
+                                        <asp:LinkButton ID="btnGenerateDescription" runat="server" CssClass="btn btn-sm"
+                                            Style="background: linear-gradient(135deg, #FFC800, #d97706); color: #fff; font-weight: 700; border: none; border-radius: 6px; padding: 4px 12px; font-size: 0.85rem; box-shadow: 0 3px 8px rgba(245, 158, 11, 0.3); transition: all 0.3s ease;"
+                                            OnClick="btnGenerateDescription_Click" CausesValidation="false">
+                    <i class="fas fa-magic mr-1"></i> Generate with AI
+                                        </asp:LinkButton>
+                                    </div>
+                                    <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Short product description..."></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center">
+                                <div class="form-group mb-0 mt-3">
+                                    <label class="gold-checkbox">
+                                        <asp:CheckBox ID="chkIsCustomizable" runat="server" ClientIDMode="Static" />
+                                        <span class="checkmark"></span>
+                                        Allow personalization
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Action Buttons -->
+                        <div class="row mt-3">
+                            <div class="col-12 d-flex justify-content-start" style="gap: 10px;">
+                                <asp:Button ID="btnSaveProduct" runat="server" Text="&#xf0c7;  Save Product" CssClass="btn-save" OnClick="btnSaveProduct_Click" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 700;" />
+                                <asp:Button ID="btnCancelForm" runat="server" Text="&#xf00d;  Cancel" CssClass="btn-cancel-form" OnClick="btnCancelForm_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;" />
+                            </div>
+                        </div>
+                    </asp:Panel>
+
+                    <!-- ───────────── FILTERS BLOCK ───────────── -->
+                    <div class="filter-card">
+                        <div class="row align-items-end">
+                            <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                <label>Brand</label>
+                                <asp:DropDownList ID="ddlFilterBrand" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filters_Changed"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                <label>League</label>
+                                <asp:DropDownList ID="ddlFilterLeague" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlFilterLeague_SelectedIndexChanged"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                <label>Team</label>
+                                <asp:DropDownList ID="ddlFilterTeam" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filters_Changed"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                <label>Kit Type</label>
+                                <asp:DropDownList ID="ddlFilterKitType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filters_Changed"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                <label>Stock Level</label>
+                                <asp:DropDownList ID="ddlFilterStock" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filters_Changed">
+                                    <asp:ListItem Text="-- All Stock --" Value="0"></asp:ListItem>
+                                    <asp:ListItem Text="Low Stock (< 5)" Value="1"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
+                                <label>Search by Name</label>
+                                <asp:TextBox ID="txtSearchName" runat="server" CssClass="form-control" placeholder="Search shirt name..." AutoPostBack="true" OnTextChanged="Filters_Changed"></asp:TextBox>
+                            </div>
+                            <div class="col-md-1 col-sm-6 text-right">
+                                <asp:LinkButton ID="lbClearFilters" runat="server" CssClass="text-muted" Style="font-size: 0.8rem; text-decoration: underline; display: block; margin-top: 20px;" CausesValidation="false" OnClick="lbClearFilters_Click">Clear</asp:LinkButton>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ───────────── GRID SECTION HEADER ───────────── -->
+                    <div class="section-header">
+                        <h3><i class="fas fa-tshirt mr-2" style="color: #3b82f6;"></i>All Shirts</h3>
+                        <asp:LinkButton ID="lbAddNew" runat="server" CssClass="btn-add-new" CausesValidation="false" OnClick="lbAddNew_Click">
+                            <i class="fas fa-plus mr-1"></i> Add New Shirt
+                        </asp:LinkButton>
+                    </div>
+
+                    <!-- ───────────── PRODUCTS GRIDVIEW ───────────── -->
+                    <div class="table-responsive">
+                        <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="ID" AllowPaging="true" PageSize="24" OnRowCommand="gvProducts_RowCommand" OnRowDataBound="gvProducts_RowDataBound" OnPageIndexChanging="gvProducts_PageIndexChanging" EmptyDataText="No shirts found matching the current filters.">
+                            <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
+                            <Columns>
+                                <asp:BoundField DataField="ID" HeaderText="ID" ItemStyle-Width="50px" />
+                                <asp:TemplateField HeaderText="Shirt Name" ItemStyle-HorizontalAlign="Left">
+                                    <ItemTemplate>
+                                        <asp:PlaceHolder ID="phLowStockBadge" runat="server" Visible='<%# Convert.ToInt32(Eval("TotalStock")) < 5 %>'>
+                                            <span class="badge bg-danger text-white me-1" style="font-size: 0.75rem; padding: 2px 6px;" title="Low Stock Alert">
+                                                <i class="fas fa-exclamation-triangle"></i> LOW STOCK (<%# Eval("TotalStock") %>)
+                                            </span>
+                                        </asp:PlaceHolder>
+                                        <span class="fw-bold text-white"><%# Eval("Name") %></span>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:C}" HtmlEncode="false" />
+                                <asp:BoundField DataField="Year" HeaderText="Year" />
+                                <asp:BoundField DataField="BrandName" HeaderText="Brand" />
+                                <asp:BoundField DataField="TeamName" HeaderText="Team" />
+                                <asp:BoundField DataField="KitTypeName" HeaderText="Kit Type" />
+                                <asp:TemplateField HeaderText="Status">
+                                    <ItemTemplate><asp:Label ID="lblStatus" runat="server"></asp:Label></ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Actions" ItemStyle-Width="140px">
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnEdit" runat="server" CssClass="btn-action btn-edit" CommandName="EditProduct" CommandArgument='<%# Eval("ID") %>' Text="&#xf044;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
+                                        <asp:Button ID="btnToggle" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleStatus" CommandArgument='<%# Eval("ID") %>' Text="&#xf06e;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
+                                        <asp:Button ID="btnDelete" runat="server" CssClass="btn-action btn-delete" CommandName="PermanentDelete" CommandArgument='<%# Eval("ID") %>' OnClientClick="return confirm('Are you sure you want to permanently delete this shirt?');" Text="&#xf2ed;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+
+                    <asp:Literal ID="alerta" runat="server" Text="" EnableViewState="false"></asp:Literal>
+
+                </div>
+            </main>
+        </div>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/SweetAlert/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript">
+        (function () {
+            if (window.Swal) {
+                const realSwalFire = window.Swal.fireOriginal || window.Swal.fire;
+                window.Swal.fire = function (...args) {
+                    if (args.length > 0 && typeof args[0] !== 'object') {
+                        var iconType = args[2] || undefined;
+                        return realSwalFire.call(window.Swal, {
+                            title: args[0], text: args[1] || '', icon: iconType, type: iconType, confirmButtonColor: '#FFC800'
+                        });
+                    }
+                    if (args.length === 1 && typeof args[0] === 'object') {
+                        if (!args[0].confirmButtonColor) { args[0].confirmButtonColor = '#FFC800'; }
+                    }
+                    return realSwalFire.apply(window.Swal, args);
+                };
+                if (window.swalQueue && window.swalQueue.length > 0) {
+                    window.swalQueue.forEach(function (pendingArgs) { window.Swal.fire(...pendingArgs); });
+                    window.swalQueue = [];
+                }
+            }
+        })();
+
+        // Control de Modo Oscuro / Claro
+        document.addEventListener('DOMContentLoaded', function () {
+            var themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                var themeIcon = themeToggle.querySelector('i');
+                var isDark = document.body.classList.contains('dark-mode') || document.documentElement.classList.contains('dark-mode');
+                if (isDark && themeIcon) themeIcon.className = 'fas fa-sun';
+                themeToggle.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var currentlyDark = document.body.classList.contains('dark-mode') || document.documentElement.classList.contains('dark-mode');
+                    if (currentlyDark) {
+                        document.body.classList.remove('dark-mode');
+                        document.documentElement.classList.remove('dark-mode');
+                        localStorage.setItem('theme', 'light');
+                        if (themeIcon) themeIcon.className = 'fas fa-moon';
+                    } else {
+                        document.body.classList.add('dark-mode');
+                        document.documentElement.classList.add('dark-mode');
+                        localStorage.setItem('theme', 'dark');
+                        if (themeIcon) themeIcon.className = 'fas fa-sun';
+                    }
+                });
+            }
+        });
+
+        // ==========================================
+        // 🚀 LÓGICA DE DRAG AND DROP (ARRASTRAR Y SOLTAR)
+        // ==========================================
+        function setupDropZone(dropZoneId, inputId, textLabelId, isMultiple) {
+            const dropZone = document.getElementById(dropZoneId);
+            const inputElement = document.getElementById(inputId);
+            const textLabel = document.getElementById(textLabelId);
+
+            if (!dropZone || !inputElement) return;
+
+            // Prevenir el comportamiento por defecto de abrir la imagen en el navegador
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            // Añadir efectos visuales (border color y background)
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+            });
+
+            // Manejar cuando se suelta el archivo
+            dropZone.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            // Manejar cuando se selecciona mediante el explorador clásico
+            inputElement.addEventListener('change', function () {
+                handleFiles(this.files);
+            });
+
+            function handleFiles(files) {
+                if (files.length === 0) return;
+                
+                // Objeto DataTransfer para sobreescribir los archivos en el input ASP.NET
+                const dataTransfer = new DataTransfer();
+                
+                if (isMultiple) {
+                    // Limitamos a 4 imágenes en la galería
+                    const limit = Math.min(files.length, 4);
+                    for (let i = 0; i < limit; i++) {
+                        dataTransfer.items.add(files[i]);
+                    }
+                    textLabel.innerText = `${limit} image(s) attached ready for upload`;
+                    textLabel.style.color = "#1a7a4a"; // Color verde éxito
+                } else {
+                    // Imagen principal
+                    dataTransfer.items.add(files[0]);
+                    textLabel.innerText = files[0].name;
+                    textLabel.style.color = "#1a7a4a";
+
+                    // Disparamos la función preview de la imagen principal original
+                    if (typeof previewImage === 'function') {
+                        // Creamos un mock object imitando al input para reutilizar tu función actual
+                        previewImage({ files: dataTransfer.files });
+                    }
+                }
+                
+                // Asignamos silenciosamente la data al control FileUpload oculto
+                inputElement.files = dataTransfer.files;
+            }
+        }
+
+        // Inicializamos las zonas al cargar la página
+        document.addEventListener('DOMContentLoaded', function () {
+            // Zona de imagen principal (Single)
+            setupDropZone('dzMainImage', '<%= fileImagen.ClientID %>', 'lblMainImageText', false);
+            // Zona de imágenes de galería (Múltiple)
+            setupDropZone('dzGalleryImages', '<%= fuExtraImages.ClientID %>', 'lblGalleryImagesText', true);
+        });
+    </script>
+</body>
+</html>

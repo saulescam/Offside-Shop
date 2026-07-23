@@ -1,0 +1,652 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+}
+
+/* Estilos para la navbar idéntica a Homepage.aspx */
+.navbar {
+    background: #000000 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-brand img {
+    max-height: 45px;
+    width: auto;
+    filter: brightness(1.1);
+}
+
+.btn-outline-warning {
+    color: #000000;
+    border: 2px solid #FFC800;
+    background: linear-gradient(135deg, #FFC800 0%, #D4A000 100%);
+    border-radius: 25px;
+    padding: 8px 24px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-warning:hover {
+        background: linear-gradient(135deg, #FFE066 0%, #FFC800 100%);
+        border-color: #FFE066;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 200, 0, 0.3);
+        color: #000000;
+    }
+
+/* Premium details style */
+.product-details-container {
+    margin-top: 120px;
+    margin-bottom: 60px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.img-container {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+    .img-container:hover {
+        transform: scale(1.02);
+        box-shadow: 0 20px 40px rgba(255, 200, 0, 0.15);
+    }
+
+    .img-container img {
+        width: 100%;
+        height: auto;
+        max-height: 550px;
+        object-fit: cover;
+    }
+
+.badge-custom {
+    background-color: #FFC800;
+    color: #000000;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.product-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.product-meta {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.product-price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #D47A00;
+    margin-bottom: 25px;
+}
+
+.product-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.selection-label {
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-select-custom {
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+    padding: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 100%;
+    background-color: #f8f9fa;
+}
+
+    .form-select-custom:focus {
+        border-color: #FFC800;
+        box-shadow: 0 0 0 0.25rem rgba(255, 200, 0, 0.25);
+        background-color: #ffffff;
+        outline: none;
+    }
+
+.btn-buy {
+    background: linear-gradient(135deg, #FFC800 0%, #D4A000 100%);
+    color: #000000 !important;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(255, 200, 0, 0.3);
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+
+    .btn-buy:hover {
+        background: linear-gradient(135deg, #FFE066 0%, #FFC800 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(255, 200, 0, 0.4);
+        color: #000000 !important;
+    }
+
+.btn-back {
+    border: 2px solid #cccccc;
+    color: #555 !important;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+
+    .btn-back:hover {
+        background-color: #f8f9fa;
+        color: #111 !important;
+        border-color: #999;
+        transform: translateY(-2px);
+    }
+
+/* Custom scrollbar matching Homepage */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 10px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #FFC800;
+    }
+
+/* Local Overrides for Bootstrap Classes */
+.text-danger {
+    color: #D47A00 !important;
+}
+.btn-outline-danger {
+    color: #D47A00 !important;
+    border-color: #FFC800 !important;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-outline-danger:hover {
+    color: #000000 !important;
+    background-color: #FFC800 !important;
+    border-color: #FFC800 !important;
+}
+
+/* ===== CHECKOUT PAGE PREMIUM STYLING ===== */
+.checkout-page {
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+    padding: 40px !important;
+    margin-bottom: 60px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    border: 1px solid #f1f1f1 !important;
+}
+
+.checkout-page .section-title .title {
+    font-weight: 700 !important;
+    color: #111111 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 25px !important;
+    border-bottom: 3px solid #FFC800 !important;
+    display: inline-block !important;
+    padding-bottom: 8px !important;
+}
+
+/* Billing Details & Notes Form Fields */
+.checkout-page .billing-details .form-group {
+    margin-bottom: 20px !important;
+}
+
+.checkout-page .billing-details .input,
+.checkout-page .order-notes .input {
+    border: 2px solid #e0e0e0 !important;
+    border-radius: 12px !important;
+    padding: 12px 18px !important;
+    width: 100% !important;
+    font-size: 0.95rem !important;
+    color: #212529 !important;
+    background-color: #ffffff !important;
+    display: block !important;
+    font-family: 'Montserrat', sans-serif !important;
+    transition: all 0.3s ease !important;
+}
+
+.checkout-page .billing-details .input::placeholder,
+.checkout-page .order-notes .input::placeholder {
+    color: #a0a0a0 !important;
+}
+
+.checkout-page .billing-details .input:focus,
+.checkout-page .order-notes .input:focus {
+    border-color: #FFC800 !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 200, 0, 0.15) !important;
+    outline: none !important;
+    background-color: #ffffff !important;
+}
+
+.checkout-page .order-notes {
+    margin-top: 25px !important;
+}
+
+.checkout-page .order-notes textarea.input {
+    min-height: 110px !important;
+    resize: vertical !important;
+}
+
+/* Order Details Card Styling */
+.checkout-page .order-details {
+    background-color: #f8f9fa !important;
+    border-radius: 15px !important;
+    padding: 35px 30px !important;
+    border: 1px solid #e9ecef !important;
+}
+
+.checkout-page .order-summary {
+    margin-bottom: 25px !important;
+}
+
+.checkout-page .order-col {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 0 !important;
+    border-bottom: 1px solid #eee !important;
+    font-size: 0.95rem !important;
+    color: #495057 !important;
+}
+
+.checkout-page .order-col:first-child {
+    border-bottom: 2px solid #e9ecef !important;
+    font-weight: 700 !important;
+    color: #111111 !important;
+    text-transform: uppercase !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.5px !important;
+}
+
+.checkout-page .order-products .order-col {
+    border-bottom: 1px solid #eef2f3 !important;
+}
+
+.checkout-page .order-products .order-col div {
+    font-weight: 500 !important;
+}
+
+.checkout-page .order-col:last-child {
+    border-top: 2px solid #e9ecef !important;
+    border-bottom: none !important;
+    margin-top: 10px !important;
+    padding-top: 15px !important;
+}
+
+.checkout-page .order-total {
+    color: #D47A00 !important;
+    font-weight: 800 !important;
+    font-size: 1.35rem !important;
+}
+
+/* Payment Methods Options Styling */
+.checkout-page .payment-method {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    border: 1px solid #e9ecef !important;
+    margin-bottom: 25px !important;
+}
+
+.checkout-page .input-radio {
+    margin-bottom: 15px !important;
+    position: relative !important;
+}
+
+.checkout-page .input-radio:last-child {
+    margin-bottom: 0 !important;
+}
+
+.checkout-page .input-radio input[type="radio"] {
+    accent-color: #FFC800 !important;
+    width: 18px !important;
+    height: 18px !important;
+    cursor: pointer !important;
+    vertical-align: middle !important;
+    margin-right: 8px !important;
+}
+
+.checkout-page .input-radio label {
+    font-weight: 600 !important;
+    color: #333333 !important;
+    cursor: pointer !important;
+    vertical-align: middle !important;
+}
+
+/* Hide original custom visual spans since native accent-color is used */
+.checkout-page .input-radio label span {
+    display: none !important;
+}
+
+.checkout-page .input-radio .caption {
+    font-size: 0.85rem !important;
+    color: #6c757d !important;
+    padding-left: 15px !important;
+    margin-left: 26px !important;
+    margin-top: 6px !important;
+    line-height: 1.45 !important;
+    border-left: 3px solid #FFC800 !important;
+    background-color: #fafafa !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+}
+
+/* Terms and Conditions Styling */
+.checkout-page .input-checkbox {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    margin-bottom: 25px !important;
+    font-size: 0.9rem !important;
+    color: #495057 !important;
+}
+
+.checkout-page .input-checkbox input[type="checkbox"] {
+    accent-color: #FFC800 !important;
+    width: 18px !important;
+    height: 18px !important;
+    margin-top: 2px !important;
+    cursor: pointer !important;
+}
+
+.checkout-page .input-checkbox label {
+    cursor: pointer !important;
+    line-height: 1.45 !important;
+}
+
+.checkout-page .input-checkbox label span {
+    display: none !important;
+}
+
+.checkout-page .input-checkbox label a {
+    color: #D47A00 !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+}
+
+.checkout-page .input-checkbox label a:hover {
+    text-decoration: underline !important;
+}
+
+/* Place Order Submit Button Styling */
+.checkout-page .order-submit {
+    background: linear-gradient(135deg, #FFC800 0%, #D4A000 100%) !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+    border-radius: 30px !important;
+    padding: 15px 30px !important;
+    border: none !important;
+    width: 100% !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    display: block !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    margin-top: 20px !important;
+    box-shadow: 0 5px 15px rgba(255, 200, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.checkout-page .order-submit:hover {
+    background: linear-gradient(135deg, #FFE066 0%, #FFC800 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(255, 200, 0, 0.35) !important;
+    color: #000000 !important;
+}
+
+/* ===== LOADER SOLUTIONS (PAYMENT OVERLAY & LOCALIZED MAP LOADER) ===== */
+
+/* Solution 1: Full-Screen Secure Payment Loader (Blocking Overlay) */
+#payment-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.85); /* Dark translucent background */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 99999; /* Higher than everything (modals, navbars, etc.) */
+    display: none; /* Hidden by default, shown via JS on valid submit */
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+#payment-loader .loader-content {
+    background: rgba(30, 41, 59, 0.7); /* Slate-800 glassmorphism card */
+    border: 1px solid rgba(255, 200, 0, 0.2); /* Soft gold accent border */
+    border-radius: 16px;
+    padding: 40px 30px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+    animation: loaderFadeInScale 0.4s ease-out;
+}
+
+@keyframes loaderFadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#payment-loader .loader-icon-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 25px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#payment-loader .loader-spinner {
+    font-size: 80px;
+    color: #FFC800; /* Gold/amber spinner action element */
+    opacity: 0.9;
+}
+
+#payment-loader .loader-lock {
+    position: absolute;
+    font-size: 28px;
+    color: #ffffff;
+    animation: lockPulse 2s infinite ease-in-out;
+}
+
+@keyframes lockPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+        color: #ffffff;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+        color: #FFC800;
+    }
+}
+
+#payment-loader .loader-title {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+#payment-loader .loader-text {
+    color: #cbd5e1; /* slate-300 secondary text */
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+#payment-loader .loader-security-badge {
+    margin-top: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 200, 0, 0.1);
+    border: 1px solid rgba(255, 200, 0, 0.3);
+    padding: 6px 16px;
+    border-radius: 50px;
+    color: #FFC800;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Solution 2: Localized Container Skeleton/Loader (For Heavy Elements like Maps) */
+.map-container-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.map-loader-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0f172a; /* Slate 900 */
+    z-index: 999; /* Must sit on top of map canvas (#map-canvas) inside the relative wrapper */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px solid #E4E7ED;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.map-loader-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.map-loader-content {
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Premium micro-animated dual-ring spinner */
+.map-spinner-ring {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 15px;
+}
+
+.map-spinner-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    margin: 7px;
+    border: 4px solid #FFC800;
+    border-radius: 50%;
+    animation: mapSpinnerRingRotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #FFC800 transparent transparent transparent;
+}
+
+.map-spinner-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.map-spinner-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.map-spinner-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes mapSpinnerRingRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.map-loader-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #cbd5e1;
+}

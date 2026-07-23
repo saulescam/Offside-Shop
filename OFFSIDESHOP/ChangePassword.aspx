@@ -1,0 +1,132 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChangePassword.aspx.cs" Inherits="OFFSIDESHOP.ChangePassword" %>
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Change Password | OFFSIDESHOP</title>
+
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="Font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap" rel="stylesheet" />
+    <link href="EstilosCss/AuthSplit.css" rel="stylesheet" />
+
+    <!-- SweetAlert -->
+    <script src="SweetAlert/sweetalert2.all.min.js"></script>
+    <script src="SweetAlert/sweetalert2.js"></script>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="split-container">
+            <!-- LEFT PANEL: VISUAL / CAROUSEL -->
+            <div class="split-left">
+                <div class="visual-icon">
+                    <img src="assets/img/offsidelogo.png" alt="Icon" />
+                </div>
+                
+                <div id="authCarousel" class="carousel slide" data-ride="carousel" data-bs-ride="carousel" data-interval="5000" data-bs-interval="5000">
+                    <div class="carousel-inner">
+                        <asp:Repeater ID="rptCarousel" runat="server">
+                            <ItemTemplate>
+                                <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
+                                    <img src='<%# ResolveUrl(Eval("ImageURL").ToString()) %>' alt="Slide" />
+                                    <div class="carousel-caption-custom">
+                                        <div class="carousel-text-area">
+                                            <h2>"<%# Eval("QuoteText") %>"</h2>
+                                            <div class="carousel-author">
+                                                <h4><%# Eval("AuthorName") %></h4>
+                                                <p><%# Eval("AuthorRole") %></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                    
+                    <!-- BOTONES FUERA DEL REPEATER (ESTATICOS) -->
+                    <div class="carousel-static-nav">
+                        <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="prev" data-bs-slide="prev">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                        <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="next" data-bs-slide="next">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: FORM -->
+            <div class="split-right">
+                <div class="form-wrapper">
+                    
+                    <div class="brand-logo-right">
+                        <a href="Homepage.aspx">
+                            <img src="assets/img/flag-football.png" alt="OFFSIDESHOP" />
+                        </a>
+                    </div>
+                    
+                    <div class="form-header">
+                        <h2>CHANGE PASSWORD</h2>
+                        <p>Enter your new password</p>
+                    </div>
+
+                    <div class="login-body">
+                        <div class="form-group">
+                            <asp:TextBox ID="txtpassword1" runat="server" 
+                                placeholder="New Password *" 
+                                type="password" 
+                                CssClass="form-control" 
+                                onpaste="return false" 
+                                minlength="4" 
+                                MaxLength="15"
+                                required="required">
+                            </asp:TextBox>
+                            <div class="invalid-feedback">Please enter your new password.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <asp:TextBox ID="txtpassword2" runat="server" 
+                                placeholder="Confirm Password *" 
+                                type="password" 
+                                CssClass="form-control" 
+                                onpaste="return false" 
+                                minlength="4" 
+                                MaxLength="15"
+                                required="required">
+                            </asp:TextBox>
+                            <div class="invalid-feedback">Please confirm your password.</div>
+                        </div>
+
+                        <asp:Button runat="server" 
+                            Text="Change Password" 
+                            CssClass="btn-login" 
+                            OnClick="actualizar_Click"></asp:Button>
+
+                        <div class="forgot-link" style="text-align: center; margin-top: 20px;">
+                            <asp:HyperLink ID="volver" runat="server"
+                                Text="Back to Login"
+                                NavigateUrl="Login.aspx"
+                                style="font-weight: 600; text-decoration: underline; color: #111;">
+                            </asp:HyperLink>
+                        </div>
+
+                        <asp:Literal ID="alerta" runat="server" EnableViewState="false"></asp:Literal>
+                        <asp:Literal ID="Literal1" runat="server" EnableViewState="false"></asp:Literal>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    </form>
+</body>
+</html>
+
+

@@ -1,0 +1,165 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Offside-Shop - copia (2)\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|d:\\offside-shop - copia (2)\\offsideshop\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|D:\\Offside-Shop - copia (2)\\offsideshop\\externalloginresult.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\externalloginresult.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|D:\\Offside-Shop - copia (2)\\offsideshop\\sessionbridge.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\sessionbridge.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|D:\\Offside-Shop - copia (2)\\offsideshop\\sessionbridge.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\sessionbridge.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|D:\\Offside-Shop - copia (2)\\offsideshop\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|D:\\Offside-Shop - copia (2)\\offsideshop\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|D:\\Offside-Shop - copia (2)\\offsideshop\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|D:\\Offside-Shop - copia (2)\\offsideshop\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|D:\\Offside-Shop - copia (2)\\offsideshop\\loginticketstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\loginticketstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Default.aspx.cs",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Default.aspx.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\Default.aspx.cs",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Default.aspx.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\Default.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-22T17:37:09.308Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Default.aspx",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Default.aspx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\Default.aspx",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Default.aspx",
+              "RelativeToolTip": "OFFSIDESHOP\\Default.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-07-22T17:37:02.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Global.asax.cs",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Global.asax.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\Global.asax.cs",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Global.asax.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\Global.asax.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-22T17:20:21.775Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SessionBridge.aspx.cs",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\SessionBridge.aspx.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\SessionBridge.aspx.cs",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\SessionBridge.aspx.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\SessionBridge.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-22T17:18:15.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SessionBridge.aspx",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\SessionBridge.aspx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\SessionBridge.aspx",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\SessionBridge.aspx",
+              "RelativeToolTip": "OFFSIDESHOP\\SessionBridge.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-07-22T17:17:49.483Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ExternalLoginResult.aspx.cs",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\ExternalLoginResult.aspx.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\ExternalLoginResult.aspx.cs",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\ExternalLoginResult.aspx.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\ExternalLoginResult.aspx.cs",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAowJYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-22T17:16:04.336Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Web.config",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\Web.config",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Web.config",
+              "RelativeToolTip": "OFFSIDESHOP\\Web.config",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-07-22T17:10:45.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Login.aspx.cs",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Login.aspx.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\Login.aspx.cs",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\Login.aspx.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\Login.aspx.cs",
+              "ViewState": "AgIAAOUAAAAAAAAAAAAlwO8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-22T17:14:33.785Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginTicketStore.cs",
+              "DocumentMoniker": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\LoginTicketStore.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\LoginTicketStore.cs",
+              "ToolTip": "D:\\Offside-Shop - copia (2)\\OFFSIDESHOP\\LoginTicketStore.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\LoginTicketStore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-22T17:15:34.65Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

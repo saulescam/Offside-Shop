@@ -1,0 +1,1538 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Homepage.aspx.cs" Inherits="OFFSIDESHOP.Homepage" %>
+
+<%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>OffsideShop</title>
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="EstilosCss/EstiloInicio.css" rel="stylesheet" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
+
+    <script type="text/javascript">
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    </script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* Fondo negro tenue general */
+        .bg-dark-custom {
+            background: #ffffff;
+        }
+
+        /* Estilos para la navbar */
+        .navbar {
+            background: #000000 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1050 !important;
+        }
+
+
+        .navbar-brand img {
+            max-height: 45px;
+            width: auto;
+            filter: brightness(1.1);
+        }
+
+        .btn-outline-warning {
+            color: #000000;
+            border: 2px solid #FFC800;
+            background: linear-gradient(135deg, #FFC800 0%, #D4A000 100%);
+            border-radius: 25px;
+            padding: 8px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-outline-warning:hover {
+                background: linear-gradient(135deg, #FFE066 0%, #FFC800 100%);
+                border-color: #FFE066;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(255, 200, 0, 0.3);
+                color: #000000;
+            }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 10px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #FFC800;
+            }
+
+        /* Estilos de las Tarjetas de Producto */
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff !important;
+            border: 1px solid #e0e0e0;
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(255, 200, 0, 0.15);
+                border-color: #FFC800 !important;
+            }
+
+        /* Sección del buscador justo debajo de la navbar */
+        .search-header-section {
+            background: linear-gradient(180deg, #000000 0%, #121212 100%);
+            padding-top: 110px; /* Suficiente espacio para librar la navbar fija */
+            padding-bottom: 30px;
+            border-bottom: 3px solid #FFC800; /* Detalle premium en oro */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .search-input-group {
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid #333333;
+            background-color: #1e1e1e;
+            transition: all 0.3s ease;
+        }
+
+            .search-input-group:focus-within {
+                border-color: #FFC800;
+                box-shadow: 0 0 12px rgba(255, 200, 0, 0.35);
+            }
+
+            .search-input-group .form-control {
+                border: none;
+                background: transparent;
+                height: 46px;
+                font-size: 0.95rem;
+                color: #ffffff !important;
+            }
+
+                .search-input-group .form-control:focus {
+                    box-shadow: none;
+                    background: transparent;
+                }
+
+            .search-input-group .input-group-text {
+                border: none;
+                font-size: 0.95rem;
+                color: #FFC800; /* Lupa oro elegante */
+                padding-left: 15px;
+            }
+
+        /* Estilo para los Dropdowns (Selects) */
+        .filter-select {
+            height: 46px;
+            border-radius: 25px;
+            border: 1px solid #333333;
+            background-color: #1e1e1e;
+            color: #ffffff !important;
+            padding-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23FFC800' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+            padding-right: 40px;
+        }
+
+            .filter-select:focus {
+                border-color: #FFC800;
+                box-shadow: 0 0 12px rgba(255, 200, 0, 0.35);
+                background-color: #1e1e1e;
+            }
+
+        /* Botón de buscar premium */
+        .btn-danger-custom {
+            height: 46px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #FFC800 0%, #D4A000 100%);
+            border: none;
+            color: #000000;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 200, 0, 0.2);
+        }
+
+            .btn-danger-custom:hover {
+                background: linear-gradient(135deg, #FFE066 0%, #FFC800 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(255, 200, 0, 0.4);
+                color: #000000;
+            }
+
+        /* Botón de reset premium */
+        .btn-outline-light-custom {
+            height: 46px;
+            width: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid #444444;
+            background-color: transparent;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+            .btn-outline-light-custom:hover {
+                background-color: #ffffff;
+                color: #000000 !important;
+                border-color: #ffffff;
+                transform: rotate(-180deg);
+            }
+
+        /* Local Overrides for Bootstrap Classes */
+        .text-danger {
+            color: #D47A00 !important;
+        }
+
+        .btn-outline-danger {
+            color: #D47A00 !important;
+            border-color: #FFC800 !important;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-outline-danger:hover {
+                color: #000000 !important;
+                background-color: #FFC800 !important;
+                border-color: #FFC800 !important;
+            }
+
+        /* Slick Slider overrides to display beautifully */
+        .products-slick .product-card {
+            margin: 15px 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff !important;
+            border: 1px solid #e0e0e0;
+        }
+
+            .products-slick .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(255, 200, 0, 0.15);
+                border-color: #FFC800 !important;
+            }
+
+        .slick-prev, .slick-next {
+            width: 40px;
+            height: 40px;
+            background: #1e1f29 !important;
+            border-radius: 50%;
+            z-index: 5;
+            transition: all 0.3s;
+        }
+
+            .slick-prev:hover, .slick-next:hover {
+                background: #ffc800 !important;
+            }
+
+        .slick-prev {
+            left: -20px;
+        }
+
+        .slick-next {
+            right: -20px;
+        }
+
+            .slick-prev::before, .slick-next::before {
+                display: none !important;
+            }
+        /* Asegurar que el contenedor permita posicionamiento absoluto interno */
+        .products-slick {
+            position: relative;
+            display: block;
+            width: 100%;
+        }
+
+        /* Estilos blindados para tus flechas personalizadas de OFFSIDESHOP */
+        .offside-prev, .offside-next {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 10 !important; /* Capa suprema por encima de las imágenes */
+            width: 45px !important;
+            height: 45px !important;
+            background-color: #111111 !important; /* Negro de la marca */
+            border: 2px solid #FFC800 !important; /* Borde Dorado */
+            border-radius: 50% !important;
+            color: #FFC800 !important; /* Icono Dorado */
+            font-size: 20px !important;
+            font-weight: bold !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5) !important; /* Sombra para resaltar */
+            transition: all 0.3s ease !important;
+        }
+
+            /* Efecto Hover */
+            .offside-prev:hover, .offside-next:hover {
+                background-color: #FFC800 !important;
+                color: #111111 !important;
+                transform: translateY(-50%) scale(1.1) !important;
+            }
+
+        /* Posicionamiento seguro en los extremos (metidas 10px hacia adentro para evitar recortes) */
+        .offside-prev {
+            left: 10px !important;
+        }
+
+        .offside-next {
+            right: 10px !important;
+        }
+
+            /* Comportamiento cuando llegas al límite físico de la lista (Lógica del infinite: false) */
+            /* En lugar de desaparecer el botón, lo vuelve opaco para mantener limpia la estética */
+            .offside-prev.slick-disabled, .offside-next.slick-disabled {
+                opacity: 0.25 !important;
+                cursor: not-allowed !important;
+            }
+
+        #similar-slick {
+            padding: 0 50px;
+        }
+
+        /* Diseño responsivo para dispositivos móviles */
+        @media (max-width: 767px) {
+            #wc-slick, #laliga-slick, #premier-slick, #seriea-slick, #similar-slick {
+                padding: 0 50px !important;
+            }
+
+            .offside-prev, .offside-next {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 16px !important;
+            }
+
+            .offside-prev {
+                left: 0px !important;
+            }
+
+            .offside-next {
+                right: 0px !important;
+            }
+        }
+        /* Ocultar botón scroll-to-top del tema */
+        #scroll-top,
+        .scroll-to-top,
+        .scrolltop,
+        a[href="#page-top"]:not(.navbar-brand) {
+            display: none !important;
+        }
+
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23FFC800' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 12px;
+        padding-right: 40px;
+        }
+
+        .filter-select:focus {
+            border-color: #FFC800;
+            box-shadow: 0 0 12px rgba(255, 200, 0, 0.35);
+            background-color: #1e1e1e;
+        }
+
+        /* Botón de buscar premium */
+        .btn-danger-custom {
+            height: 46px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #FFC800 0%, #D4A000 100%);
+            border: none;
+            color: #000000;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 200, 0, 0.2);
+        }
+
+            .btn-danger-custom:hover {
+                background: linear-gradient(135deg, #FFE066 0%, #FFC800 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(255, 200, 0, 0.4);
+                color: #000000;
+            }
+
+        /* Botón de reset premium */
+        .btn-outline-light-custom {
+            height: 46px;
+            width: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid #444444;
+            background-color: transparent;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+            .btn-outline-light-custom:hover {
+                background-color: #ffffff;
+                color: #000000 !important;
+                border-color: #ffffff;
+                transform: rotate(-180deg);
+            }
+
+        /* Local Overrides for Bootstrap Classes */
+        .text-danger {
+            color: #D47A00 !important;
+        }
+
+        .btn-outline-danger {
+            color: #D47A00 !important;
+            border-color: #FFC800 !important;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-outline-danger:hover {
+                color: #000000 !important;
+                background-color: #FFC800 !important;
+                border-color: #FFC800 !important;
+            }
+
+        /* Slick Slider overrides to display beautifully */
+        .products-slick .product-card {
+            margin: 15px 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff !important;
+            border: 1px solid #e0e0e0;
+        }
+
+            .products-slick .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(255, 200, 0, 0.15);
+                border-color: #FFC800 !important;
+            }
+
+        .slick-prev, .slick-next {
+            width: 40px;
+            height: 40px;
+            background: #1e1f29 !important;
+            border-radius: 50%;
+            z-index: 5;
+            transition: all 0.3s;
+        }
+
+            .slick-prev:hover, .slick-next:hover {
+                background: #ffc800 !important;
+            }
+
+        .slick-prev {
+            left: -20px;
+        }
+
+        .slick-next {
+            right: -20px;
+        }
+
+            .slick-prev::before, .slick-next::before {
+                display: none !important;
+            }
+        /* Asegurar que el contenedor permita posicionamiento absoluto interno */
+        .products-slick {
+            position: relative;
+            display: block;
+            width: 100%;
+        }
+
+        /* Estilos blindados para tus flechas personalizadas de OFFSIDESHOP */
+        .offside-prev, .offside-next {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 10 !important; /* Capa suprema por encima de las imágenes */
+            width: 45px !important;
+            height: 45px !important;
+            background-color: #111111 !important; /* Negro de la marca */
+            border: 2px solid #FFC800 !important; /* Borde Dorado */
+            border-radius: 50% !important;
+            color: #FFC800 !important; /* Icono Dorado */
+            font-size: 20px !important;
+            font-weight: bold !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5) !important; /* Sombra para resaltar */
+            transition: all 0.3s ease !important;
+        }
+
+            /* Efecto Hover */
+            .offside-prev:hover, .offside-next:hover {
+                background-color: #FFC800 !important;
+                color: #111111 !important;
+                transform: translateY(-50%) scale(1.1) !important;
+            }
+
+        /* Posicionamiento seguro en los extremos (metidas 10px hacia adentro para evitar recortes) */
+        .offside-prev {
+            left: 10px !important;
+        }
+
+        .offside-next {
+            right: 10px !important;
+        }
+
+            /* Comportamiento cuando llegas al límite físico de la lista (Lógica del infinite: false) */
+            /* En lugar de desaparecer el botón, lo vuelve opaco para mantener limpia la estética */
+            .offside-prev.slick-disabled, .offside-next.slick-disabled {
+                opacity: 0.25 !important;
+                cursor: not-allowed !important;
+            }
+
+        #similar-slick {
+            padding: 0 50px;
+        }
+
+        /* Diseño responsivo para dispositivos móviles */
+        @media (max-width: 767px) {
+            #wc-slick, #laliga-slick, #premier-slick, #seriea-slick, #similar-slick {
+                padding: 0 50px !important;
+            }
+
+            .offside-prev, .offside-next {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 16px !important;
+            }
+
+            .offside-prev {
+                left: 0px !important;
+            }
+
+            .offside-next {
+                right: 0px !important;
+            }
+        }
+        /* Ocultar botón scroll-to-top del tema */
+        #scroll-top,
+        .scroll-to-top,
+        .scrolltop,
+        a[href="#page-top"]:not(.navbar-brand) {
+            display: none !important;
+        }
+
+        .products-slick {
+            overflow: hidden;
+            position: relative;
+        }
+        /* Altura mínima para forzar al footer a quedarse abajo cuando no hay camisetas */
+        .search-empty-container {
+            min-height: 45vh; /* Ocupa el 45% del alto de la pantalla actual */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .search-empty-container:not(:has(span)) {
+                display: none !important;
+            }
+
+        /* Opcional: Asegurar que el main o el cuerpo no colapsen */
+        main {
+            display: block;
+            width: 100%;
+        }
+
+        .user-menu-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .user-icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+            .user-icon-btn:hover {
+                color: #FFC800;
+                background-color: rgba(255, 200, 0, 0.1);
+            }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: #1a1a1a;
+            border: 1px solid #FFC800;
+            border-radius: 8px;
+            min-width: 260px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .user-info {
+            padding: 12px 16px;
+            border-bottom: 1px solid #333333;
+        }
+
+        .user-fullname {
+            margin: 0;
+            color: #FFC800;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .user-email {
+            margin: 4px 0 0 0;
+            color: #888888;
+            font-size: 0.8rem;
+        }
+
+        .user-role {
+            margin: 0;
+            color: #FFC800;
+            font-size: 0.8rem;
+        }
+
+        .dropdown-content {
+            display: flex;
+            flex-direction: column;
+            padding: 8px 0;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+        }
+
+            .dropdown-item:hover {
+                background-color: #FFC800;
+                color: #000000;
+            }
+
+            .dropdown-item i {
+                font-size: 1rem;
+                width: 20px;
+            }
+
+            .dropdown-item.btn-logout {
+                border-top: 1px solid #333333;
+                margin-top: 4px;
+                padding-top: 10px;
+            }
+
+                .dropdown-item.btn-logout:hover {
+                    background-color: #D47A00 !important;
+                }
+
+        .badge {
+            margin-left: auto;
+            background-color: #D47A00;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            min-width: 18px;
+            text-align: center;
+        }
+         .btn-dark-grey {
+     color: #fff;
+     background-color: #4a4a4a;
+     border-color: #4a4a4a;
+     transition: all 0.2s ease-in-out;
+ }
+
+     .btn-dark-grey:hover {
+         color: #fff;
+         background-color: #333333;
+         border-color: #333333;
+         transform: translateX(-2px); /* Un sutil efecto que mueve el botón hacia la izquierda en hover */); /* Un sutil efecto que mueve el botón hacia la izquierda en hover */
+            }
+    </style>
+    <script type="text/javascript">
+        function ScriptParaAbrirMenu() {
+            const menu = document.getElementById('userDropdownMenuUser');
+            if (menu) {
+                menu.style.display = 'block';
+            }
+        }
+
+        function toggleUserMenu(button) {
+            const container = button.closest('.user-menu-container');
+            if (!container) return;
+
+            const menu = container.querySelector('.dynamic-dropdown');
+            if (!menu) return;
+
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                cerrarTodosLosMenus();
+                menu.style.display = 'block';
+            }
+        }
+
+        function cerrarTodosLosMenus() {
+            const menus = document.querySelectorAll('.dynamic-dropdown');
+            menus.forEach(m => m.style.display = 'none');
+        }
+
+        document.onclick = function (event) {
+            const container = event.target.closest('.user-menu-container');
+            if (!container) {
+                cerrarTodosLosMenus();
+            }
+        };
+    </script>
+</head>
+<body id="page-top">
+    <form runat="server">
+
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">
+                    <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+
+                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+                    <asp:PlaceHolder ID="phNavbarGuest" runat="server">
+                        <div class="user-menu-container">
+                            <button type="button" class="user-icon-btn" onclick="toggleUserMenu(this)">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="8" r="4"></circle>
+                                    <path d="M 6 20c0-4 2.5-6 6-6s6 2 6 6"></path>
+                                </svg>
+                            </button>
+                            <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
+                                <div class="dropdown-content">
+                                    <a href="Login.aspx" class="dropdown-item">
+                                        <i class="fas fa-sign-in-alt"></i>Log in
+                                    </a>
+                                    <a href="SignUp.aspx" class="dropdown-item">
+                                        <i class="fas fa-user-plus"></i>Sign up
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </asp:PlaceHolder>
+
+                    <asp:PlaceHolder ID="phNavbarUser" runat="server">
+                        <div class="user-menu-container">
+                            <asp:UpdatePanel ID="upPerfil" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+
+                                    <button type="button" class="user-icon-btn" onclick="toggleUserMenu(this)">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="8" r="4"></circle>
+                                            <path d="M 6 20c0-4 2.5-6 6-6s6 2 6 6"></path>
+                                        </svg>
+                                    </button>
+
+                                    <div id="userDropdownMenuUser" class="user-dropdown-menu dynamic-dropdown" style="display: none;">
+                                        <div class="user-info">
+                                            <p class="user-fullname">
+                                                <asp:Label ID="lblFullName" runat="server" Text="Cargando..."></asp:Label>
+                                            </p>
+                                            <p class="user-email">
+                                                <asp:Label ID="lblUserEmail" runat="server" Text=""></asp:Label>
+                                            </p>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
+                            <i class="fas fa-clipboard-list"></i> My Orders
+                                            </asp:LinkButton>
+
+                                            <asp:LinkButton ID="btnNavCart" runat="server" CssClass="dropdown-item" OnClick="btnNavCart_Click">
+                                                <i class="fas fa-shopping-cart"></i>Cart 
+                            <span class="badge">
+                                <asp:Label ID="lblCartCount" runat="server" Text="0"></asp:Label>
+                            </span>
+                                            </asp:LinkButton>
+
+                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                        </div>
+                                    </div>
+
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
+                    </asp:PlaceHolder>
+
+                    <asp:PlaceHolder ID="phNavbarAdmin" runat="server">
+                        <div class="user-menu-container">
+                            <button type="button" class="user-icon-btn" onclick="toggleUserMenu(this)">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="8" r="4"></circle>
+                                    <path d="M 6 20c0-4 2.5-6 6-6s6 2 6 6"></path>
+                                </svg>
+                            </button>
+                            <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
+                                <div class="user-info">
+                                    <p class="user-fullname">
+                                        <asp:Label ID="lblAdminName" runat="server" Text="Admin"></asp:Label>
+                                    </p>
+                                    <p class="user-role">Administrator</p>
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href="Dashboard.aspx" class="dropdown-item">
+                                        <i class="fas fa-chart-line"></i>Dashboard
+                                    </a>
+                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                </div>
+                            </div>
+                        </div>
+                    </asp:PlaceHolder>
+
+                </div>
+            </div>
+        </nav>
+
+       <div class="search-header-section">
+    <div class="container">
+        
+        <div class="d-block d-lg-none mb-3">
+            <button type="button" class="btn btn-danger-custom w-100 fw-bold py-2 shadow-sm" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#searchFiltersCollapse" 
+                    aria-expanded="false" 
+                    aria-controls="searchFiltersCollapse">
+                <i class="fas fa-search"></i> Filters & Search
+            </button>
+        </div>
+
+        <div class="collapse d-lg-block" id="searchFiltersCollapse">
+            <div class="row g-3 align-items-end justify-content-center">
+                
+                <div class="col-lg-4 col-md-12">
+                    <label class="form-label text-light fw-bold small mb-2">Search</label>
+                    <div class="input-group search-input-group">
+                        <span class="input-group-text bg-transparent border-0 text-muted">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control bg-transparent border-0 text-light search-input" placeholder="Search by team, brand, year..."></asp:TextBox>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <label class="form-label text-light fw-bold small mb-2">League</label>
+                    <asp:DropDownList ID="ddlLeague" runat="server" CssClass="form-select filter-select">
+                    </asp:DropDownList>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <label class="form-label text-light fw-bold small mb-2">Brand</label>
+                    <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-select filter-select">
+                    </asp:DropDownList>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <label class="form-label text-light fw-bold small mb-2">Type of KIT</label>
+                    <asp:DropDownList ID="ddlKitType" runat="server" CssClass="form-select filter-select">
+                        <asp:ListItem Value="" Text="Any Kit"></asp:ListItem>
+                        <asp:ListItem Value="1" Text="Local"></asp:ListItem>
+                        <asp:ListItem Value="2" Text="Away"></asp:ListItem>
+                        <asp:ListItem Value="3" Text="Third"></asp:ListItem>
+                        <asp:ListItem Value="4" Text="Retro"></asp:ListItem>
+                        <asp:ListItem Value="5" Text="Training"></asp:ListItem>
+                        <asp:ListItem Value="6" Text="Special"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+
+                <div class="col-lg-2 col-md-12 d-flex gap-2">
+                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-danger-custom w-100 fw-bold" OnClick="btnSearch_Click" />
+                    <asp:LinkButton ID="btnReset" runat="server" CssClass="btn btn-outline-light-custom" OnClick="btnReset_Click" ToolTip="Clear Filters">
+                        <i class="fas fa-undo"></i>
+                    </asp:LinkButton>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<asp:PlaceHolder ID="phCarousel" runat="server">
+            <div class="carousel-container">
+                <div id="demo" class="carousel slide" data-bs-ride="carousel">
+                    <%-- Indicadores dinámicos --%>
+                    <div class="carousel-indicators">
+                        <asp:Repeater ID="rptBannerIndicators" runat="server">
+                            <ItemTemplate>
+                                <button type="button"
+                                    data-bs-target="#demo"
+                                    data-bs-slide-to="<%# Container.ItemIndex %>"
+                                    class='<%# Container.ItemIndex == 0 ? "active" : "" %>'
+                                    aria-label='<%# "Slide " + (Container.ItemIndex + 1) %>'>
+                                </button>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+
+                    <%-- Items del carrusel dinámicos --%>
+                    <div class="carousel-inner">
+                        <asp:Repeater ID="rptBannerItems" runat="server">
+                            <ItemTemplate>
+                                <div class='<%# "carousel-item" + (Container.ItemIndex == 0 ? " active" : "") %>'>
+                                    <%# BuildBannerImage(
+                                        Eval("ImageURL").ToString(),
+                                        Eval("Title").ToString(),
+                                        Eval("LinkURL") == DBNull.Value ? "" : Eval("LinkURL").ToString()
+                                    ) %>
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5><%# Eval("Title") %></h5>
+                                        <p><%# Eval("Subtitle") %></p>
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </asp:PlaceHolder>
+
+   
+            <asp:PlaceHolder ID="phLeaguesSection" runat="server" Visible="true">
+    <div class="container my-5">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bolder text-uppercase" style="letter-spacing: 1px;">Shop by League</h2>
+            <p class="text-muted">Select your favorite league to see the available clubs</p>
+        </div>
+
+        <div class="d-block d-lg-none mb-3 text-center">
+            <button type="button" class="btn btn-dark w-100 fw-bold py-2 shadow-sm text-uppercase" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#leaguesPanelCollapse" 
+                    aria-expanded="false" 
+                    aria-controls="leaguesPanelCollapse">
+                <i class="fas fa-trophy me-2"></i> Leagues
+            </button>
+        </div>
+
+        <div class="collapse d-lg-block" id="leaguesPanelCollapse">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 justify-content-center text-center">
+                
+                <div class="col">
+                    <a href="Homepage.aspx?league=1" class="text-decoration-none text-dark league-card-link">
+                        <div class="card h-100 border-0 shadow-sm p-3 bg-white" style="border-radius: 12px; transition: transform 0.2s;">
+                            <img src="assets/img/leagues/laliga.png" alt="LaLiga" class="img-fluid mx-auto mb-2" style="max-height: 65px; object-fit: contain;" />                           
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <a href="Homepage.aspx?league=2" class="text-decoration-none text-dark league-card-link">
+                        <div class="card h-100 border-0 shadow-sm p-3 bg-white" style="border-radius: 12px; transition: transform 0.2s;">
+                            <img src="assets/img/leagues/premierleague.webp" alt="Premier League" class="img-fluid mx-auto mb-2" style="max-height: 65px; object-fit: contain;" />
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <a href="Homepage.aspx?league=4" class="text-decoration-none text-dark league-card-link">
+                        <div class="card h-100 border-0 shadow-sm p-3 bg-white" style="border-radius: 12px; transition: transform 0.2s;">
+                            <img src="assets/img/leagues/bundesliga.png" alt="Bundesliga" class="img-fluid mx-auto mb-2" style="max-height: 65px; object-fit: contain;" />
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <a href="Homepage.aspx?league=3" class="text-decoration-none text-dark league-card-link">
+                        <div class="card h-100 border-0 shadow-sm p-3 bg-white" style="border-radius: 12px; transition: transform 0.2s;">
+                            <img src="assets/img/leagues/seriea.png" alt="Serie A" class="img-fluid mx-auto mb-2" style="max-height: 65px; object-fit: contain;" />
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <a href="Homepage.aspx?league=5" class="text-decoration-none text-dark league-card-link">
+                        <div class="card h-100 border-0 shadow-sm p-3 bg-white" style="border-radius: 12px; transition: transform 0.2s;">
+                            <img src="assets/img/leagues/ligueone.png" alt="Ligue 1" class="img-fluid mx-auto mb-2" style="max-height: 65px; object-fit: contain;" />
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <a href="Homepage.aspx?league=7" class="text-decoration-none text-dark league-card-link">
+                        <div class="card h-100 border-0 shadow-sm p-3 bg-white" style="border-radius: 12px; transition: transform 0.2s;">
+                            <img src="assets/img/leagues/mls.png" alt="MLS" class="img-fluid mx-auto mb-2" style="max-height: 65px; object-fit: contain;" />
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</asp:PlaceHolder>
+<style>
+    .league-card-link:hover .card {
+        transform: translateY(-4px);
+        box-shadow: 0 .4rem .8rem rgba(0,0,0,.12)!important;
+    }
+</style>
+            <asp:PlaceHolder ID="phSectionsView" runat="server" Visible="true">
+
+                <%-- TOP SELLER --%>
+                <div class="container my-5">
+                    <h2 class="text-start text-dark mb-4 pb-2 border-bottom border-warning border-3" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Top Selling</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="products-slick" id="top-selling-slick">
+                                <asp:Repeater ID="rptTopSelling" runat="server">
+                                    <ItemTemplate>
+                                        <div class="card h-100 text-dark product-card position-relative shadow-sm" style="border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden;">
+                                            <span class="position-absolute top-0 start-0 badge bg-warning text-dark m-2 shadow-sm" style="font-weight: 700; z-index: 10; padding: 6px 10px; font-size: 0.75rem; letter-spacing: 0.5px;">BEST SELLER</span>
+                                            <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# Eval("Name") %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
+                                            <div class="card-body d-flex flex-column bg-white p-3">
+                                                <h5 class="card-title text-danger mb-1" style="font-weight: 700; font-size: 1.05rem;" title='<%# Eval("Name") %>'>
+                                                    <%# Eval("Name").ToString().Length > 25 ? Eval("Name").ToString().Substring(0, 25) + "..." : Eval("Name") %>
+                                                </h5>
+                                                <p class="card-text text-secondary mb-1"><%# Eval("Team") %> - <%# Eval("Year") %></p>
+                                                <p class="card-text text-secondary mb-2"><%# Eval("Brand") %> | <%# Eval("Type") %></p>
+                                                <h6 class="mb-3 text-dark" style="font-size: 1.25rem; font-weight: 700;">$ <%# Eval("Price", "{0:F2}") %></h6>
+                                                <div class="mt-auto">
+                                                    <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
+                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100 style-btn" style="font-weight: 600; border-width: 2px;">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- NEW JERSEYS --%>
+                <div class="container my-5">
+                    <h2 class="text-start text-dark mb-4 pb-2 border-bottom border-warning border-3" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">New Jerseys</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="products-slick" id="new-arrivals-slick">
+                                <asp:Repeater ID="rptNewArrivals" runat="server">
+                                    <ItemTemplate>
+                                        <div class="px-2 pb-3">
+                                            <div class="card h-100 text-dark product-card position-relative shadow-sm" style="border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden; background: #fff;">
+                                                <span class="position-absolute top-0 start-0 badge bg-danger text-white m-2 shadow-sm" style="font-weight: 700; z-index: 10; padding: 6px 10px; font-size: 0.75rem; letter-spacing: 0.5px;">NEW</span>
+                                                <div style="height: 250px; width: 100%; overflow: hidden; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                                                    <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# Eval("Name") %>' style="height: 100%; width: 100%; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
+                                                </div>
+                                                <div class="card-body d-flex flex-column p-3">
+                                                    <h5 class="card-title text-danger mb-1" style="font-weight: 700; font-size: 1.05rem; min-height: 42px;" title='<%# Eval("Name") %>'>
+                                                        <%# Eval("Name").ToString().Length > 25 ? Eval("Name").ToString().Substring(0, 25) + "..." : Eval("Name") %>
+                                                    </h5>
+                                                    <p class="card-text text-secondary mb-1 small"><%# Eval("Team") %> - <%# Eval("Year") %></p>
+                                                    <p class="card-text text-secondary mb-2 small"><%# Eval("Brand") %> | <%# Eval("Type") %></p>
+                                                    <h6 class="mb-3 text-dark" style="font-size: 1.25rem; font-weight: 700;">$ <%# Eval("Price", "{0:F2}") %></h6>
+                                                    <div class="mt-auto">
+                                                        <p class="small mb-2 text-dark" style="font-size: 0.8rem;">Sizes: <strong><%# Eval("Sizes") %></strong></p>
+                                                        <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100 style-btn" style="font-weight: 600; border-width: 2px;">Buy</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- WORLD CUP --%>
+                <div class="container my-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
+                        <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">World Cup</h2>
+                        <a href="Homepage.aspx?league=6" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="products-slick" id="wc-slick">
+                                <asp:Repeater ID="rptWC" runat="server">
+                                    <ItemTemplate>
+                                        <div class="card h-100 text-dark product-card">
+                                            <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# Eval("Name") %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title text-danger" style="font-weight: 700;" title='<%# Eval("Name") %>'><%# Eval("Name").ToString().Length > 25 ? Eval("Name").ToString().Substring(0, 25) + "..." : Eval("Name") %></h5>
+                                                <p class="card-text text-secondary mb-1"><%# Eval("Team") %> - <%# Eval("Year") %></p>
+                                                <p class="card-text text-secondary mb-2"><%# Eval("Brand") %> | <%# Eval("Type") %></p>
+                                                <h6 class="mb-3" style="font-size: 1.2rem;">$ <%# Eval("Price", "{0:F2}") %></h6>
+                                                <div class="mt-auto">
+                                                    <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
+                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- LALIGA --%>
+                <div class="container my-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
+                        <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">LaLiga</h2>
+                        <a href="Homepage.aspx?league=1" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="products-slick" id="laliga-slick">
+                                <asp:Repeater ID="rptLaLiga" runat="server">
+                                    <ItemTemplate>
+                                        <div class="card h-100 text-dark product-card">
+                                            <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# Eval("Name") %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title text-danger" style="font-weight: 700;" title='<%# Eval("Name") %>'><%# Eval("Name").ToString().Length > 25 ? Eval("Name").ToString().Substring(0, 25) + "..." : Eval("Name") %></h5>
+                                                <p class="card-text text-secondary mb-1"><%# Eval("Team") %> - <%# Eval("Year") %></p>
+                                                <p class="card-text text-secondary mb-2"><%# Eval("Brand") %> | <%# Eval("Type") %></p>
+                                                <h6 class="mb-3" style="font-size: 1.2rem;">$ <%# Eval("Price", "{0:F2}") %></h6>
+                                                <div class="mt-auto">
+                                                    <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
+                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- PREMIER LEAGUE --%>
+                <div class="container my-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
+                        <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Premier League</h2>
+                        <a href="Homepage.aspx?league=2" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="products-slick" id="premier-slick">
+                                <asp:Repeater ID="rptPremier" runat="server">
+                                    <ItemTemplate>
+                                        <div class="card h-100 text-dark product-card">
+                                            <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# Eval("Name") %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title text-danger" style="font-weight: 700;" title='<%# Eval("Name") %>'><%# Eval("Name").ToString().Length > 25 ? Eval("Name").ToString().Substring(0, 25) + "..." : Eval("Name") %></h5>
+                                                <p class="card-text text-secondary mb-1"><%# Eval("Team") %> - <%# Eval("Year") %></p>
+                                                <p class="card-text text-secondary mb-2"><%# Eval("Brand") %> | <%# Eval("Type") %></p>
+                                                <h6 class="mb-3" style="font-size: 1.2rem;">$ <%# Eval("Price", "{0:F2}") %></h6>
+                                                <div class="mt-auto">
+                                                    <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
+                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- SERIE A --%>
+                <div class="container my-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
+                        <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Serie A</h2>
+                        <a href="Homepage.aspx?league=3" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="products-slick" id="seriea-slick">
+                                <asp:Repeater ID="rptSerieA" runat="server">
+                                    <ItemTemplate>
+                                        <div class="card h-100 text-dark product-card">
+                                            <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# Eval("Name") %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title text-danger" style="font-weight: 700;" title='<%# Eval("Name") %>'><%# Eval("Name").ToString().Length > 25 ? Eval("Name").ToString().Substring(0, 25) + "..." : Eval("Name") %></h5>
+                                                <p class="card-text text-secondary mb-1"><%# Eval("Team") %> - <%# Eval("Year") %></p>
+                                                <p class="card-text text-secondary mb-2"><%# Eval("Brand") %> | <%# Eval("Type") %></p>
+                                                <h6 class="mb-3" style="font-size: 1.2rem;">$ <%# Eval("Price", "{0:F2}") %></h6>
+                                                <div class="mt-auto">
+                                                    <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
+                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- BUNDESLIGA --%>
+                <div class="container my-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
+                        <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Bundesliga</h2>
+                        <a href="Homepage.aspx?league=4" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="products-slick" id="bundesliga-slick">
+                                <asp:Repeater ID="rptBundesliga" runat="server">
+                                    <ItemTemplate>
+                                        <div class="card h-100 text-dark product-card">
+                                            <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# Eval("Name") %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title text-danger" style="font-weight: 700;" title='<%# Eval("Name") %>'><%# Eval("Name").ToString().Length > 25 ? Eval("Name").ToString().Substring(0, 25) + "..." : Eval("Name") %></h5>
+                                                <p class="card-text text-secondary mb-1"><%# Eval("Team") %> - <%# Eval("Year") %></p>
+                                                <p class="card-text text-secondary mb-2"><%# Eval("Brand") %> | <%# Eval("Type") %></p>
+                                                <h6 class="mb-3" style="font-size: 1.2rem;">$ <%# Eval("Price", "{0:F2}") %></h6>
+                                                <div class="mt-auto">
+                                                    <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
+                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                >
+                            <%-- LIGUE ONE --%>
+                <div class="container my-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
+                        <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Ligue One</h2>
+                        <a href="Homepage.aspx?league=5" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="products-slick" id="ligueone-slick">
+                                <asp:Repeater ID="rptLigueOne" runat="server">
+                                    <ItemTemplate>
+                                        <div class="card h-100 text-dark product-card">
+                                            <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# Eval("Name") %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title text-danger" style="font-weight: 700;" title='<%# Eval("Name") %>'><%# Eval("Name").ToString().Length > 25 ? Eval("Name").ToString().Substring(0, 25) + "..." : Eval("Name") %></h5>
+                                                <p class="card-text text-secondary mb-1"><%# Eval("Team") %> - <%# Eval("Year") %></p>
+                                                <p class="card-text text-secondary mb-2"><%# Eval("Brand") %> | <%# Eval("Type") %></p>
+                                                <h6 class="mb-3" style="font-size: 1.2rem;">$ <%# Eval("Price", "{0:F2}") %></h6>
+                                                <div class="mt-auto">
+                                                    <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
+                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </asp:PlaceHolder>
+            <%-- SEARCH RESULTS VIEW --%>
+            <asp:PlaceHolder ID="phSearchResultsView" runat="server" Visible="false">
+                <div class="container my-5">
+                    <h2 class="text-center text-dark mb-4 pb-2 border-bottom border-warning border-3" style="font-weight: 700;">
+                        <asp:Label ID="lblSearchTerm" runat="server" Text="Search results"></asp:Label>
+                    </h2>
+
+                    <div class="text-center my-5 search-empty-container">
+                        <asp:Label ID="lblNoResults" runat="server" Visible="false" CssClass="h5 text-muted d-block" Text="No shirts found matching your search."></asp:Label>
+                    </div>
+
+
+                   <asp:UpdatePanel ID="upSearchArea" runat="server" UpdateMode="Conditional">
+    <ContentTemplate>
+        <div class="container-fluid my-5 px-4">
+            <div class="row">
+                
+                <div class="col-lg-3 col-md-4 pe-lg-4 mb-4">
+                    <div class="card border-0 shadow-sm p-4 bg-white" style="border-radius: 12px; position: sticky; top: 20px; z-index: 10;">
+                        <h5 class="fw-bold text-uppercase border-bottom pb-2 mb-3">
+                            <i class="fas fa-sliders-h me-2 text-warning"></i>Filter Catalog
+                        </h5>
+                        
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Price Range</label>
+                            <asp:DropDownList ID="ddlSidePriceRange" runat="server" CssClass="form-select form-select-sm">
+                                <asp:ListItem Text="All Prices" Value="ALL"></asp:ListItem>
+                                <asp:ListItem Text="Under $50" Value="0-50"></asp:ListItem>
+                                <asp:ListItem Text="$50 to $100" Value="50-100"></asp:ListItem>
+                                <asp:ListItem Text="$100 to $150" Value="100-150"></asp:ListItem>
+                                <asp:ListItem Text="Over $150" Value="150-9999"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Available Sizes</label>
+                            <div style="max-height: 110px; overflow-y: auto;" class="border p-2 rounded bg-light">
+                                <asp:CheckBoxList ID="cblSideSizes" runat="server" CssClass="form-check small text-dark" DataTextField="Size_Code" DataValueField="Id_Size"></asp:CheckBoxList>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Competition / League</label>
+                            <asp:DropDownList ID="ddlSideLeague" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlSideLeague_SelectedIndexChanged"></asp:DropDownList>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Club / Team</label>
+                            <asp:DropDownList ID="ddlSideTeam" runat="server" CssClass="form-select form-select-sm"></asp:DropDownList>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Brand</label>
+                            <asp:DropDownList ID="ddlSideBrand" runat="server" CssClass="form-select form-select-sm"></asp:DropDownList>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Kit Style / Type</label>
+                            <asp:DropDownList ID="ddlSideKitType" runat="server" CssClass="form-select form-select-sm"></asp:DropDownList>
+                        </div>
+
+                        <div class="mb-4 border-top pt-3">
+                            <div class="form-check mb-2">
+                                <asp:CheckBox ID="chkSideOnSale" runat="server" Text=" Special Offers / Sale" CssClass="form-check-input small fw-bold text-danger" />
+                            </div>
+                            <div class="form-check">
+                                <asp:CheckBox ID="chkSideCustomizable" runat="server" Text=" Supports Custom Print" CssClass="form-check-input small fw-bold text-success" />
+                            </div>
+                        </div>
+
+                        <asp:Button ID="btnApplySideFilters" runat="server" Text="FILTER BY" CssClass="btn btn-warning w-100 fw-bold text-uppercase py-2 shadow-sm" OnClick="btnApplySideFilters_Click" />
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-8">
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-4">
+                        <h4 class="fw-bold text-dark mb-0">Search Results View</h4>
+                        <span class="badge bg-dark px-3 py-2 text-uppercase fs-7">
+                            <asp:Literal ID="litMatchesCount" runat="server" Text="0"></asp:Literal> Products Found
+                        </span>
+                    </div>
+
+                    <asp:Panel ID="pnlNoMatchesFound" runat="server" Visible="false" CssClass="text-center my-5 py-5 search-empty-container bg-light rounded shadow-sm">
+                        <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                        <h5 class="fw-bold text-muted">No shirts matched your selected combination.</h5>
+                        <p class="text-muted small mb-0">Try adjusting your filters or search keywords in the sidebar panel.</p>
+                    </asp:Panel>
+
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                        <asp:Repeater ID="rptSearchResults" runat="server">
+                            <ItemTemplate>
+                                <div class="col">
+                                    <div class="card h-100 text-dark product-card border-0 shadow-sm position-relative overflow-hidden" style="border-radius: 8px;">
+                                        
+                                        <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                        </div>
+
+                                        <div class="bg-light d-flex align-items-center justify-content-center text-center p-2" style="height: 200px; overflow: hidden;">
+                                            <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' 
+                                                 class="img-fluid" alt='<%# Eval("Name") %>' style="max-height: 100%; object-fit: contain;" 
+                                                 onerror="this.src='assets/img/default-product.jpg';" />
+                                        </div>
+
+                                        <div class="card-body d-flex flex-column justify-content-between p-3 bg-white">
+                                            <div>
+                                                <span class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">
+                                                    <%# Eval("Name_Brand") %> • <%# Eval("Year") %>
+                                                </span>
+                                                <h6 class="fw-bold text-dark text-truncate-2 mb-2" style="font-size: 0.85rem; min-height: 36px; line-height: 1.3;" title='<%# Eval("Name") %>'>
+                                                    <%# Eval("Name") %>
+                                                </h6>
+                                            </div>
+                                            
+                                            <div class="mt-2 pt-2 border-top">
+                                                <div class="d-flex align-items-baseline gap-2">
+                                                    <span class="fw-bolder text-dark h5 mb-0">$<%# Eval("CurrentPrice", "{0:F2}") %></span>
+                                                    <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-decoration-line-through text-muted small' style='font-size:0.75rem;'>$" + Eval("Price", "{0:F2}") + "</span>" : "" %>
+                                                </div>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-dark btn-sm w-100 mt-3 fw-bold py-1" style="border-radius: 4px; font-size: 0.8rem;">View Details</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+
+                    <div class="d-flex justify-content-center align-items-center mt-5 gap-3">
+                        <asp:LinkButton ID="lnkPrevPage" runat="server" CssClass="btn btn-dark btn-sm px-3 fw-bold" OnClick="lnkPrevPage_Click">
+                            <i class="fas fa-chevron-left me-2"></i>Previous
+                        </asp:LinkButton>
+                        <span class="fw-bold text-muted small">
+                            Page <asp:Label ID="lblPageCurrent" runat="server" Text="1"></asp:Label> of <asp:Label ID="lblPageTotal" runat="server" Text="1"></asp:Label>
+                        </span>
+                        <asp:LinkButton ID="lnkNextPage" runat="server" CssClass="btn btn-dark btn-sm px-3 fw-bold" OnClick="lnkNextPage_Click">
+                            Next<i class="fas fa-chevron-right ms-2"></i>
+                        </asp:LinkButton>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </ContentTemplate>
+</asp:UpdatePanel>
+            </asp:PlaceHolder>
+
+            <!-- LABELS DE CONTROL OCULTOS (Para que no generen espacios negros en la grilla) -->
+            <div style="display: none;">
+                <asp:Label ID="label3" runat="server" Text=""></asp:Label>
+                <asp:Label ID="label4" runat="server" Text=""></asp:Label>
+                <asp:Label ID="label1" runat="server" Text=""></asp:Label>
+                <asp:Label ID="label2" runat="server" Text=""></asp:Label>
+            </div>
+
+        </main>
+        <!-- FIN DEL CONTENEDOR PRINCIPAL -->
+
+        <!-- FOOTER LIMPIO: Sin contenedores extra que dupliquen el fondo negro -->
+        <uc:Footer ID="ControlFooter" runat="server" />
+
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var slickCarousels = ['#top-selling-slick', '#new-arrivals-slick', '#wc-slick', '#laliga-slick', '#premier-slick', '#seriea-slick', '#bundesliga-slick', '#ligueone-slick'];
+
+            slickCarousels.forEach(function (id) {
+                var $target = $(id);
+
+                // Si ya fue inicializado por main.js, lo destruimos temporalmente
+                if ($target.hasClass('slick-initialized')) {
+                    $target.slick('unslick');
+                }
+
+                // Cuenta cuántas tarjetas de camisetas hay dentro de este contenedor
+                var totalCamisetas = $target.children().length;
+
+                if (totalCamisetas > 0) {
+                    var mostrarFlechas = (totalCamisetas > 4);
+
+                    $target.slick({
+                        dots: false,
+                        infinite: false,
+                        slidesToShow: 4,
+                        slidesToScroll: 1,
+                        arrows: mostrarFlechas,
+                        prevArrow: '<button type="button" class="offside-prev">&#10094;</button>',
+                        nextArrow: '<button type="button" class="offside-next">&#10095;</button>',
+                        responsive: [
+                            {
+                                breakpoint: 1024,
+                                settings: {
+                                    slidesToShow: 3,
+                                    slidesToScroll: 1,
+                                    arrows: (totalCamisetas > 3)
+                                }
+                            },
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow: 1,
+                                    slidesToScroll: 1,
+                                    arrows: (totalCamisetas > 1)
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+        });
+       
+    </script>
+</body>
+</html>

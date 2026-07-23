@@ -1,0 +1,391 @@
+/* ============================================
+   SPLIT-SCREEN AUTHENTICATION STYLES
+   ============================================ */
+   
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Inter', 'Roboto', 'Raleway', sans-serif; /* Clean minimalist typography */
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* Ocultar barra de desplazamiento si no es necesaria */
+body {
+    overflow-x: hidden;
+}
+
+.split-container {
+    display: flex;
+    height: 100vh; /* Fijo al 100% de la pantalla */
+    width: 100%;
+    overflow: hidden; /* Evita que toda la pagina haga scroll */
+}
+
+/* ============================================
+   LEFT PANEL (VISUAL / CAROUSEL)
+   ============================================ */
+.split-left {
+    flex: 6; /* 60% width */
+    position: relative;
+    background-color: #111;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Carrusel de Bootstrap Adaptado y Forzado (para evitar conflictos de versión) */
+.carousel, .carousel-inner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-item {
+    position: relative;
+    display: none;
+    height: 100%;
+    width: 100%;
+    transition: transform 0.6s ease-in-out;
+    backface-visibility: hidden;
+}
+
+.carousel-item.active,
+.carousel-item-next,
+.carousel-item-prev {
+    display: block;
+}
+
+.carousel-item-next,
+.carousel-item-prev {
+    position: absolute;
+    top: 0;
+}
+
+/* Transiciones BS4/BS5 */
+.carousel-item-next, .active.carousel-item-right, .active.carousel-item-end { transform: translateX(100%); }
+.carousel-item-prev, .active.carousel-item-left, .active.carousel-item-start { transform: translateX(-100%); }
+.carousel-item-next.carousel-item-left, .carousel-item-prev.carousel-item-right,
+.carousel-item-next.carousel-item-start, .carousel-item-prev.carousel-item-end { transform: translateX(0); }
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%; /* Cambiado de 100vh a 100% para cubrir todo el alto del contenedor */
+    width: 100%;
+    opacity: 0.6; /* Oscurecer un poco la imagen para que el texto resalte */
+}
+
+/* Overlay para asegurar legibilidad */
+.split-left::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Decorative Icon top left */
+.visual-icon {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    z-index: 2;
+    color: #fff;
+    font-size: 2rem;
+}
+
+.visual-icon img {
+    height: 35px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+/* Text & Navigation Overlay */
+.carousel-caption-custom {
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+    width: 70%;
+    z-index: 2;
+    text-align: left;
+}
+
+.carousel-text-area {
+    max-width: 80%;
+}
+
+.carousel-text-area h2 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: #ffffff;
+    margin-bottom: 25px;
+}
+
+.carousel-author h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 5px 0;
+}
+
+.carousel-author p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+/* Custom Navigation Buttons */
+.carousel-static-nav {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    z-index: 3;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-btn-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.nav-btn-circle:hover {
+    background: rgba(255, 200, 0, 0.2);
+    border-color: #FFC800;
+    color: #FFC800;
+}
+
+/* ============================================
+   RIGHT PANEL (FORM)
+   ============================================ */
+.split-right {
+    flex: 4; /* 40% width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 40px;
+    position: relative;
+    height: 100%;
+    overflow-y: auto; /* Permite scroll SOLO en el formulario si es muy alto */
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 420px;
+    margin: auto 0; /* Centra verticalmente sin cortar la parte superior si hay overflow */
+}
+
+/* Logo in the right panel */
+.brand-logo-right {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.brand-logo-right img {
+    height: 60px;
+    width: auto;
+}
+
+.form-header {
+    margin-bottom: 35px;
+}
+
+.form-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    font-size: 1rem;
+    color: #666666;
+    margin: 0;
+}
+
+/* Input Fields (Minimalist with bottom border) */
+.split-right .form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.split-right .form-control {
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 0;
+    background-color: transparent;
+    padding: 12px 0;
+    font-size: 15px;
+    color: #333333;
+    box-shadow: none;
+    transition: border-color 0.3s ease;
+}
+
+.split-right .form-control:focus {
+    border-color: #FFC800;
+    outline: none;
+    box-shadow: none;
+}
+
+.split-right .form-control::placeholder {
+    color: #999999;
+}
+
+/* Buttons */
+.split-right .btn-login, 
+.split-right .btn-register,
+.split-right .btn-main {
+    background-color: #111111;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+.split-right .btn-login:hover, 
+.split-right .btn-register:hover,
+.split-right .btn-main:hover {
+    background-color: #FFC800;
+    color: #111111;
+    transform: translateY(-1px);
+}
+
+.split-right .btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.split-right .btn-google:hover {
+    background-color: #f9f9f9;
+    border-color: #cccccc;
+}
+
+.split-right .btn-google img {
+    height: 18px;
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Links and Extras */
+.split-right .forgot-link {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.split-right .forgot-link a {
+    color: #666666;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.split-right .forgot-link a:hover {
+    color: #FFC800;
+    text-decoration: underline;
+}
+
+.split-right .register-link, 
+.split-right .login-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.split-right .register-link a, 
+.split-right .login-link a {
+    color: #111111;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.split-right .register-link a:hover, 
+.split-right .login-link a:hover {
+    color: #FFC800;
+}
+
+/* Invalid Feedback */
+.invalid-feedback {
+    display: none;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.was-validated .form-control:invalid ~ .invalid-feedback,
+.form-control.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 991px) {
+    .carousel-caption-custom {
+        bottom: 40px;
+        left: 40px;
+        right: 40px;
+    }
+    .carousel-text-area h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .split-container {
+        flex-direction: column;
+    }
+    
+    /* Ocultar el panel izquierdo en móviles */
+    .split-left {
+        display: none;
+    }
+    
+    /* El panel derecho ocupa 100% del ancho */
+    .split-right {
+        flex: none;
+        width: 100%;
+        min-height: 100vh;
+        padding: 30px 20px;
+    }
+    
+    .form-wrapper {
+        max-width: 100%;
+    }
+}

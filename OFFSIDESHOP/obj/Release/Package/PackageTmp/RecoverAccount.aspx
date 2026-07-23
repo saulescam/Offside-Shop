@@ -1,0 +1,103 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecoverAccount.aspx.cs" Inherits="OFFSIDESHOP.RecuperarContrasena" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap" rel="stylesheet" />
+    <link href="EstilosCss/AuthSplit.css" rel="stylesheet" />
+    
+    <!-- SweetAlert -->
+    <script src="SweetAlert/sweetalert2.all.min.js"></script>
+    <script src="SweetAlert/sweetalert2.js"></script>
+    
+    <title>Forgot your password? | OffsideShop</title>
+</head>
+<body>
+    <form runat="server">
+        <div class="split-container">
+            <!-- LEFT PANEL: VISUAL / CAROUSEL -->
+            <div class="split-left">
+                <div class="visual-icon">
+                    <img src="assets/img/offsidelogo.png" alt="Icon" />
+                </div>
+                
+                <div id="authCarousel" class="carousel slide" data-ride="carousel" data-bs-ride="carousel" data-interval="5000" data-bs-interval="5000">
+                    <div class="carousel-inner">
+                        <asp:Repeater ID="rptCarousel" runat="server">
+                            <ItemTemplate>
+                                <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
+                                    <img src='<%# ResolveUrl(Eval("ImageURL").ToString()) %>' alt="Slide" />
+                                    <div class="carousel-caption-custom">
+                                        <div class="carousel-text-area">
+                                            <h2>"<%# Eval("QuoteText") %>"</h2>
+                                            <div class="carousel-author">
+                                                <h4><%# Eval("AuthorName") %></h4>
+                                                <p><%# Eval("AuthorRole") %></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                    
+                    <!-- BOTONES FUERA DEL REPEATER (ESTATICOS) -->
+                    <div class="carousel-static-nav">
+                        <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="prev" data-bs-slide="prev">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                        <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="next" data-bs-slide="next">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: FORM -->
+            <div class="split-right">
+                <div class="form-wrapper">
+                    
+                    <div class="brand-logo-right">
+                        <a href="Homepage.aspx">
+                            <img src="assets/img/flag-football.png" alt="OFFSIDESHOP" />
+                        </a>
+                    </div>
+                    
+                    <div class="form-header">
+                        <h2>RECOVER</h2>
+                        <p>No problem. Enter your username or email and we'll help you recover it.</p>
+                    </div>
+
+                    <div class="login-body">
+                        <div class="form-group">
+                            <asp:TextBox ID="txtcuenta" runat="server"
+                                placeholder="Username or Email *"
+                                type="text"
+                                CssClass="form-control"
+                                required="required">
+                            </asp:TextBox>
+                        </div>
+
+                        <asp:Button runat="server" Text="Recovery" CssClass="btn-login" OnClick="Unnamed1_Click"></asp:Button>
+
+                        <div class="register-link">
+                            <p>Already remembered? <a href="Login.aspx">Back to Login</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <asp:Literal ID="alertas" runat="server" Text=""></asp:Literal>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    </form>
+</body>
+</html>
+

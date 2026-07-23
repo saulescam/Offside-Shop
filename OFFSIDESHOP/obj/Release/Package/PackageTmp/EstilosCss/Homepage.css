@@ -1,0 +1,322 @@
+<style >
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+}
+
+/* Fondo negro tenue general */
+.bg-dark-custom {
+    background: #ffffff;
+}
+
+/* Estilos para la navbar */
+.navbar {
+    background: #000000 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-brand img {
+    max-height: 45px;
+    width: auto;
+    filter: brightness(1.1);
+}
+
+.btn-outline-warning {
+    color: #000000;
+    border: 2px solid #FFC800;
+    background: linear-gradient(135deg, #FFC800 0%, #D4A000 100%);
+    border-radius: 25px;
+    padding: 8px 24px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-warning:hover {
+        background: linear-gradient(135deg, #FFE066 0%, #FFC800 100%);
+        border-color: #FFE066;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 200, 0, 0.3);
+        color: #000000;
+    }
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 10px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #FFC800;
+    }
+
+/* Estilos de las Tarjetas de Producto */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 200, 0, 0.15);
+        border-color: #FFC800 !important;
+    }
+
+/* Sección del buscador justo debajo de la navbar */
+.search-header-section {
+    background: linear-gradient(180deg, #000000 0%, #121212 100%);
+    padding-top: 110px; /* Suficiente espacio para librar la navbar fija */
+    padding-bottom: 30px;
+    border-bottom: 3px solid #FFC800; /* Detalle premium en oro */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.search-input-group {
+    border-radius: 25px;
+    overflow: hidden;
+    border: 1px solid #333333;
+    background-color: #1e1e1e;
+    transition: all 0.3s ease;
+}
+
+    .search-input-group:focus-within {
+        border-color: #FFC800;
+        box-shadow: 0 0 12px rgba(255, 200, 0, 0.35);
+    }
+
+    .search-input-group .form-control {
+        border: none;
+        background: transparent;
+        height: 46px;
+        font-size: 0.95rem;
+        color: #ffffff !important;
+    }
+
+        .search-input-group .form-control:focus {
+            box-shadow: none;
+            background: transparent;
+        }
+
+    .search-input-group .input-group-text {
+        border: none;
+        font-size: 0.95rem;
+        color: #FFC800; /* Lupa oro elegante */
+        padding-left: 15px;
+    }
+
+/* Estilo para los Dropdowns (Selects) */
+.filter-select {
+    height: 46px;
+    border-radius: 25px;
+    border: 1px solid #333333;
+    background-color: #1e1e1e;
+    color: #ffffff !important;
+    padding-left: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23FFC800' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+    padding-right: 40px;
+}
+
+    .filter-select:focus {
+        border-color: #FFC800;
+        box-shadow: 0 0 12px rgba(255, 200, 0, 0.35);
+        background-color: #1e1e1e;
+    }
+
+/* Botón de buscar premium */
+.btn-danger-custom {
+    height: 46px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #FFC800 0%, #D4A000 100%);
+    border: none;
+    color: #000000;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 200, 0, 0.2);
+}
+
+    .btn-danger-custom:hover {
+        background: linear-gradient(135deg, #FFE066 0%, #FFC800 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(255, 200, 0, 0.4);
+        color: #000000;
+    }
+
+/* Botón de reset premium */
+.btn-outline-light-custom {
+    height: 46px;
+    width: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #444444;
+    background-color: transparent;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-light-custom:hover {
+        background-color: #ffffff;
+        color: #000000 !important;
+        border-color: #ffffff;
+        transform: rotate(-180deg);
+    }
+
+/* Local Overrides for Bootstrap Classes */
+.text-danger {
+    color: #D47A00 !important;
+}
+
+.btn-outline-danger {
+    color: #D47A00 !important;
+    border-color: #FFC800 !important;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-danger:hover {
+        color: #000000 !important;
+        background-color: #FFC800 !important;
+        border-color: #FFC800 !important;
+    }
+
+/* Slick Slider overrides to display beautifully */
+.products-slick .product-card {
+    margin: 15px 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0;
+}
+
+    .products-slick .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 200, 0, 0.15);
+        border-color: #FFC800 !important;
+    }
+
+.slick-prev, .slick-next {
+    width: 40px;
+    height: 40px;
+    background: #1e1f29 !important;
+    border-radius: 50%;
+    z-index: 5;
+    transition: all 0.3s;
+}
+
+    .slick-prev:hover, .slick-next:hover {
+        background: #ffc800 !important;
+    }
+
+.slick-prev {
+    left: -20px;
+}
+
+.slick-next {
+    right: -20px;
+}
+
+    .slick-prev::before, .slick-next::before {
+        display: none !important;
+    }
+/* Asegurar que el contenedor permita posicionamiento absoluto interno */
+.products-slick {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+/* Estilos blindados para tus flechas personalizadas de OFFSIDESHOP */
+.offside-prev, .offside-next {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 9999 !important; /* Capa suprema por encima de las imágenes */
+    width: 45px !important;
+    height: 45px !important;
+    background-color: #111111 !important; /* Negro de la marca */
+    border: 2px solid #FFC800 !important; /* Borde Dorado */
+    border-radius: 50% !important;
+    color: #FFC800 !important; /* Icono Dorado */
+    font-size: 20px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5) !important; /* Sombra para resaltar */
+    transition: all 0.3s ease !important;
+}
+
+    /* Efecto Hover */
+    .offside-prev:hover, .offside-next:hover {
+        background-color: #FFC800 !important;
+        color: #111111 !important;
+        transform: translateY(-50%) scale(1.1) !important;
+    }
+
+/* Posicionamiento seguro en los extremos (metidas 10px hacia adentro para evitar recortes) */
+.offside-prev {
+    left: 10px !important;
+}
+
+.offside-next {
+    right: 10px !important;
+}
+
+    /* Comportamiento cuando llegas al límite físico de la lista (Lógica del infinite: false) */
+    /* En lugar de desaparecer el botón, lo vuelve opaco para mantener limpia la estética */
+    .offside-prev.slick-disabled, .offside-next.slick-disabled {
+        opacity: 0.25 !important;
+        cursor: not-allowed !important;
+    }
+
+#similar-slick {
+    padding: 0 50px;
+}
+
+/* Diseño responsivo para dispositivos móviles */
+@media (max-width: 767px) {
+
+    .offside-prev, .offside-next {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 16px !important;
+    }
+
+    .offside-prev {
+        left: 5px !important;
+    }
+
+    .offside-next {
+        right: 5px !important;
+    }
+}
+
+</style >
