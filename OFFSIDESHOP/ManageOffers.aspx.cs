@@ -136,7 +136,30 @@ namespace OFFSIDESHOP
                 int team = Convert.ToInt32(ddlShirtTeam.SelectedValue);
                 string queryText = txtShirtSearch.Text.Trim();
 
-                string sql = @"SELECT t.ID, t.Name, t.Price, b.Name_Brand AS BrandName, tm.Name_Team AS TeamName 
+                int currentOfferId = 0;
+                if (!string.IsNullOrEmpty(hfSelectedOfferId.Value) && int.TryParse(hfSelectedOfferId.Value, out int parsedId))
+                {
+                    currentOfferId = parsedId;
+                }
+
+                string sql = @"SELECT t.ID, t.Name, t.Price, b.Name_Brand AS BrandName, tm.Name_Team AS TeamName,
+                                      (SELECT COUNT(1) 
+                                       FROM offer_tshirts ot 
+                                       INNER JOIN offers o ON ot.Id_Offer = o.Id_Offer 
+                                       WHERE ot.Id_Tshirt = t.ID 
+                                         AND o.IsActive = 1 
+                                         AND NOW() <= o.EndDate
+                                         AND (@CurrentOfferId = 0 OR o.Id_Offer <> @CurrentOfferId)
+                                      ) AS ExistingOfferCount,
+                                      (SELECT o.Name_Offer 
+                                       FROM offer_tshirts ot 
+                                       INNER JOIN offers o ON ot.Id_Offer = o.Id_Offer 
+                                       WHERE ot.Id_Tshirt = t.ID 
+                                         AND o.IsActive = 1 
+                                         AND NOW() <= o.EndDate
+                                         AND (@CurrentOfferId = 0 OR o.Id_Offer <> @CurrentOfferId)
+                                       LIMIT 1
+                                      ) AS ExistingOfferName
                                FROM tshirts t
                                INNER JOIN brands b ON t.Id_Brand = b.Id_Brand
                                INNER JOIN teams tm ON t.Id_Team = tm.Id_Team
@@ -153,6 +176,7 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
                     MySqlCommand cmd = new MySqlCommand(sql, con);
+                    cmd.Parameters.AddWithValue("@CurrentOfferId", currentOfferId);
                     if (brand > 0) cmd.Parameters.AddWithValue("@Brand", brand);
                     if (league > 0) cmd.Parameters.AddWithValue("@League", league);
                     if (team > 0) cmd.Parameters.AddWithValue("@Team", team);
@@ -172,6 +196,48 @@ namespace OFFSIDESHOP
             }
         }
 
+        protected void gvShirtSelection_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = (DataRowView)e.Row.DataItem;
+                int existingCount = 0;
+                if (drv["ExistingOfferCount"] != DBNull.Value)
+                {
+                    existingCount = Convert.ToInt32(drv["ExistingOfferCount"]);
+                }
+
+                CheckBox chk = (CheckBox)e.Row.FindControl("chkSelectShirt");
+                Label lblStatus = (Label)e.Row.FindControl("lblShirtOfferStatus");
+
+                if (existingCount > 0)
+                {
+                    string offerName = drv["ExistingOfferName"] != DBNull.Value ? drv["ExistingOfferName"].ToString() : "Active Offer";
+                    if (chk != null)
+                    {
+                        chk.Checked = false;
+                        chk.Enabled = false;
+                    }
+                    if (lblStatus != null)
+                    {
+                        lblStatus.Text = $"<span class=\"badge bg-warning text-dark font-weight-bold\" title=\"En oferta en: {HttpUtility.HtmlEncode(offerName)}\"><i class=\"fas fa-tag mr-1\"></i>En Oferta</span>";
+                    }
+                    e.Row.ToolTip = $"Esta camiseta ya está incluida en una oferta activa ({offerName}).";
+                }
+                else
+                {
+                    if (chk != null)
+                    {
+                        chk.Enabled = true;
+                    }
+                    if (lblStatus != null)
+                    {
+                        lblStatus.Text = "<span class=\"badge bg-secondary text-light\" style=\"font-size:0.75rem; opacity:0.7;\">Disponible</span>";
+                    }
+                }
+            }
+        }
+
         private void SaveCheckedStates()
         {
             HashSet<int> selectedIds = Session["SelectedShirtIds"] as HashSet<int> ?? new HashSet<int>();
@@ -183,12 +249,16 @@ namespace OFFSIDESHOP
                     int shirtId = Convert.ToInt32(gvShirtSelection.DataKeys[row.RowIndex].Value);
                     CheckBox chk = (CheckBox)row.FindControl("chkSelectShirt");
 
-                    if (chk != null)
+                    if (chk != null && chk.Enabled)
                     {
                         if (chk.Checked)
                             selectedIds.Add(shirtId);
                         else
                             selectedIds.Remove(shirtId);
+                    }
+                    else if (chk != null && !chk.Enabled)
+                    {
+                        selectedIds.Remove(shirtId);
                     }
                 }
             }
@@ -198,7 +268,6 @@ namespace OFFSIDESHOP
         private void RestoreCheckboxSelection()
         {
             HashSet<int> selectedIds = Session["SelectedShirtIds"] as HashSet<int>;
-            if (selectedIds == null) return;
 
             foreach (GridViewRow row in gvShirtSelection.Rows)
             {
@@ -206,9 +275,13 @@ namespace OFFSIDESHOP
                 {
                     int shirtId = Convert.ToInt32(gvShirtSelection.DataKeys[row.RowIndex].Value);
                     CheckBox chk = (CheckBox)row.FindControl("chkSelectShirt");
-                    if (chk != null)
+                    if (chk != null && chk.Enabled)
                     {
-                        chk.Checked = selectedIds.Contains(shirtId);
+                        chk.Checked = selectedIds != null && selectedIds.Contains(shirtId);
+                    }
+                    else if (chk != null && !chk.Enabled)
+                    {
+                        chk.Checked = false;
                     }
                 }
             }
@@ -486,12 +559,26 @@ namespace OFFSIDESHOP
                 int team = Convert.ToInt32(ddlShirtTeam.SelectedValue);
                 string queryText = txtShirtSearch.Text.Trim();
 
-                // 4. Construimos la consulta para traer ÚNICAMENTE los IDs de todo el universo filtrado
+                int currentOfferId = 0;
+                if (!string.IsNullOrEmpty(hfSelectedOfferId.Value) && int.TryParse(hfSelectedOfferId.Value, out int parsedId))
+                {
+                    currentOfferId = parsedId;
+                }
+
+                // 4. Construimos la consulta para traer ÚNICAMENTE los IDs del universo filtrado que no estén ya en otra oferta activa
                 string sql = @"SELECT t.ID 
                        FROM tshirts t
                        INNER JOIN brands b ON t.Id_Brand = b.Id_Brand
                        INNER JOIN teams tm ON t.Id_Team = tm.Id_Team
-                       WHERE 1=1";
+                       WHERE 1=1
+                         AND NOT EXISTS (
+                             SELECT 1 FROM offer_tshirts ot
+                             INNER JOIN offers o ON ot.Id_Offer = o.Id_Offer
+                             WHERE ot.Id_Tshirt = t.ID
+                               AND o.IsActive = 1
+                               AND NOW() <= o.EndDate
+                               AND (@CurrentOfferId = 0 OR o.Id_Offer <> @CurrentOfferId)
+                         )";
 
                 if (brand > 0) sql += " AND t.Id_Brand = @Brand";
                 if (league > 0) sql += " AND tm.Id_League = @League";
@@ -502,6 +589,7 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
                     MySqlCommand cmd = new MySqlCommand(sql, con);
+                    cmd.Parameters.AddWithValue("@CurrentOfferId", currentOfferId);
                     if (brand > 0) cmd.Parameters.AddWithValue("@Brand", brand);
                     if (league > 0) cmd.Parameters.AddWithValue("@League", league);
                     if (team > 0) cmd.Parameters.AddWithValue("@Team", team);

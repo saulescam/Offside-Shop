@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOffers.aspx.cs" Inherits="OFFSIDESHOP.ManageOffers" Culture="en-US" UICulture="en-US" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOffers.aspx.cs" Inherits="OFFSIDESHOP.ManageOffers" Culture="en-US" UICulture="en-US" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -476,7 +476,7 @@
                                         </div>
 
                                         <div class="shirt-selector-container">
-                                            <asp:GridView ID="gvShirtSelection" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle mb-0" DataKeyNames="ID" AllowPaging="True" PageSize="10" OnPageIndexChanging="gvShirtSelection_PageIndexChanging">
+                                            <asp:GridView ID="gvShirtSelection" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle mb-0" DataKeyNames="ID" AllowPaging="True" PageSize="10" OnPageIndexChanging="gvShirtSelection_PageIndexChanging" OnRowDataBound="gvShirtSelection_RowDataBound">
                                                 <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Apply">
@@ -493,6 +493,11 @@
                                                     <asp:BoundField DataField="BrandName" HeaderText="Brand" />
                                                     <asp:BoundField DataField="TeamName" HeaderText="Team" />
                                                     <asp:BoundField DataField="Price" HeaderText="Base Price" DataFormatString="{0:C}" HtmlEncode="false" />
+                                                    <asp:TemplateField HeaderText="Status">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblShirtOfferStatus" runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                 </Columns>
                                             </asp:GridView>
                                         </div>

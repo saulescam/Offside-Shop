@@ -938,7 +938,7 @@
     </script>
 </head>
 <body id="page-top">
-    <form runat="server">
+    <form runat="server" defaultbutton="btnSearch">
 
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
@@ -1014,7 +1014,7 @@
                             <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
                                 <i class="fas fa-clipboard-list"></i> My Orders
                             </asp:LinkButton>
-                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" UseSubmitBehavior="false" />
                         </div>
                     </div>
                 </ContentTemplate>
@@ -1046,7 +1046,7 @@
                                     <a href="Dashboard.aspx" class="dropdown-item">
                                         <i class="fas fa-chart-line"></i>Dashboard
                                     </a>
-                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" UseSubmitBehavior="false" />
                                 </div>
                             </div>
                         </div>
@@ -1056,7 +1056,7 @@
             </div>
         </nav>
 
-        <div class="search-header-section">
+        <asp:Panel ID="pnlSearchHeader" runat="server" DefaultButton="btnSearch" CssClass="search-header-section">
             <div class="container">
 
                 <div class="d-block d-lg-none mb-3">
@@ -1120,7 +1120,7 @@
                 </div>
 
             </div>
-        </div>
+        </asp:Panel>
         <asp:PlaceHolder ID="phCarousel" runat="server">
             <div class="carousel-container">
                 <div id="demo" class="carousel slide" data-bs-ride="carousel">
