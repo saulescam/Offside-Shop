@@ -572,6 +572,9 @@
     <Compile Include="SmtpSettings.aspx.designer.cs">
       <DependentUpon>SmtpSettings.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WalletWebhook.ashx.cs">
+      <DependentUpon>WalletWebhook.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\bootstrap.bundle.js.map" />
@@ -590,6 +593,7 @@
     <Content Include="fonts\slick.ttf" />
     <Content Include="fonts\slick.woff" />
     <None Include="packages.config" />
+    <Content Include="WalletWebhook.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

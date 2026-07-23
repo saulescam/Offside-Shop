@@ -348,6 +348,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton payment3;
 
         /// <summary>
+        /// Control payment4.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton payment4;
+
+        /// <summary>
         /// Control hfTransactionID.
         /// </summary>
         /// <remarks>
@@ -364,6 +373,15 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirmPayPalPayment;
+
+        /// <summary>
+        /// Control btnConfirmWalletPayment.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnConfirmWalletPayment;
 
         /// <summary>
         /// Control btnPlaceOrder.

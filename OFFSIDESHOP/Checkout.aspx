@@ -544,36 +544,47 @@
                                         <p>Pay safely via PayPal using your credit card, debit card, or PayPal balance. You will be redirected to the secure gateway to complete your transaction.</p>
                                     </div>
                                 </div>
-
-                                <%-- <!-- Virtual Wallet System -->
+                                <!-- Virtual Wallet System -->
                                 <div class="input-radio mt-2">
                                     <input type="radio" name="payment" id="payment4" runat="server" value="VirtualWallet" onclick="togglePaymentCaptions(this)">
                                     <label for="payment4"><span></span>Virtual Wallet <i class="fas fa-wallet text-success ms-1"></i></label>
+
                                     <div class="caption" id="caption-4" style="display: none;">
                                         <p>Use your VirtualWallet account to pay safely.</p>
-                                        
-                                        <!-- Contenedor del Checkout de la Billetera -->
-                                        <div id="virtual-wallet-checkout" style="text-align: center; margin-top: 15px; display:none;"></div>
-                                    </div>
-                                </div> --%>
-                            </div>
 
-                            <div class="input-checkbox mt-3">
+                                        <!-- Contenedor del Checkout de la Billetera (Sin display:none fijo) -->
+                                        <div id="virtual-wallet-checkout" style="text-align: center; margin-top: 15px;">
+
+                                            <!-- EL SCRIPT DEBE IR AQUÍ para que el botón se dibuje dentro de este panel -->
+                                            <script
+                                                src="http://192.168.3.27:8000/api/v1/widget/checkout.js"
+                                                data-vw-widget="true"
+                                                data-client-id="pk_sandbox_z7HAhorZnXVtsCBW"
+                                                data-secret-key="sk_live_tBpZJvNwx661"
+                                                data-amount-id="vw_monto"
+                                                data-desc-id="DescCarrito">
+                                            </script>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-checkbox mt-3">
                                 <input type="checkbox" id="terms">
                                 <label for="terms"><span></span>I've read and accept the <a href="#">terms & conditions</a></label>
                             </div>
 
-                            <asp:HiddenField ID="hfTransactionID" runat="server" />
-                            <asp:Button ID="btnConfirmPayPalPayment" runat="server" Style="display: none;" OnClick="btnConfirmPayPalPayment_Click" />
-                            
-                            <%-- <!-- BOTÓN DE CONFIRMACIÓN DE LA BILLETERA VIRTUAL PARA EL BACKEND (C#) -->
-                            <asp:Button ID="btnConfirmWalletPayment" runat="server" Style="display: none;" OnClick="btnPlaceOrder_Click" /> --%>
+                                <asp:HiddenField ID="hfTransactionID" runat="server" />
+                                <asp:Button ID="btnConfirmPayPalPayment" runat="server" Style="display: none;" OnClick="btnConfirmPayPalPayment_Click" />
 
-                            <div class="mt-4">
-                                <asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" CssClass="primary-btn order-submit w-100" Style="display: none !important;" OnClick="btnPlaceOrder_Click" OnClientClick="return validarCheckout();" />
-                                <div id="paypal-button-container" class="mt-3" style="display: none !important;"></div>
+                                <!-- BOTÓN DE CONFIRMACIÓN DE LA BILLETERA VIRTUAL PARA EL BACKEND (C#) -->
+                                <asp:Button ID="btnConfirmWalletPayment" runat="server" Style="display: none;" OnClick="btnConfirmWalletPayment_Click" />
+                                <div class="mt-4">
+                                    <asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" CssClass="primary-btn order-submit w-100" Style="display: none !important;" OnClick="btnPlaceOrder_Click" OnClientClick="return validarCheckout();" />
+                                    <div id="paypal-button-container" class="mt-3" style="display: none !important;"></div>
+                                </div>
+
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -619,36 +630,64 @@
                 else if (radioElement.id.indexOf('payment4') !== -1) {
                     if (cap4) cap4.style.display = 'block';
 
+                    // Ocultar botones que no son de la billetera
+                    if (btnNormal) btnNormal.style.setProperty('display', 'none', 'important');
+                    if (btnPayPal) btnPayPal.style.setProperty('display', 'none', 'important');
+
                     // Sincronizar montos al alternar al método de la billetera
                     sincronizarMontosBilletera();
                 }
             }
         </script>
 
-        <%-- <!-- CARGA DEL SCRIPT DE LA BILLETERA VIRTUAL DE TUS COMPAÑEROS -->
+
         <script
-            src="http://192.168.31.107:8000/api/v1/widget/checkout.js"
+            src="http://192.168.3.27:8000/api/v1/widget/checkout.js"
             data-vw-widget="true"
-            data-client-id="pk_sandbox_E2oFx5ucnhJMGom8"
-            data-secret-key="sk_live_e22dBvRzXtMT"
+            data-client-id="pk_sandbox_z7HAhorZnXVtsCBW"
+            data-secret-key="sk_live_tBpZJvNwx661"
             data-amount-id="vw_monto"
             data-desc-id="DescCarrito">
-        </script> --%>
+        </script>
 
-        <script src="https://www.paypal.com/sdk/js?client-id=AejQEmRXV3PTfVnwchx6ti6AlPsYbETlZgM4AtfUXa2IO4AykiJkUtL6wPJcafyn5kzlagVr4fH60nyH&currency=USD"></script>
-        
-        <script type="text/javascript">
-            window.addEventListener('load', function () {
-                // Sincronizar montos iniciales
-                sincronizarMontosBilletera();
+            <script src="https://www.paypal.com/sdk/js?client-id=AejQEmRXV3PTfVnwchx6ti6AlPsYbETlZgM4AtfUXa2IO4AykiJkUtL6wPJcafyn5kzlagVr4fH60nyH&currency=USD"></script>
 
-                // Interceptar peticiones parciales asíncronas para actualizar la billetera ante cupones o envíos
-                if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
-                    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                        sincronizarMontosBilletera();
+            <script type="text/javascript">
+                window.addEventListener('load', function () {
+                    // Sincronizar montos iniciales
+                    sincronizarMontosBilletera();
+                    // ESCUCHADOR DE ÉXITO DE LA BILLETERA VIRTUAL
+                    window.addEventListener('message', function (event) {
+                        // Seguridad básica (opcional, ajusta a la IP/puerto real de la billetera si usa iframes)
+                        // if (event.origin !== "http://192.168.3.27:8000") return;
 
-                        // Re-evaluar el estado del radio button activo tras un postback parcial
-                        var checkedRadio = document.querySelector('input[name="payment"]:checked');
+                        // Asumiendo que el widget envía un mensaje o evento cuando el pago es exitoso
+                        if (event.data === 'vw-payment-success' || event.data.status === 'success') {
+
+                            // 1. Opcional: Guardar el ID de transacción de la billetera si te lo envían
+                            if (event.data.transactionId) {
+                                document.getElementById('<%= hfTransactionID.ClientID %>').value = event.data.transactionId;
+                            }
+
+                            // 2. Mostrar la pantalla de carga de tu tienda para congelar la pantalla
+                            var loader = document.getElementById('payment-loader');
+                            if (loader) loader.style.display = 'flex';
+                            isPaymentSubmitting = true;
+
+                            // 3. Simular el clic en el botón oculto para ir al C#
+                            setTimeout(function () {
+                                var btnWallet = document.getElementById('<%= btnConfirmWalletPayment.ClientID %>');
+                            if (btnWallet) btnWallet.click();
+                        }, 800);
+                        }
+                    });
+                    // Interceptar peticiones parciales asíncronas para actualizar la billetera ante cupones o envíos
+                    if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
+                        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                            sincronizarMontosBilletera();
+
+                            // Re-evaluar el estado del radio button activo tras un postback parcial
+                            var checkedRadio = document.querySelector('input[name="payment"]:checked');
                         if (checkedRadio) {
                             togglePaymentCaptions(checkedRadio);
                         }
@@ -749,7 +788,7 @@
                 }
                 return true;
             }
-        </script>
+            </script>
 
         <!-- MAPA INTELIGENTE CON GEOCODING CLIENT-SIDE (OPTIMIZADO) -->
         <script type="text/javascript">
