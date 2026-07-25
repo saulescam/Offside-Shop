@@ -1,5 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DetailsShirt.aspx.cs" Inherits="OFFSIDESHOP.DetailsShirt" %>
-
+<%@ Register Src="~/ChatbotControl.ascx" TagPrefix="uc" TagName="Chatbot" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -1301,6 +1301,7 @@
                 </div>
             </div>
         </div>
+        <uc:Chatbot runat="server" ID="ucChatbot" />
 
         <uc:Footer ID="ControlFooter" runat="server" />
         <asp:UpdatePanel ID="upAlerta" runat="server" UpdateMode="Always">
@@ -1310,8 +1311,8 @@
         </asp:UpdatePanel>
     </form>
 
-   
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/slick.min.js"></script>

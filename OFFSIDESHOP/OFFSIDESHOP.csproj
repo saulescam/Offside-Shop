@@ -267,6 +267,7 @@
     <Content Include="camisapreview\camiseta.png" />
     <Content Include="Cart.aspx" />
     <Content Include="ChangePassword.aspx" />
+    <Content Include="ChatbotControl.ascx" />
     <Content Include="Checkout.aspx" />
     <Content Include="ContactSupport.aspx" />
     <Content Include="css\admin-layout.css" />
@@ -390,6 +391,16 @@
     </Compile>
     <Compile Include="ChangePassword.aspx.designer.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChatbotControl.ascx.cs">
+      <DependentUpon>ChatbotControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChatbotControl.ascx.designer.cs">
+      <DependentUpon>ChatbotControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ChatHandler.ashx.cs">
+      <DependentUpon>ChatHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Checkout.aspx.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
@@ -592,6 +603,7 @@
     <Content Include="fonts\slick.eot" />
     <Content Include="fonts\slick.ttf" />
     <Content Include="fonts\slick.woff" />
+    <Content Include="ChatHandler.ashx" />
     <None Include="packages.config" />
     <Content Include="WalletWebhook.ashx" />
     <None Include="Web.Debug.config">

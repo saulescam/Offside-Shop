@@ -1,13 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using System.Xml.Linq;
 
 namespace OFFSIDESHOP
 {
@@ -16,8 +12,7 @@ namespace OFFSIDESHOP
         private static readonly HttpClient httpClient = new HttpClient();
         private readonly string apiKey = ConfigurationManager.AppSettings["GeminiApiKey"];
 
-        // FIX: Changed default model from 'gemini-1.5-flash' to 'gemini-1.5-flash-latest'
-        // Método genérico para llamar a Gemini - Restaurado a flash
+        // Método genérico para llamar a Gemini - Actualizado a 3.5-flash
         public async Task<string> CallGeminiAsync(string prompt, string model = "gemini-3.5-flash", string systemInstruction = null)
         {
             string url = $"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={apiKey}";
@@ -35,9 +30,11 @@ namespace OFFSIDESHOP
 
             if (!string.IsNullOrEmpty(systemInstruction))
             {
-                requestBody["system_instruction"] = new JObject
+                // CORRECCIÓN 1: El nombre del parámetro es systemInstruction (camelCase)
+                // CORRECCIÓN 2: parts debe ser un JArray, igual que en contents
+                requestBody["systemInstruction"] = new JObject
                 {
-                    ["parts"] = new JObject { ["text"] = systemInstruction }
+                    ["parts"] = new JArray { new JObject { ["text"] = systemInstruction } }
                 };
             }
 

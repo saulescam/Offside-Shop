@@ -510,6 +510,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.Literal litSizeGuideTable;
 
         /// <summary>
+        /// Control ucChatbot.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::OFFSIDESHOP.ChatbotControl ucChatbot;
+
+        /// <summary>
         /// Control ControlFooter.
         /// </summary>
         /// <remarks>
