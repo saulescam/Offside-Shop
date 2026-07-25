@@ -2,8 +2,8 @@
 <!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\diego\OneDrive\Escritorio\OffsideShop-WEB</_PublishTargetUrl>
-    <History>True|2026-07-25T16:52:45.9613993Z||;</History>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\OffsideShop-WEB</_PublishTargetUrl>
+    <History>True|2026-07-25T20:07:19.2293162Z||;True|2026-07-25T10:52:45.9613993-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -257,10 +257,10 @@
       <publishTime>07/22/2026 20:31:36</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.dll">
-      <publishTime>07/25/2026 10:52:41</publishTime>
+      <publishTime>07/25/2026 14:12:11</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.pdb">
-      <publishTime>07/25/2026 10:52:41</publishTime>
+      <publishTime>07/25/2026 14:12:11</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/22/2026 20:31:36</publishTime>
@@ -454,6 +454,12 @@
     <File Include="ChangePassword.aspx">
       <publishTime>07/22/2026 20:31:32</publishTime>
     </File>
+    <File Include="ChatbotControl.ascx">
+      <publishTime>07/25/2026 13:15:12</publishTime>
+    </File>
+    <File Include="ChatHandler.ashx">
+      <publishTime>07/25/2026 12:22:07</publishTime>
+    </File>
     <File Include="Checkout.aspx">
       <publishTime>07/25/2026 10:23:33</publishTime>
     </File>
@@ -503,7 +509,7 @@
       <publishTime>07/22/2026 20:31:32</publishTime>
     </File>
     <File Include="DetailsShirt.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>07/25/2026 13:15:12</publishTime>
     </File>
     <File Include="EstilosCss/AuthSplit.css">
       <publishTime>07/22/2026 20:31:32</publishTime>
@@ -563,7 +569,7 @@
       <publishTime>07/22/2026 20:31:32</publishTime>
     </File>
     <File Include="Homepage.aspx">
-      <publishTime>07/25/2026 10:23:33</publishTime>
+      <publishTime>07/25/2026 12:28:00</publishTime>
     </File>
     <File Include="js/bootstrap.bundle.js">
       <publishTime>07/22/2026 20:31:34</publishTime>

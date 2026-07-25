@@ -1,5 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Homepage.aspx.cs" Inherits="OFFSIDESHOP.Homepage" %>
-
+<%@ Register Src="~/ChatbotControl.ascx" TagPrefix="uc" TagName="Chatbot" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
 <!DOCTYPE html>
@@ -1743,6 +1743,7 @@
             <asp:Label ID="label1" runat="server" Text=""></asp:Label>
             <asp:Label ID="label2" runat="server" Text=""></asp:Label>
         </div>
+        <uc:Chatbot runat="server" ID="ucChatbot" />
         <!-- FOOTER LIMPIO: Sin contenedores extra que dupliquen el fondo negro -->
         <uc:Footer ID="ControlFooter" runat="server" />
 
