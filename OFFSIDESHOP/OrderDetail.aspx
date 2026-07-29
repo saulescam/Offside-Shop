@@ -20,6 +20,8 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/details.css" rel="stylesheet" />
@@ -319,7 +321,7 @@
                         <div class="ms-auto" id="trackerButtonContainer" runat="server" visible="false">
                             <asp:LinkButton ID="btnTrackOrder" runat="server" CssClass="btn btn-dark fw-bold text-warning rounded-pill px-4 shadow-sm" OnClientClick="openTrackingModal(); return false;">
         <i class="fas fa-map-marked-alt me-2"></i> Track Delivery
-    </asp:LinkButton>
+                            </asp:LinkButton>
                         </div>
 
                         <asp:HiddenField ID="hfTrackOrderId" ClientIDMode="Static" runat="server" />
@@ -511,7 +513,7 @@
                     <div class="modal-body p-0">
                         <div id="liveMap" style="height: 420px; width: 100%; z-index: 1;"></div>
                         <div id="trackingStatusLabel" style="padding: 8px 16px; font-size: 0.8rem; color: #555; background: #f8f9fa; border-top: 1px solid #eee; min-height: 34px;">
-                            <i class="fas fa-spinner fa-spin me-1"></i> Connecting to delivery driver...
+                            <i class="fas fa-spinner fa-spin me-1"></i>Connecting to delivery driver...
                         </div>
                     </div>
                 </div>
@@ -526,8 +528,7 @@
         var homeMarker = null;
         var driverMarker = null;
         var trackingInterval = null;
-        var liveRouteLine = null;
-
+        var liveRoutingControl = null;
         function openTrackingModal() {
             var orderId = document.getElementById('hfTrackOrderId').value;
             var lat = parseFloat(document.getElementById('hfOrderLat').value);
@@ -538,7 +539,10 @@
             modal.show();
 
             modalEl.addEventListener('shown.bs.modal', function () {
-                if (liveMap !== null) { liveMap.remove(); liveMap = null; homeMarker = null; driverMarker = null; liveRouteLine = null; }
+                if (liveRoutingControl !== null) {
+                    if (liveMap) liveMap.removeControl(liveRoutingControl);
+                    liveRoutingControl = null;
+                }
 
                 // Tiles de alta calidad CARTO Voyager
                 liveMap = L.map('liveMap').setView([lat, lng], 15);
@@ -570,7 +574,10 @@
 
             modalEl.addEventListener('hidden.bs.modal', function () {
                 if (trackingInterval !== null) { clearInterval(trackingInterval); trackingInterval = null; }
-                if (liveMap !== null) { liveMap.remove(); liveMap = null; homeMarker = null; driverMarker = null; liveRouteLine = null; }
+                if (liveRoutingControl !== null) {
+                    if (liveMap) liveMap.removeControl(liveRoutingControl);
+                    liveRoutingControl = null;
+                }
             }, { once: true });
         }
 
@@ -610,16 +617,46 @@
                             driverMarker.setLatLng([dLat, dLng]);
                         }
 
-                        // Actualizar linea de ruta entre driver y destino
+                        // Actualizar ruta sobre calles entre driver y destino
                         if (homeMarker) {
                             var destLatLng = homeMarker.getLatLng();
-                            if (liveRouteLine !== null) liveMap.removeLayer(liveRouteLine);
-                            liveRouteLine = L.polyline([[dLat, dLng], [destLatLng.lat, destLatLng.lng]], {
-                                color: '#FFC800',
-                                weight: 3,
-                                dashArray: '8, 6',
-                                opacity: 0.9
-                            }).addTo(liveMap);
+
+                            if (liveRoutingControl === null) {
+                                // Crear ruta inicial por calles
+                                liveRoutingControl = L.Routing.control({
+                                    waypoints: [
+                                        L.latLng(dLat, dLng),
+                                        L.latLng(destLatLng.lat, destLatLng.lng)
+                                    ],
+                                    router: L.Routing.osrmv1({
+                                        language: 'es',
+                                        profile: 'driving'
+                                    }),
+                                    lineOptions: {
+                                        styles: [
+                                            { color: '#1a1a1a', opacity: 0.9, weight: 6 },
+                                            { color: '#FFC800', opacity: 1, weight: 4, dashArray: '8, 6' }
+                                        ]
+                                    },
+                                    createMarker: function () { return null; }, // Evita pines duplicados
+                                    addWaypoints: false,
+                                    routeWhileDragging: false,
+                                    fitSelectedRoutes: false,
+                                    show: false
+                                }).addTo(liveMap);
+
+                                // Ocultar el panel de texto con instrucciones de giro
+                                setTimeout(function () {
+                                    var container = document.querySelector('.leaflet-routing-container');
+                                    if (container) container.style.display = 'none';
+                                }, 100);
+                            } else {
+                                // Si la ruta ya existe, solo movemos al driver
+                                liveRoutingControl.setWaypoints([
+                                    L.latLng(dLat, dLng),
+                                    L.latLng(destLatLng.lat, destLatLng.lng)
+                                ]);
+                            }
                         }
 
                         // Mantener el driver visible si sale del bounding box

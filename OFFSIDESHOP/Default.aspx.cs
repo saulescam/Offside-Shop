@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +11,20 @@ namespace OFFSIDESHOP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect("Homepage.aspx");
-
+            if (Session["UserRole"] != null)
+            {
+                int role = Convert.ToInt32(Session["UserRole"]);
+                if (role == 1 || role == 2)
+                    Response.Redirect("Dashboard.aspx");
+                else if (role == 3)
+                    Response.Redirect("Homepage.aspx");
+                else if (role == 4)
+                    Response.Redirect("DeliveryDashboard.aspx");
+            }
+            else
+            {
+                Response.Redirect("Homepage.aspx");
+            }
         }
     }
 }

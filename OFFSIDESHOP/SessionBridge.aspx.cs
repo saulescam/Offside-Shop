@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web.UI;
 
 namespace OFFSIDESHOP
@@ -9,6 +9,14 @@ namespace OFFSIDESHOP
         {
             string ticket = Request.QueryString["ticket"];
             var datos = LoginTicketStore.ConsumirTicket(ticket);
+
+            string logPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "session_bridge_log.txt");
+            string logMsg = $"{DateTime.Now}: SessionBridge loaded. Ticket: {ticket}, Datos is null: {datos == null}";
+            if (datos != null)
+            {
+                logMsg += $", IdRole: {datos.IdRole}, UserName: {datos.UserName}, UserId: {datos.UserId}";
+            }
+            System.IO.File.AppendAllText(logPath, logMsg + Environment.NewLine);
 
             if (datos == null)
             {
@@ -29,6 +37,11 @@ namespace OFFSIDESHOP
             {
                 Session["Admin"] = System.Web.HttpUtility.HtmlEncode(datos.UserName);
                 Response.Redirect("Dashboard.aspx");
+            }
+            else if (datos.IdRole == 4)
+            {
+                Session["Delivery"] = System.Web.HttpUtility.HtmlEncode(datos.UserName);
+                Response.Redirect("DeliveryDashboard.aspx");
             }
             else
             {

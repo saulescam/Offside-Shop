@@ -60,6 +60,11 @@ namespace OFFSIDESHOP
                         CargarDatosPerfilUsuario();
                     }
                 }
+                else if (userRole == 4)
+                {
+                    // Si un repartidor entra a la página de inicio, lo mandamos a su panel
+                    Response.Redirect("DeliveryDashboard.aspx");
+                }
                 else
                 {
                     // Por seguridad, si hay un rol desconocido, se trata como invitado

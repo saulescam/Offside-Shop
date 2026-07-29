@@ -164,6 +164,11 @@ namespace OFFSIDESHOP
             };
 
             string ticket = LoginTicketStore.CrearTicket(datos);
+
+            string logPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "session_bridge_log.txt");
+            string logMsg = $"{DateTime.Now}: ExternalLoginResult ApplySessionAndRedirect called. UserName: {userName}, IdRole: {idRole}, UserId: {userId}, Ticket: {ticket}";
+            System.IO.File.AppendAllText(logPath, logMsg + Environment.NewLine);
+
             Response.Redirect(LoginTicketStore.LocalUrl("SessionBridge.aspx?ticket=" + ticket));
         }
     }

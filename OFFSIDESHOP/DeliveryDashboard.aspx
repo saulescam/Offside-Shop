@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
     <style>
         body {
@@ -281,8 +283,8 @@
     <script type="text/javascript">
         var driverMap = null;
         var destMarker = null;
-        var driverCurrentMarker = null;
-        var routeLine = null;
+var driverCurrentMarker = null;
+        var routingControl = null;
         var trackingWatchId = null;
 
         // 1. Inicializa el mapa y el destino
@@ -306,7 +308,11 @@
                 driverMap = null;
                 destMarker = null;
                 driverCurrentMarker = null;
-                routeLine = null;
+
+                // Limpiar rutas
+                if (routingControl !== null) {
+                    routingControl = null;
+                }
             }
 
             // Crear mapa con tiles de mayor calidad (CARTO Voyager)
@@ -387,18 +393,45 @@
                     driverCurrentMarker.setLatLng([lat, lng]);
                 }
 
-                // Actualizar la línea de ruta entre driver y destino
+                // Actualizar la ruta sobre CALLES entre driver y destino
                 if (destMarker !== null) {
                     var destLatLng = destMarker.getLatLng();
-                    if (routeLine !== null) {
-                        driverMap.removeLayer(routeLine);
+
+                    if (routingControl === null) {
+                        // Crear la ruta por primera vez
+                        routingControl = L.Routing.control({
+                            waypoints: [
+                                L.latLng(lat, lng), // Posición actual del driver
+                                L.latLng(destLatLng.lat, destLatLng.lng) // Destino
+                            ],
+                            // Usar el servidor público de OSRM para calles
+                            router: L.Routing.osrmv1({
+                                language: 'es',
+                                profile: 'driving' // Modo de conducción
+                            }),
+                            lineOptions: {
+                                styles: [{ color: '#FFC800', opacity: 0.9, weight: 5 }] // Mantiene el estilo y color exacto
+                            },
+                            // Evitar que dibuje los pines por defecto (porque tú ya tienes los tuyos personalizados)
+                            createMarker: function() { return null; },
+                            // Configuraciones para ocultar el panel de texto y evitar alteraciones
+                            addWaypoints: false,
+                            routeWhileDragging: false,
+                            fitSelectedRoutes: false,
+                            show: false
+                        }).addTo(driverMap);
+
+                        // Ocultar forzosamente el panel de instrucciones de giro con CSS inyectado
+                        var routingContainer = document.querySelector('.leaflet-routing-container');
+                        if (routingContainer) routingContainer.style.display = 'none';
+
+                    } else {
+                        // Si la ruta ya existe, solo actualizamos el punto de inicio con el nuevo GPS
+                        routingControl.setWaypoints([
+                            L.latLng(lat, lng),
+                            L.latLng(destLatLng.lat, destLatLng.lng)
+                        ]);
                     }
-                    routeLine = L.polyline([[lat, lng], [destLatLng.lat, destLatLng.lng]], {
-                        color: '#FFC800',
-                        weight: 3,
-                        dashArray: '8, 6',
-                        opacity: 0.85
-                    }).addTo(driverMap);
                 }
 
                 // En la primera posición: hacer fitBounds para ver ambos pines

@@ -15,6 +15,15 @@ namespace OFFSIDESHOP
     {
 
         /// <summary>
+        /// Control ScriptManager1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+
+        /// <summary>
         /// Control phNavbarGuest.
         /// </summary>
         /// <remarks>
@@ -33,6 +42,69 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.PlaceHolder phNavbarUser;
 
         /// <summary>
+        /// Control upPerfil.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upPerfil;
+
+        /// <summary>
+        /// Control lblFullName.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFullName;
+
+        /// <summary>
+        /// Control lblUserEmail.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserEmail;
+
+        /// <summary>
+        /// Control btnGoToAccount.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnGoToAccount;
+
+        /// <summary>
+        /// Control btnMyOrders.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnMyOrders;
+
+        /// <summary>
+        /// Control btnNavCart.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnNavCart;
+
+        /// <summary>
+        /// Control lblCartCount.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCartCount;
+
+        /// <summary>
         /// Control btncerrar.
         /// </summary>
         /// <remarks>
@@ -40,6 +112,33 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btncerrar;
+
+        /// <summary>
+        /// Control phNavbarAdmin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phNavbarAdmin;
+
+        /// <summary>
+        /// Control lblAdminName.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdminName;
+
+        /// <summary>
+        /// Control btnlogout.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnlogout;
 
         /// <summary>
         /// Control lblOrderId.
@@ -364,61 +463,6 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitAction;
-
-        /// <summary>
-        /// Control ScriptManager1.
-        /// </summary>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
-
-        /// <summary>
-        /// Control upPerfil.
-        /// </summary>
-        protected global::System.Web.UI.UpdatePanel upPerfil;
-
-        /// <summary>
-        /// Control lblFullName.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Label lblFullName;
-
-        /// <summary>
-        /// Control lblUserEmail.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Label lblUserEmail;
-
-        /// <summary>
-        /// Control btnGoToAccount.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.LinkButton btnGoToAccount;
-
-        /// <summary>
-        /// Control btnMyOrders.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.LinkButton btnMyOrders;
-
-        /// <summary>
-        /// Control btnNavCart.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.LinkButton btnNavCart;
-
-        /// <summary>
-        /// Control lblCartCount.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Label lblCartCount;
-
-        /// <summary>
-        /// Control phNavbarAdmin.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.PlaceHolder phNavbarAdmin;
-
-        /// <summary>
-        /// Control lblAdminName.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Label lblAdminName;
-
-        /// <summary>
-        /// Control btnlogout.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnlogout;
 
         /// <summary>
         /// Control ControlFooter.
