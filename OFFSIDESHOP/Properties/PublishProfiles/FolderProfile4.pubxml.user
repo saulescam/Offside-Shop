@@ -3,7 +3,7 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\inetpub\wwwroot\Offsideshop-Web</_PublishTargetUrl>
-    <History>True|2026-07-29T17:22:30.9808218Z||;True|2026-07-29T09:21:47.1736561-06:00||;False|2026-07-29T09:20:11.8609744-06:00||;False|2026-07-29T09:18:19.2222043-06:00||;</History>
+    <History>True|2026-07-29T17:51:46.7629338Z||;True|2026-07-29T11:44:45.3727383-06:00||;False|2026-07-29T11:42:55.5015850-06:00||;False|2026-07-29T11:42:04.9228688-06:00||;False|2026-07-29T11:41:50.0610829-06:00||;True|2026-07-29T11:22:30.9808218-06:00||;True|2026-07-29T09:21:47.1736561-06:00||;False|2026-07-29T09:20:11.8609744-06:00||;False|2026-07-29T09:18:19.2222043-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -257,10 +257,10 @@
       <publishTime>07/23/2026 07:40:23</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.dll">
-      <publishTime>07/29/2026 11:22:29</publishTime>
+      <publishTime>07/29/2026 11:51:45</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.pdb">
-      <publishTime>07/29/2026 11:22:29</publishTime>
+      <publishTime>07/29/2026 11:51:45</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/23/2026 07:40:23</publishTime>
@@ -506,7 +506,7 @@
       <publishTime>07/23/2026 07:40:21</publishTime>
     </File>
     <File Include="DeliveryDashboard.aspx">
-      <publishTime>07/29/2026 09:36:06</publishTime>
+      <publishTime>07/29/2026 11:42:03</publishTime>
     </File>
     <File Include="DetailsShirt.aspx">
       <publishTime>07/29/2026 08:25:02</publishTime>
@@ -641,7 +641,7 @@
       <publishTime>07/23/2026 07:40:21</publishTime>
     </File>
     <File Include="OrderDetail.aspx">
-      <publishTime>07/29/2026 10:12:08</publishTime>
+      <publishTime>07/29/2026 11:42:53</publishTime>
     </File>
     <File Include="RecoverAccount.aspx">
       <publishTime>07/23/2026 07:40:21</publishTime>

@@ -693,6 +693,18 @@ namespace OFFSIDESHOP
                     bool isCustom = isCustomizable && chkCustomize.Checked;
                     string customName = isCustom ? txtCustomName.Text.Trim().ToUpper() : "";
                     string customNumber = isCustom ? txtCustomNumber.Text.Trim() : "";
+                    // =========================================================
+                    // NUEVA VALIDACIÓN DE PALABRAS PROHIBIDAS Y ALBURES
+                    // =========================================================
+                    if (isCustom && !string.IsNullOrEmpty(customName))
+                    {
+                        if (!IsCustomNameAllowed(customName))
+                        {
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "forbiddenWord",
+                                "Swal.fire({ title: 'Attention', text: 'The customized name contains restricted terms or inappropriate language. Please choose another name.', icon: 'warning', confirmButtonColor: '#FFC800' });", true);
+                            return; // Detiene el proceso y no lo agrega al carrito
+                        }
+                    }
 
                     if (isCustom)
                     {
@@ -1062,6 +1074,28 @@ namespace OFFSIDESHOP
             string name = nameObj.ToString().ToLower().Trim();
             System.Globalization.TextInfo textInfo = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
             return textInfo.ToTitleCase(name);
+        }
+        private bool IsCustomNameAllowed(string customName)
+        {
+            if (string.IsNullOrWhiteSpace(customName)) return true;
+
+            // Quitar espacios y pasar a minúsculas
+            string cleanedName = customName.Trim().ToLower().Replace(" ", "");
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+                // Usamos LOWER() en MySQL para asegurar que la comparación sea case-insensitive
+                string query = "SELECT COUNT(*) FROM censorship WHERE LOWER(@CleanedName) LIKE CONCAT('%', LOWER(pattern), '%');";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@CleanedName", cleanedName);
+                    long count = Convert.ToInt64(cmd.ExecuteScalar());
+
+                    return count == 0; // Si es 0, el nombre ES PERMITIDO
+                }
+            }
         }
     }
 }
