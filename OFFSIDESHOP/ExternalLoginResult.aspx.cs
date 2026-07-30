@@ -32,10 +32,9 @@ namespace OFFSIDESHOP
 
             if (!result.IsSuccessfully)
             {
-                // 3. Extraer el error EXACTO que Google nos está devolviendo
                 string errorReal = result.ErrorInfo != null ? result.ErrorInfo.Message : "Error desconocido al contactar a Google";
 
-                alerta.Text = $"<script>Swal.fire('Detalle del problema', '{HttpUtility.JavaScriptStringEncode(errorReal)}', 'error')" +
+                alerta.Text = $"<script>Swal.fire('Problem details', '{HttpUtility.JavaScriptStringEncode(errorReal)}', 'error')" +
                               ".then(() => { window.location.href = 'Login.aspx'; });</script>";
                 return;
             }

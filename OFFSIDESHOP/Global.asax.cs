@@ -14,6 +14,8 @@ namespace OFFSIDESHOP
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
             // Primero sacas el valor del Web.config
             string clientSecret = System.Configuration.ConfigurationManager.AppSettings["GoogleClientSecret"];
 
@@ -26,7 +28,8 @@ namespace OFFSIDESHOP
 
         protected void Session_Start(object sender, EventArgs e)
         {
-
+            Session["InitOAuth"] = true;
+        
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

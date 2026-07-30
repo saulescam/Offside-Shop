@@ -36,7 +36,18 @@ namespace OFFSIDESHOP
             if (datos.IdRole == 1 || datos.IdRole == 2)
             {
                 Session["Admin"] = System.Web.HttpUtility.HtmlEncode(datos.UserName);
-                Response.Redirect("Dashboard.aspx");
+
+                // Si por alguna razón un admin intentaba comprar, lo devolvemos a la camiseta
+                if (Session["PendingShirtId"] != null)
+                {
+                    string redirectId = Session["PendingShirtId"].ToString();
+                    Session.Remove("PendingShirtId");
+                    Response.Redirect($"DetailsShirt.aspx?id={redirectId}");
+                }
+                else
+                {
+                    Response.Redirect("Dashboard.aspx");
+                }
             }
             else if (datos.IdRole == 4)
             {
@@ -45,8 +56,23 @@ namespace OFFSIDESHOP
             }
             else
             {
+                // Entra aquí si es Cliente (Rol 3)
                 Session["Customer"] = System.Web.HttpUtility.HtmlEncode(datos.UserName);
-                Response.Redirect("Homepage.aspx");
+
+                // MAGIA AQUÍ: Verificamos si venía de intentar agregar algo al carrito
+                if (Session["PendingShirtId"] != null)
+                {
+                    string redirectId = Session["PendingShirtId"].ToString();
+                    Session.Remove("PendingShirtId");
+
+                    // Lo enviamos directo a los detalles de la camiseta
+                    Response.Redirect($"DetailsShirt.aspx?id={redirectId}");
+                }
+                else
+                {
+                    // Si entró haciendo click en Login normal, lo mandamos al inicio
+                    Response.Redirect("Homepage.aspx");
+                }
             }
         }
     }

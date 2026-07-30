@@ -49,7 +49,16 @@ namespace OFFSIDESHOP
 
             if (!IsPostBack)
             {
-                Session["SelectedSizeId"] = null;
+                // Restaurar la talla si venía de un intento previo, de lo contrario limpiarla
+                if (Session["PendingSizeId"] != null)
+                {
+                    Session["SelectedSizeId"] = Session["PendingSizeId"];
+                    Session.Remove("PendingSizeId"); // Limpiamos para que no afecte futuras visitas
+                }
+                else
+                {
+                    Session["SelectedSizeId"] = null;
+                }
 
                 LoadFilterDropdowns();
 
@@ -65,9 +74,66 @@ namespace OFFSIDESHOP
                 LoadSimilarShirts(id);
                 ActualizarContadorCarrito();
                 CargarDatosPerfilUsuario();
-
                 CargarReviews();
+                // ==========================================
+                // RESTAURAR DATOS DE PERSONALIZACIÓN
+                // ==========================================
+                if (Session["PendingIsCustom"] != null)
+                {
+                    bool isCustom = Convert.ToBoolean(Session["PendingIsCustom"]);
+                    string pendingName = Session["PendingCustomName"]?.ToString() ?? "";
+                    string pendingNum = Session["PendingCustomNumber"]?.ToString() ?? "";
 
+                    if (isCustom || !string.IsNullOrEmpty(pendingName))
+                    {
+                        // 1. Marcar los valores en el servidor
+                        chkCustomize.Checked = true;
+                        txtCustomName.Text = pendingName;
+                        txtCustomNumber.Text = pendingNum;
+
+                        // 2. Inyectamos el script con un retraso estratégico para ganarle a $(document).ready
+                        string jsRestore = $@"
+            setTimeout(function() {{
+                // Llenamos las cajas
+                var txtName = document.getElementById('txtCustomName');
+                if (txtName) txtName.value = '{pendingName}';
+                
+                var txtNum = document.getElementById('txtCustomNumber');
+                if (txtNum) txtNum.value = '{pendingNum}';
+
+                var chk = document.getElementById('chkCustomize');
+                if (chk) chk.checked = true;
+
+                // Ejecutamos tu función para que muestre la caja y aplique el precio
+                if (typeof togglePersonalizacion === 'function') {{
+                    togglePersonalizacion();
+                }}
+
+                // MAGIA: Obligamos a jQuery a procesar el texto como si el usuario lo hubiera tecleado
+                if (window.jQuery) {{
+                    if (txtName) $(txtName).trigger('input');
+                    if (txtNum) $(txtNum).trigger('input');
+                }}
+            }}, 300); // 300 milisegundos aseguran que tu frontend ya se haya reiniciado
+        ";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "forceUI", jsRestore, true);
+                    }
+
+                    if (Session["PendingQuantity"] != null)
+                    {
+                        hfQuantity.Value = Session["PendingQuantity"].ToString();
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "restoreQty",
+                            $"setTimeout(function() {{ var qty = document.getElementById('txtDisplayQty'); if (qty) qty.value = {Session["PendingQuantity"]}; }}, 300);", true);
+                    }
+
+                    // Limpiamos memoria
+                    Session.Remove("PendingIsCustom");
+                    Session.Remove("PendingCustomName");
+                    Session.Remove("PendingCustomNumber");
+                    Session.Remove("PendingQuantity");
+                }
+
+                // Lógica de reviews...
                 bool isLoggedIn = (Session["UserRole"] != null && Session["Id_User"] != null);
                 bool hasPurchased = isLoggedIn && HasUserPurchasedShirt(Convert.ToInt32(Session["Id_User"]), id);
 
@@ -588,26 +654,33 @@ namespace OFFSIDESHOP
         {
             if (Session["UserRole"] == null || Convert.ToInt32(Session["UserRole"]) != 3)
             {
+                // Forzamos la lectura directa desde el navegador por si ASP.NET se pierde
+                bool isCustomChecked = chkCustomize.Checked || Request.Form[chkCustomize.UniqueID] == "on";
+                string pendingName = !string.IsNullOrEmpty(txtCustomName.Text) ? txtCustomName.Text : Request.Form[txtCustomName.UniqueID];
+                string pendingNumber = !string.IsNullOrEmpty(txtCustomNumber.Text) ? txtCustomNumber.Text : Request.Form[txtCustomNumber.UniqueID];
+
+                Session["PendingShirtId"] = Request.QueryString["id"];
+                Session["PendingSizeId"] = Session["SelectedSizeId"];
+                Session["PendingQuantity"] = hfQuantity.Value;
+
+                Session["PendingIsCustom"] = isCustomChecked;
+                Session["PendingCustomName"] = pendingName;
+                Session["PendingCustomNumber"] = pendingNumber;
+
                 string loginUrl = ResolveUrl("~/Login.aspx");
-
-                // Al usar cadenas interpoladas ($""), duplicamos las llaves {{ }} 
-                // para que C# las interprete correctamente como JS y no como variables de C#
                 string script = $@"
-            Swal.fire({{
-                title: 'Authentication Required',
-                text: 'Please log in to add items to your cart.',
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonColor: '#FFC800',
-                confirmButtonText: 'Go to Login',
-                cancelButtonText: 'Cancel'
-            }}).then((result) => {{
-                if (result.isConfirmed) {{
-                    window.location.href = '{loginUrl}';
-                }}
-            }});";
+        Swal.fire({{
+            title: 'Authentication Required',
+            text: 'Please log in to add items to your cart.',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#FFC800',
+            confirmButtonText: 'Go to Login'
+        }}).then((result) => {{
+            if (result.isConfirmed) {{ window.location.href = '{loginUrl}'; }}
+        }});";
 
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "authRequired", script, true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "authReq", script, true);
                 return;
             }
             string idParam = Request.QueryString["id"];
@@ -1096,6 +1169,10 @@ namespace OFFSIDESHOP
                     return count == 0; // Si es 0, el nombre ES PERMITIDO
                 }
             }
+        }
+        protected void btnGoToAccount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MyAccount.aspx");
         }
     }
 }

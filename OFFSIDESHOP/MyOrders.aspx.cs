@@ -218,7 +218,10 @@ namespace OFFSIDESHOP
         {
             Response.Redirect("Homepage.aspx");
         }
-
+        protected void btnGoToAccount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MyAccount.aspx");
+        }
         protected string FormatJerseyName(object nameObj)
         {
             if (nameObj == null || nameObj == DBNull.Value) return "";

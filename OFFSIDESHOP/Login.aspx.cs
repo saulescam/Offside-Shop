@@ -153,14 +153,24 @@ namespace OFFSIDESHOP
                                     Session["Perm_Tickets"] = false;
                                 }
 
-                                // --- Redirecciones basadas en el Rol ---
                                 if (idRole == 1 || idRole == 2)
                                 {
                                     // Owner or Admin
                                     Session["Admin"] = HttpUtility.HtmlEncode(userName);
                                     Session["Id_User"] = userId;
                                     reader.Close();
-                                    Response.Redirect("Dashboard.aspx");
+
+                                    // Verificamos AQUÍ si hay un ID pendiente, antes del Redirect general
+                                    if (Session["PendingShirtId"] != null)
+                                    {
+                                        string redirectId = Session["PendingShirtId"].ToString();
+                                        Session.Remove("PendingShirtId");
+                                        Response.Redirect($"DetailsShirt.aspx?id={redirectId}");
+                                    }
+                                    else
+                                    {
+                                        Response.Redirect("Dashboard.aspx");
+                                    }
                                 }
                                 else if (idRole == 3)
                                 {
@@ -168,7 +178,18 @@ namespace OFFSIDESHOP
                                     Session["Customer"] = HttpUtility.HtmlEncode(userName);
                                     Session["Id_User"] = userId;
                                     reader.Close();
-                                    Response.Redirect("Homepage.aspx");
+
+                                    // Verificamos AQUÍ si hay un ID pendiente, antes del Redirect general
+                                    if (Session["PendingShirtId"] != null)
+                                    {
+                                        string redirectId = Session["PendingShirtId"].ToString();
+                                        Session.Remove("PendingShirtId");
+                                        Response.Redirect($"DetailsShirt.aspx?id={redirectId}");
+                                    }
+                                    else
+                                    {
+                                        Response.Redirect("Homepage.aspx");
+                                    }
                                 }
                                 else if (idRole == 4)
                                 {

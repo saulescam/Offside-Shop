@@ -806,6 +806,9 @@
                                                 </p>
                                             </div>
                                             <div class="dropdown-content">
+                                                  <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click">
+      <i class="fas fa-user-cog"></i> My Account
+  </asp:LinkButton>
                                                 <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
    <i class="fas fa-clipboard-list"></i> My Orders
                                                 </asp:LinkButton>
@@ -1524,8 +1527,10 @@
 
                 var txtName = document.getElementById("txtCustomName");
                 var txtNum = document.getElementById("txtCustomNumber");
-                if (txtName) txtName.value = "";
-                if (txtNum) txtNum.value = "";
+
+                // SIMPLEMENTE COMENTAMOS O ELIMINAMOS LA LIMPIEZA DE LOS VALORES
+                // if (txtName) txtName.value = ""; 
+                // if (txtNum) txtNum.value = "";
 
                 var previewNombre = document.getElementById("previewNombre");
                 var previewNumero = document.getElementById("previewNumero");

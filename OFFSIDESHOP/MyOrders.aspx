@@ -327,6 +327,9 @@
                                              </p>
                                          </div>
                                          <div class="dropdown-content">
+                                               <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click">
+      <i class="fas fa-user-cog"></i> My Account
+  </asp:LinkButton>
                                              <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
                                              <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
                                          </div>
