@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Homepage.aspx.cs" Inherits="OFFSIDESHOP.Homepage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Homepage.aspx.cs" Inherits="OFFSIDESHOP.Homepage" %>
 <%@ Register Src="~/ChatbotControl.ascx" TagPrefix="uc" TagName="Chatbot" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
@@ -124,7 +124,7 @@
                 border-color: #FFC800 !important;
             }
 
-        /* Sección del buscador justo debajo de la navbar */
+        /* SecciÃ³n del buscador justo debajo de la navbar */
         .search-header-section {
             background: linear-gradient(180deg, #000000 0%, #121212 100%);
             padding-top: 110px; /* Suficiente espacio para librar la navbar fija */
@@ -192,7 +192,7 @@
                 background-color: #1e1e1e;
             }
 
-        /* Botón de buscar premium */
+        /* BotÃ³n de buscar premium */
         .btn-danger-custom {
             height: 46px;
             border-radius: 25px;
@@ -211,7 +211,7 @@
                 color: #000000;
             }
 
-        /* Botón de reset premium */
+        /* BotÃ³n de reset premium */
         .btn-outline-light-custom {
             height: 46px;
             width: 46px;
@@ -302,7 +302,7 @@
             position: absolute !important;
             top: 50% !important;
             transform: translateY(-50%) !important;
-            z-index: 10 !important; /* Capa suprema por encima de las imágenes */
+            z-index: 10 !important; /* Capa suprema por encima de las imÃ¡genes */
             width: 45px !important;
             height: 45px !important;
             background-color: #111111 !important; /* Negro de la marca */
@@ -335,8 +335,8 @@
             right: 10px !important;
         }
 
-            /* Comportamiento cuando llegas al límite físico de la lista (Lógica del infinite: false) */
-            /* En lugar de desaparecer el botón, lo vuelve opaco para mantener limpia la estética */
+            /* Comportamiento cuando llegas al lÃ­mite fÃ­sico de la lista (LÃ³gica del infinite: false) */
+            /* En lugar de desaparecer el botÃ³n, lo vuelve opaco para mantener limpia la estÃ©tica */
             .offside-prev.slick-disabled, .offside-next.slick-disabled {
                 opacity: 0.25 !important;
                 cursor: not-allowed !important;
@@ -346,7 +346,7 @@
             padding: 0 50px;
         }
 
-        /* Diseño responsivo para dispositivos móviles */
+        /* DiseÃ±o responsivo para dispositivos mÃ³viles */
         @media (max-width: 767px) {
 
             .offside-prev, .offside-next {
@@ -363,7 +363,7 @@
                 right: 0px !important;
             }
         }
-        /* Ocultar botón scroll-to-top del tema */
+        /* Ocultar botÃ³n scroll-to-top del tema */
         #scroll-top,
         .scroll-to-top,
         .scrolltop,
@@ -385,7 +385,7 @@
             background-color: #1e1e1e;
         }
 
-        /* Botón de buscar premium */
+        /* BotÃ³n de buscar premium */
         .btn-danger-custom {
             height: 46px;
             border-radius: 25px;
@@ -404,7 +404,7 @@
                 color: #000000;
             }
 
-        /* Botón de reset premium */
+        /* BotÃ³n de reset premium */
         .btn-outline-light-custom {
             height: 46px;
             width: 46px;
@@ -495,7 +495,7 @@
             position: absolute !important;
             top: 50% !important;
             transform: translateY(-50%) !important;
-            z-index: 10 !important; /* Capa suprema por encima de las imágenes */
+            z-index: 10 !important; /* Capa suprema por encima de las imÃ¡genes */
             width: 45px !important;
             height: 45px !important;
             background-color: #111111 !important; /* Negro de la marca */
@@ -528,8 +528,8 @@
             right: 10px !important;
         }
 
-            /* Comportamiento cuando llegas al límite físico de la lista (Lógica del infinite: false) */
-            /* En lugar de desaparecer el botón, lo vuelve opaco para mantener limpia la estética */
+            /* Comportamiento cuando llegas al lÃ­mite fÃ­sico de la lista (LÃ³gica del infinite: false) */
+            /* En lugar de desaparecer el botÃ³n, lo vuelve opaco para mantener limpia la estÃ©tica */
             .offside-prev.slick-disabled, .offside-next.slick-disabled {
                 opacity: 0.25 !important;
                 cursor: not-allowed !important;
@@ -539,7 +539,7 @@
             padding: 0 50px;
         }
 
-        /* Diseño responsivo para dispositivos móviles */
+        /* DiseÃ±o responsivo para dispositivos mÃ³viles */
         @media (max-width: 767px) {
 
             .offside-prev, .offside-next {
@@ -556,7 +556,7 @@
                 right: 0px !important;
             }
         }
-        /* Ocultar botón scroll-to-top del tema */
+        /* Ocultar botÃ³n scroll-to-top del tema */
         #scroll-top,
         .scroll-to-top,
         .scrolltop,
@@ -568,7 +568,7 @@
             overflow: hidden;
             position: relative;
         }
-        /* Altura mínima para forzar al footer a quedarse abajo cuando no hay camisetas */
+        /* Altura mÃ­nima para forzar al footer a quedarse abajo cuando no hay camisetas */
         .search-empty-container {
             min-height: 45vh; /* Ocupa el 45% del alto de la pantalla actual */
             display: flex;
@@ -577,7 +577,7 @@
             flex-direction: column;
         }
 
-        /* ── Sidebar Checkboxes Fix ── */
+        /* â”€â”€ Sidebar Checkboxes Fix â”€â”€ */
         .sidebar-check-group .form-check {
             display: flex;
             align-items: center;
@@ -787,11 +787,11 @@
                 color: #fff;
                 background-color: #333333;
                 border-color: #333333;
-                transform: translateX(-2px); /* Un sutil efecto que mueve el botón hacia la izquierda en hover */
-                ); /* Un sutil efecto que mueve el botón hacia la izquierda en hover */
+                transform: translateX(-2px); /* Un sutil efecto que mueve el botÃ³n hacia la izquierda en hover */
+                ); /* Un sutil efecto que mueve el botÃ³n hacia la izquierda en hover */
             }
 
-            /* ── COLLECTIONS STYLES ── */
+            /* â”€â”€ COLLECTIONS STYLES â”€â”€ */
         .category-pills .cat-pill {
             border: 2px solid #e0e0e0;
             border-radius: 25px;
@@ -887,7 +887,7 @@
 
 .cart-icon-btn .badge {
     position: static;        /* anula el position:absolute anterior */
-    margin-left: 0;          /* anula el margin-left:auto del .badge genérico */
+    margin-left: 0;          /* anula el margin-left:auto del .badge genÃ©rico */
     background-color: #FFC800;
     color: #000;
     border-radius: 50%;
@@ -946,6 +946,8 @@
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
                 </a>
 
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -965,10 +967,10 @@
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="dropdown-content">
                                     <a href="Login.aspx" class="dropdown-item">
-                                        <i class="fas fa-sign-in-alt"></i>Log in
+                                        <i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_Login %>
                                     </a>
                                     <a href="SignUp.aspx" class="dropdown-item">
-                                        <i class="fas fa-user-plus"></i>Sign up
+                                        <i class="fas fa-user-plus"></i><%= Resources.Strings.Nav_SignUp %>
                                     </a>
                                 </div>
                             </div>
@@ -978,7 +980,7 @@
                     <asp:PlaceHolder ID="phNavbarUser" runat="server">
     <div class="navbar-icons-container">
 
-        <!-- Ícono del carrito -->
+        <!-- Ãcono del carrito -->
         <div class="cart-icon-wrapper">
             <asp:LinkButton ID="btnNavCart" runat="server" CssClass="cart-icon-btn" OnClick="btnNavCart_Click">
                 <i class="fas fa-shopping-cart"></i>
@@ -988,7 +990,7 @@
             </asp:LinkButton>
         </div>
 
-        <!-- Ícono de usuario -->
+        <!-- Ãcono de usuario -->
         <div class="user-menu-container">
             <asp:UpdatePanel ID="upPerfil" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -1009,12 +1011,12 @@
                         </div>
                         <div class="dropdown-content">
                             <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click">
-                                <i class="fas fa-user-cog"></i> My Account
+                                <i class="fas fa-user-cog"></i> <%= Resources.Strings.Nav_MyAccount %>
                             </asp:LinkButton>
                             <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
-                                <i class="fas fa-clipboard-list"></i> My Orders
+                                <i class="fas fa-clipboard-list"></i> <%= Resources.Strings.Nav_MyOrders %>
                             </asp:LinkButton>
-                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" UseSubmitBehavior="false" />
+                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" UseSubmitBehavior="false" />
                         </div>
                     </div>
                 </ContentTemplate>
@@ -1036,17 +1038,17 @@
                                     <p class="user-fullname">
                                         <asp:Label ID="lblAdminName" runat="server" Text="Admin"></asp:Label>
                                     </p>
-                                    <p class="user-role">Administrator</p>
+                                    <p class="user-role"><%= Resources.Strings.Nav_AdminRole %></p>
                                 </div>
                                 <div class="dropdown-content">
                                     <a href="MyAccount.aspx" class="dropdown-item">
-                                        <i class="fas fa-user-cog"></i>My Account
+                                        <i class="fas fa-user-cog"></i><%= Resources.Strings.Nav_MyAccount %>
                                     </a>
 
                                     <a href="Dashboard.aspx" class="dropdown-item">
-                                        <i class="fas fa-chart-line"></i>Dashboard
+                                        <i class="fas fa-chart-line"></i><%= Resources.Strings.Nav_Dashboard %>
                                     </a>
-                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" UseSubmitBehavior="false" />
+                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" UseSubmitBehavior="false" />
                                 </div>
                             </div>
                         </div>
@@ -1065,7 +1067,7 @@
                         data-bs-target="#searchFiltersCollapse"
                         aria-expanded="false"
                         aria-controls="searchFiltersCollapse">
-                        <i class="fas fa-search"></i>Filters & Search
+                        <i class="fas fa-search"></i><%= Resources.Strings.Search_MobileBtn %>
                     </button>
                 </div>
 
@@ -1073,32 +1075,32 @@
                     <div class="row g-3 align-items-end justify-content-center">
 
                         <div class="col-lg flex-grow-1 col-md-12">
-                            <label class="form-label text-light fw-bold small mb-2">Search</label>
+                            <label class="form-label text-light fw-bold small mb-2"><%= Resources.Strings.Search_Label %></label>
                             <div class="input-group search-input-group">
                                 <span class="input-group-text bg-transparent border-0 text-muted">
                                     <i class="fas fa-search"></i>
                                 </span>
-                                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control bg-transparent border-0 text-light search-input" placeholder="Search by team, brand, year..."></asp:TextBox>
+                                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control bg-transparent border-0 text-light search-input" placeholder="<%$ Resources:Strings, Search_Placeholder %>"></asp:TextBox>
                             </div>
                         </div>
 
                         <asp:PlaceHolder ID="phTopBarFilters" runat="server" Visible="true">
                             <div class="col-lg-2 col-md-4">
-                                <label class="form-label text-light fw-bold small mb-2">League</label>
+                                <label class="form-label text-light fw-bold small mb-2"><%= Resources.Strings.Search_LeagueLabel %></label>
                                 <asp:DropDownList ID="ddlLeague" runat="server" CssClass="form-select filter-select">
                                 </asp:DropDownList>
                             </div>
 
                             <div class="col-lg-2 col-md-4">
-                                <label class="form-label text-light fw-bold small mb-2">Brand</label>
+                                <label class="form-label text-light fw-bold small mb-2"><%= Resources.Strings.Search_BrandLabel %></label>
                                 <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-select filter-select">
                                 </asp:DropDownList>
                             </div>
 
                             <div class="col-lg-2 col-md-4">
-                                <label class="form-label text-light fw-bold small mb-2">Type of KIT</label>
+                                <label class="form-label text-light fw-bold small mb-2"><%= Resources.Strings.Search_KitLabel %></label>
                                 <asp:DropDownList ID="ddlKitType" runat="server" CssClass="form-select filter-select">
-                                    <asp:ListItem Value="" Text="Any Kit"></asp:ListItem>
+                                    <asp:ListItem Value="" Text="<%$ Resources:Strings, Search_KitAny %>"></asp:ListItem>
                                     <asp:ListItem Value="1" Text="Local"></asp:ListItem>
                                     <asp:ListItem Value="2" Text="Away"></asp:ListItem>
                                     <asp:ListItem Value="3" Text="Third"></asp:ListItem>
@@ -1110,7 +1112,7 @@
                         </asp:PlaceHolder>
 
                         <div class="col-lg-2 col-md-12 d-flex gap-2">
-                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-danger-custom w-100 fw-bold" OnClick="btnSearch_Click" />
+                            <asp:Button ID="btnSearch" runat="server" Text="<%$ Resources:Strings, Search_Btn %>" CssClass="btn btn-danger-custom w-100 fw-bold" OnClick="btnSearch_Click" />
                             <asp:LinkButton ID="btnReset" runat="server" CssClass="btn btn-outline-light-custom" OnClick="btnReset_Click" ToolTip="Clear Filters">
                         <i class="fas fa-undo"></i>
                             </asp:LinkButton>
@@ -1124,7 +1126,7 @@
         <asp:PlaceHolder ID="phCarousel" runat="server">
             <div class="carousel-container">
                 <div id="demo" class="carousel slide" data-bs-ride="carousel">
-                    <%-- Indicadores dinámicos --%>
+                    <%-- Indicadores dinÃ¡micos --%>
                     <div class="carousel-indicators">
                         <asp:Repeater ID="rptBannerIndicators" runat="server">
                             <ItemTemplate>
@@ -1138,7 +1140,7 @@
                         </asp:Repeater>
                     </div>
 
-                    <%-- Items del carrusel dinámicos --%>
+                    <%-- Items del carrusel dinÃ¡micos --%>
                     <div class="carousel-inner">
                         <asp:Repeater ID="rptBannerItems" runat="server">
                             <ItemTemplate>
@@ -1179,7 +1181,7 @@
                         data-bs-target="#leaguesPanelCollapse"
                         aria-expanded="false"
                         aria-controls="leaguesPanelCollapse">
-                        <i class="fas fa-trophy me-2"></i>Leagues
+                        <i class="fas fa-trophy me-2"></i><%= Resources.Strings.Section_Leagues %>
                     </button>
                 </div>
 
@@ -1252,9 +1254,9 @@
         <%-- COLLECTIONS SECTION --%>
         <asp:PlaceHolder ID="phCollectionsSection" runat="server" Visible="false">
             <div class="container mt-5 mb-3">
-                <h2 class="text-start text-dark mb-4" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Collections</h2>
+                <h2 class="text-start text-dark mb-4" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;"><%= Resources.Strings.Section_Collections %></h2>
                 
-                <!-- Píldoras de Categorías -->
+                <!-- PÃ­ldoras de CategorÃ­as -->
                 <div class="category-pills d-flex flex-wrap gap-2 mb-4">
                     <button type="button" class="cat-pill active shadow-sm" data-filter="all">All</button>
                     <asp:Repeater ID="rptCollectionCats" runat="server">
@@ -1275,7 +1277,7 @@
                                             <span class="collection-tag shadow"><%# Eval("Name_Category") %></span>
                                             <div class="collection-overlay">
                                                 <h4 class="collection-title"><%# Eval("Title") %></h4>
-                                                <a href='<%# Eval("LinkURL") %>' class="collection-btn shadow">Shop Now</a>
+                                                <a href='<%# Eval("LinkURL") %>' class="collection-btn shadow"><%= Resources.Strings.Card_ShopNow %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1290,7 +1292,7 @@
 
             <%-- TOP SELLER --%>
             <div class="container my-5">
-                <h2 class="text-start text-dark mb-4 pb-2 border-bottom border-warning border-3" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Top Selling</h2>
+                <h2 class="text-start text-dark mb-4 pb-2 border-bottom border-warning border-3" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;"><%= Resources.Strings.Section_TopSelling %></h2>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="products-slick" id="top-selling-slick">
@@ -1298,11 +1300,11 @@
                                 <ItemTemplate>
                                     <div class="card h-100 text-dark product-card">
                                         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                         </div>
 
-                                        <span class="position-absolute top-0 end-0 badge bg-warning text-dark m-2 shadow-sm" style="font-weight: 700; z-index: 10; padding: 6px 10px; font-size: 0.75rem; letter-spacing: 0.5px;">BEST SELLER</span>
+                                        <span class="position-absolute top-0 end-0 badge bg-warning text-dark m-2 shadow-sm" style="font-weight: 700; z-index: 10; padding: 6px 10px; font-size: 0.75rem; letter-spacing: 0.5px;"><%= Resources.Strings.Card_BestSeller %></span>
                                         <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# FormatJerseyName(Eval("Name")) %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
                                         <div class="card-body d-flex flex-column">
                                             <h5 class="card-title text-danger" style="font-weight: 700;" title='<%# FormatJerseyName(Eval("Name")) %>'><%# FormatJerseyName(Eval("Name")).Length > 25 ? FormatJerseyName(Eval("Name")).Substring(0, 25) + "..." : FormatJerseyName(Eval("Name")) %></h5>
@@ -1312,8 +1314,8 @@
                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-muted ms-1' style='text-decoration: line-through; font-size: 0.85rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
                                             </h6>
                                             <div class="mt-auto">
-                                                <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %> <strong><%# Eval("Sizes") %></strong></p>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1326,7 +1328,7 @@
 
             <%-- NEW JERSEYS --%>
             <div class="container my-5">
-                <h2 class="text-start text-dark mb-4 pb-2 border-bottom border-warning border-3" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">New Jerseys</h2>
+                <h2 class="text-start text-dark mb-4 pb-2 border-bottom border-warning border-3" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;"><%= Resources.Strings.Section_NewJerseys %></h2>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="products-slick" id="new-arrivals-slick">
@@ -1334,11 +1336,11 @@
                                 <ItemTemplate>
                                     <div class="card h-100 text-dark product-card">
                                         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                         </div>
 
-                                        <span class="position-absolute top-0 end-0 badge bg-danger text-white m-2 shadow-sm" style="font-weight: 700; z-index: 10; padding: 6px 10px; font-size: 0.75rem; letter-spacing: 0.5px;">NEW</span>
+                                        <span class="position-absolute top-0 end-0 badge bg-danger text-white m-2 shadow-sm" style="font-weight: 700; z-index: 10; padding: 6px 10px; font-size: 0.75rem; letter-spacing: 0.5px;"><%= Resources.Strings.Card_New %></span>
                                         <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# FormatJerseyName(Eval("Name")) %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
                                         <div class="card-body d-flex flex-column">
                                             <h5 class="card-title text-danger" style="font-weight: 700;" title='<%# FormatJerseyName(Eval("Name")) %>'><%# FormatJerseyName(Eval("Name")).Length > 25 ? FormatJerseyName(Eval("Name")).Substring(0, 25) + "..." : FormatJerseyName(Eval("Name")) %></h5>
@@ -1348,8 +1350,8 @@
                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-muted ms-1' style='text-decoration: line-through; font-size: 0.85rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
                                             </h6>
                                             <div class="mt-auto">
-                                                <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %> <strong><%# Eval("Sizes") %></strong></p>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1364,7 +1366,7 @@
             <div class="container my-5">
                 <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
                     <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">World Cup</h2>
-                    <a href="Homepage.aspx?league=6" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    <a href="Homepage.aspx?league=6" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;"><%= Resources.Strings.Section_SeeMore %></a>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -1373,8 +1375,8 @@
                                 <ItemTemplate>
                                     <div class="card h-100 text-dark product-card">
                                         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                         </div>
 
                                         <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# FormatJerseyName(Eval("Name")) %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
@@ -1386,8 +1388,8 @@
                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-muted ms-1' style='text-decoration: line-through; font-size: 0.85rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
 </h6>
                                             <div class="mt-auto">
-                                                <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %> <strong><%# Eval("Sizes") %></strong></p>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1402,7 +1404,7 @@
             <div class="container my-5">
                 <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
                     <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">LaLiga</h2>
-                    <a href="Homepage.aspx?league=1" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    <a href="Homepage.aspx?league=1" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;"><%= Resources.Strings.Section_SeeMore %></a>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -1411,8 +1413,8 @@
                                 <ItemTemplate>
                                     <div class="card h-100 text-dark product-card">
                                         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                         </div>
 
                                         <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# FormatJerseyName(Eval("Name")) %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
@@ -1424,8 +1426,8 @@
                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-muted ms-1' style='text-decoration: line-through; font-size: 0.85rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
 </h6>
                                             <div class="mt-auto">
-                                                <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %> <strong><%# Eval("Sizes") %></strong></p>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1440,7 +1442,7 @@
             <div class="container my-5">
                 <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
                     <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Premier League</h2>
-                    <a href="Homepage.aspx?league=2" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    <a href="Homepage.aspx?league=2" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;"><%= Resources.Strings.Section_SeeMore %></a>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -1449,8 +1451,8 @@
                                 <ItemTemplate>
                                     <div class="card h-100 text-dark product-card">
                                         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                         </div>
 
                                         <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# FormatJerseyName(Eval("Name")) %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
@@ -1462,8 +1464,8 @@
                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-muted ms-1' style='text-decoration: line-through; font-size: 0.85rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
 </h6>
                                             <div class="mt-auto">
-                                                <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %> <strong><%# Eval("Sizes") %></strong></p>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1478,7 +1480,7 @@
             <div class="container my-5">
                 <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
                     <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Serie A</h2>
-                    <a href="Homepage.aspx?league=3" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    <a href="Homepage.aspx?league=3" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;"><%= Resources.Strings.Section_SeeMore %></a>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -1487,8 +1489,8 @@
                                 <ItemTemplate>
                                     <div class="card h-100 text-dark product-card">
                                         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                         </div>
 
                                         <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# FormatJerseyName(Eval("Name")) %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
@@ -1500,8 +1502,8 @@
                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-muted ms-1' style='text-decoration: line-through; font-size: 0.85rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
 </h6>
                                             <div class="mt-auto">
-                                                <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %> <strong><%# Eval("Sizes") %></strong></p>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1516,7 +1518,7 @@
             <div class="container my-5">
                 <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
                     <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Bundesliga</h2>
-                    <a href="Homepage.aspx?league=4" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    <a href="Homepage.aspx?league=4" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;"><%= Resources.Strings.Section_SeeMore %></a>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -1525,8 +1527,8 @@
                                 <ItemTemplate>
                                     <div class="card h-100 text-dark product-card">
                                         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                         </div>
 
                                         <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# FormatJerseyName(Eval("Name")) %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
@@ -1538,8 +1540,8 @@
                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-muted ms-1' style='text-decoration: line-through; font-size: 0.85rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
 </h6>
                                             <div class="mt-auto">
-                                                <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %> <strong><%# Eval("Sizes") %></strong></p>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1553,7 +1555,7 @@
             <div class="container my-5">
                 <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-warning border-3">
                     <h2 class="text-start text-dark mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Ligue One</h2>
-                    <a href="Homepage.aspx?league=5" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;">See more</a>
+                    <a href="Homepage.aspx?league=5" class="btn btn-outline-dark btn-sm text-uppercase" style="font-weight: 600; letter-spacing: 0.5px;"><%= Resources.Strings.Section_SeeMore %></a>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -1562,8 +1564,8 @@
                                 <ItemTemplate>
                                     <div class="card h-100 text-dark product-card">
                                         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                            <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                         </div>
 
                                         <img src='<%# Eval("ImageURL") != DBNull.Value && !string.IsNullOrEmpty(Eval("ImageURL").ToString()) ? Eval("ImageURL") : "assets/img/default-product.jpg" %>' class="card-img-top" alt='<%# FormatJerseyName(Eval("Name")) %>' style="height: 250px; object-fit: cover;" onerror="this.src='assets/img/default-product.jpg';" />
@@ -1575,8 +1577,8 @@
                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-muted ms-1' style='text-decoration: line-through; font-size: 0.85rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
 </h6>
                                             <div class="mt-auto">
-                                                <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %> <strong><%# Eval("Sizes") %></strong></p>
+                                                <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1604,11 +1606,11 @@
                             <div class="col-lg-3 col-md-4 pe-lg-4 mb-4">
                                 <div class="card border-0 shadow-sm p-4 bg-white" style="border-radius: 12px; position: sticky; top: 20px; z-index: 10;">
                                     <h5 class="fw-bold text-uppercase border-bottom pb-2 mb-3">
-                                        <i class="fas fa-sliders-h me-2 text-warning"></i>Filter Catalog
+                                        <i class="fas fa-sliders-h me-2 text-warning"></i><%= Resources.Strings.Results_FilterTitle %>
                                     </h5>
 
                                     <div class="mb-3">
-                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Price Range</label>
+                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block"><%= Resources.Strings.Results_PriceRange %></label>
                                         <asp:DropDownList ID="ddlSidePriceRange" runat="server" CssClass="form-select form-select-sm">
                                             <asp:ListItem Text="All Prices" Value="ALL"></asp:ListItem>
                                             <asp:ListItem Text="Under $50" Value="0-50"></asp:ListItem>
@@ -1619,58 +1621,58 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Available Sizes</label>
+                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block"><%= Resources.Strings.Results_AvailableSizes %></label>
                                         <div style="max-height: 130px; overflow-y: auto;" class="border p-2 rounded bg-light sidebar-sizes-container">
                                             <asp:CheckBoxList ID="cblSideSizes" runat="server" CssClass="small text-dark" DataTextField="Size_Code" DataValueField="Id_Size" RepeatLayout="Flow"></asp:CheckBoxList>
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Competition / League</label>
+                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block"><%= Resources.Strings.Results_League %></label>
                                         <asp:DropDownList ID="ddlSideLeague" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlSideLeague_SelectedIndexChanged"></asp:DropDownList>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Club / Team</label>
+                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block"><%= Resources.Strings.Results_Team %></label>
                                         <asp:DropDownList ID="ddlSideTeam" runat="server" CssClass="form-select form-select-sm"></asp:DropDownList>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Brand</label>
+                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block"><%= Resources.Strings.Results_Brand %></label>
                                         <asp:DropDownList ID="ddlSideBrand" runat="server" CssClass="form-select form-select-sm"></asp:DropDownList>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block">Kit Style / Type</label>
+                                        <label class="fw-bold small text-muted text-uppercase mb-1 d-block"><%= Resources.Strings.Results_KitType %></label>
                                         <asp:DropDownList ID="ddlSideKitType" runat="server" CssClass="form-select form-select-sm"></asp:DropDownList>
                                     </div>
 
                                     <div class="mb-4 border-top pt-3">
                                         <div class="sidebar-check-single mb-2">
-                                            <asp:CheckBox ID="chkSideOnSale" runat="server" Text=" Special Offers / Sale" CssClass="small fw-bold text-danger" />
+                                            <asp:CheckBox ID="chkSideOnSale" runat="server" Text="<%$ Resources:Strings, Results_Offers %>" CssClass="small fw-bold text-danger" />
                                         </div>
                                         <div class="sidebar-check-single">
-                                            <asp:CheckBox ID="chkSideCustomizable" runat="server" Text=" Supports Custom Print" CssClass="small fw-bold text-success" />
+                                            <asp:CheckBox ID="chkSideCustomizable" runat="server" Text="<%$ Resources:Strings, Results_Custom %>" CssClass="small fw-bold text-success" />
                                         </div>
                                     </div>
 
-                                    <asp:Button ID="btnApplySideFilters" runat="server" Text="FILTER BY" CssClass="btn btn-warning w-100 fw-bold text-uppercase py-2 shadow-sm" OnClick="btnApplySideFilters_Click" />
+                                    <asp:Button ID="btnApplySideFilters" runat="server" Text="<%$ Resources:Strings, Results_BtnFilter %>" CssClass="btn btn-warning w-100 fw-bold text-uppercase py-2 shadow-sm" OnClick="btnApplySideFilters_Click" />
                                 </div>
                             </div>
 
                             <div class="col-lg-9 col-md-8">
                                 <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-4">
-                                    <h4 class="fw-bold text-dark mb-0">Search Results View</h4>
+                                    <h4 class="fw-bold text-dark mb-0"><%= Resources.Strings.Results_MainTitle %></h4>
                                     <span class="badge bg-dark px-3 py-2 text-uppercase fs-7">
                                         <asp:Literal ID="litMatchesCount" runat="server" Text="0"></asp:Literal>
-                                        Products Found
+                                        <%= Resources.Strings.Results_FoundCount %>
                                     </span>
                                 </div>
 
                                 <asp:Panel ID="pnlNoMatchesFound" runat="server" Visible="false" CssClass="text-center my-5 py-5 search-empty-container bg-light rounded shadow-sm">
                                     <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-                                    <h5 class="fw-bold text-muted">No shirts matched your selected combination.</h5>
-                                    <p class="text-muted small mb-0">Try adjusting your filters or search keywords in the sidebar panel.</p>
+                                    <h5 class="fw-bold text-muted"><%= Resources.Strings.Results_EmptyTitle %></h5>
+                                    <p class="text-muted small mb-0"><%= Resources.Strings.Results_EmptySub %></p>
                                 </asp:Panel>
 
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
@@ -1680,8 +1682,8 @@
                                                 <div class="card h-100 text-dark product-card border-0 shadow-sm position-relative overflow-hidden" style="border-radius: 8px;">
 
                                                     <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1" style="z-index: 5;">
-                                                        <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>SALE -" + Eval("DiscountPercentage") + "%</span>" : "" %>
-                                                        <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>PRINT</span>" : "" %>
+                                                        <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='badge bg-danger text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-percentage me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Sale") + " -" + Eval("DiscountPercentage") + "%</span>" : "" %>
+                                                        <%# Convert.ToBoolean(Eval("IsCustomizable")) ? "<span class='badge bg-success text-uppercase fw-bold shadow-sm px-2 py-1' style='font-size:0.65rem;'><i class='fas fa-shirt me-1'></i>" + GetGlobalResourceObject("Strings", "Card_Print") + "</span>" : "" %>
                                                     </div>
 
                                                     <div class="bg-light d-flex align-items-center justify-content-center text-center p-2" style="height: 200px; overflow: hidden;">
@@ -1704,7 +1706,7 @@
                                                                 <span class="fw-bolder text-dark h5 mb-0">$<%# Eval("FinalPrice", "{0:F2}") %></span>
                                                                 <%# Convert.ToBoolean(Eval("IsOnSale")) ? "<span class='text-decoration-line-through text-muted small' style='font-size:0.75rem;'>$" + Eval("OriginalPrice", "{0:F2}") + "</span>" : "" %>
                                                             </div>
-                                                            <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-dark btn-sm w-100 mt-3 fw-bold py-1" style="border-radius: 4px; font-size: 0.8rem;">View Details</a>
+                                                            <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-dark btn-sm w-100 mt-3 fw-bold py-1" style="border-radius: 4px; font-size: 0.8rem;"><%= Resources.Strings.Card_ViewDetails %></a>
                                                         </div>
                                                     </div>
 
@@ -1716,15 +1718,15 @@
 
                                 <div class="d-flex justify-content-center align-items-center mt-5 gap-3">
                                     <asp:LinkButton ID="lnkPrevPage" runat="server" CssClass="btn btn-dark btn-sm px-3 fw-bold" OnClick="lnkPrevPage_Click">
-                            <i class="fas fa-chevron-left me-2"></i>Previous
+                            <i class="fas fa-chevron-left me-2"></i><%= Resources.Strings.Pager_Prev %>
                                     </asp:LinkButton>
-                                    <span class="fw-bold text-muted small">Page
+                                    <span class="fw-bold text-muted small"><%= Resources.Strings.Pager_Page %>
                                         <asp:Label ID="lblPageCurrent" runat="server" Text="1"></asp:Label>
-                                        of
+                                        <%= Resources.Strings.Pager_Of %>
                                         <asp:Label ID="lblPageTotal" runat="server" Text="1"></asp:Label>
                                     </span>
                                     <asp:LinkButton ID="lnkNextPage" runat="server" CssClass="btn btn-dark btn-sm px-3 fw-bold" OnClick="lnkNextPage_Click">
-                            Next<i class="fas fa-chevron-right ms-2"></i>
+                            <%= Resources.Strings.Pager_Next %><i class="fas fa-chevron-right ms-2"></i>
                                     </asp:LinkButton>
                                 </div>
 
@@ -1790,7 +1792,7 @@
                     ]
                 });
 
-                // Lógica de Filtro para Píldoras
+                // LÃ³gica de Filtro para PÃ­ldoras
                 $('.cat-pill').click(function () {
                     $('.cat-pill').removeClass('active');
                     $(this).addClass('active');

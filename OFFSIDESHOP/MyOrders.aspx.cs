@@ -1,4 +1,4 @@
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Web;
@@ -7,13 +7,13 @@ using System.Web.UI.WebControls;
 
 namespace OFFSIDESHOP
 {
-    public partial class MyOrders : System.Web.UI.Page
+    public partial class MyOrders : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 1. CONTROL DE CACHÉ
+            // 1. CONTROL DE CACHÃ‰
             Response.Buffer = true;
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
@@ -26,7 +26,7 @@ namespace OFFSIDESHOP
                 return;
             }
 
-            // 3. ADMINISTRACIÓN DE NAVBARS
+            // 3. ADMINISTRACIÃ“N DE NAVBARS
             phNavbarGuest.Visible = false;
             phNavbarUser.Visible = false;
 
@@ -48,6 +48,13 @@ namespace OFFSIDESHOP
                 CargarDatosPerfilUsuario();
             }
         }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
+        }
+
         private void CargarDatosPerfilUsuario()
         {
             if (Session["Id_User"] != null)

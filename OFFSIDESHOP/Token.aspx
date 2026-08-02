@@ -21,6 +21,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="split-container">
+            <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" Style="position: absolute; top: 20px; right: 20px; z-index: 1000; font-weight: 600; color: #111; text-decoration: none; padding: 5px 10px; background: rgba(255,255,255,0.7); border-radius: 5px;">EN / ES</asp:LinkButton>
             <!-- LEFT PANEL: VISUAL / CAROUSEL -->
             <div class="split-left">
                 <div class="visual-icon">
@@ -70,14 +71,14 @@
                     </div>
                     
                     <div class="form-header">
-                        <h2>VERIFY TOKEN</h2>
-                        <p>Enter the code sent to your email</p>
+                        <h2><%= Resources.Strings.Auth_TokenTitle %></h2>
+                        <p><%= Resources.Strings.Auth_TokenSub %></p>
                     </div>
 
                     <div class="login-body">
                         <div class="form-group">
                             <asp:TextBox ID="txttoken" runat="server" 
-                                placeholder="Verification Token *" 
+                                placeholder="<%$ Resources:Strings, Auth_TokenInput %>" 
                                 type="text" 
                                 CssClass="form-control" 
                                 onpaste="return false" 
@@ -85,17 +86,17 @@
                                 MaxLength="15"
                                 required="required">
                             </asp:TextBox>
-                            <div class="invalid-feedback">Please enter your token.</div>
+                            <div class="invalid-feedback"><%= Resources.Strings.Auth_ValToken %></div>
                         </div>
 
                         <asp:Button runat="server" 
-                            Text="Verify Token" 
+                            Text="<%$ Resources:Strings, Auth_BtnVerify %>" 
                             CssClass="btn-login" 
                             OnClick="token_Click"></asp:Button>
 
                         <div class="forgot-link" style="text-align: center; margin-top: 20px;">
                             <asp:HyperLink ID="volver" runat="server"
-                                Text="Back to Login"
+                                Text="<%$ Resources:Strings, Auth_BackLogin %>"
                                 NavigateUrl="Login.aspx"
                                 style="font-weight: 600; text-decoration: underline; color: #111;">
                             </asp:HyperLink>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MyAccount.aspx.cs" Inherits="OFFSIDESHOP.MyAccount" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MyAccount.aspx.cs" Inherits="OFFSIDESHOP.MyAccount" %>
 
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 <!DOCTYPE html>
@@ -132,7 +132,7 @@
         }
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            // Solo permite teclas del 0 al 9 (códigos ASCII 48 al 57)
+            // Solo permite teclas del 0 al 9 (cÃ³digos ASCII 48 al 57)
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
                 return false;
             }
@@ -150,12 +150,15 @@
                 <a class="navbar-brand" href="Homepage.aspx">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarResponsive">
+                    
+
                     <asp:PlaceHolder ID="phNavbarUser" runat="server">
                         <div class="user-menu-container">
                             <asp:UpdatePanel ID="upPerfil" runat="server" UpdateMode="Conditional">
@@ -177,11 +180,11 @@
                                             </p>
                                         </div>
                                         <div class="dropdown-content">
-                                            <a href="Homepage.aspx" class="dropdown-item"><i class="fas fa-home"></i>Home</a>
+                                            <a href="Homepage.aspx" class="dropdown-item"><i class="fas fa-home"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_BackToShop %>" /></a>
                                             <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
-                                                <i class="fas fa-clipboard-list"></i> My Orders
+                                                <i class="fas fa-clipboard-list"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_MyOrders %>" />
                                             </asp:LinkButton>
-                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                         </div>
                                     </div>
                                 </ContentTemplate>
@@ -207,8 +210,8 @@
                                     <a href="Dashboard.aspx" class="dropdown-item">
                                         <i class="fas fa-chart-line"></i>Dashboard
                                     </a>
-                                    <asp:Button ID="Button2" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
-                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                    <asp:Button ID="Button2" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
+                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                 </div>
                             </div>
                         </div>
@@ -220,7 +223,7 @@
         <!-- MAIN CONTAINER MODULE -->
         <div class="container">
             <div class="account-container">
-                <h2 class="account-title">My Account</h2>
+                <h2 class="account-title"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_MainTitle %>" /></h2>
 
                 <asp:UpdatePanel ID="upAlerts" runat="server">
                     <ContentTemplate>
@@ -232,42 +235,42 @@
                     <!-- PERSONAL PROFILE SECTOR -->
                     <div class="col-lg-7">
                         <h4 class="section-subtitle">
-                            <i class="fas fa-user-edit text-warning"></i> Personal Information
+                            <i class="fas fa-user-edit text-warning"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Account_PersonalInfo %>" />
                         </h4>
 
                         <asp:UpdatePanel ID="upPersonalInfo" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <label class="form-label form-label-custom">First Name</label>
+                                        <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_FirstName %>" /></label>
                                         <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control form-control-custom" placeholder="John"></asp:TextBox>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label form-label-custom">Last Name</label>
+                                        <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_LastName %>" /></label>
                                         <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control form-control-custom" placeholder="Doe"></asp:TextBox>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label form-label-custom">Username</label>
+                                        <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_Username %>" /></label>
                                         <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control form-control-custom" placeholder="johndoe123"></asp:TextBox>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label form-label-custom">Email Address</label>
+                                        <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_EmailAddress %>" /></label>
                                         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control form-control-custom" Enabled="false"></asp:TextBox>
-                                        <small class="text-muted">The email cannot be modified.</small>
+                                        <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_EmailWarning %>" /></small>
                                     </div>
                                     <div class="col-12">
-                                        <label class="form-label form-label-custom">Phone Number</label>
+                                        <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_PhoneNumber %>" /></label>
 <asp:TextBox ID="txtPhone" runat="server" CssClass="form-control form-control-custom" placeholder="(+503) 12345678" MaxLength="8" onkeypress="return isNumberKey(event);" onpaste="return false;"></asp:TextBox>                                    </div>
                                     <div class="col-12">
-                                        <label class="form-label form-label-custom">Shipping Address</label>
-                                        <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control form-control-custom" placeholder="Enter your full street address, apartment, city, and zip code..." TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                        <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_ShippingAddress %>" /></label>
+                                        <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control form-control-custom" placeholder="<%$ Resources:Strings, Account_AddressPlaceholder %>" TextMode="MultiLine" Rows="2"></asp:TextBox>
                                     </div>
                                     
                                     <!-- MAP CONTAINER -->
                                     <div class="col-12 mt-3">
-                                        <label class="form-label form-label-custom">Default Delivery Location <span class="text-warning">*</span></label>
+                                        <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_DefaultLocation %>" /> <span class="text-warning">*</span></label>
                                         <div id="accountMap" style="height: 300px; width: 100%; border-radius: 10px; border: 2px solid #e9ecef; z-index: 1;"></div>
-                                        <small class="text-muted"><i class="fas fa-map-marker-alt text-danger mr-1"></i> Drag the pin to your exact home location.</small>
+                                        <small class="text-muted"><i class="fas fa-map-marker-alt text-danger mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Account_MapInstructions %>" /></small>
                                         
                                         <asp:HiddenField ID="hfDefaultLat" runat="server" />
                                         <asp:HiddenField ID="hfDefaultLng" runat="server" />
@@ -275,10 +278,10 @@
 
                                     <!-- CORE FUNCTION ACTION GROUP BUTTONS -->
                                     <div class="col-12 mt-4 d-flex gap-3 flex-wrap">
-                                        <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" 
+                                        <asp:Button ID="btnSaveChanges" runat="server" Text="<%$ Resources:Strings, Account_SaveChanges %>" 
                                             CssClass="btn-save-custom" OnClick="btnSaveChanges_Click" />
                                         <a href="Homepage.aspx" class="btn btn-secondary-custom d-inline-flex align-items-center gap-2">
-                                            <i class="fas fa-arrow-left"></i> Back to Homepage
+                                            <i class="fas fa-arrow-left"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Account_BackHome %>" />
                                         </a>
                                     </div>
                                 </div>
@@ -290,7 +293,7 @@
                     <div class="col-lg-5">
                         <div class="security-card">
                             <h4 class="section-subtitle">
-                                <i class="fas fa-shield-alt text-warning"></i> Security & Password
+                                <i class="fas fa-shield-alt text-warning"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Account_SecurityTitle %>" />
                             </h4>
 
                             <asp:UpdatePanel ID="upSecurity" runat="server" UpdateMode="Conditional">
@@ -299,12 +302,12 @@
                                     <!-- Masked View Mode Layout Frame -->
                                     <div id="defaultPasswordRow" class="row g-3">
                                         <div class="col-12">
-                                            <label class="form-label form-label-custom">Password</label>
+                                            <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_PasswordLabel %>" /></label>
                                             <input type="text" class="form-control form-control-custom text-muted fw-bold" value="**********" readonly="readonly" style="letter-spacing: 3px;" />
                                         </div>
                                         <div class="col-12 mt-3">
                                             <button type="button" class="btn btn-secondary-custom w-100 d-inline-flex align-items-center justify-content-center gap-2" onclick="showPasswordFields()">
-                                                <i class="fas fa-key"></i> Change Password
+                                                <i class="fas fa-key"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Account_ChangePasswordBtn %>" />
                                             </button>
                                         </div>
                                     </div>
@@ -312,7 +315,7 @@
                                     <!-- Editable Interactive Input Fields Container Panel -->
                                     <div id="passwordFieldsPanel" class="row g-3" style="display: none;">
                                         <div class="col-12">
-                                            <label class="form-label form-label-custom">Current Password</label>
+                                            <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_CurrentPassword %>" /></label>
                                             <div class="password-container">
                                                 <asp:TextBox ID="txtCurrentPassword" runat="server" TextMode="Password" CssClass="form-control form-control-custom w-100"></asp:TextBox>
                                                 <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility(this, '<%= txtCurrentPassword.ClientID %>')">
@@ -322,7 +325,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <label class="form-label form-label-custom">New Password</label>
+                                            <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_NewPassword %>" /></label>
                                             <div class="password-container">
                                                 <asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password" CssClass="form-control form-control-custom w-100"></asp:TextBox>
                                                 <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility(this, '<%= txtNewPassword.ClientID %>')">
@@ -332,7 +335,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <label class="form-label form-label-custom">Confirm New Password</label>
+                                            <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_ConfirmPassword %>" /></label>
                                             <div class="password-container">
                                                 <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" CssClass="form-control form-control-custom w-100"></asp:TextBox>
                                                 <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility(this, '<%= txtConfirmPassword.ClientID %>')">
@@ -342,12 +345,12 @@
                                         </div>
 
                                         <div class="col-12 text-start mt-2 d-flex justify-content-between align-items-center">
-                                            <asp:LinkButton ID="lnkForgotPassword" runat="server" CssClass="text-secondary small fw-semibold" OnClick="lnkForgotPassword_Click">Forgot your password?</asp:LinkButton>
-                                            <button type="button" class="btn btn-link text-danger small fw-semibold text-decoration-none p-0" onclick="hidePasswordFields()">Cancel</button>
+                                            <asp:LinkButton ID="lnkForgotPassword" runat="server" CssClass="text-secondary small fw-semibold" OnClick="lnkForgotPassword_Click"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_ForgotPassword %>" /></asp:LinkButton>
+                                            <button type="button" class="btn btn-link text-danger small fw-semibold text-decoration-none p-0" onclick="hidePasswordFields()"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_Cancel %>" /></button>
                                         </div>
 
                                         <div class="col-12 mt-4">
-                                            <asp:Button ID="btnUpdatePassword" runat="server" Text="Update Password" 
+                                            <asp:Button ID="btnUpdatePassword" runat="server" Text="<%$ Resources:Strings, Account_UpdatePasswordBtn %>" 
                                                 CssClass="btn-save-custom w-100" OnClick="btnUpdatePassword_Click" />
                                         </div>
                                     </div>
@@ -392,7 +395,7 @@
                 latField.value = pos.lat;
                 lngField.value = pos.lng;
                 
-                // Activar el botón de guardar cambios porque el mapa se movió
+                // Activar el botÃ³n de guardar cambios porque el mapa se moviÃ³
                 const saveBtn = document.getElementById('<%= btnSaveChanges.ClientID %>');
                 if(saveBtn) {
                     saveBtn.style.pointerEvents = 'auto';
@@ -402,7 +405,7 @@
                 }
             });
             
-            // Solución para que el mapa se dibuje correctamente dentro de UpdatePanels
+            // SoluciÃ³n para que el mapa se dibuje correctamente dentro de UpdatePanels
             setTimeout(function() { accountMap.invalidateSize(); }, 200);
         }
 
@@ -426,3 +429,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

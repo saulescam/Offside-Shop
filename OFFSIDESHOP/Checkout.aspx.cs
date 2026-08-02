@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace OFFSIDESHOP
 {
-    public partial class Checkout : System.Web.UI.Page
+    public partial class Checkout : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
         public bool ShowMap = true;
@@ -84,6 +84,12 @@ namespace OFFSIDESHOP
             {
                 upPerfil.Update();
             }
+        }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
         }
 
         private void LoadDataUsers()

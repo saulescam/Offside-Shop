@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace OFFSIDESHOP
 {
-    public partial class Cart : System.Web.UI.Page
+    public partial class Cart : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
@@ -82,6 +82,12 @@ namespace OFFSIDESHOP
             {
                 upPerfil.Update();
             }
+        }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
         }
 
         private void LoadCart()

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="OFFSIDESHOP.Cart" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="OFFSIDESHOP.Cart" %>
 
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 <!DOCTYPE html>
@@ -70,14 +70,14 @@
             margin-bottom: 30px;
         }
 
-        /* ── Tabla ── */
+        /* â”€â”€ Tabla â”€â”€ */
         .table-custom {
             border-collapse: separate;
             border-spacing: 0 15px;
             width: 100%;
         }
 
-            /* CENTRA TODO — encabezados y celdas */
+            /* CENTRA TODO â€” encabezados y celdas */
             .table-custom th,
             .table-custom td {
                 text-align: center !important;
@@ -126,7 +126,7 @@
                     border-bottom-right-radius: 10px;
                 }
 
-        /* ── Imagen ── */
+        /* â”€â”€ Imagen â”€â”€ */
         .cart-img {
             border-radius: 10px;
             border: 1px solid #e0e0e0;
@@ -137,7 +137,7 @@
                 transform: scale(1.1);
             }
 
-        /* ── Botón Remove ── */
+        /* â”€â”€ BotÃ³n Remove â”€â”€ */
         .btn-delete-item {
             background-color: #FFF9E6;
             color: #C08000;
@@ -153,7 +153,7 @@
                 color: #000000;
             }
 
-        /* ── Total y Checkout ── */
+        /* â”€â”€ Total y Checkout â”€â”€ */
         .total-section {
             background-color: #f8f9fa;
             border-radius: 15px;
@@ -206,7 +206,7 @@
                 transform: translateY(-2px);
             }
 
-        /* ── Scrollbar ── */
+        /* â”€â”€ Scrollbar â”€â”€ */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -224,12 +224,12 @@
                 background: #FFC800;
             }
 
-        /* ── Color subtotal/total ── */
+        /* â”€â”€ Color subtotal/total â”€â”€ */
         .text-danger {
             color: #D47A00 !important;
         }
 
-        /* ── Control de cantidad ── */
+        /* â”€â”€ Control de cantidad â”€â”€ */
         .table-custom td:has(.qty-wrapper) {
             padding: 0 !important;
         }
@@ -412,8 +412,8 @@
                 color: #fff;
                 background-color: #333333;
                 border-color: #333333;
-                transform: translateX(-2px); /* Un sutil efecto que mueve el botón hacia la izquierda en hover */
-                ); /* Un sutil efecto que mueve el botón hacia la izquierda en hover */
+                transform: translateX(-2px); /* Un sutil efecto que mueve el botÃ³n hacia la izquierda en hover */
+                ); /* Un sutil efecto que mueve el botÃ³n hacia la izquierda en hover */
             }
     </style>
 
@@ -463,6 +463,7 @@
                 <a class="navbar-brand" href="#page-top">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                     <span class="navbar-toggler-icon"></span>
@@ -472,6 +473,8 @@
 
 
 
+
+                    
 
                     <asp:PlaceHolder ID="phNavbarUser" runat="server">
                         <div class="user-menu-container">
@@ -496,10 +499,10 @@
                                         </div>
                                         <div class="dropdown-content">
                                             <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
-                                                <i class="fas fa-clipboard-list"></i> My Orders
+                                                <i class="fas fa-clipboard-list"></i> <%= Resources.Strings.Nav_MyOrders %>
                                             </asp:LinkButton>
-                                            <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
-                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                            <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
+                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                         </div>
                                     </div>
 
@@ -514,7 +517,7 @@
 
         <div class="container">
             <div class="cart-container">
-                <h2 class="cart-title">Your Shopping Cart</h2>
+                <h2 class="cart-title"><%= Resources.Strings.Cart_MainTitle %></h2>
 
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
@@ -530,7 +533,7 @@
                                 <Columns>
 
                                     <%-- Imagen --%>
-                                    <asp:TemplateField HeaderText="Imagen"
+                                    <asp:TemplateField HeaderText="<%$ Resources:Strings, Cart_HeaderImage %>"
                                         ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -542,7 +545,7 @@
                                     </asp:TemplateField>
 
                                     <%-- Nombre --%>
-                                    <asp:TemplateField HeaderText="T-Shirt"
+                                    <asp:TemplateField HeaderText="<%$ Resources:Strings, Cart_HeaderTShirt %>"
                                         ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -551,33 +554,33 @@
                                     </asp:TemplateField>
 
                                     <%-- Talla --%>
-                                    <asp:BoundField DataField="Size" HeaderText="Size"
+                                    <asp:BoundField DataField="Size" HeaderText="<%$ Resources:Strings, Cart_HeaderSize %>"
                                         ItemStyle-Font-Bold="true"
                                         ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center" />
 
                                     <%-- Precio unitario --%>
-                                    <asp:BoundField DataField="Price" HeaderText="Unitary Price"
+                                    <asp:BoundField DataField="Price" HeaderText="<%$ Resources:Strings, Cart_HeaderPrice %>"
                                         DataFormatString="${0:F2}"
                                         ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center" />
 
                                     <%-- Control de cantidad --%>
-                                    <asp:TemplateField HeaderText="Quantity" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="<%$ Resources:Strings, Cart_HeaderQuantity %>" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <div class="qty-wrapper">
 
-                                                <%-- Botón MENOS: gris si Quantity = 1 --%>
+                                                <%-- BotÃ³n MENOS: gris si Quantity = 1 --%>
                                                 <asp:Button runat="server" Text="-"
                                                     CommandName="decrease"
                                                     CommandArgument='<%# Container.DataItemIndex %>'
                                                     CssClass="btn-qty"
                                                     Enabled='<%# Convert.ToInt32(Eval("Quantity")) > 1 %>' />
 
-                                                <%-- Número actual --%>
+                                                <%-- NÃºmero actual --%>
                                                 <span class="qty-number"><%# Eval("Quantity") %></span>
 
-                                                <%-- Botón MAS: gris si Quantity = Stock --%>
+                                                <%-- BotÃ³n MAS: gris si Quantity = Stock --%>
                                                 <asp:Button runat="server" Text="+"
                                                     CommandName="increase"
                                                     CommandArgument='<%# Container.DataItemIndex %>'
@@ -589,15 +592,15 @@
                                     </asp:TemplateField>
 
                                     <%-- Subtotal --%>
-                                    <asp:BoundField DataField="Subtotal" HeaderText="Subtotal"
+                                    <asp:BoundField DataField="Subtotal" HeaderText="<%$ Resources:Strings, Cart_HeaderSubtotal %>"
                                         DataFormatString="${0:F2}"
                                         ItemStyle-Font-Bold="true"
                                         ItemStyle-CssClass="text-danger"
                                         ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center" />
 
-                                    <%-- Botón Remove --%>
-                                    <asp:CommandField ShowDeleteButton="True" DeleteText="Remove"
+                                    <%-- BotÃ³n Remove --%>
+                                    <asp:CommandField ShowDeleteButton="True" DeleteText="<%$ Resources:Strings, Cart_BtnRemove %>"
                                         ButtonType="Button"
                                         ControlStyle-CssClass="btn-delete-item"
                                         ItemStyle-HorizontalAlign="Center"
@@ -610,16 +613,16 @@
                         <div class="row mt-5 align-items-center">
                             <div class="col-md-6 mb-3 mb-md-0">
                                 <a href="Homepage.aspx" class="btn-continue-shopping">
-                                    <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+                                    <i class="fas fa-arrow-left me-2"></i><%= Resources.Strings.Cart_BtnContinue %>
                                 </a>
                             </div>
                             <div class="col-md-6 col-lg-4 ms-auto">
                                 <div class="total-section text-end">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-secondary fw-semibold">Total to pay:</span>
+                                        <span class="text-secondary fw-semibold"><%= Resources.Strings.Cart_TotalToPay %></span>
                                         <asp:Label ID="lblTotal" runat="server" Text="$0.00" CssClass="fs-4 text-danger fw-bold"></asp:Label>
                                     </div>
-                                    <asp:Button ID="btnCheckout" runat="server" Text="Proceed to Checkout"
+                                    <asp:Button ID="btnCheckout" runat="server" Text="<%$ Resources:Strings, Cart_BtnCheckout %>"
                                         CssClass="btn-checkout-custom" OnClick="btnCheckout_Click" />
                                 </div>
                             </div>
@@ -636,3 +639,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

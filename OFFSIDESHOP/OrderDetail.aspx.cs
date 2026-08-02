@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using MySql.Data.MySqlClient;
 using System.Web.UI;
@@ -6,7 +6,7 @@ using System.Web.UI.WebControls;
 
 namespace OFFSIDESHOP
 {
-    public partial class OrderDetail : System.Web.UI.Page
+    public partial class OrderDetail : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -65,6 +65,12 @@ namespace OFFSIDESHOP
                     Response.Redirect("MyOrders.aspx");
                 }
             }
+        }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
         }
 
         private void CargarDatosPerfilUsuario()
@@ -238,7 +244,7 @@ namespace OFFSIDESHOP
                                 ViewState["IdStatus"] = idStatus;
                                 ViewState["IdPaymentMethod"] = idPaymentMethod;
 
-                                // --- CÓDIGO NUEVO: LLENAR LOS HIDDEN FIELDS PARA EL MAPA ---
+                                // --- CÃ“DIGO NUEVO: LLENAR LOS HIDDEN FIELDS PARA EL MAPA ---
                                 hfTrackOrderId.Value = idOrder.ToString();
 
                                 if (reader["Latitude"] != DBNull.Value && reader["Longitude"] != DBNull.Value)
@@ -247,7 +253,7 @@ namespace OFFSIDESHOP
                                     hfOrderLng.Value = reader["Longitude"].ToString();
                                 }
 
-                                // LÓGICA DE INTERFAZ DE ESTADOS 
+                                // LÃ“GICA DE INTERFAZ DE ESTADOS 
                                 UpdateStatusUI(idStatus);
 
                                 lblOrderDate.Text = Convert.ToDateTime(reader["order_date"]).ToString("dd/MM/yyyy");
@@ -341,7 +347,7 @@ namespace OFFSIDESHOP
                     statusTitle.Style["color"] = "#1d4ed8";
                     statusDescription.InnerText = "Your order has left our store! Our delivery driver is currently heading to your location.";
                     statusDescription.Style["color"] = "#1e40af";
-                    // SE REVELA EL BOTÓN DE TRACKING AL ESTAR EN CAMINO
+                    // SE REVELA EL BOTÃ“N DE TRACKING AL ESTAR EN CAMINO
                     trackerButtonContainer.Visible = true;
                     break;
                 case 4: // Delivered
@@ -618,7 +624,7 @@ namespace OFFSIDESHOP
         [System.Web.Services.WebMethod]
         public static string GetLiveDriverLocation(int orderId)
         {
-            // Asegúrate de usar el nombre correcto de tu cadena de conexión
+            // AsegÃºrate de usar el nombre correcto de tu cadena de conexiÃ³n
             string connString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
             using (MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(connString))

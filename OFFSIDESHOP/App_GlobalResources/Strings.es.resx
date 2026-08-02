@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<!-- BARRA DE NAVEGACION -->
+	<data name="Nav_Login" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+	<data name="Nav_SignUp" xml:space="preserve">
+    <value>Registrarse</value>
+  </data>
+	<data name="Nav_MyAccount" xml:space="preserve">
+    <value>Mi Cuenta</value>
+  </data>
+	<data name="Nav_MyOrders" xml:space="preserve">
+    <value>Mis Pedidos</value>
+  </data>
+	<data name="Nav_LogOut" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
+	<data name="Nav_AdminRole" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+	<data name="Nav_Dashboard" xml:space="preserve">
+    <value>Panel de Control</value>
+  </data>
+
+	<!-- BARRA DE BUSQUEDA Y FILTROS SUPERIORES -->
+	<data name="Search_MobileBtn" xml:space="preserve">
+    <value>Filtros y Búsqueda</value>
+  </data>
+	<data name="Search_Label" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+	<data name="Search_Placeholder" xml:space="preserve">
+    <value>Buscar equipo, marca, año...</value>
+  </data>
+	<data name="Search_LeagueLabel" xml:space="preserve">
+    <value>Liga</value>
+  </data>
+	<data name="Search_BrandLabel" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+	<data name="Search_KitLabel" xml:space="preserve">
+    <value>Tipo de KIT</value>
+  </data>
+	<data name="Search_KitAny" xml:space="preserve">
+    <value>Cualquier Kit</value>
+  </data>
+	<data name="Search_Btn" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+
+	<!-- TITULOS DE SECCIONES Y TARJETAS -->
+	<data name="Section_Leagues" xml:space="preserve">
+    <value>Ligas</value>
+  </data>
+	<data name="Section_Collections" xml:space="preserve">
+    <value>Colecciones</value>
+  </data>
+	<data name="Section_TopSelling" xml:space="preserve">
+    <value>Más Vendidos</value>
+  </data>
+	<data name="Section_NewJerseys" xml:space="preserve">
+    <value>Nuevas Camisetas</value>
+  </data>
+	<data name="Section_SeeMore" xml:space="preserve">
+    <value>Ver más</value>
+  </data>
+	<data name="Card_Sale" xml:space="preserve">
+    <value>OFERTA</value>
+  </data>
+	<data name="Card_Print" xml:space="preserve">
+    <value>ESTAMPADO</value>
+  </data>
+	<data name="Card_BestSeller" xml:space="preserve">
+    <value>MÁS VENDIDO</value>
+  </data>
+	<data name="Card_New" xml:space="preserve">
+    <value>NUEVO</value>
+  </data>
+	<data name="Card_Sizes" xml:space="preserve">
+    <value>Tallas:</value>
+  </data>
+	<data name="Card_BuyBtn" xml:space="preserve">
+    <value>Comprar</value>
+  </data>
+	<data name="Card_ShopNow" xml:space="preserve">
+    <value>Comprar Ahora</value>
+  </data>
+	<data name="Card_ViewDetails" xml:space="preserve">
+    <value>Ver Detalles</value>
+  </data>
+
+	<!-- FILTROS LATERALES -->
+	<data name="Sidebar_Title" xml:space="preserve">
+    <value>Filtrar Catálogo</value>
+  </data>
+	<data name="Sidebar_Price" xml:space="preserve">
+    <value>Rango de Precio</value>
+  </data>
+	<data name="Sidebar_PriceAll" xml:space="preserve">
+    <value>Todos los precios</value>
+  </data>
+	<data name="Sidebar_PriceUnder50" xml:space="preserve">
+    <value>Menos de $50</value>
+  </data>
+	<data name="Sidebar_PriceOver150" xml:space="preserve">
+    <value>Más de $150</value>
+  </data>
+	<data name="Sidebar_Sizes" xml:space="preserve">
+    <value>Tallas Disponibles</value>
+  </data>
+	<data name="Sidebar_Competition" xml:space="preserve">
+    <value>Competición / Liga</value>
+  </data>
+	<data name="Sidebar_Team" xml:space="preserve">
+    <value>Club / Equipo</value>
+  </data>
+	<data name="Sidebar_PromoSale" xml:space="preserve">
+    <value>Ofertas Especiales</value>
+  </data>
+	<data name="Sidebar_PromoPrint" xml:space="preserve">
+    <value>Permite Estampado Personalizado</value>
+  </data>
+	<data name="Sidebar_BtnFilter" xml:space="preserve">
+    <value>FILTRAR POR</value>
+  </data>
+
+	<!-- PAGINACION Y RESULTADOS -->
+	<data name="Results_MainTitle" xml:space="preserve">
+    <value>Resultados de Búsqueda</value>
+  </data>
+	<data name="Results_FoundCount" xml:space="preserve">
+    <value>Productos Encontrados</value>
+  </data>
+	<data name="Results_EmptyTitle" xml:space="preserve">
+    <value>Ninguna camiseta coincide con tu selección.</value>
+  </data>
+	<data name="Results_EmptySub" xml:space="preserve">
+    <value>Intenta ajustar tus filtros o palabras clave en el panel lateral.</value>
+  </data>
+	<data name="Pager_Prev" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+	<data name="Pager_Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+	<data name="Pager_Page" xml:space="preserve">
+    <value>Página</value>
+  </data>
+	<data name="Pager_Of" xml:space="preserve">
+    <value>de</value>
+  </data>
+	<!-- DETALLES DEL PRODUCTO -->
+	<data name="Nav_BackToShop" xml:space="preserve">
+    <value>Volver a la Tienda</value>
+  </data>
+	<data name="Detail_Team" xml:space="preserve">
+    <value>Equipo:</value>
+  </data>
+	<data name="Detail_Year" xml:space="preserve">
+    <value>Año:</value>
+  </data>
+	<data name="Detail_SelectSize" xml:space="preserve">
+    <value>Seleccionar Talla:</value>
+  </data>
+	<data name="Detail_SizeGuide" xml:space="preserve">
+    <value>Guía de Tallas</value>
+  </data>
+	<data name="Detail_SelectQuantity" xml:space="preserve">
+    <value>Seleccionar Cantidad:</value>
+  </data>
+	<data name="Detail_CustomPrompt" xml:space="preserve">
+    <value>¿Deseas personalizar tu camiseta?</value>
+  </data>
+	<data name="Detail_CustomPriceInfo" xml:space="preserve">
+    <value>Estampa tu nombre y número favorito por solo</value>
+  </data>
+	<data name="Detail_CustomName" xml:space="preserve">
+    <value>Nombre (Máx. 12 letras)</value>
+  </data>
+	<data name="Detail_CustomNumber" xml:space="preserve">
+    <value>Número</value>
+  </data>
+	<data name="Detail_CustomWarning" xml:space="preserve">
+    <value>Solo se permiten caracteres alfanuméricos en mayúscula.</value>
+  </data>
+	<data name="Detail_AddToCart" xml:space="preserve">
+    <value>Añadir al Carrito</value>
+  </data>
+
+	<!-- PESTAÑAS Y RESEÑAS -->
+	<data name="Tab_Similar" xml:space="preserve">
+    <value>También te podría gustar</value>
+  </data>
+	<data name="Tab_Reviews" xml:space="preserve">
+    <value>Reseñas del Producto</value>
+  </data>
+	<data name="Review_LeaveTitle" xml:space="preserve">
+    <value>Dejar una Reseña</value>
+  </data>
+	<data name="Review_Rating" xml:space="preserve">
+    <value>Calificación</value>
+  </data>
+	<data name="Review_CommentLabel" xml:space="preserve">
+    <value>Tu Comentario</value>
+  </data>
+	<data name="Review_CommentPlaceholder" xml:space="preserve">
+    <value>Comparte tu opinión sobre esta camiseta...</value>
+  </data>
+	<data name="Review_SubmitBtn" xml:space="preserve">
+    <value>Enviar Reseña</value>
+  </data>
+	<data name="Review_MustPurchase" xml:space="preserve">
+    <value>Debes comprar esta camiseta antes de dejar una reseña.</value>
+  </data>
+	<data name="Review_NoReviews" xml:space="preserve">
+    <value>No hay reseñas para esta camiseta</value>
+  </data>
+	<data name="Review_DeleteBtn" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+	<data name="Review_DeleteConfirm" xml:space="preserve">
+    <value>¿Estás seguro de que deseas eliminar esta reseña?</value>
+  </data>
+	<data name="Review_ReplyPlaceholder" xml:space="preserve">
+    <value>Escribe una respuesta oficial...</value>
+  </data>
+	<data name="Review_ReplyBtn" xml:space="preserve">
+    <value>Responder</value>
+  </data>
+	<data name="Review_OfficialReply" xml:space="preserve">
+    <value>Respuesta Oficial</value>
+  </data>
+
+	<!-- MODAL DE GUIA DE TALLAS -->
+	<data name="Modal_SizeGuideDesc" xml:space="preserve">
+    <value>Las medidas se muestran en centímetros (cm). Estas son medidas estándar de versión aficionado. Puede haber una ligera variación debido a la fabricación.</value>
+  </data>
+	<data name="Modal_TableHeaderSize" xml:space="preserve">
+    <value>Talla</value>
+  </data>
+	<data name="Modal_TableHeaderChest" xml:space="preserve">
+    <value>Pecho (cm)</value>
+  </data>
+	<data name="Modal_TableHeaderLength" xml:space="preserve">
+    <value>Largo (cm)</value>
+  </data>
+	<!-- CARRITO DE COMPRAS (CART) -->
+	<data name="Cart_MainTitle" xml:space="preserve">
+    <value>Tu Carrito de Compras</value>
+  </data>
+	<data name="Cart_HeaderImage" xml:space="preserve">
+    <value>Imagen</value>
+  </data>
+	<data name="Cart_HeaderTShirt" xml:space="preserve">
+    <value>Camiseta</value>
+  </data>
+	<data name="Cart_HeaderSize" xml:space="preserve">
+    <value>Talla</value>
+  </data>
+	<data name="Cart_HeaderPrice" xml:space="preserve">
+    <value>Precio Unitario</value>
+  </data>
+	<data name="Cart_HeaderQuantity" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+	<data name="Cart_HeaderSubtotal" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+	<data name="Cart_BtnRemove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+	<data name="Cart_BtnContinue" xml:space="preserve">
+    <value>Continuar Comprando</value>
+  </data>
+	<data name="Cart_TotalToPay" xml:space="preserve">
+    <value>Total a pagar:</value>
+  </data>
+	<data name="Cart_BtnCheckout" xml:space="preserve">
+    <value>Proceder al Pago</value>
+  </data>
+
+	<!-- PASARELA DE PAGO (CHECKOUT) - FACTURACION -->
+	<data name="Checkout_BillingTitle" xml:space="preserve">
+    <value>Detalles de facturación</value>
+  </data>
+	<data name="Checkout_FirstName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+	<data name="Checkout_LastName" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+	<data name="Checkout_Email" xml:space="preserve">
+    <value>Correo Electrónico</value>
+  </data>
+	<data name="Checkout_Address" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+	<data name="Checkout_Department" xml:space="preserve">
+    <value>Departamento</value>
+  </data>
+	<data name="Checkout_Municipality" xml:space="preserve">
+    <value>Municipio</value>
+  </data>
+	<data name="Checkout_District" xml:space="preserve">
+    <value>Distrito / Ciudad</value>
+  </data>
+	<data name="Checkout_OrderNotes" xml:space="preserve">
+    <value>Notas del Pedido (Opcional)</value>
+  </data>
+
+	<!-- PASARELA DE PAGO (CHECKOUT) - MAPA INTERACTIVO -->
+	<data name="Checkout_ConfirmLocation" xml:space="preserve">
+    <value>Confirmar Ubicación de Entrega</value>
+  </data>
+	<data name="Checkout_SearchMapPlaceholder" xml:space="preserve">
+    <value>Buscar una dirección o lugar...</value>
+  </data>
+	<data name="Checkout_LoadingMap" xml:space="preserve">
+    <value>Cargando mapa interactivo...</value>
+  </data>
+	<data name="Checkout_MapInstructions" xml:space="preserve">
+    <value>Haz clic en el mapa o arrastra el marcador para confirmar la ubicación exacta de entrega.</value>
+  </data>
+
+	<!-- PASARELA DE PAGO (CHECKOUT) - RESUMEN DE ORDEN Y PAGOS -->
+	<data name="Checkout_YourOrderTitle" xml:space="preserve">
+    <value>Tu Pedido</value>
+  </data>
+	<data name="Checkout_HeaderProduct" xml:space="preserve">
+    <value>PRODUCTO</value>
+  </data>
+	<data name="Checkout_HeaderTotal" xml:space="preserve">
+    <value>TOTAL</value>
+  </data>
+	<data name="Checkout_DiscountApplied" xml:space="preserve">
+    <value>Descuento Aplicado</value>
+  </data>
+	<data name="Checkout_Shipping" xml:space="preserve">
+    <value>Envío</value>
+  </data>
+	<data name="Checkout_HaveCoupon" xml:space="preserve">
+    <value>¿Tienes un cupón de descuento?</value>
+  </data>
+	<data name="Checkout_ApplyCoupon" xml:space="preserve">
+    <value>Aplicar</value>
+  </data>
+	<data name="Checkout_PayCash" xml:space="preserve">
+    <value>Pago contra entrega</value>
+  </data>
+	<data name="Checkout_PayCashDesc" xml:space="preserve">
+    <value>Paga en efectivo al momento de recibir tu pedido en la puerta de tu casa. Por favor, intenta tener el monto exacto.</value>
+  </data>
+	<data name="Checkout_PayPaypal" xml:space="preserve">
+    <value>Sistema PayPal</value>
+  </data>
+	<data name="Checkout_PayPaypalDesc" xml:space="preserve">
+    <value>Paga de forma segura a través de PayPal usando tu tarjeta de crédito, débito o saldo de PayPal. Serás redirigido a la pasarela segura para completar tu transacción.</value>
+  </data>
+	<data name="Checkout_PayWallet" xml:space="preserve">
+    <value>Virtual Wallet</value>
+  </data>
+	<data name="Checkout_PayWalletDesc" xml:space="preserve">
+    <value>Usa tu cuenta de Virtual Wallet para pagar de forma segura.</value>
+  </data>
+	<data name="Checkout_TermsText1" xml:space="preserve">
+    <value>He leído y acepto los </value>
+  </data>
+	<data name="Checkout_TermsText2" xml:space="preserve">
+    <value>términos y condiciones</value>
+  </data>
+	<data name="Checkout_PlaceOrder" xml:space="preserve">
+    <value>Realizar Pedido</value>
+  </data>
+	<!-- MI CUENTA (MY ACCOUNT) -->
+	<data name="Account_MainTitle" xml:space="preserve">
+    <value>Mi Cuenta</value>
+  </data>
+
+	<!-- INFORMACION PERSONAL -->
+	<data name="Account_PersonalInfo" xml:space="preserve">
+    <value>Información Personal</value>
+  </data>
+	<data name="Account_FirstName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+	<data name="Account_LastName" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+	<data name="Account_Username" xml:space="preserve">
+    <value>Nombre de Usuario</value>
+  </data>
+	<data name="Account_EmailAddress" xml:space="preserve">
+    <value>Correo Electrónico</value>
+  </data>
+	<data name="Account_EmailWarning" xml:space="preserve">
+    <value>El correo electrónico no se puede modificar.</value>
+  </data>
+	<data name="Account_PhoneNumber" xml:space="preserve">
+    <value>Número de Teléfono</value>
+  </data>
+	<data name="Account_ShippingAddress" xml:space="preserve">
+    <value>Dirección de Envío</value>
+  </data>
+	<data name="Account_AddressPlaceholder" xml:space="preserve">
+    <value>Ingresa la dirección completa de tu calle, apartamento, ciudad y código postal...</value>
+  </data>
+
+	<!-- MAPA DE CUENTA -->
+	<data name="Account_DefaultLocation" xml:space="preserve">
+    <value>Ubicación de Entrega Predeterminada</value>
+  </data>
+	<data name="Account_MapInstructions" xml:space="preserve">
+    <value>Arrastra el marcador a la ubicación exacta de tu casa.</value>
+  </data>
+
+	<!-- ACCIONES PRINCIPALES -->
+	<data name="Account_SaveChanges" xml:space="preserve">
+    <value>Guardar Cambios</value>
+  </data>
+	<data name="Account_BackHome" xml:space="preserve">
+    <value>Volver al Inicio</value>
+  </data>
+
+	<!-- SEGURIDAD Y CONTRASEÑA -->
+	<data name="Account_SecurityTitle" xml:space="preserve">
+    <value>Seguridad y Contraseña</value>
+  </data>
+	<data name="Account_PasswordLabel" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+	<data name="Account_ChangePasswordBtn" xml:space="preserve">
+    <value>Cambiar Contraseña</value>
+  </data>
+	<data name="Account_CurrentPassword" xml:space="preserve">
+    <value>Contraseña Actual</value>
+  </data>
+	<data name="Account_NewPassword" xml:space="preserve">
+    <value>Nueva Contraseña</value>
+  </data>
+	<data name="Account_ConfirmPassword" xml:space="preserve">
+    <value>Confirmar Nueva Contraseña</value>
+  </data>
+	<data name="Account_ForgotPassword" xml:space="preserve">
+    <value>¿Olvidaste tu contraseña?</value>
+  </data>
+	<data name="Account_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+	<data name="Account_UpdatePasswordBtn" xml:space="preserve">
+    <value>Actualizar Contraseña</value>
+  </data>
+	<!-- AUTENTICACION: LOGIN -->
+	<data name="Auth_LoginTitle" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+	<data name="Auth_LoginSub" xml:space="preserve">
+    <value>¡Bienvenido de nuevo! Por favor, ingresa tus datos.</value>
+  </data>
+	<data name="Auth_UserEmail" xml:space="preserve">
+    <value>Usuario o Correo *</value>
+  </data>
+	<data name="Auth_Password" xml:space="preserve">
+    <value>Contraseña *</value>
+  </data>
+	<data name="Auth_ValUser" xml:space="preserve">
+    <value>Ingresa tu usuario.</value>
+  </data>
+	<data name="Auth_ValPass" xml:space="preserve">
+    <value>Por favor ingresa tu contraseña.</value>
+  </data>
+	<data name="Auth_ForgotPass" xml:space="preserve">
+    <value>¿Olvidaste tu contraseña?</value>
+  </data>
+	<data name="Auth_BtnLogin" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+	<data name="Auth_GoogleLogin" xml:space="preserve">
+    <value>Continuar con Google</value>
+  </data>
+	<data name="Auth_NoAccount" xml:space="preserve">
+    <value>¿No tienes una cuenta?</value>
+  </data>
+	<data name="Auth_LinkSignUp" xml:space="preserve">
+    <value>Regístrate</value>
+  </data>
+
+	<!-- AUTENTICACION: REGISTRO (SIGN UP) -->
+	<data name="Auth_SignUpTitle" xml:space="preserve">
+    <value>Crear una cuenta</value>
+  </data>
+	<data name="Auth_SignUpSub" xml:space="preserve">
+    <value>Compra las mejores camisetas de fútbol de todos los tiempos.</value>
+  </data>
+	<data name="Auth_FirstName" xml:space="preserve">
+    <value>Nombre *</value>
+  </data>
+	<data name="Auth_LastName" xml:space="preserve">
+    <value>Apellidos *</value>
+  </data>
+	<data name="Auth_Username" xml:space="preserve">
+    <value>Usuario *</value>
+  </data>
+	<data name="Auth_Email" xml:space="preserve">
+    <value>Correo electrónico *</value>
+  </data>
+	<data name="Auth_ConfirmPass" xml:space="preserve">
+    <value>Confirmar Contraseña *</value>
+  </data>
+	<data name="Auth_BtnSignUp" xml:space="preserve">
+    <value>Crear cuenta</value>
+  </data>
+	<data name="Auth_GoogleSignUp" xml:space="preserve">
+    <value>Regístrate con Google</value>
+  </data>
+	<data name="Auth_HaveAccount" xml:space="preserve">
+    <value>¿Ya tienes una cuenta?</value>
+  </data>
+	<data name="Auth_LinkLogin" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+
+	<!-- AUTENTICACION: VERIFICAR EMAIL (Panel SignUp) -->
+	<data name="Auth_VerifyEmailTitle" xml:space="preserve">
+    <value>Verificar Correo</value>
+  </data>
+	<data name="Auth_VerifyEmailSub1" xml:space="preserve">
+    <value>Hemos enviado un código de 6 dígitos a</value>
+  </data>
+	<data name="Auth_VerifyEmailSub2" xml:space="preserve">
+    <value>Por favor, revisa tu bandeja de entrada (y la carpeta de spam) e ingresa el código a continuación para activar tu cuenta.</value>
+  </data>
+	<data name="Auth_BtnCompleteReg" xml:space="preserve">
+    <value>Completar Registro</value>
+  </data>
+	<data name="Auth_DiffEmail" xml:space="preserve">
+    <value>Usar un correo diferente</value>
+  </data>
+
+	<!-- AUTENTICACION: TOKEN (Independiente) -->
+	<data name="Auth_TokenTitle" xml:space="preserve">
+    <value>VERIFICAR TOKEN</value>
+  </data>
+	<data name="Auth_TokenSub" xml:space="preserve">
+    <value>Ingresa el código enviado a tu correo</value>
+  </data>
+	<data name="Auth_TokenInput" xml:space="preserve">
+    <value>Token de Verificación *</value>
+  </data>
+	<data name="Auth_ValToken" xml:space="preserve">
+    <value>Por favor ingresa tu token.</value>
+  </data>
+	<data name="Auth_BtnVerify" xml:space="preserve">
+    <value>Verificar Token</value>
+  </data>
+	<data name="Auth_BackLogin" xml:space="preserve">
+    <value>Volver al Login</value>
+  </data>
+
+	<!-- AUTENTICACION: RECUPERAR CUENTA -->
+	<data name="Auth_RecoverTitle" xml:space="preserve">
+    <value>RECUPERAR</value>
+  </data>
+	<data name="Auth_RecoverSub" xml:space="preserve">
+    <value>No hay problema. Ingresa tu usuario o correo electrónico y te ayudaremos a recuperarla.</value>
+  </data>
+	<data name="Auth_RecoverInput" xml:space="preserve">
+    <value>Usuario o Correo *</value>
+  </data>
+	<data name="Auth_BtnRecover" xml:space="preserve">
+    <value>Recuperar</value>
+  </data>
+	<data name="Auth_Remembered" xml:space="preserve">
+    <value>¿Ya la recordaste?</value>
+  </data>
+
+	<!-- AUTENTICACION: CAMBIAR CONTRASEÑA EXACTO -->
+	<data name="Auth_ChangePassTitle" xml:space="preserve">
+    <value>CAMBIAR CONTRASEÑA</value>
+  </data>
+	<data name="Auth_ChangePassSub" xml:space="preserve">
+    <value>Ingresa tu nueva contraseña</value>
+  </data>
+	<data name="Auth_NewPassInput" xml:space="preserve">
+    <value>Nueva Contraseña *</value>
+  </data>
+	<data name="Auth_ValNewPass" xml:space="preserve">
+    <value>Por favor ingresa tu nueva contraseña.</value>
+  </data>
+	<data name="Auth_ConfirmPassInput" xml:space="preserve">
+    <value>Confirmar Contraseña *</value>
+  </data>
+	<data name="Auth_ValConfirmPass" xml:space="preserve">
+    <value>Por favor confirma tu contraseña.</value>
+  </data>
+	<data name="Auth_BtnChangePass" xml:space="preserve">
+    <value>Cambiar Contraseña</value>
+  </data>
+	<data name="Auth_BackLogin" xml:space="preserve">
+    <value>Volver al Login</value>
+  </data>
+	<!-- SOPORTE (CONTACT SUPPORT) -->
+	<data name="Contact_Title" xml:space="preserve">
+    <value>Enviar una solicitud</value>
+  </data>
+	<data name="Contact_HelpWith" xml:space="preserve">
+    <value>¿En qué necesitas ayuda?</value>
+  </data>
+	<data name="Contact_HelpDesc" xml:space="preserve">
+    <value>Por favor, selecciona tu problema a continuación para mostrar los campos relevantes.</value>
+  </data>
+	<data name="Contact_EmailLabel" xml:space="preserve">
+    <value>Tu dirección de correo electrónico</value>
+  </data>
+	<data name="Contact_EmailPlaceholder" xml:space="preserve">
+    <value>Inicia sesión para autocompletar tu correo</value>
+  </data>
+	<data name="Contact_Subject" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+	<data name="Contact_OrderId" xml:space="preserve">
+    <value>ID del Pedido</value>
+  </data>
+	<data name="Contact_OrderIdPlaceholder" xml:space="preserve">
+    <value>ej. 34</value>
+  </data>
+	<data name="Contact_OrderIdDesc" xml:space="preserve">
+    <value>Puedes encontrar esto en tu correo de confirmación o en la sección Mis Pedidos.</value>
+  </data>
+	<data name="Contact_ConsignTitle" xml:space="preserve">
+    <value>Detalles de Consignación</value>
+  </data>
+	<data name="Contact_Condition" xml:space="preserve">
+    <value>Condición (Escala 1-10)</value>
+  </data>
+	<data name="Contact_Size" xml:space="preserve">
+    <value>Talla de Camiseta</value>
+  </data>
+	<data name="Contact_Price" xml:space="preserve">
+    <value>Precio Propuesto ($)</value>
+  </data>
+	<data name="Contact_UploadTitle" xml:space="preserve">
+    <value>Subir Imágenes de Prueba (Frente, Dorso, Etiquetas)</value>
+  </data>
+	<data name="Contact_UploadDrag" xml:space="preserve">
+    <value>Arrastra y suelta tus imágenes aquí</value>
+  </data>
+	<data name="Contact_UploadClick" xml:space="preserve">
+    <value>o haz clic en cualquier lugar de esta caja para buscar archivos</value>
+  </data>
+	<data name="Contact_UploadDesc" xml:space="preserve">
+    <value>Máx. 3 imágenes permitidas. Formatos soportados: JPG, PNG, WEBP. Tamaño máx.: 2MB.</value>
+  </data>
+	<data name="Contact_DetailsTitle" xml:space="preserve">
+    <value>Descripción / Detalles</value>
+  </data>
+	<data name="Contact_DetailsPlaceholder" xml:space="preserve">
+    <value>Por favor, ingresa los detalles de tu solicitud. Un miembro de nuestro equipo de soporte responderá lo antes posible.</value>
+  </data>
+	<data name="Contact_BackHome" xml:space="preserve">
+    <value>Volver a Inicio</value>
+  </data>
+	<data name="Contact_SubmitBtn" xml:space="preserve">
+    <value>Enviar Solicitud</value>
+  </data>
+
+	<!-- MIS PEDIDOS (MY ORDERS) -->
+	<data name="MyOrders_Title" xml:space="preserve">
+    <value>Mi Historial de Pedidos</value>
+  </data>
+	<data name="MyOrders_SubTitle" xml:space="preserve">
+    <value>Revisa los detalles y el estado de todas tus compras en OFFSIDESHOP</value>
+  </data>
+	<data name="MyOrders_NoOrders" xml:space="preserve">
+    <value>¡Aún no has realizado ningún pedido!</value>
+  </data>
+	<data name="MyOrders_OrderRef" xml:space="preserve">
+    <value>Referencia de Pedido</value>
+  </data>
+	<data name="MyOrders_Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+	<data name="MyOrders_DatePurchased" xml:space="preserve">
+    <value>FECHA DE COMPRA:</value>
+  </data>
+	<data name="MyOrders_ShippingDetails" xml:space="preserve">
+    <value>DETALLES DE ENVÍO:</value>
+  </data>
+	<data name="MyOrders_ProductsOrdered" xml:space="preserve">
+    <value>Productos Pedidos</value>
+  </data>
+	<data name="MyOrders_TotalCharged" xml:space="preserve">
+    <value>Total Cobrado</value>
+  </data>
+	<data name="MyOrders_ViewDetails" xml:space="preserve">
+    <value>Ver Detalles y Acciones</value>
+  </data>
+
+	<!-- DETALLES DEL PEDIDO (ORDER DETAIL) -->
+	<data name="OrderDetail_BackToOrders" xml:space="preserve">
+    <value>Volver a Mis Pedidos</value>
+  </data>
+	<data name="OrderDetail_PlacedOn" xml:space="preserve">
+    <value>Realizado el:</value>
+  </data>
+	<data name="OrderDetail_LoadingStatus" xml:space="preserve">
+    <value>Cargando estado del pedido...</value>
+  </data>
+	<data name="OrderDetail_TrackDelivery" xml:space="preserve">
+    <value>Rastrear Entrega</value>
+  </data>
+	<data name="OrderDetail_ShippingTitle" xml:space="preserve">
+    <value>Dirección de Envío</value>
+  </data>
+	<data name="OrderDetail_Customer" xml:space="preserve">
+    <value>Cliente:</value>
+  </data>
+	<data name="OrderDetail_Phone" xml:space="preserve">
+    <value>Teléfono:</value>
+  </data>
+	<data name="OrderDetail_Address" xml:space="preserve">
+    <value>Dirección:</value>
+  </data>
+	<data name="OrderDetail_PaymentTitle" xml:space="preserve">
+    <value>Información de Pago</value>
+  </data>
+	<data name="OrderDetail_Method" xml:space="preserve">
+    <value>Método:</value>
+  </data>
+	<data name="OrderDetail_TransactionId" xml:space="preserve">
+    <value>ID de Transacción:</value>
+  </data>
+	<data name="OrderDetail_OrderNotes" xml:space="preserve">
+    <value>Notas del Pedido:</value>
+  </data>
+	<data name="OrderDetail_NoNotes" xml:space="preserve">
+    <value>Sin notas proporcionadas.</value>
+  </data>
+	<data name="OrderDetail_ItemsInOrder" xml:space="preserve">
+    <value>Artículos en tu Pedido</value>
+  </data>
+	<data name="OrderDetail_ProductDetails" xml:space="preserve">
+    <value>Detalles del Producto</value>
+  </data>
+	<data name="OrderDetail_Price" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+	<data name="OrderDetail_Quantity" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+	<data name="OrderDetail_Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+	<data name="OrderDetail_Size" xml:space="preserve">
+    <value>Talla:</value>
+  </data>
+	<data name="OrderDetail_ItemsSubtotal" xml:space="preserve">
+    <value>Subtotal de Artículos:</value>
+  </data>
+	<data name="OrderDetail_ShippingCost" xml:space="preserve">
+    <value>Costo de Envío:</value>
+  </data>
+	<data name="OrderDetail_CancelOrder" xml:space="preserve">
+    <value>Cancelar Pedido</value>
+  </data>
+	<data name="OrderDetail_RequestRefund" xml:space="preserve">
+    <value>Solicitar Reembolso</value>
+  </data>
+	<data name="OrderDetail_ModalReasonTitle" xml:space="preserve">
+    <value>Proporcionar una Razón para</value>
+  </data>
+	<data name="OrderDetail_ModalReasonDesc" xml:space="preserve">
+    <value>Por favor, selecciona una razón de la lista y explica por qué deseas proceder con esta solicitud.</value>
+  </data>
+	<data name="OrderDetail_ModalSelectReason" xml:space="preserve">
+    <value>Selecciona una Razón:</value>
+  </data>
+	<data name="OrderDetail_ModalComments" xml:space="preserve">
+    <value>Comentarios Adicionales (Opcional):</value>
+  </data>
+	<data name="OrderDetail_ModalCommentsPlaceholder" xml:space="preserve">
+    <value>Proporciona más detalles aquí... (Requerido si se selecciona 'Otro')</value>
+  </data>
+	<data name="OrderDetail_ModalGoBack" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+	<data name="OrderDetail_LiveTracking" xml:space="preserve">
+    <value>Rastreo en Vivo</value>
+  </data>
+	<data name="OrderDetail_ConnectingDriver" xml:space="preserve">
+    <value>Conectando con el conductor...</value>
+  </data>
+	<data name="Results_FilterTitle" xml:space="preserve">
+    <value>Filtrar Por</value>
+  </data>
+	<data name="Results_PriceRange" xml:space="preserve">
+    <value>Rango de Precio</value>
+  </data>
+	<data name="Results_AvailableSizes" xml:space="preserve">
+    <value>Tallas Disponibles</value>
+  </data>
+	<data name="Results_League" xml:space="preserve">
+    <value>Liga</value>
+  </data>
+	<data name="Results_Team" xml:space="preserve">
+    <value>Equipo</value>
+  </data>
+	<data name="Results_Brand" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+	<data name="Results_KitType" xml:space="preserve">
+    <value>Tipo de Equipación</value>
+  </data>
+	<data name="Results_Offers" xml:space="preserve">
+    <value>Solo Ofertas</value>
+  </data>
+	<data name="Results_Custom" xml:space="preserve">
+    <value>Solo Personalizables</value>
+  </data>
+	<data name="Results_BtnFilter" xml:space="preserve">
+    <value>Aplicar Filtros</value>
+  </data>
+	<data name="Search_KitLocal" xml:space="preserve">
+    <value>Local</value>
+  </data>
+	<data name="Search_KitAway" xml:space="preserve">
+    <value>Visitante</value>
+  </data>
+	<data name="Search_KitThird" xml:space="preserve">
+    <value>Tercera</value>
+  </data>
+	<data name="Search_KitRetro" xml:space="preserve">
+    <value>Retro</value>
+  </data>
+	<data name="Search_KitSpecial" xml:space="preserve">
+    <value>Edición Especial</value>
+  </data>
+	<data name="Search_KitTraining" xml:space="preserve">
+    <value>Entrenamiento</value>
+  </data>
+</root>

@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace OFFSIDESHOP
 {
-    public partial class DetailsShirt : System.Web.UI.Page
+    public partial class DetailsShirt : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
@@ -185,6 +185,12 @@ namespace OFFSIDESHOP
             {
                 upPerfil.Update();
             }
+        }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
         }
 
         private void ActualizarContadorCarrito()

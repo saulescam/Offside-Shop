@@ -342,6 +342,16 @@
     <Compile Include="AdminAudit.aspx.designer.cs">
       <DependentUpon>AdminAudit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Strings.es.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.es.resx</DependentUpon>
+    </Compile>
     <Compile Include="AuditLogger.cs" />
     <Compile Include="AdminBanners.aspx.cs">
       <DependentUpon>AdminBanners.aspx</DependentUpon>
@@ -377,6 +387,9 @@
     </Compile>
     <Compile Include="AdminStats.aspx.designer.cs">
       <DependentUpon>AdminStats.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cart.aspx.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
@@ -615,6 +628,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\img\leagues\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Strings.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Strings.es.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Strings.es.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

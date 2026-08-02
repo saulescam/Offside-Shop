@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="OFFSIDESHOP.SignUp" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="OFFSIDESHOP.SignUp" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,6 +21,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
         
         <div class="split-container">
+            <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" Style="position: absolute; top: 20px; right: 20px; z-index: 1000; font-weight: 600; color: #111; text-decoration: none; padding: 5px 10px; background: rgba(255,255,255,0.7); border-radius: 5px;">EN / ES</asp:LinkButton>
             <!-- LEFT PANEL: VISUAL / CAROUSEL -->
             <div class="split-left">
                 <div class="visual-icon">
@@ -73,8 +74,8 @@
                             <!-- PANEL 1: FORMULARIO DE REGISTRO -->
                             <asp:Panel ID="pnlRegister" runat="server">
                                 <div class="form-header">
-                                    <h2>Create an account</h2>
-                                    <p>Buy the best football shirts of all time.</p>
+                                    <h2><%= Resources.Strings.Auth_SignUpTitle %></h2>
+                                    <p><%= Resources.Strings.Auth_SignUpSub %></p>
                                 </div>
 
                                 <div class="register-body">
@@ -82,7 +83,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <asp:TextBox ID="txtfirst" runat="server"
-                                                    placeholder="First Name *" type="text" CssClass="form-control"
+                                                    placeholder="<%$ Resources:Strings, Auth_FirstName %>" type="text" CssClass="form-control"
                                                     onpaste="return false" minlength="2" MaxLength="30"
                                                     onkeypress="return validateLetters(event)" required="required"></asp:TextBox>
                                             </div>
@@ -91,7 +92,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <asp:TextBox ID="txtapellido" runat="server"
-                                                    placeholder="Last Name *" type="text" CssClass="form-control"
+                                                    placeholder="<%$ Resources:Strings, Auth_LastName %>" type="text" CssClass="form-control"
                                                     onpaste="return false" minlength="2" MaxLength="30"
                                                     onkeypress="return validateLetters(event)" required="required"></asp:TextBox>
                                             </div>
@@ -100,14 +101,14 @@
 
                                     <div class="form-group">
                                         <asp:TextBox ID="txtusuario" runat="server"
-                                            placeholder="Username *" type="text" CssClass="form-control"
+                                            placeholder="<%$ Resources:Strings, Auth_Username %>" type="text" CssClass="form-control"
                                             onpaste="return false" minlength="4" MaxLength="15"
                                             required="required"></asp:TextBox>
                                     </div>
 
                                     <div class="form-group">
                                         <asp:TextBox ID="txtgmail" runat="server"
-                                            placeholder="Email *" type="email" CssClass="form-control"
+                                            placeholder="<%$ Resources:Strings, Auth_Email %>" type="email" CssClass="form-control"
                                             onpaste="return false" minlength="5" MaxLength="50"
                                             required="required"></asp:TextBox>
                                     </div>
@@ -116,7 +117,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <asp:TextBox ID="txtclave" runat="server"
-                                                    placeholder="Password *" type="password" CssClass="form-control"
+                                                    placeholder="<%$ Resources:Strings, Auth_Password %>" type="password" CssClass="form-control"
                                                     onpaste="return false" onkeypress="return validatePasswordChars(event)"
                                                     minlength="6" MaxLength="15" required="required"></asp:TextBox>
                                             </div>
@@ -125,25 +126,25 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <asp:TextBox ID="txtconfirm" runat="server"
-                                                    placeholder="Confirm Password *" type="password" CssClass="form-control"
+                                                    placeholder="<%$ Resources:Strings, Auth_ConfirmPass %>" type="password" CssClass="form-control"
                                                     onpaste="return false" onkeypress="return validatePasswordChars(event)"
                                                     minlength="6" MaxLength="15" required="required"></asp:TextBox>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- Al hacer clic, ejecuta la validación JS y muestra el loading spinner -->
+                                    <!-- Al hacer clic, ejecuta la validaciÃ³n JS y muestra el loading spinner -->
                                     <asp:Button ID="btnRegistrar" runat="server"
-                                        Text="Create account" CssClass="btn-register" OnClick="btnRegistrar_Click" OnClientClick="if(!validateForm()) return false;" />
+                                        Text="<%$ Resources:Strings, Auth_BtnSignUp %>" CssClass="btn-register" OnClick="btnRegistrar_Click" OnClientClick="if(!validateForm()) return false;" />
 
                                     <asp:LinkButton ID="btnGoogleSign" runat="server"
                                         CssClass="btn-google" OnClick="btnGoogleSign_Click">
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/1280px-Google_Favicon_2025.svg.png" alt="Google" />
-                                        <span>Sign up with Google</span>
+                                        <span><%= Resources.Strings.Auth_GoogleSignUp %></span>
                                     </asp:LinkButton>
 
                                     <div class="login-link">
-                                        <p>Already have an account? <a href="Login.aspx">Log in</a></p>
+                                        <p><%= Resources.Strings.Auth_HaveAccount %> <a href="Login.aspx"><%= Resources.Strings.Auth_LinkLogin %></a></p>
                                     </div>
                                 </div>
                             </asp:Panel>
@@ -151,21 +152,21 @@
                             <!-- PANEL 2: INGRESO DEL TOKEN -->
                             <asp:Panel ID="pnlVerify" runat="server" Visible="false">
                                 <div class="form-header text-center">
-                                    <h2><i class="fas fa-envelope-open-text" style="color: #FFC800;"></i> Verify Email</h2>
-                                    <p class="mt-2">We've sent a 6-digit code to <br/><strong id="displayEmail" runat="server" style="color: #111;"></strong></p>
+                                    <h2><i class="fas fa-envelope-open-text" style="color: #FFC800;"></i> <%= Resources.Strings.Auth_VerifyEmailTitle %></h2>
+                                    <p class="mt-2"><%= Resources.Strings.Auth_VerifyEmailSub1 %> <br/><strong id="displayEmail" runat="server" style="color: #111;"></strong></p>
                                 </div>
                                 
                                 <div class="register-body text-center p-0 mt-4">
-                                    <p class="text-muted mb-4" style="font-size: 14px;">Please check your inbox (and spam folder) and enter the code below to activate your account.</p>
+                                    <p class="text-muted mb-4" style="font-size: 14px;"><%= Resources.Strings.Auth_VerifyEmailSub2 %></p>
                                     
                                     <div class="form-group d-flex justify-content-center">
                                         <asp:TextBox ID="txtToken" runat="server" CssClass="form-control text-center mx-auto" placeholder="000000" MaxLength="6" style="font-size: 32px; letter-spacing: 12px; font-weight: bold; width: 75%; border: 1px solid #ddd; border-radius: 8px;"></asp:TextBox>
                                     </div>
                                     
-                                    <asp:Button ID="btnVerify" runat="server" Text="Complete Registration" CssClass="btn-register mt-4" OnClick="btnVerify_Click" OnClientClick="showSpinner('Verifying code...');" />
+                                    <asp:Button ID="btnVerify" runat="server" Text="<%$ Resources:Strings, Auth_BtnCompleteReg %>" CssClass="btn-register mt-4" OnClick="btnVerify_Click" OnClientClick="showSpinner('Verifying code...');" />
                                     
                                     <div class="mt-4">
-                                        <asp:LinkButton ID="btnBack" runat="server" CssClass="text-muted text-decoration-none" style="font-size: 14px; font-weight: 500;" OnClick="btnBack_Click"><i class="fas fa-arrow-left mr-1"></i> Use a different email</asp:LinkButton>
+                                        <asp:LinkButton ID="btnBack" runat="server" CssClass="text-muted text-decoration-none" style="font-size: 14px; font-weight: 500;" OnClick="btnBack_Click"><i class="fas fa-arrow-left mr-1"></i> <%= Resources.Strings.Auth_DiffEmail %></asp:LinkButton>
                                     </div>
                                 </div>
                             </asp:Panel>
@@ -184,7 +185,7 @@
         function validateLetters(e) {
             var tecla = (document.all) ? e.keyCode : e.which;
             if (tecla == 8) return true;
-            var patron = /[A-Za-záéíóúñÑ\s]/;
+            var patron = /[A-Za-zÃ¡Ã©Ã­Ã³ÃºÃ±Ã‘\s]/;
             var te = String.fromCharCode(tecla);
             return patron.test(te);
         }
@@ -197,7 +198,7 @@
             return !forbidden.test(te);
         }
 
-        // Esta es la función principal que evita que la pantalla se "congele"
+        // Esta es la funciÃ³n principal que evita que la pantalla se "congele"
         function validateForm() {
             var pass = document.getElementById('<%= txtclave.ClientID %>').value;
             var confirm = document.getElementById('<%= txtconfirm.ClientID %>').value;
@@ -209,7 +210,7 @@
                 return false;
             }
 
-            // Mostramos una alerta de carga para que el usuario sepa que el sistema está trabajando
+            // Mostramos una alerta de carga para que el usuario sepa que el sistema estÃ¡ trabajando
             Swal.fire({
                 title: 'Sending Verification Code...',
                 text: 'Please wait a moment while we set up your account.',

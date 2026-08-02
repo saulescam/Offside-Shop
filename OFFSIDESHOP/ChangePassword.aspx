@@ -22,6 +22,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="split-container">
+            <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" Style="position: absolute; top: 20px; right: 20px; z-index: 1000; font-weight: 600; color: #111; text-decoration: none; padding: 5px 10px; background: rgba(255,255,255,0.7); border-radius: 5px;">EN / ES</asp:LinkButton>
             <!-- LEFT PANEL: VISUAL / CAROUSEL -->
             <div class="split-left">
                 <div class="visual-icon">
@@ -71,14 +72,14 @@
                     </div>
                     
                     <div class="form-header">
-                        <h2>CHANGE PASSWORD</h2>
-                        <p>Enter your new password</p>
+                        <h2><%= Resources.Strings.Auth_ChangePassTitle %></h2>
+                        <p><%= Resources.Strings.Auth_ChangePassSub %></p>
                     </div>
 
                     <div class="login-body">
                         <div class="form-group">
                             <asp:TextBox ID="txtpassword1" runat="server" 
-                                placeholder="New Password *" 
+                                placeholder="<%$ Resources:Strings, Auth_NewPassInput %>" 
                                 type="password" 
                                 CssClass="form-control" 
                                 onpaste="return false" 
@@ -86,12 +87,12 @@
                                 MaxLength="15"
                                 required="required">
                             </asp:TextBox>
-                            <div class="invalid-feedback">Please enter your new password.</div>
+                            <div class="invalid-feedback"><%= Resources.Strings.Auth_ValNewPass %></div>
                         </div>
 
                         <div class="form-group">
                             <asp:TextBox ID="txtpassword2" runat="server" 
-                                placeholder="Confirm Password *" 
+                                placeholder="<%$ Resources:Strings, Auth_ConfirmPassInput %>" 
                                 type="password" 
                                 CssClass="form-control" 
                                 onpaste="return false" 
@@ -99,17 +100,17 @@
                                 MaxLength="15"
                                 required="required">
                             </asp:TextBox>
-                            <div class="invalid-feedback">Please confirm your password.</div>
+                            <div class="invalid-feedback"><%= Resources.Strings.Auth_ValConfirmPass %></div>
                         </div>
 
                         <asp:Button runat="server" 
-                            Text="Change Password" 
+                            Text="<%$ Resources:Strings, Auth_BtnChangePass %>" 
                             CssClass="btn-login" 
                             OnClick="actualizar_Click"></asp:Button>
 
                         <div class="forgot-link" style="text-align: center; margin-top: 20px;">
                             <asp:HyperLink ID="volver" runat="server"
-                                Text="Back to Login"
+                                Text="<%$ Resources:Strings, Auth_BackLogin %>"
                                 NavigateUrl="Login.aspx"
                                 style="font-weight: 600; text-decoration: underline; color: #111;">
                             </asp:HyperLink>

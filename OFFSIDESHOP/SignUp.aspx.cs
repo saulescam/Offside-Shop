@@ -165,5 +165,11 @@ namespace OFFSIDESHOP
             string callbackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/ExternalLoginResult.aspx");
             OAuthWeb.RedirectToAuthorization("google", callbackUrl);
         }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
+        }
     }
 }

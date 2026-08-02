@@ -1,10 +1,10 @@
-//------------------------------------------------------------------------------
-// <generado automáticamente>
-//     Este código fue generado por una herramienta.
+﻿//------------------------------------------------------------------------------
+// <generado automÃ¡ticamente>
+//     Este cÃ³digo fue generado por una herramienta.
 //
-//     Los cambios en este archivo podrían causar un comportamiento incorrecto y se perderán si
-//     se vuelve a generar el código. 
-// </generado automáticamente>
+//     Los cambios en este archivo podrÃ­an causar un comportamiento incorrecto y se perderÃ¡n si
+//     se vuelve a generar el cÃ³digo. 
+// </generado automÃ¡ticamente>
 //------------------------------------------------------------------------------
 
 namespace OFFSIDESHOP
@@ -18,8 +18,8 @@ namespace OFFSIDESHOP
         /// Control ScriptManager1.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
@@ -27,8 +27,8 @@ namespace OFFSIDESHOP
         /// Control phNavbarGuest.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder phNavbarGuest;
 
@@ -36,8 +36,8 @@ namespace OFFSIDESHOP
         /// Control phNavbarUser.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder phNavbarUser;
 
@@ -45,8 +45,8 @@ namespace OFFSIDESHOP
         /// Control upPerfil.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upPerfil;
 
@@ -54,8 +54,8 @@ namespace OFFSIDESHOP
         /// Control lblFullName.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFullName;
 
@@ -63,8 +63,8 @@ namespace OFFSIDESHOP
         /// Control lblUserEmail.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserEmail;
 
@@ -72,8 +72,8 @@ namespace OFFSIDESHOP
         /// Control btnGoToAccount.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnGoToAccount;
 
@@ -81,8 +81,8 @@ namespace OFFSIDESHOP
         /// Control btnMyOrders.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnMyOrders;
 
@@ -90,8 +90,8 @@ namespace OFFSIDESHOP
         /// Control btnNavCart.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnNavCart;
 
@@ -99,8 +99,8 @@ namespace OFFSIDESHOP
         /// Control lblCartCount.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCartCount;
 
@@ -108,8 +108,8 @@ namespace OFFSIDESHOP
         /// Control btncerrar.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btncerrar;
 
@@ -117,8 +117,8 @@ namespace OFFSIDESHOP
         /// Control phNavbarAdmin.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder phNavbarAdmin;
 
@@ -126,8 +126,8 @@ namespace OFFSIDESHOP
         /// Control lblAdminName.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAdminName;
 
@@ -135,8 +135,8 @@ namespace OFFSIDESHOP
         /// Control btnlogout.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnlogout;
 
@@ -144,8 +144,8 @@ namespace OFFSIDESHOP
         /// Control lblOrderId.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOrderId;
 
@@ -153,8 +153,8 @@ namespace OFFSIDESHOP
         /// Control lblOrderDate.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOrderDate;
 
@@ -162,8 +162,8 @@ namespace OFFSIDESHOP
         /// Control lblStatusBadge.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblStatusBadge;
 
@@ -171,8 +171,8 @@ namespace OFFSIDESHOP
         /// Control statusAlertBox.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl statusAlertBox;
 
@@ -180,8 +180,8 @@ namespace OFFSIDESHOP
         /// Control statusIcon.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl statusIcon;
 
@@ -189,8 +189,8 @@ namespace OFFSIDESHOP
         /// Control statusTitle.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl statusTitle;
 
@@ -198,8 +198,8 @@ namespace OFFSIDESHOP
         /// Control statusDescription.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl statusDescription;
 
@@ -207,8 +207,8 @@ namespace OFFSIDESHOP
         /// Control trackerButtonContainer.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trackerButtonContainer;
 
@@ -216,8 +216,8 @@ namespace OFFSIDESHOP
         /// Control btnTrackOrder.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnTrackOrder;
 
@@ -225,8 +225,8 @@ namespace OFFSIDESHOP
         /// Control hfTrackOrderId.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfTrackOrderId;
 
@@ -234,8 +234,8 @@ namespace OFFSIDESHOP
         /// Control hfOrderLat.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfOrderLat;
 
@@ -243,8 +243,8 @@ namespace OFFSIDESHOP
         /// Control hfOrderLng.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfOrderLng;
 
@@ -252,8 +252,8 @@ namespace OFFSIDESHOP
         /// Control lblCustomerName.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomerName;
 
@@ -261,8 +261,8 @@ namespace OFFSIDESHOP
         /// Control lblPhone.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPhone;
 
@@ -270,8 +270,8 @@ namespace OFFSIDESHOP
         /// Control lblAddress.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAddress;
 
@@ -279,8 +279,8 @@ namespace OFFSIDESHOP
         /// Control lblCity.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCity;
 
@@ -288,8 +288,8 @@ namespace OFFSIDESHOP
         /// Control lblMunicipality.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMunicipality;
 
@@ -297,8 +297,8 @@ namespace OFFSIDESHOP
         /// Control lblDistrict.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDistrict;
 
@@ -306,8 +306,8 @@ namespace OFFSIDESHOP
         /// Control lblPaymentMethod.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPaymentMethod;
 
@@ -315,8 +315,8 @@ namespace OFFSIDESHOP
         /// Control phPayPal.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder phPayPal;
 
@@ -324,8 +324,8 @@ namespace OFFSIDESHOP
         /// Control lblTransactionId.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTransactionId;
 
@@ -333,8 +333,8 @@ namespace OFFSIDESHOP
         /// Control lblNotes.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNotes;
 
@@ -342,8 +342,8 @@ namespace OFFSIDESHOP
         /// Control rptOrderProducts.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptOrderProducts;
 
@@ -351,8 +351,8 @@ namespace OFFSIDESHOP
         /// Control lblItemsSubtotal.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblItemsSubtotal;
 
@@ -360,8 +360,8 @@ namespace OFFSIDESHOP
         /// Control lblShippingCost.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblShippingCost;
 
@@ -369,8 +369,8 @@ namespace OFFSIDESHOP
         /// Control lblOrderTotal.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOrderTotal;
 
@@ -378,8 +378,8 @@ namespace OFFSIDESHOP
         /// Control lnkCancelOrder.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkCancelOrder;
 
@@ -387,8 +387,8 @@ namespace OFFSIDESHOP
         /// Control lnkRequestRefund.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkRequestRefund;
 
@@ -396,8 +396,8 @@ namespace OFFSIDESHOP
         /// Control phReasonModal.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder phReasonModal;
 
@@ -405,8 +405,8 @@ namespace OFFSIDESHOP
         /// Control litActionType.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litActionType;
 
@@ -414,8 +414,8 @@ namespace OFFSIDESHOP
         /// Control btnCloseModalTop.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnCloseModalTop;
 
@@ -423,8 +423,8 @@ namespace OFFSIDESHOP
         /// Control ddlReasons.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlReasons;
 
@@ -432,8 +432,8 @@ namespace OFFSIDESHOP
         /// Control txtReason.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtReason;
 
@@ -441,8 +441,8 @@ namespace OFFSIDESHOP
         /// Control lblModalError.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblModalError;
 
@@ -450,8 +450,8 @@ namespace OFFSIDESHOP
         /// Control btnCancelModal.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancelModal;
 
@@ -459,8 +459,8 @@ namespace OFFSIDESHOP
         /// Control btnSubmitAction.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitAction;
 
@@ -468,9 +468,13 @@ namespace OFFSIDESHOP
         /// Control ControlFooter.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Campo generado automÃ¡ticamente.
+        /// Para modificarlo, mueva la declaraciÃ³n del campo del archivo del diseÃ±ador al archivo de cÃ³digo subyacente.
         /// </remarks>
         protected global::OFFSIDESHOP.FooterControl ControlFooter;
+        /// <summary>
+        /// Control btnLanguageToggle.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
     }
 }

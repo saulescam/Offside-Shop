@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace OFFSIDESHOP
 {
-    public partial class Homepage : System.Web.UI.Page
+    public partial class Homepage : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
         private const int ITEMS_PER_PAGE = 20;
@@ -1004,6 +1004,12 @@ namespace OFFSIDESHOP
         protected void btnGoToAccount_Click(object sender, EventArgs e)
         {
             Response.Redirect("MyAccount.aspx");
+        }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
         }
 
         protected string FormatJerseyName(object nameObj)

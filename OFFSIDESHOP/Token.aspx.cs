@@ -122,5 +122,11 @@ namespace OFFSIDESHOP
                 txttoken.Text = "";
             }
         }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
+        }
     }
 }

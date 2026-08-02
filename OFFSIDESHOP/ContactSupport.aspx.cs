@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace OFFSIDESHOP
 {
-    public partial class ContactSupport : System.Web.UI.Page
+    public partial class ContactSupport : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
@@ -44,6 +44,12 @@ namespace OFFSIDESHOP
                 ActualizarContadorCarrito();
                 LoadContactReasons();
             }
+        }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
         }
 
         private void CargarDatosPerfilUsuario()
@@ -165,7 +171,7 @@ namespace OFFSIDESHOP
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            // 1. VALIDACIÓN MAESTRA DE SESIÓN COACTIVA
+            // 1. VALIDACIÃ“N MAESTRA DE SESIÃ“N COACTIVA
             if (Session["Id_User"] == null)
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Login Required', 'You must be logged into your account to submit a support request. Please Log In or Sign Up first.', 'warning');", true);
@@ -213,33 +219,33 @@ namespace OFFSIDESHOP
 
             if (pnlSellJersey.Visible)
             {
-                // A) Validación de Presencia de Campos Obligatorios
+                // A) ValidaciÃ³n de Presencia de Campos Obligatorios
                 if (string.IsNullOrEmpty(txtCondition.Text) || string.IsNullOrEmpty(txtPrice.Text) || string.IsNullOrEmpty(ddlSize.SelectedValue))
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Error', 'Condition, Jersey Size, and Proposed Price are strictly required fields.', 'warning');", true);
                     return;
                 }
 
-                // B) Validación Estricta de Precio (CORREGIDO: parsedPrice reemplaza a priceVal)
+                // B) ValidaciÃ³n Estricta de Precio (CORREGIDO: parsedPrice reemplaza a priceVal)
                 if (!decimal.TryParse(txtPrice.Text, out decimal parsedPrice) || parsedPrice <= 0)
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Invalid Price', 'Proposed price must be a positive number greater than zero.', 'error');", true);
                     return;
                 }
 
-                // C) Validación Estricta de Escala Numérica de Condición (CORREGIDO: parsedCondition reemplaza a conditionVal)
+                // C) ValidaciÃ³n Estricta de Escala NumÃ©rica de CondiciÃ³n (CORREGIDO: parsedCondition reemplaza a conditionVal)
                 if (!int.TryParse(txtCondition.Text, out int parsedCondition) || parsedCondition < 1 || parsedCondition > 10)
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Invalid Condition', 'Condition grade must be a strict integer scale between 1 and 10.', 'error');", true);
                     return;
                 }
 
-                // D) Asignación de Datos Validados Seguros
+                // D) AsignaciÃ³n de Datos Validados Seguros
                 propPrice = parsedPrice;
                 condition = parsedCondition.ToString();
                 size = ddlSize.SelectedValue;
 
-                // E) Validación de Imágenes Corporativa
+                // E) ValidaciÃ³n de ImÃ¡genes Corporativa
                 if (!fileImages.HasFiles)
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Error', 'At least one image is required to evaluate your jersey.', 'warning');", true);
@@ -257,7 +263,7 @@ namespace OFFSIDESHOP
                         string ext = Path.GetExtension(file.FileName).ToLower();
                         if (Array.IndexOf(allowedExtensions, ext) == -1)
                         {
-                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", $"Swal.fire('Invalid Format', 'El archivo {file.FileName} no está permitido. Solo se aceptan JPG, JPEG, PNG y WEBP.', 'error');", true);
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", $"Swal.fire('Invalid Format', 'El archivo {file.FileName} no estÃ¡ permitido. Solo se aceptan JPG, JPEG, PNG y WEBP.', 'error');", true);
                             return;
                         }
 
@@ -277,7 +283,7 @@ namespace OFFSIDESHOP
                 if (uploadedFiles.Count > 2) { img3 = Guid.NewGuid().ToString("N") + Path.GetExtension(uploadedFiles[2].FileName); uploadedFiles[2].SaveAs(uploadPath + img3); }
             }
 
-            // 3. INSERCIÓN PARAMETRIZADA INMUNE A INYECCIÓN SQL
+            // 3. INSERCIÃ“N PARAMETRIZADA INMUNE A INYECCIÃ“N SQL
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 string query = @"INSERT INTO contact_tickets 
@@ -304,7 +310,7 @@ namespace OFFSIDESHOP
                         conn.Open();
                         cmd.ExecuteNonQuery();
 
-                        // Limpiar formulario tras éxito transaccional
+                        // Limpiar formulario tras Ã©xito transaccional
                         ddlReason.SelectedIndex = 0;
                         txtSubject.Text = "";
                         txtMessage.Text = "";

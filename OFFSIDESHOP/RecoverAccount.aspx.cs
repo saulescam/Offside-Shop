@@ -5,7 +5,7 @@ using System.Web.UI;
 
 namespace OFFSIDESHOP
 {
-    public partial class RecuperarContrasena : System.Web.UI.Page
+    public partial class RecuperarContrasena : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
@@ -16,6 +16,12 @@ namespace OFFSIDESHOP
                 rptCarousel.DataSource = AuthCarousel.GetActiveSlides();
                 rptCarousel.DataBind();
             }
+        }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void Unnamed1_Click(object sender, EventArgs e)

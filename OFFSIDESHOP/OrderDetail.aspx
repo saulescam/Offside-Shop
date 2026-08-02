@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OrderDetail.aspx.cs" Inherits="OFFSIDESHOP.OrderDetail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OrderDetail.aspx.cs" Inherits="OFFSIDESHOP.OrderDetail" %>
 
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
@@ -181,12 +181,15 @@
                 <a class="navbar-brand" href="Homepage.aspx">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
 
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+                    
 
                     <asp:PlaceHolder ID="phNavbarGuest" runat="server">
                         <div class="user-menu-container">
@@ -288,39 +291,39 @@
 
             <div class="mb-4">
                 <a href="MyOrders.aspx" class="text-decoration-none" style="color: #666666; font-weight: 600; font-family: 'Montserrat', sans-serif; font-size: 14px;">
-                    <i class="fas fa-arrow-left me-2"></i>Back to My Orders
+                    <i class="fas fa-arrow-left me-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_BackToOrders %>" />
                 </a>
             </div>
 
             <div class="row justify-content-between align-items-center border-bottom pb-3 mb-4" style="border-color: #e0e0e0 !important;">
                 <div class="col-12 col-md-6 text-center text-md-start">
-                    <h2 style="color: #1a1a1a !important; font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0;">Order Reference <span style="color: #ffc800;">#<asp:Label ID="lblOrderId" runat="server"></asp:Label></span>
+                    <h2 style="color: #1a1a1a !important; font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_OrderRef %>" /> <span style="color: #ffc800;">#<asp:Label ID="lblOrderId" runat="server"></asp:Label></span>
                     </h2>
                     <p style="color: #666666 !important; margin: 5px 0 0 0;">
-                        Placed on:
+                        <asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_PlacedOn %>" />
                         <asp:Label ID="lblOrderDate" runat="server"></asp:Label>
                     </p>
                 </div>
                 <div class="col-12 col-md-6 text-center text-md-end mt-3 mt-md-0">
-                    <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px; margin-bottom: 4px;">Status</span>
+                    <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px; margin-bottom: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_Status %>" /></span>
                     <asp:Label ID="lblStatusBadge" runat="server" CssClass="badge" Style="background-color: #1a1a1a !important; color: #ffc800 !important; border: 1px solid #ffc800; font-size: 14px; padding: 8px 18px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: 20px;"></asp:Label>
                 </div>
             </div>
 
-            <!-- PANEL DINÁMICO DE ESTADO Y RASTREO -->
+            <!-- PANEL DINÃƒÂMICO DE ESTADO Y RASTREO -->
             <div class="row mb-4">
                 <div class="col-12">
                     <div id="statusAlertBox" runat="server" class="alert d-flex align-items-center mb-0" role="alert" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 20px;">
                         <i id="statusIcon" runat="server" class="fas fa-info-circle fa-2x me-3"></i>
                         <div>
-                            <h5 id="statusTitle" runat="server" class="alert-heading fw-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Status</h5>
-                            <p id="statusDescription" runat="server" class="mb-0" style="font-size: 14px;">Loading order status...</p>
+                            <h5 id="statusTitle" runat="server" class="alert-heading fw-bold mb-1" style="font-family: 'Montserrat', sans-serif;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_Status %>" /></h5>
+                            <p id="statusDescription" runat="server" class="mb-0" style="font-size: 14px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_LoadingStatus %>" /></p>
                         </div>
 
-                        <!-- BOTÓN DE TRACKING (Se muestra solo si el estado es Shipped) -->
+                        <!-- BOTÃƒâ€œN DE TRACKING (Se muestra solo si el estado es Shipped) -->
                         <div class="ms-auto" id="trackerButtonContainer" runat="server" visible="false">
                             <asp:LinkButton ID="btnTrackOrder" runat="server" CssClass="btn btn-dark fw-bold text-warning rounded-pill px-4 shadow-sm" OnClientClick="openTrackingModal(); return false;">
-        <i class="fas fa-map-marked-alt me-2"></i> Track Delivery
+        <i class="fas fa-map-marked-alt me-2"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_TrackDelivery %>" />
                             </asp:LinkButton>
                         </div>
 
@@ -330,24 +333,24 @@
                     </div>
                 </div>
             </div>
-            <!-- FIN PANEL DINÁMICO -->
+            <!-- FIN PANEL DINÃƒÂMICO -->
 
             <div class="row g-4 mb-5">
                 <div class="col-12 col-md-6 d-flex">
                     <div class="w-100 style-card" style="background-color: #ffffff !important; border: 1px solid #e0e0e0 !important; border-radius: 12px; padding: 25px; box-shadow: 0px 4px 20px rgba(0,0,0,0.06);">
                         <h5 style="color: #1a1a1a !important; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 10px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
-                            <i class="fas fa-shipping-fast me-2" style="color: #ffc800;"></i>Shipping Address
+                            <i class="fas fa-shipping-fast me-2" style="color: #ffc800;"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ShippingTitle %>" />
                         </h5>
                         <p style="font-size: 14px; color: #333333; margin-bottom: 8px;">
-                            <strong>Customer:</strong>
+                            <strong><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_Customer %>" /></strong>
                             <asp:Label ID="lblCustomerName" runat="server"></asp:Label>
                         </p>
                         <p style="font-size: 14px; color: #333333; margin-bottom: 8px;">
-                            <strong>Phone:</strong>
+                            <strong><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_Phone %>" /></strong>
                             <asp:Label ID="lblPhone" runat="server"></asp:Label>
                         </p>
                         <p style="font-size: 14px; color: #333333; margin-bottom: 15px;">
-                            <strong>Address:</strong>
+                            <strong><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_Address %>" /></strong>
                             <asp:Label ID="lblAddress" runat="server"></asp:Label>
                         </p>
 
@@ -362,24 +365,24 @@
                 <div class="col-12 col-md-6 d-flex">
                     <div class="w-100 style-card" style="background-color: #ffffff !important; border: 1px solid #e0e0e0 !important; border-radius: 12px; padding: 25px; box-shadow: 0px 4px 20px rgba(0,0,0,0.06);">
                         <h5 style="color: #1a1a1a !important; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 10px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
-                            <i class="fas fa-credit-card me-2" style="color: #ffc800;"></i>Payment Information
+                            <i class="fas fa-credit-card me-2" style="color: #ffc800;"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_PaymentTitle %>" />
                         </h5>
                         <p style="font-size: 14px; color: #333333; margin-bottom: 8px;">
-                            <strong>Method:</strong>
+                            <strong><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_Method %>" /></strong>
                             <asp:Label ID="lblPaymentMethod" runat="server"></asp:Label>
                         </p>
 
                         <asp:PlaceHolder ID="phPayPal" runat="server" Visible="false">
                             <p style="font-size: 14px; color: #333333; margin-bottom: 8px;">
-                                <strong>Transaction ID:</strong> <span class="text-muted" style="font-family: monospace; font-size: 13px;">
+                                <strong><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_TransactionId %>" /></strong> <span class="text-muted" style="font-family: monospace; font-size: 13px;">
                                     <asp:Label ID="lblTransactionId" runat="server"></asp:Label></span>
                             </p>
                         </asp:PlaceHolder>
 
                         <div class="mt-3 pt-2 border-top" style="border-color: #f5f5f5 !important;">
-                            <span style="color: #888888; font-weight: 600; font-size: 11px; text-transform: uppercase; display: block; margin-bottom: 4px;">Order Notes:</span>
+                            <span style="color: #888888; font-weight: 600; font-size: 11px; text-transform: uppercase; display: block; margin-bottom: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_OrderNotes %>" /></span>
                             <p style="color: #555555; font-size: 13px; font-style: italic; margin: 0;">
-                                <asp:Label ID="lblNotes" runat="server" Text="No notes provided."></asp:Label>
+                                <asp:Label ID="lblNotes" runat="server" Text="<%$ Resources:Strings, OrderDetail_NoNotes %>"></asp:Label>
                             </p>
                         </div>
                     </div>
@@ -390,17 +393,17 @@
                 <div class="col-12">
                     <div class="w-100 style-card" style="background-color: #ffffff !important; border: 1px solid #e0e0e0 !important; border-radius: 12px; padding: 25px; box-shadow: 0px 4px 20px rgba(0,0,0,0.06);">
                         <div style="color: #1a1a1a !important; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 10px;">
-                            Items in your Order
+                            <asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ItemsInOrder %>" />
                         </div>
 
                         <div class="table-responsive">
                             <table class="table align-middle w-100 m-0" style="border-color: #f1f1f1;">
                                 <thead style="background-color: #1a1a1a; color: #ffffff; font-family: 'Montserrat', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
                                     <tr>
-                                        <th class="p-3" style="width: 50%; font-weight: 600; border: none; border-top-left-radius: 8px; border-bottom-left-radius: 8px;">Product Details</th>
-                                        <th class="p-3 text-center" style="width: 15%; font-weight: 600; border: none;">Price</th>
-                                        <th class="p-3 text-center" style="width: 15%; font-weight: 600; border: none;">Quantity</th>
-                                        <th class="p-3 text-end" style="width: 20%; font-weight: 600; border: none; border-top-right-radius: 8px; border-bottom-right-radius: 8px;">Subtotal</th>
+                                        <th class="p-3" style="width: 50%; font-weight: 600; border: none; border-top-left-radius: 8px; border-bottom-left-radius: 8px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ProductDetails %>" /></th>
+                                        <th class="p-3 text-center" style="width: 15%; font-weight: 600; border: none;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_Price %>" /></th>
+                                        <th class="p-3 text-center" style="width: 15%; font-weight: 600; border: none;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_Quantity %>" /></th>
+                                        <th class="p-3 text-end" style="width: 20%; font-weight: 600; border: none; border-top-right-radius: 8px; border-bottom-right-radius: 8px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_Subtotal %>" /></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -413,7 +416,7 @@
                                                             alt="Jersey" class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border-color: #e0e0e0;" />
                                                         <div>
                                                             <h6 style="color: #1a1a1a; font-weight: 700; margin: 0 0 4px 0;"><%# FormatJerseyName(Eval("ProductName")) %></h6>
-                                                            <span class="badge" style="background-color: #1a1a1a; color: #ffffff; font-size: 11px; padding: 4px 8px;">Size: <%# Eval("Size") %></span>
+                                                            <span class="badge" style="background-color: #1a1a1a; color: #ffffff; font-size: 11px; padding: 4px 8px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_Size %>" /> <%# Eval("Size") %></span>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -434,15 +437,15 @@
                 <div class="col-12 col-md-5 col-lg-4">
                     <div class="w-100 style-card mb-3" style="background-color: #ffffff !important; border: 1px solid #e0e0e0 !important; border-radius: 12px; padding: 25px; box-shadow: 0px 4px 20px rgba(0,0,0,0.06);">
                         <div class="d-flex justify-content-between mb-2" style="font-size: 14px;">
-                            <span style="color: #777777;">Items Subtotal:</span>
+                            <span style="color: #777777;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ItemsSubtotal %>" /></span>
                             <span style="color: #1a1a1a; font-weight: 600;">$<asp:Label ID="lblItemsSubtotal" runat="server"></asp:Label></span>
                         </div>
                         <div class="d-flex justify-content-between mb-3 pb-3 border-bottom" style="font-size: 14px; border-color: #eeeeee !important;">
-                            <span style="color: #777777;">Shipping Cost:</span>
+                            <span style="color: #777777;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ShippingCost %>" /></span>
                             <asp:Label ID="lblShippingCost" runat="server" Style="font-weight: 600;"></asp:Label>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span style="color: #1a1a1a; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Total Charged</span>
+                            <span style="color: #1a1a1a; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_TotalCharged %>" /></span>
                             <span style="color: #1a1a1a !important; font-size: 24px; font-family: 'Montserrat', sans-serif; font-weight: 700;">$<asp:Label ID="lblOrderTotal" runat="server"></asp:Label></span>
                         </div>
                     </div>
@@ -450,12 +453,12 @@
                     <div class="text-end">
                         <asp:LinkButton ID="lnkCancelOrder" runat="server" CssClass="btn btn-danger w-100 mb-2 fw-bold py-2 shadow-sm"
                             Visible="false" OnClick="lnkAction_Click" CommandArgument="CANCEL" CausesValidation="false">
-                            <i class="fas fa-times-circle me-2"></i> Cancel Order
+                            <i class="fas fa-times-circle me-2"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_CancelOrder %>" />
                         </asp:LinkButton>
 
                         <asp:LinkButton ID="lnkRequestRefund" runat="server" CssClass="btn btn-warning w-100 fw-bold text-dark py-2 shadow-sm"
                             Visible="false" OnClick="lnkAction_Click" CommandArgument="REFUND" CausesValidation="false">
-                            <i class="fas fa-undo me-2"></i> Request Refund
+                            <i class="fas fa-undo me-2"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_RequestRefund %>" />
                         </asp:LinkButton>
                     </div>
                 </div>
@@ -470,29 +473,29 @@
                         <div class="modal-header" style="background-color: #1a1a1a; color: #ffffff;">
                             <h5 class="modal-title fw-bold text-uppercase" style="font-family: 'Montserrat', sans-serif; font-size: 16px;">
                                 <i class="fas fa-comment-dots me-2 text-warning"></i>
-                                Provide a Reason for 
+                                <asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ModalReasonTitle %>" /> 
                                 <asp:Literal ID="litActionType" runat="server"></asp:Literal>
                             </h5>
                             <asp:LinkButton ID="btnCloseModalTop" runat="server" CssClass="btn-close btn-close-white" OnClick="btnCloseModal_Click" CausesValidation="false" />
                         </div>
                         <div class="modal-body p-4">
-                            <p class="text-muted small">Please select a reason from the list and explain why you want to proceed with this request.</p>
+                            <p class="text-muted small"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ModalReasonDesc %>" /></p>
 
                             <div class="form-group mb-3">
-                                <label class="fw-bold mb-2 small text-uppercase">Select a Reason:</label>
+                                <label class="fw-bold mb-2 small text-uppercase"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ModalSelectReason %>" /></label>
                                 <asp:DropDownList ID="ddlReasons" runat="server" CssClass="form-select" Style="border-radius: 8px;"></asp:DropDownList>
                             </div>
 
                             <div class="form-group">
-                                <label class="fw-bold mb-2 small text-uppercase">Additional Comments (Optional):</label>
+                                <label class="fw-bold mb-2 small text-uppercase"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ModalComments %>" /></label>
                                 <asp:TextBox ID="txtReason" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control"
-                                    placeholder="Provide more details here... (Required if 'Other' is selected)" Style="border-radius: 8px; resize: none;"></asp:TextBox>
+                                    placeholder="<%$ Resources:Strings, OrderDetail_ModalCommentsPlaceholder %>" Style="border-radius: 8px; resize: none;"></asp:TextBox>
                             </div>
 
                             <asp:Label ID="lblModalError" runat="server" CssClass="text-danger small d-block mt-2" Visible="false"></asp:Label>
                         </div>
                         <div class="modal-footer" style="background-color: #f8f9fa;">
-                            <asp:Button ID="btnCancelModal" runat="server" Text="Go Back" CssClass="btn btn-secondary btn-sm rounded-pill px-4" OnClick="btnCloseModal_Click" CausesValidation="false" />
+                            <asp:Button ID="btnCancelModal" runat="server" Text="<%$ Resources:Strings, OrderDetail_ModalGoBack %>" CssClass="btn btn-secondary btn-sm rounded-pill px-4" OnClick="btnCloseModal_Click" CausesValidation="false" />
                             <asp:Button ID="btnSubmitAction" runat="server" Text="Submit Request" CssClass="btn btn-dark btn-sm rounded-pill px-4 text-warning fw-bold"
                                 OnClick="btnSubmitAction_Click" />
                         </div>
@@ -506,14 +509,14 @@
                 <div class="modal-content rounded-4 border-0 shadow-lg">
                     <div class="modal-header bg-dark text-white border-0 rounded-top-4">
                         <h5 class="modal-title fw-bold text-warning">
-                            <i class="fas fa-motorcycle me-2"></i>Live Tracking
+                            <i class="fas fa-motorcycle me-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_LiveTracking %>" />
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-0">
                         <div id="liveMap" style="height: 420px; width: 100%; z-index: 1;"></div>
                         <div id="trackingStatusLabel" style="padding: 8px 16px; font-size: 0.8rem; color: #555; background: #f8f9fa; border-top: 1px solid #eee; min-height: 34px;">
-                            <i class="fas fa-spinner fa-spin me-1"></i>Connecting to delivery driver...
+                            <i class="fas fa-spinner fa-spin me-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_ConnectingDriver %>" />
                         </div>
                     </div>
                 </div>
@@ -683,3 +686,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

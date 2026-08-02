@@ -1,4 +1,4 @@
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Web;
 using System.Web.UI;
@@ -6,7 +6,7 @@ using BCrypt.Net;
 
 namespace OFFSIDESHOP
 {
-    public partial class MyAccount : System.Web.UI.Page
+    public partial class MyAccount : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
@@ -40,6 +40,12 @@ namespace OFFSIDESHOP
             phNavbarAdmin.Visible = (role == 1 || role == 2);
         }
 
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
+        }
+
         private void LoadUserData()
         {
             if (Session["Id_User"] == null)
@@ -50,7 +56,7 @@ namespace OFFSIDESHOP
 
             int userId = Convert.ToInt32(Session["Id_User"]);
 
-            // Extraemos también Default_Latitude y Default_Longitude
+            // Extraemos tambiÃ©n Default_Latitude y Default_Longitude
             string query = "SELECT Name, LastName, Name_User, Mail, Phone, Address, Default_Latitude, Default_Longitude FROM users WHERE Id_User = @ID";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -137,7 +143,7 @@ namespace OFFSIDESHOP
                         if (affected > 0)
                         {
                             ShowSweetAlert("Success", "Profile and Default Location updated successfully.", "success");
-                            // Recargar para refrescar los valores base (y que el botón de save vuelva a desactivarse)
+                            // Recargar para refrescar los valores base (y que el botÃ³n de save vuelva a desactivarse)
                             LoadUserData();
                         }
                     }
