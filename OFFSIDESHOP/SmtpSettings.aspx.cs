@@ -35,6 +35,7 @@ namespace OFFSIDESHOP
             if (!IsPostBack)
             {
                 LoadCurrentSmtpSettings();
+                LoadChatbotSettings();
             }
         }
 
@@ -183,5 +184,100 @@ namespace OFFSIDESHOP
         { Response.Redirect("ManageCoupons.aspx"); }
         protected void btnAuditLogs_Click(object sender, EventArgs e)
         { Response.Redirect("AdminAudit.aspx"); }
+
+        // ──────────────────────────────────────────────────────────────
+        //  Configuración del Asistente IA
+        // ──────────────────────────────────────────────────────────────
+        private void LoadChatbotSettings()
+        {
+            string query = "SELECT SettingValue FROM system_settings WHERE SettingKey = 'Chatbot_Enabled';";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        conn.Open();
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            bool isEnabled = result.ToString() == "1";
+                            UpdateChatbotUI(isEnabled);
+                        }
+                        else
+                        {
+                            // Si no existe, lo insertamos por defecto activo
+                            string insertQuery = "INSERT INTO system_settings (SettingKey, SettingValue) VALUES ('Chatbot_Enabled', '1');";
+                            using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
+                            {
+                                insertCmd.ExecuteNonQuery();
+                            }
+                            UpdateChatbotUI(true);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                alerta.Text = $"<script>Swal.fire('Error', 'Could not load Chatbot settings: {HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+            }
+        }
+
+        private void UpdateChatbotUI(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                lblChatbotStatus.Text = "Online";
+                lblChatbotStatus.CssClass = "badge badge-pill badge-success";
+            }
+            else
+            {
+                lblChatbotStatus.Text = "Offline";
+                lblChatbotStatus.CssClass = "badge badge-pill badge-danger";
+            }
+        }
+
+        protected void btnToggleChatbot_Click(object sender, EventArgs e)
+        {
+            if (Session["UserRole"] == null || Convert.ToInt32(Session["UserRole"]) != 1)
+            {
+                throw new UnauthorizedAccessException("Only Owners are allowed to change chatbot settings.");
+            }
+
+            string getCurrentQuery = "SELECT SettingValue FROM system_settings WHERE SettingKey = 'Chatbot_Enabled';";
+            string updateQuery = "UPDATE system_settings SET SettingValue = @NewValue WHERE SettingKey = 'Chatbot_Enabled';";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string currentValue = "1";
+                    using (MySqlCommand cmdGet = new MySqlCommand(getCurrentQuery, conn))
+                    {
+                        object result = cmdGet.ExecuteScalar();
+                        if (result != null)
+                        {
+                            currentValue = result.ToString();
+                        }
+                    }
+
+                    string newValue = currentValue == "1" ? "0" : "1";
+
+                    using (MySqlCommand cmdUpdate = new MySqlCommand(updateQuery, conn))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@NewValue", newValue);
+                        cmdUpdate.ExecuteNonQuery();
+                    }
+
+                    UpdateChatbotUI(newValue == "1");
+                    alerta.Text = "<script>Swal.fire('Success', 'Chatbot status updated successfully.', 'success');</script>";
+                }
+            }
+            catch (Exception ex)
+            {
+                alerta.Text = $"<script>Swal.fire('Database Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+            }
+        }
     }
 }

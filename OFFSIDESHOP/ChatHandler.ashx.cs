@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Web;
 using System.Web.SessionState;
@@ -18,6 +18,39 @@ namespace OFFSIDESHOP
 
             try
             {
+                // ==========================================
+                // MEDIDA DE SEGURIDAD 0: Verificar si el Chatbot está habilitado
+                // ==========================================
+                string connectionString = ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
+                bool isChatbotEnabled = true;
+
+                try
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    {
+                        string query = "SELECT SettingValue FROM system_settings WHERE SettingKey = 'Chatbot_Enabled';";
+                        using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                        {
+                            conn.Open();
+                            object result = cmd.ExecuteScalar();
+                            if (result != null && result.ToString() == "0")
+                            {
+                                isChatbotEnabled = false;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[ChatHandler Setting Error]: {ex.Message}");
+                }
+
+                if (!isChatbotEnabled)
+                {
+                    ReturnJsonResponse(context, "The assistant is currently offline. Please try again later.");
+                    return;
+                }
+
                 // ==========================================
                 // MEDIDA DE SEGURIDAD 1: Validación de Origen (Endpoint Security)
                 // ==========================================

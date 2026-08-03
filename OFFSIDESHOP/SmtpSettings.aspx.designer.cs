@@ -177,6 +177,24 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.Button btnSaveSettings;
 
         /// <summary>
+        /// Control lblChatbotStatus.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChatbotStatus;
+
+        /// <summary>
+        /// Control btnToggleChatbot.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnToggleChatbot;
+
+        /// <summary>
         /// Control alerta.
         /// </summary>
         /// <remarks>

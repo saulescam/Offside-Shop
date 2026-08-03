@@ -454,5 +454,69 @@ namespace OFFSIDESHOP
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnApprove;
+        /// <summary>
+        /// btnViewTickets control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.LinkButton btnViewTickets;
+
+        /// <summary>
+        /// btnViewReviews control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.LinkButton btnViewReviews;
+
+        /// <summary>
+        /// pnlTickets control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlTickets;
+
+        /// <summary>
+        /// pnlReviews control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlReviews;
+
+        /// <summary>
+        /// gvReviews control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvReviews;
+
+        /// <summary>
+        /// phReplyModal control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.PlaceHolder phReplyModal;
+
+        /// <summary>
+        /// litReplyReviewId control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal litReplyReviewId;
+
+        /// <summary>
+        /// btnCloseReplyModal control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.LinkButton btnCloseReplyModal;
+
+        /// <summary>
+        /// litOriginalReview control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal litOriginalReview;
+
+        /// <summary>
+        /// txtReplyComment control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox txtReplyComment;
+
+        /// <summary>
+        /// lblReplyModalError control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblReplyModalError;
+
+        /// <summary>
+        /// btnCancelReply control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button btnCancelReply;
+
+        /// <summary>
+        /// btnSubmitReply control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button btnSubmitReply;
     }
 }

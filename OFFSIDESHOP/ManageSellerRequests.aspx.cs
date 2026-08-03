@@ -643,6 +643,163 @@ namespace OFFSIDESHOP
             }
         }
 
+        protected void MainView_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            string view = btn.CommandArgument;
+
+            if (view == "Tickets")
+            {
+                btnViewTickets.CssClass = "nav-link active";
+                btnViewReviews.CssClass = "nav-link";
+                pnlTickets.Visible = true;
+                pnlReviews.Visible = false;
+                LoadTickets();
+            }
+            else if (view == "Reviews")
+            {
+                btnViewTickets.CssClass = "nav-link";
+                btnViewReviews.CssClass = "nav-link active";
+                pnlTickets.Visible = false;
+                pnlReviews.Visible = true;
+                LoadReviews();
+            }
+        }
+
+        private void LoadReviews()
+        {
+            using (MySqlConnection conn = data.ObtenerConexion())
+            {
+                string query = @"SELECT r.Id_Review, r.Id_Tshirt, r.Rating, r.Comment, r.ReviewDate, 
+                                        r.ReplyComment, r.ReplyDate, u.Name AS UserName, u.LastName AS UserLastName, 
+                                        u.Mail AS UserEmail, t.Name AS ShirtName 
+                                 FROM product_reviews r 
+                                 INNER JOIN users u ON r.Id_User = u.Id_User 
+                                 INNER JOIN tshirts t ON r.Id_Tshirt = t.ID 
+                                 ORDER BY r.ReviewDate DESC";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        gvReviews.DataSource = dt;
+                        gvReviews.DataBind();
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowAlert("Error loading reviews: " + ex.Message, "error");
+                    }
+                }
+            }
+        }
+
+        protected void gvReviews_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "DeleteReview")
+            {
+                int reviewId = Convert.ToInt32(e.CommandArgument);
+                using (MySqlConnection conn = data.ObtenerConexion())
+                {
+                    string query = "DELETE FROM product_reviews WHERE Id_Review = @Id";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", reviewId);
+                        try
+                        {
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            ShowAlert("Deleted", "The review has been deleted.", "success");
+                            LoadReviews();
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowAlert("Error deleting review: " + ex.Message, "error");
+                        }
+                    }
+                }
+            }
+            else if (e.CommandName == "ReplyReview")
+            {
+                int reviewId = Convert.ToInt32(e.CommandArgument);
+                ViewState["ActiveReviewId"] = reviewId;
+                
+                // Get existing comment to display in the modal
+                using (MySqlConnection conn = data.ObtenerConexion())
+                {
+                    string query = "SELECT Comment, ReplyComment FROM product_reviews WHERE Id_Review = @Id";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", reviewId);
+                        try
+                        {
+                            conn.Open();
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    litReplyReviewId.Text = reviewId.ToString();
+                                    litOriginalReview.Text = reader["Comment"].ToString();
+                                    txtReplyComment.Text = reader["ReplyComment"] != DBNull.Value ? reader["ReplyComment"].ToString() : "";
+                                    lblReplyModalError.Visible = false;
+                                    phReplyModal.Visible = true;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowAlert("Error loading review details: " + ex.Message, "error");
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void btnCloseReplyModal_Click(object sender, EventArgs e)
+        {
+            phReplyModal.Visible = false;
+        }
+
+        protected void btnSubmitReply_Click(object sender, EventArgs e)
+        {
+            if (ViewState["ActiveReviewId"] == null) return;
+            int reviewId = Convert.ToInt32(ViewState["ActiveReviewId"]);
+            string reply = txtReplyComment.Text.Trim();
+
+            if (string.IsNullOrEmpty(reply))
+            {
+                lblReplyModalError.Text = "Please write a reply.";
+                lblReplyModalError.Visible = true;
+                return;
+            }
+
+            using (MySqlConnection conn = data.ObtenerConexion())
+            {
+                string query = "UPDATE product_reviews SET ReplyComment = @Reply, ReplyDate = NOW() WHERE Id_Review = @Id";
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Reply", reply);
+                    cmd.Parameters.AddWithValue("@Id", reviewId);
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        ShowAlert("Success", "Your reply has been saved.", "success");
+                        phReplyModal.Visible = false;
+                        LoadReviews();
+                    }
+                    catch (Exception ex)
+                    {
+                        lblReplyModalError.Text = "Error saving reply: " + ex.Message;
+                        lblReplyModalError.Visible = true;
+                    }
+                }
+            }
+        }
+
         protected void btncerrar_Click(object sender, EventArgs e)
         {
             Session.Clear();
