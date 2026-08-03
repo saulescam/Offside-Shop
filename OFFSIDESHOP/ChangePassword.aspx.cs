@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace OFFSIDESHOP
 {
-    public partial class ChangePassword : System.Web.UI.Page
+    public partial class ChangePassword : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

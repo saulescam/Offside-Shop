@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MyOrders.aspx.cs" Inherits="OFFSIDESHOP.MyOrders" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MyOrders.aspx.cs" Inherits="OFFSIDESHOP.MyOrders" %>
 
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
@@ -198,7 +198,7 @@
 
       .cart-icon-btn .badge {
           position: static; /* anula el position:absolute anterior */
-          margin-left: 0; /* anula el margin-left:auto del .badge gen�rico */
+          margin-left: 0; /* anula el margin-left:auto del .badge genÃ©rico */
           background-color: #FFC800;
           color: #000;
           border-radius: 50%;
@@ -264,6 +264,7 @@
                 <a class="navbar-brand" href="#page-top">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                     <span class="navbar-toggler-icon"></span>
@@ -272,6 +273,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
 
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+                    
 
                     <asp:PlaceHolder ID="phNavbarGuest" runat="server">
                         <div class="user-menu-container">
@@ -299,7 +302,7 @@
                                    <asp:PlaceHolder ID="phNavbarUser" runat="server">
                      <div class="navbar-icons-container">
 
-                         <!-- �cono del carrito -->
+                         <!-- Ãcono del carrito -->
                          <asp:LinkButton ID="btnNavCart" runat="server" CssClass="cart-icon-btn" OnClick="btnNavCart_Click">
                              <i class="fas fa-shopping-cart"></i>
                              <span class="badge">
@@ -356,16 +359,17 @@
                     </a>
                 </div>
 
-                <div class="row justify-content-center text-center mb-4">
+                <div class="row mb-5 text-center mt-5">
                     <div class="col-12">
-                        <h2 style="color: #1a1a1a !important; font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">My Order History</h2>
-                        <p style="color: #666666 !important;">Review the details and status of all your purchases in OFFSIDESHOP</p>
+                        <h2 style="font-weight: 800; letter-spacing: -1px; margin-bottom: 15px; color: #1a1a1a;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_Title %>" /></h2>
+                        <div style="width: 60px; height: 4px; background-color: #ffc800; margin: 0 auto 20px auto; border-radius: 2px;"></div>
+                        <p style="color: #666666 !important;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_SubTitle %>" /></p>
                     </div>
                 </div>
 
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8">
-                        <asp:Label ID="lblNoOrders" runat="server" Style="display: block; margin: 10px auto; padding: 15px; text-align: center;" CssClass="alert alert-warning" Text="You haven't placed any orders yet!" Visible="false" />
+                        <asp:Label ID="lblNoOrders" runat="server" Style="display: block; margin: 10px auto; padding: 15px; text-align: center;" CssClass="alert alert-warning" Text="<%$ Resources:Strings, MyOrders_NoOrders %>" Visible="false" />
                     </div>
                 </div>
 
@@ -378,12 +382,12 @@
                                     <div>
                                         <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3" style="border-color: #eeeeee !important;">
                                             <div>
-                                                <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px;">Order Reference</span>
+                                                <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_OrderRef %>" /></span>
                                                 <strong style="color: #1a1a1a !important; font-size: 20px;">#<%# Eval("id_order") %></strong>
                                             </div>
 
                                             <div class="text-end">
-                                                <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px; margin-bottom: 4px;">Status</span>
+                                                <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px; margin-bottom: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_Status %>" /></span>
                                                 <span class="badge" style="background-color: #1a1a1a !important; color: #ffc800 !important; border: 1px solid #ffc800; font-size: 12px; padding: 6px 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: 20px;">
                                                     <%# Eval("order_status") %>
                                                 </span>
@@ -393,11 +397,11 @@
                                         <div class="order-summary">
                                             <div class="row mb-2" style="font-size: 13px;">
                                                 <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-                                                    <span style="color: #888888; display: block; font-weight: 500; font-size: 11px;">DATE PURCHASED:</span>
+                                                    <span style="color: #888888; display: block; font-weight: 500; font-size: 11px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_DatePurchased %>" /></span>
                                                     <span style="color: #333333; font-weight: 600;"><%# Eval("order_date", "{0:dd/MM/yyyy HH:mm}") %></span>
                                                 </div>
                                                 <div class="col-12 col-sm-6 text-sm-end">
-                                                    <span style="color: #888888; display: block; font-weight: 500; font-size: 11px;">SHIPPING DETAILS:</span>
+                                                    <span style="color: #888888; display: block; font-weight: 500; font-size: 11px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ShippingDetails %>" /></span>
                                                     <span style="color: #333333; font-weight: 600; display: inline-block; max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%# Eval("shipping_address") %>, <%# Eval("city") %>">
                                                         <%# Eval("shipping_address") %>, <%# Eval("city") %>
                                                     </span>
@@ -406,7 +410,7 @@
 
                                             <hr style="border-top: 1px dashed #cccccc !important; background-color: transparent;" />
 
-                                            <div style="color: #1a1a1a !important; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">Products Ordered</div>
+                                            <div style="color: #1a1a1a !important; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ProductsOrdered %>" /></div>
 
                                             <div class="order-products mt-2 ps-1" style="font-size: 14px; line-height: 1.8; color: #333333 !important; max-height: 150px; overflow-y: auto;">
                                                 <asp:Repeater ID="rptProducts" runat="server">
@@ -427,7 +431,7 @@
 
                                             <div class="d-flex justify-content-between align-items-center mb-4">
                                                 <div>
-                                                    <strong style="color: #1a1a1a !important; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;">Total Charged</strong>
+                                                    <strong style="color: #1a1a1a !important; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_TotalCharged %>" /></strong>
                                                 </div>
                                                 <div>
                                                     <strong style="color: #1a1a1a !important; font-size: 22px; font-family: 'Montserrat', sans-serif; font-weight: 700;">$<%# Eval("total_amount", "{0:F2}") %></strong>
@@ -439,7 +443,7 @@
                                     <div class="card-actions mt-auto pt-2">
                                         <a class="btn w-100 text-center" href="OrderDetail.aspx?id=<%# Eval("id_order") %>"
                                             style="color: #000; border: 2px solid #ffc800; background: linear-gradient(135deg, #ffc800 0%, #d9a300 100%); border-radius: 8px; padding: 10px 20px; font-weight: 700; font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; transition: all 0.2s ease;">
-                                            <i class="fa-solid fa-circle-info me-2"></i>View Details & Actions
+                                            <i class="fa-solid fa-circle-info me-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ViewDetails %>" />
                                         </a>
                                     </div>
 
@@ -459,3 +463,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

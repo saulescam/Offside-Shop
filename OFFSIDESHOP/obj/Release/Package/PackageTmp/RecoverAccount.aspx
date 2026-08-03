@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecoverAccount.aspx.cs" Inherits="OFFSIDESHOP.RecuperarContrasena" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecoverAccount.aspx.cs" Inherits="OFFSIDESHOP.RecuperarContrasena" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,6 +20,7 @@
 <body>
     <form runat="server">
         <div class="split-container">
+            <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" Style="position: absolute; top: 20px; right: 20px; z-index: 1000; font-weight: 600; color: #111; text-decoration: none; padding: 5px 10px; background: rgba(255,255,255,0.7); border-radius: 5px;">EN / ES</asp:LinkButton>
             <!-- LEFT PANEL: VISUAL / CAROUSEL -->
             <div class="split-left">
                 <div class="visual-icon">
@@ -69,24 +70,24 @@
                     </div>
                     
                     <div class="form-header">
-                        <h2>RECOVER</h2>
-                        <p>No problem. Enter your username or email and we'll help you recover it.</p>
+                        <h2><%= Resources.Strings.Auth_RecoverTitle %></h2>
+                        <p><%= Resources.Strings.Auth_RecoverSub %></p>
                     </div>
 
                     <div class="login-body">
                         <div class="form-group">
                             <asp:TextBox ID="txtcuenta" runat="server"
-                                placeholder="Username or Email *"
+                                placeholder="<%$ Resources:Strings, Auth_RecoverInput %>"
                                 type="text"
                                 CssClass="form-control"
                                 required="required">
                             </asp:TextBox>
                         </div>
 
-                        <asp:Button runat="server" Text="Recovery" CssClass="btn-login" OnClick="Unnamed1_Click"></asp:Button>
+                        <asp:Button runat="server" Text="<%$ Resources:Strings, Auth_BtnRecover %>" CssClass="btn-login" OnClick="Unnamed1_Click"></asp:Button>
 
                         <div class="register-link">
-                            <p>Already remembered? <a href="Login.aspx">Back to Login</a></p>
+                            <p><%= Resources.Strings.Auth_Remembered %> <a href="Login.aspx"><%= Resources.Strings.Auth_BackLogin %></a></p>
                         </div>
                     </div>
                 </div>
@@ -100,4 +101,5 @@
     </form>
 </body>
 </html>
+
 

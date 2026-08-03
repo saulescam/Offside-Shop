@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DetailsShirt.aspx.cs" Inherits="OFFSIDESHOP.DetailsShirt" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DetailsShirt.aspx.cs" Inherits="OFFSIDESHOP.DetailsShirt" %>
 <%@ Register Src="~/ChatbotControl.ascx" TagPrefix="uc" TagName="Chatbot" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 <!DOCTYPE html>
@@ -352,7 +352,7 @@
                 box-shadow: 0px 4px 8px rgba(255, 200, 0, 0.3);
             }
 
-        .custom-qty-group {
+        .custom-qty-group { width: max-content;
             border: 2px solid #1c1c1c;
             border-radius: 8px;
             overflow: hidden;
@@ -720,7 +720,7 @@
 
             .cart-icon-btn .badge {
                 position: static; /* anula el position:absolute anterior */
-                margin-left: 0; /* anula el margin-left:auto del .badge genérico */
+                margin-left: 0; /* anula el margin-left:auto del .badge genÃ©rico */
                 background-color: #FFC800;
                 color: #000;
                 border-radius: 50%;
@@ -743,6 +743,7 @@
                 <a class="navbar-brand" href="#page-top">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                     <span class="navbar-toggler-icon"></span>
@@ -751,6 +752,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
 
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+                    
 
                     <asp:PlaceHolder ID="phNavbarGuest" runat="server">
                         <div class="user-menu-container">
@@ -763,12 +766,12 @@
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="dropdown-content">
                                     <a href="Login.aspx" class="dropdown-item">
-                                        <i class="fas fa-sign-in-alt"></i>Log in
+                                        <i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_Login %>
                                     </a>
                                     <a href="SignUp.aspx" class="dropdown-item">
-                                        <i class="fas fa-user-plus"></i>Sign up
+                                        <i class="fas fa-user-plus"></i><%= Resources.Strings.Nav_SignUp %>
                                     </a>
-                                    <asp:Button ID="Button1" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
+                                    <asp:Button ID="Button1" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
                                 </div>
                             </div>
                         </div>
@@ -778,7 +781,7 @@
                     <asp:PlaceHolder ID="phNavbarUser" runat="server">
                         <div class="navbar-icons-container">
 
-                            <!-- Ícono del carrito -->
+                            <!-- Ãcono del carrito -->
                             <asp:LinkButton ID="btnNavCart" runat="server" CssClass="cart-icon-btn" OnClick="btnNavCart_Click">
                                 <i class="fas fa-shopping-cart"></i>
                                 <span class="badge">
@@ -807,13 +810,13 @@
                                             </div>
                                             <div class="dropdown-content">
                                                   <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click">
-      <i class="fas fa-user-cog"></i> My Account
+      <i class="fas fa-user-cog"></i> <%= Resources.Strings.Nav_MyAccount %>
   </asp:LinkButton>
                                                 <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
-   <i class="fas fa-clipboard-list"></i> My Orders
+   <i class="fas fa-clipboard-list"></i> <%= Resources.Strings.Nav_MyOrders %>
                                                 </asp:LinkButton>
-                                                <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
-                                                <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                                <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
+                                                <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                             </div>
                                         </div>
 
@@ -840,10 +843,10 @@
                                 </div>
                                 <div class="dropdown-content">
                                     <a href="Dashboard.aspx" class="dropdown-item">
-                                        <i class="fas fa-chart-line"></i>Dashboard
+                                        <i class="fas fa-chart-line"></i><%= Resources.Strings.Nav_Dashboard %>
                                     </a>
-                                    <asp:Button ID="Button2" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
-                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                    <asp:Button ID="Button2" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
+                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                 </div>
                             </div>
                         </div>
@@ -862,7 +865,7 @@
                         data-bs-target="#searchFiltersCollapse"
                         aria-expanded="false"
                         aria-controls="searchFiltersCollapse">
-                        <i class="fas fa-search"></i>Filters & Search
+                        <i class="fas fa-search"></i><%= Resources.Strings.Search_MobileBtn %>
                     </button>
                 </div>
 
@@ -870,42 +873,42 @@
                     <div class="row g-3 align-items-end justify-content-center">
 
                         <div class="col-lg-4 col-md-12">
-                            <label class="form-label text-light fw-bold small mb-2">Search</label>
+                            <label class="form-label text-light fw-bold small mb-2"><%= Resources.Strings.Search_Label %></label>
                             <div class="input-group search-input-group">
                                 <span class="input-group-text bg-transparent border-0 text-muted">
                                     <i class="fas fa-search"></i>
                                 </span>
-                                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control bg-transparent border-0 text-light search-input" placeholder="Search by team, brand, year..."></asp:TextBox>
+                                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control bg-transparent border-0 text-light search-input" placeholder="<%$ Resources:Strings, Search_Placeholder %>"></asp:TextBox>
                             </div>
                         </div>
 
                         <div class="col-lg-2 col-md-4">
-                            <label class="form-label text-light fw-bold small mb-2">League</label>
+                            <label class="form-label text-light fw-bold small mb-2"><%= Resources.Strings.Search_LeagueLabel %></label>
                             <asp:DropDownList ID="ddlLeague" runat="server" CssClass="form-select filter-select">
                             </asp:DropDownList>
                         </div>
 
                         <div class="col-lg-2 col-md-4">
-                            <label class="form-label text-light fw-bold small mb-2">Brand</label>
+                            <label class="form-label text-light fw-bold small mb-2"><%= Resources.Strings.Search_BrandLabel %></label>
                             <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-select filter-select">
                             </asp:DropDownList>
                         </div>
 
                         <div class="col-lg-2 col-md-4">
-                            <label class="form-label text-light fw-bold small mb-2">Type of KIT</label>
+                            <label class="form-label text-light fw-bold small mb-2"><%= Resources.Strings.Search_KitLabel %></label>
                             <asp:DropDownList ID="ddlKitType" runat="server" CssClass="form-select filter-select">
-                                <asp:ListItem Value="" Text="Any Kit"></asp:ListItem>
-                                <asp:ListItem Value="1" Text="Local"></asp:ListItem>
-                                <asp:ListItem Value="2" Text="Away"></asp:ListItem>
-                                <asp:ListItem Value="3" Text="Third"></asp:ListItem>
-                                <asp:ListItem Value="4" Text="Retro"></asp:ListItem>
-                                <asp:ListItem Value="5" Text="Training"></asp:ListItem>
-                                <asp:ListItem Value="6" Text="Special"></asp:ListItem>
+                                <asp:ListItem Value="" Text="<%$ Resources:Strings, Search_KitAny %>"></asp:ListItem>
+                                <asp:ListItem Value="1" Text="<%$ Resources:Strings, Search_KitLocal %>"></asp:ListItem>
+                                <asp:ListItem Value="2" Text="<%$ Resources:Strings, Search_KitAway %>"></asp:ListItem>
+                                <asp:ListItem Value="3" Text="<%$ Resources:Strings, Search_KitThird %>"></asp:ListItem>
+                                <asp:ListItem Value="4" Text="<%$ Resources:Strings, Search_KitRetro %>"></asp:ListItem>
+                                <asp:ListItem Value="5" Text="<%$ Resources:Strings, Search_KitTraining %>"></asp:ListItem>
+                                <asp:ListItem Value="6" Text="<%$ Resources:Strings, Search_KitSpecial %>"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
 
                         <div class="col-lg-2 col-md-12 d-flex gap-2">
-                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-danger-custom w-100 fw-bold" OnClick="btnSearch_Click" />
+                            <asp:Button ID="btnSearch" runat="server" Text="<%$ Resources:Strings, Search_Btn %>" CssClass="btn btn-danger-custom w-100 fw-bold" OnClick="btnSearch_Click" />
                             <asp:LinkButton ID="btnReset" runat="server" CssClass="btn btn-outline-light-custom" OnClick="btnReset_Click" ToolTip="Clear Filters">
                         <i class="fas fa-undo"></i>
                             </asp:LinkButton>
@@ -970,11 +973,11 @@
 
                                 <div class="product-meta">
                                     <i class="fas fa-tshirt text-danger me-2"></i>
-                                    <strong>Team:</strong>
+                                    <strong><%= Resources.Strings.Detail_Team %></strong>
                                     <asp:Label ID="lblTeam" runat="server" Text="Team Name"></asp:Label>
                                     <span class="mx-2">|</span>
                                     <i class="far fa-calendar-alt text-danger me-2"></i>
-                                    <strong>Year:</strong>
+                                    <strong><%= Resources.Strings.Detail_Year %></strong>
                                     <asp:Label ID="lblYear" runat="server" Text="2024"></asp:Label>
                                 </div>
 
@@ -993,12 +996,12 @@
                                 <div class="d-flex align-items-center flex-wrap gap-5 my-4">
 
                                     <!-- ============================================== -->
-                                    <!-- SECCIÓN ACTUALIZADA DE TALLAS CON BOTÓN MODAL -->
+                                    <!-- SECCIÃ“N ACTUALIZADA DE TALLAS CON BOTÃ“N MODAL -->
                                     <div class="size-selector-container">
                                         <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <span class="fw-bold text-dark">Select Size:</span>
+                                            <span class="fw-bold text-dark"><%= Resources.Strings.Detail_SelectSize %></span>
                                             <button type="button" class="btn btn-sm btn-link text-warning fw-bold text-decoration-none p-0" data-bs-toggle="modal" data-bs-target="#sizeGuideModal">
-                                                <i class="fas fa-ruler-combined me-1"></i>Size Guide
+                                                <i class="fas fa-ruler-combined me-1"></i><%= Resources.Strings.Detail_SizeGuide %>
                                             </button>
                                         </div>
                                         <div class="d-flex gap-2">
@@ -1018,7 +1021,7 @@
                                     <!-- ============================================== -->
 
                                     <div class="quantity-selector-container">
-                                        <span class="fw-bold d-block mb-2 text-dark">Select Quantity:</span>
+                                        <span class="fw-bold d-block mb-2 text-dark"><%= Resources.Strings.Detail_SelectQuantity %></span>
                                         <div class="custom-qty-group d-flex align-items-center">
                                             <button type="button" class="btn btn-qty-control" onclick="changeQuantity(-1)">-</button>
                                             <input type="text" id="txtDisplayQty" class="form-control text-center input-qty-num" value="1" readonly />
@@ -1033,8 +1036,8 @@
                                     <div class="personalization-container my-4">
                                         <label class="custom-control custom-switch d-flex align-items-center justify-content-between p-3 rounded shadow-sm border cursor-pointer" style="background-color: #fcfcfc; border-color: #e0e0e0; display: flex !important;">
                                             <div>
-                                                <span class="fw-bold d-block text-dark" style="font-size: 0.95rem;">Do you want to customize your T-shirt?</span>
-                                                <small class="text-muted d-block" style="font-size: 0.8rem;">Get your favorite name and number printed for just <strong class="text-warning">+$15.00</strong></small>
+                                                <span class="fw-bold d-block text-dark" style="font-size: 0.95rem;"><%= Resources.Strings.Detail_CustomPrompt %></span>
+                                                <small class="text-muted d-block" style="font-size: 0.8rem;"><%= Resources.Strings.Detail_CustomPriceInfo %> <strong class="text-warning">+$15.00</strong></small>
                                             </div>
                                             <div class="form-switch m-0 position-relative">
                                                 <asp:CheckBox ID="chkCustomize" runat="server" ClientIDMode="Static" OnChange="togglePersonalizacion()" Style="display: none;" />
@@ -1045,11 +1048,11 @@
                                         <div id="personalizationFields" class="mt-3 p-3 rounded border border-warning" style="display: none; background-color: #fffbeb; border-style: dashed !important; transition: all 0.3s ease;">
                                             <div class="row g-3">
                                                 <div class="col-8">
-                                                    <label class="form-label text-dark fw-bold mb-1" style="font-size: 0.85rem;">Name (Max. 12 letters)</label>
+                                                    <label class="form-label text-dark fw-bold mb-1" style="font-size: 0.85rem;"><%= Resources.Strings.Detail_CustomName %></label>
                                                     <asp:TextBox ID="txtCustomName" runat="server" ClientIDMode="Static" MaxLength="12" CssClass="form-control text-uppercase" Style="border-radius: 6px; border: 1.5px solid #ced4da;" />
                                                 </div>
                                                 <div class="col-4">
-                                                    <label class="form-label text-dark fw-bold mb-1" style="font-size: 0.85rem;">Number</label>
+                                                    <label class="form-label text-dark fw-bold mb-1" style="font-size: 0.85rem;"><%= Resources.Strings.Detail_CustomNumber %></label>
                                                     <asp:TextBox ID="txtCustomNumber" runat="server" ClientIDMode="Static"
                                                         MaxLength="2"
                                                         inputmode="numeric"
@@ -1057,7 +1060,7 @@
                                                 </div>
                                             </div>
                                             <div class="mt-2 text-muted" style="font-size: 0.75rem;">
-                                                <i class="fas fa-info-circle me-1"></i>Only uppercase alphanumeric characters are allowed.
+                                                <i class="fas fa-info-circle me-1"></i><%= Resources.Strings.Detail_CustomWarning %>
                                             </div>
                                         </div>
                                     </div>
@@ -1067,11 +1070,11 @@
 
                             <div class="row g-3">
                                 <div class="col-sm-6">
-                                    <asp:Button ID="btnAddCart" runat="server" CssClass="btn btn-addcart w-100" Text="Add to Cart" OnClick="btnAddCart_Click" />
+                                    <asp:Button ID="btnAddCart" runat="server" CssClass="btn btn-addcart w-100" Text="<%$ Resources:Strings, Detail_AddToCart %>" OnClick="btnAddCart_Click" />
                                 </div>
                                 <div class="col-sm-6">
                                     <a href="Homepage.aspx" class="btn btn-back w-100">
-                                        <i class="fas fa-arrow-left me-2"></i>Back to Shop
+                                        <i class="fas fa-arrow-left me-2"></i><%= Resources.Strings.Nav_BackToShop %>
                                     </a>
                                 </div>
                             </div>
@@ -1088,14 +1091,14 @@
                     <button class="nav-link active text-uppercase fw-bold text-dark border-0 bg-transparent position-relative py-3 px-4 tab-custom-style"
                         id="similar-tab" data-bs-toggle="tab" data-bs-target="#similar-panel" type="button" role="tab"
                         aria-controls="similar-panel" aria-selected="true" style="letter-spacing: 1px; font-size: 1.1rem;">
-                        You Might Also Like
+                        <%= Resources.Strings.Tab_Similar %>
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link text-uppercase fw-bold text-dark border-0 bg-transparent position-relative py-3 px-4 tab-custom-style"
                         id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-panel" type="button" role="tab"
                         aria-controls="reviews-panel" aria-selected="false" style="letter-spacing: 1px; font-size: 1.1rem;">
-                        Product Reviews
+                        <%= Resources.Strings.Tab_Reviews %>
                     </button>
                 </li>
             </ul>
@@ -1131,8 +1134,8 @@
                                                 </h6>
 
                                                 <div class="mt-auto">
-                                                    <p class="small mb-2 text-dark">Sizes: <strong><%# Eval("Sizes") %></strong></p>
-                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100">Buy</a>
+                                                    <p class="small mb-2 text-dark"><%= Resources.Strings.Card_Sizes %>: <strong><%# Eval("Sizes") %></strong></p>
+                                                    <a href='DetailsShirt.aspx?id=<%# Eval("ID") %>' class="btn btn-outline-danger w-100"><%= Resources.Strings.Card_BuyBtn %></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1150,10 +1153,10 @@
                             <asp:PlaceHolder ID="phLeaveReview" runat="server">
                                 <div class="card mb-4 border-1 shadow-sm">
                                     <div class="card-body">
-                                        <h4 class="card-title text-dark mb-3" style="font-weight: 600;">Leave a Review</h4>
+                                        <h4 class="card-title text-dark mb-3" style="font-weight: 600;"><%= Resources.Strings.Review_LeaveTitle %></h4>
                                         <div class="row g-3">
                                             <div class="col-md-12">
-                                                <label class="form-label text-dark fw-bold small d-block">Rating</label>
+                                                <label class="form-label text-dark fw-bold small d-block"><%= Resources.Strings.Review_Rating %></label>
                                                 <!-- Selector moderno de estrellas interactivas -->
                                                 <div class="star-rating-input d-flex gap-1 text-warning mb-2" style="font-size: 1.7rem; cursor: pointer;">
                                                     <i class="fas fa-star star-click" data-value="1"></i>
@@ -1165,11 +1168,11 @@
                                                 <asp:HiddenField ID="hfRatingInput" runat="server" Value="5" />
                                             </div>
                                             <div class="col-md-12">
-                                                <label class="form-label text-dark fw-bold small">Your Comment</label>
-                                                <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control border-dark" placeholder="Share your thoughts about this jersey..."></asp:TextBox>
+                                                <label class="form-label text-dark fw-bold small"><%= Resources.Strings.Review_CommentLabel %></label>
+                                                <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control border-dark" placeholder="<%$ Resources:Strings, Review_CommentPlaceholder %>"></asp:TextBox>
                                             </div>
                                             <div class="col-md-12">
-                                                <asp:Button ID="btnSubmitReview" runat="server" Text="Submit Review" CssClass="btn btn-danger-custom fw-bold px-4" OnClick="btnSubmitReview_Click" />
+                                                <asp:Button ID="btnSubmitReview" runat="server" Text="<%$ Resources:Strings, Review_SubmitBtn %>" CssClass="btn btn-danger-custom fw-bold px-4" OnClick="btnSubmitReview_Click" />
                                             </div>
                                         </div>
                                     </div>
@@ -1179,7 +1182,7 @@
                             <asp:PlaceHolder ID="phMustPurchaseToReview" runat="server" Visible="false">
                                 <div class="alert alert-light text-center border border-warning my-4 p-3 rounded shadow-sm">
                                     <i class="fa-solid fa-lock text-warning mb-2" style="font-size: 1.5rem;"></i>
-                                    <p class="mb-0 fw-semibold text-secondary">You must purchase this shirt before leaving a review.</p>
+                                    <p class="mb-0 fw-semibold text-secondary"><%= Resources.Strings.Review_MustPurchase %></p>
                                 </div>
                             </asp:PlaceHolder>
 
@@ -1188,14 +1191,14 @@
                                 <asp:PlaceHolder ID="phNoReviews" runat="server" Visible="false">
                                     <div class="alert alert-light text-center border border-secondary my-4 p-4 rounded shadow-sm">
                                         <i class="fa-regular fa-comments text-muted mb-2" style="font-size: 2rem;"></i>
-                                        <p class="mb-0 fw-semibold text-secondary" style="font-size: 1.1rem;">There are not reviews for this shirt</p>
+                                        <p class="mb-0 fw-semibold text-secondary" style="font-size: 1.1rem;"><%= Resources.Strings.Review_NoReviews %></p>
                                     </div>
                                 </asp:PlaceHolder>
 
                                 <asp:PlaceHolder ID="PlaceHolder1" runat="server" Visible="false">
                                     <div class="alert alert-light text-center border border-secondary my-4 p-4 rounded shadow-sm">
                                         <i class="fa-regular fa-comments text-muted mb-2" style="font-size: 2rem;"></i>
-                                        <p class="mb-0 fw-semibold text-secondary" style="font-size: 1.1rem;">There are not reviews for this shirt</p>
+                                        <p class="mb-0 fw-semibold text-secondary" style="font-size: 1.1rem;"><%= Resources.Strings.Review_NoReviews %></p>
                                     </div>
                                 </asp:PlaceHolder>
 
@@ -1224,9 +1227,9 @@
                                                             CommandArgument='<%# Eval("Id_Review") %>'
                                                             CssClass="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1"
                                                             Style="border-radius: 20px; padding: 4px 12px;"
-                                                            OnClientClick="return confirm('Are you sure you want to delete this review?');"
+                                                            OnClientClick="<%$ Resources:Strings, Review_DeleteConfirm %>"
                                                             Visible='<%# CanDeleteReview(Eval("Id_User")) %>'>
-                                    <i class="fa fa-trash"></i> Delete
+                                    <i class="fa fa-trash"></i> <%= Resources.Strings.Review_DeleteBtn %>
                                                         </asp:LinkButton>
                                                     </div>
                                                 </div>
@@ -1236,8 +1239,8 @@
                                                 <asp:Panel ID="pnlReplyForm" runat="server" CssClass="mt-3 bg-light p-2 rounded"
                                                     Visible='<%# IsCurrentUserAdminOrOwner() && string.IsNullOrEmpty(Eval("ReplyComment") as string) %>'>
                                                     <div class="input-group input-group-sm">
-                                                        <asp:TextBox ID="txtReply" runat="server" CssClass="form-control" placeholder="Write an official reply..." />
-                                                        <asp:Button ID="btnSubmitReply" runat="server" Text="Reply"
+                                                        <asp:TextBox ID="txtReply" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Review_ReplyPlaceholder %>" />
+                                                        <asp:Button ID="btnSubmitReply" runat="server" Text="<%$ Resources:Strings, Review_ReplyBtn %>"
                                                             CommandName="SubmitReply"
                                                             CommandArgument='<%# Eval("Id_Review") %>'
                                                             CssClass="btn btn-warning text-dark fw-bold" />
@@ -1250,8 +1253,8 @@
                                                     <div class="mt-3 ms-4 p-3 bg-light border-start border-warning border-3 rounded shadow-xs">
                                                         <div class="d-flex justify-content-between align-items-center mb-1">
                                                             <div>
-                                                                <span class="badge bg-dark"><i class="fa-solid fa-user-check"></i>Administrator</span>
-                                                                <small class="text-muted ms-2 fw-bold">Official Reply</small>
+                                                                <span class="badge bg-dark"><i class="fa-solid fa-user-check"></i><%= Resources.Strings.Nav_AdminRole %></span>
+                                                                <small class="text-muted ms-2 fw-bold"><%= Resources.Strings.Review_OfficialReply %></small>
                                                             </div>
                                                             <small class="text-muted"><%# Eval("ReplyDate") != DBNull.Value ? Convert.ToDateTime(Eval("ReplyDate")).ToString("MM/dd/yyyy hh:mm tt") : "" %></small>
                                                         </div>
@@ -1285,14 +1288,14 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-4 text-dark">
-                        <p class="text-muted small mb-3">Measurements are shown in centimeters (cm). These are standard fan-version measurements. Please allow a slight variance due to manufacturing.</p>
+                        <p class="text-muted small mb-3"><%= Resources.Strings.Modal_SizeGuideDesc %></p>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped text-center align-middle">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Size</th>
-                                        <th>Chest (cm)</th>
-                                        <th>Length (cm)</th>
+                                        <th><%= Resources.Strings.Modal_TableHeaderSize %></th>
+                                        <th><%= Resources.Strings.Modal_TableHeaderChest %></th>
+                                        <th><%= Resources.Strings.Modal_TableHeaderLength %></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1322,7 +1325,7 @@
 
     <script type="text/javascript">
         /* ==========================================================================
-           1. RECARGA DE PÁGINA (Al usar el botón de atrás del navegador)
+           1. RECARGA DE PÃGINA (Al usar el botÃ³n de atrÃ¡s del navegador)
            ========================================================================== */
         window.onpageshow = function (event) {
             if (event.persisted) {
@@ -1364,7 +1367,7 @@
         })();
 
         /* ==========================================================================
-            2. MENÚ DE USUARIO (Dropdown navbar)
+            2. MENÃš DE USUARIO (Dropdown navbar)
             ========================================================================== */
         function ScriptParaAbrirMenu() {
             const menu = document.getElementById('userDropdownMenuUser');
@@ -1440,7 +1443,7 @@
         }
 
         /* ==========================================================================
-           5. LÓGICA DE PRECIOS MATEMÁTICOS PARA EL SWITCH DE PERSONALIZACIÓN
+           5. LÃ“GICA DE PRECIOS MATEMÃTICOS PARA EL SWITCH DE PERSONALIZACIÃ“N
            ========================================================================== */
         var basePrice = 0.00;
         var originalBasePrice = 0.00;
@@ -1580,7 +1583,7 @@
                 $('#similar-slick').slick('setPosition');
             });
 
-            // Estrellas de Reseñas
+            // Estrellas de ReseÃ±as
             var initialRating = $('#<%= hfRatingInput.ClientID %>').val() || 5;
         renderStars(initialRating);
 
@@ -1601,11 +1604,11 @@
             });
         }
 
-        // Preview en vivo de Nombre y Número (Usando delegación de eventos de jQuery para sobrevivir a postbacks parciales)
+        // Preview en vivo de Nombre y NÃºmero (Usando delegaciÃ³n de eventos de jQuery para sobrevivir a postbacks parciales)
         $(document).on('input', '#txtCustomName', function (e) {
             var cursorPosition = this.selectionStart;
             var rawVal = this.value;
-            var cleaned = rawVal.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]/g, "");
+            var cleaned = rawVal.replace(/[^a-zA-ZÃ¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“ÃšÃ±Ã‘Ã¼Ãœ ]/g, "");
 
             if (cleaned !== rawVal) {
                 this.value = cleaned;
@@ -1666,11 +1669,11 @@
         // Manejador para mantener el estado cliente tras postbacks parciales de AJAX ASP.NET
         if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                // 1. Sincronizar campos de personalización
+                // 1. Sincronizar campos de personalizaciÃ³n
                 if (typeof togglePersonalizacion === "function") {
                     togglePersonalizacion();
                 }
-                // 2. Sincronizar valoración de estrellas de reseña
+                // 2. Sincronizar valoraciÃ³n de estrellas de reseÃ±a
                 var hfRatingInput = document.getElementById('<%= hfRatingInput.ClientID %>');
                 if (hfRatingInput && typeof renderStars === "function") {
                     renderStars($(hfRatingInput).val() || 5);
@@ -1687,3 +1690,4 @@
     </script>
 </body>
 </html>
+

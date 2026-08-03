@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="OFFSIDESHOP.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="OFFSIDESHOP.Login" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,6 +31,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="split-container">
+            <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" Style="position: absolute; top: 20px; right: 20px; z-index: 1000; font-weight: 600; color: #111; text-decoration: none; padding: 5px 10px; background: rgba(255,255,255,0.7); border-radius: 5px;">EN / ES</asp:LinkButton>
             
             <!-- LEFT PANEL: VISUAL / CAROUSEL -->
             <div class="split-left">
@@ -81,14 +82,14 @@
                     </div>
                     
                     <div class="form-header">
-                        <h2>Log in</h2>
-                        <p>Welcome back! Please enter your details.</p>
+                        <h2><%= Resources.Strings.Auth_LoginTitle %></h2>
+                        <p><%= Resources.Strings.Auth_LoginSub %></p>
                     </div>
 
                     <div class="login-body">
                         <div class="form-group">
                             <asp:TextBox ID="TxtUsuario" runat="server"
-                                placeholder="User or Email *"
+                                placeholder="<%$ Resources:Strings, Auth_UserEmail %>"
                                 type="text"
                                 CssClass="form-control"
                                 onpaste="return false"
@@ -96,12 +97,12 @@
                                 MaxLength="50"
                                 required="required">
                             </asp:TextBox>
-                            <div class="invalid-feedback">Enter your user.</div>
+                            <div class="invalid-feedback"><%= Resources.Strings.Auth_ValUser %></div>
                         </div>
 
                         <div class="form-group">
                             <asp:TextBox ID="TxtContra" runat="server"
-                                placeholder="Password *"
+                                placeholder="<%$ Resources:Strings, Auth_Password %>"
                                 type="password"
                                 CssClass="form-control"
                                 onpaste="return false"
@@ -110,18 +111,18 @@
                                 MaxLength="15"
                                 required="required">
                             </asp:TextBox>
-                            <div class="invalid-feedback">Please enter your password.</div>
+                            <div class="invalid-feedback"><%= Resources.Strings.Auth_ValPass %></div>
                         </div>
 
                         <div class="forgot-link">
                             <asp:HyperLink ID="olvidaste" runat="server"
-                                Text="Forgot your password?"
+                                Text="<%$ Resources:Strings, Auth_ForgotPass %>"
                                 NavigateUrl="RecoverAccount.aspx">
                             </asp:HyperLink>
                         </div>
 
                         <asp:Button ID="btnEntrar" runat="server"
-                            Text="Log in"
+                            Text="<%$ Resources:Strings, Auth_BtnLogin %>"
                             CssClass="btn-login"
                             OnClick="btnEntrar_Click"></asp:Button>
      
@@ -129,11 +130,11 @@
                             CssClass="btn-google"
                             OnClick="btnGoogleLogin_Click">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/1280px-Google_Favicon_2025.svg.png" alt="Google" />
-                            <span>Continue with Google</span>
+                            <span><%= Resources.Strings.Auth_GoogleLogin %></span>
                         </asp:LinkButton>
 
                         <div class="register-link">
-                            <p>Do not have an account? <a href="SignUp.aspx">Sign up</a></p>
+                            <p><%= Resources.Strings.Auth_NoAccount %> <a href="SignUp.aspx"><%= Resources.Strings.Auth_LinkSignUp %></a></p>
                         </div>
 
                         <asp:Literal ID="alerta" runat="server" EnableViewState="false"></asp:Literal>
@@ -149,4 +150,5 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </body>
 </html>
+
 

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContactSupport.aspx.cs" Inherits="OFFSIDESHOP.ContactSupport" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContactSupport.aspx.cs" Inherits="OFFSIDESHOP.ContactSupport" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Submit a request | OffsideShop Support</title>
+    <title><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_Title %>" /> | OffsideShop Support</title>
 
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -56,7 +56,7 @@
             box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
         }
 
-        /* ── COMPONENTE DRAG & DROP PREMIUM DESDE CERO ── */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ COMPONENTE DRAG & DROP PREMIUM DESDE CERO Ã¢â€â‚¬Ã¢â€â‚¬ */
         .premium-drop-zone {
             display: block !important;
             border: 2px dashed #ced4da;
@@ -328,10 +328,12 @@
                 <a class="navbar-brand" href="Homepage.aspx">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
+                    
                     <asp:PlaceHolder ID="phNavbarGuest" runat="server">
                         <div class="user-menu-container">
                             <button type="button" class="user-icon-btn" onclick="toggleUserMenu(this)">
@@ -397,7 +399,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     
-                    <h2 class="mb-4" style="font-weight: 700; color: #1a1a1a;">Submit a request</h2>
+                    <h2 class="mb-4" style="font-weight: 700; color: #1a1a1a;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_Title %>" /></h2>
                     
                     <div class="support-card">
                         <asp:UpdatePanel ID="upForm" runat="server">
@@ -405,44 +407,42 @@
                                 
                                 <!-- Reason Dropdown -->
                                 <div class="mb-4">
-                                    <label class="form-label">What do you need help with? <span class="text-danger">*</span></label>
+                                    <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_HelpWith %>" /> <span class="text-danger">*</span></label>
                                     <asp:DropDownList ID="ddlReason" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlReason_SelectedIndexChanged">
                                         <asp:ListItem Text="-" Value=""></asp:ListItem>
                                     </asp:DropDownList>
-                                    <div class="form-text">Please select your issue below to show the relevant fields.</div>
+                                    <div class="form-text"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_HelpDesc %>" /></div>
                                 </div>
 
-                                <!-- Email (Bloqueado) -->
                                 <div class="mb-4">
-                                    <label class="form-label">Your email address <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" ReadOnly="true" placeholder="Please log in to auto-fill your email"></asp:TextBox>
+                                    <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_EmailLabel %>" /> <span class="text-danger">*</span></label>
+                                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" ReadOnly="true" placeholder="<%$ Resources:Strings, Contact_EmailPlaceholder %>"></asp:TextBox>
                                 </div>
 
-                                <!-- Subject -->
                                 <div class="mb-4">
-                                    <label class="form-label">Subject <span class="text-danger">*</span></label>
+                                    <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_Subject %>" /> <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" required="required"></asp:TextBox>
                                 </div>
 
                                 <!-- Dynamic Panel: Order Issue -->
                                 <asp:Panel ID="pnlOrderIssue" runat="server" Visible="false" CssClass="dynamic-panel">
                                     <div class="mb-3">
-                                        <label class="form-label">Order ID <span class="text-danger">*</span></label>
-                                        <asp:TextBox ID="txtOrderId" runat="server" CssClass="form-control" placeholder="e.g., 34" TextMode="Number" min="1"></asp:TextBox>
-                                        <div class="form-text">You can find this in your confirmation email or My Orders section.</div>
+                                        <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_OrderId %>" /> <span class="text-danger">*</span></label>
+                                        <asp:TextBox ID="txtOrderId" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Contact_OrderIdPlaceholder %>" TextMode="Number" min="1"></asp:TextBox>
+                                        <div class="form-text"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_OrderIdDesc %>" /></div>
                                     </div>
                                 </asp:Panel>
 
                                 <!-- Dynamic Panel: Sell Collector's Jersey -->
                                 <asp:Panel ID="pnlSellJersey" runat="server" Visible="false" CssClass="dynamic-panel">
-                                    <h5 class="mb-3" style="font-weight: 700;">Consignment Details</h5>
+                                    <h5 class="mb-3" style="font-weight: 700;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_ConsignTitle %>" /></h5>
                                     <div class="row">
                                         <div class="col-md-4 mb-3">
-                                            <label class="form-label">Condition (1-10 Scale) <span class="text-danger">*</span></label>
+                                            <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_Condition %>" /> <span class="text-danger">*</span></label>
                                             <asp:TextBox ID="txtCondition" runat="server" CssClass="form-control" placeholder="1 to 10" TextMode="Number" min="1" max="10"></asp:TextBox>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label class="form-label">Jersey Size <span class="text-danger">*</span></label>
+                                            <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_Size %>" /> <span class="text-danger">*</span></label>
                                             <asp:DropDownList ID="ddlSize" runat="server" CssClass="form-select">
                                                 <asp:ListItem Text="-" Value=""></asp:ListItem>
                                                 <asp:ListItem Text="S" Value="S"></asp:ListItem>
@@ -453,28 +453,27 @@
                                             </asp:DropDownList>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label class="form-label">Proposed Price ($) <span class="text-danger">*</span></label>
+                                            <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_Price %>" /> <span class="text-danger">*</span></label>
                                             <asp:TextBox ID="txtPrice" runat="server" CssClass="form-control" TextMode="Number" step="0.01" min="0.01" placeholder="0.00"></asp:TextBox>
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label">Upload Proof Images (Front, Back, Product Tags) <span class="text-danger">*</span></label>
+                                        <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_UploadTitle %>" /> <span class="text-danger">*</span></label>
                                         <label for="fileImages" id="drop-area" class="premium-drop-zone">
                                             <i class="fas fa-cloud-upload-alt fa-3x"></i>
-                                            <h6>Drag &amp; Drop your images here</h6>
-                                            <p>or click anywhere in this box to browse files</p>
+                                            <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_UploadDrag %>" /></h6>
+                                            <p><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_UploadClick %>" /></p>
                                         </label>
                                         <asp:FileUpload ID="fileImages" runat="server" ClientIDMode="Static" AllowMultiple="true" CssClass="file-upload-input" accept=".jpg,.jpeg,.png,.webp" />
                                         <div id="gallery" class="mt-3 d-flex justify-content-center gap-3 flex-wrap"></div>
-                                        <div class="form-text text-center mt-2">Max. 3 images allowed. Supported formats: JPG, PNG, WEBP. Max. file size: 2MB.</div>
+                                        <div class="form-text text-center mt-2"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_UploadDesc %>" /></div>
                                     </div>
                                 </asp:Panel>
 
-                                <!-- Message -->
                                 <div class="mb-4">
-                                    <label class="form-label">Description / Details <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtMessage" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="5" required="required" placeholder="Please enter the details of your request. A member of our support staff will respond as soon as possible."></asp:TextBox>
+                                    <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_DetailsTitle %>" /> <span class="text-danger">*</span></label>
+                                    <asp:TextBox ID="txtMessage" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="5" required="required" placeholder="<%$ Resources:Strings, Contact_DetailsPlaceholder %>"></asp:TextBox>
                                 </div>
 
                             </ContentTemplate>
@@ -485,9 +484,9 @@
 
                         <div class="d-flex justify-content-between align-items-center mt-4 pt-3" style="border-top: 1px solid #e0e0e0;">
                             <a href="Homepage.aspx" class="btn btn-outline-secondary px-4 py-2 font-weight-bold" style="border-radius: 6px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; border-width: 2px;">
-                                <i class="fas fa-arrow-left mr-2"></i> Back to Homepage
+                                <i class="fas fa-arrow-left mr-2"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_BackHome %>" />
                             </a>
-                            <asp:Button ID="btnSubmit" runat="server" CssClass="btn-submit" Text="Submit Request" OnClick="btnSubmit_Click" />
+                            <asp:Button ID="btnSubmit" runat="server" CssClass="btn-submit" Text="<%$ Resources:Strings, Contact_SubmitBtn %>" OnClick="btnSubmit_Click" />
                         </div>
                     </div>
                     
@@ -502,3 +501,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

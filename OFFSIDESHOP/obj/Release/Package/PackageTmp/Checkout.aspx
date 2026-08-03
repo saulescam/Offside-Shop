@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Checkout.aspx.cs" Inherits="OFFSIDESHOP.Checkout" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Checkout.aspx.cs" Inherits="OFFSIDESHOP.Checkout" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
 <!DOCTYPE html>
@@ -49,7 +49,7 @@
         .discount-row { color: #d9534f !important; }
         .discount-row strong { color: #d9534f !important; }
 
-        /* Barra de búsqueda del mapa */
+        /* Barra de bÃºsqueda del mapa */
         .map-search-wrapper { position: relative; margin-bottom: 8px; }
         .map-search-input { width: 100%; padding: 9px 40px 9px 14px; border: 1.5px solid #E4E7ED; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; transition: border-color 0.2s; outline: none; }
         .map-search-input:focus { border-color: #D47A00; }
@@ -261,7 +261,7 @@
             var lat = document.getElementById('<%= hfLatitude.ClientID %>').value;
             var lng = document.getElementById('<%= hfLongitude.ClientID %>').value;
             var tel = document.getElementById('<%= txtTel.ClientID %>').value.trim();
-            // Expresión regular: Valida que sean exactamente 8 dígitos numéricos (Formato El Salvador)
+            // ExpresiÃ³n regular: Valida que sean exactamente 8 dÃ­gitos numÃ©ricos (Formato El Salvador)
             var telRegex = /^[0-9]{8}$/;
 
             if (tel === '' || !telRegex.test(tel)) {
@@ -318,7 +318,7 @@
     <form runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
-        <!-- COORDENADAS DE LOGÍSTICA EN SEGUNDO PLANO -->
+        <!-- COORDENADAS DE LOGÃSTICA EN SEGUNDO PLANO -->
         <asp:HiddenField ID="hfLatitude" runat="server" />
         <asp:HiddenField ID="hfLongitude" runat="server" />
         <asp:HiddenField ID="hfUserDefaultLat" runat="server" />
@@ -333,12 +333,15 @@
                 <a class="navbar-brand" href="#page-top">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarResponsive">
+                    
+
                     <asp:PlaceHolder ID="phNavbarGuest" runat="server">
                         <div class="user-menu-container">
                             <button type="button" class="user-icon-btn" onclick="toggleUserMenu(this)">
@@ -349,9 +352,9 @@
                             </button>
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="dropdown-content">
-                                    <a href="Login.aspx" class="dropdown-item"><i class="fas fa-sign-in-alt"></i>Log in</a>
-                                    <a href="SignUp.aspx" class="dropdown-item"><i class="fas fa-user-plus"></i>Sign up</a>
-                                    <asp:Button ID="Button1" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
+                                    <a href="Login.aspx" class="dropdown-item"><i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_Login %></a>
+                                    <a href="SignUp.aspx" class="dropdown-item"><i class="fas fa-user-plus"></i><%= Resources.Strings.Nav_SignUp %></a>
+                                    <asp:Button ID="Button1" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
                                 </div>
                             </div>
                         </div>
@@ -374,10 +377,10 @@
                                         </div>
                                         <div class="dropdown-content">
                                             <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
-                                                <i class="fas fa-clipboard-list"></i> My Orders
+                                                <i class="fas fa-clipboard-list"></i> <%= Resources.Strings.Nav_MyOrders %>
                                             </asp:LinkButton>
-                                            <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
-                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                            <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
+                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                         </div>
                                     </div>
                                 </ContentTemplate>
@@ -397,33 +400,33 @@
                     <div class="col-12 col-md-6 mt-4" style="max-width: 550px;">
                         <div class="billing-details">
                             <div class="section-title">
-                                <h3 class="title">Billing address</h3>
+                                <h3 class="title"><%= Resources.Strings.Checkout_BillingTitle %></h3>
                             </div>
                             <div class="form-group">
-                                <asp:TextBox ID="txtName" runat="server" CssClass="input" placeholder="First Name" />
+                                <asp:TextBox ID="txtName" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_FirstName %>" />
                             </div>
                             <div class="form-group">
-                                <asp:TextBox ID="txtLastName" runat="server" CssClass="input" placeholder="Last Name" />
+                                <asp:TextBox ID="txtLastName" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_LastName %>" />
                             </div>
                             <div class="form-group">
-                                <asp:TextBox ID="txtEmail" runat="server" CssClass="input" placeholder="Email" />
+                                <asp:TextBox ID="txtEmail" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_Email %>" />
                             </div>
                             <div class="form-group">
-                                <asp:TextBox ID="txtAddress" runat="server" CssClass="input" placeholder="Address" MaxLength="200" />
+                                <asp:TextBox ID="txtAddress" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_Address %>" MaxLength="200" />
                             </div>
 
                             <asp:UpdatePanel ID="upLocation" runat="server">
                                 <ContentTemplate>
                                     <div class="form-group">
-                                        <label for="ddlCity">Department</label>
+                                        <label for="ddlCity"><%= Resources.Strings.Checkout_Department %></label>
                                         <asp:DropDownList ID="ddlCity" runat="server" CssClass="input" AutoPostBack="true" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged"></asp:DropDownList>
                                     </div>
                                     <div class="form-group">
-                                        <label for="ddlMunicipality">Municipality</label>
+                                        <label for="ddlMunicipality"><%= Resources.Strings.Checkout_Municipality %></label>
                                         <asp:DropDownList ID="ddlMunicipality" runat="server" CssClass="input" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlMunicipality_SelectedIndexChanged"></asp:DropDownList>
                                     </div>
                                     <div class="form-group">
-                                        <label for="ddlDistrict">District / Town</label>
+                                        <label for="ddlDistrict"><%= Resources.Strings.Checkout_District %></label>
                                         <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="input" Enabled="false"></asp:DropDownList>
                                     </div>
                                 </ContentTemplate>
@@ -441,9 +444,9 @@
                                 { %>
                             <!-- INTERACTIVE MAP PANEL FOR DELIVERY LOCATION -->
                             <div class="form-group mt-4">
-                                <label class="form-label font-weight-bold" style="font-weight: 700; color: #111111;">Confirm Delivery Location <span class="text-warning">*</span></label>
+                                <label class="form-label font-weight-bold" style="font-weight: 700; color: #111111;"><%= Resources.Strings.Checkout_ConfirmLocation %> <span class="text-warning">*</span></label>
                                 <div class="map-search-wrapper">
-                                    <input type="text" id="mapSearchInput" class="map-search-input" placeholder="Search an address or place..." />
+                                    <input type="text" id="mapSearchInput" class="map-search-input" placeholder="<%= Resources.Strings.Checkout_SearchMapPlaceholder %>" />
                                     <button type="button" class="map-search-btn" onclick="searchMapAddress()" title="Search">
                                         <i class="fas fa-search"></i>
                                     </button>
@@ -456,31 +459,31 @@
                                             <div class="map-spinner-ring">
                                                 <div></div><div></div><div></div><div></div>
                                             </div>
-                                            <div class="map-loader-text"><i class="fas fa-map-marked-alt text-warning me-2"></i>Loading interactive map...</div>
+                                            <div class="map-loader-text"><i class="fas fa-map-marked-alt text-warning me-2"></i><%= Resources.Strings.Checkout_LoadingMap %></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="mapLocationLabel" class="map-location-label"><i class="fas fa-map-pin text-danger me-1"></i> Click the map or drag the pin to confirm the exact delivery location.</div>
+                                <div id="mapLocationLabel" class="map-location-label"><i class="fas fa-map-pin text-danger me-1"></i> <%= Resources.Strings.Checkout_MapInstructions %></div>
                             </div>
                             <% } %>
 
                         </div>
 
                         <div class="order-notes mt-3">
-                            <asp:TextBox ID="txtNotes" runat="server" CssClass="input" placeholder="Order Notes (Optional)" TextMode="MultiLine" />
+                            <asp:TextBox ID="txtNotes" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_OrderNotes %>" TextMode="MultiLine" />
                         </div>
                     </div>
 
                     <div class="col-12 col-md-6 mt-4" style="max-width: 650px;">
                         <div class="order-details">
                             <div class="section-title text-center">
-                                <h3 class="title">Your Order</h3>
+                                <h3 class="title"><%= Resources.Strings.Checkout_YourOrderTitle %></h3>
                             </div>
 
                             <div class="order-summary">
                                 <div class="order-col">
-                                    <div><strong>PRODUCT</strong></div>
-                                    <div><strong>TOTAL</strong></div>
+                                    <div><strong><%= Resources.Strings.Checkout_HeaderProduct %></strong></div>
+                                    <div><strong><%= Resources.Strings.Checkout_HeaderTotal %></strong></div>
                                 </div>
 
                                 <div class="order-products" id="orderProducts" runat="server"></div>
@@ -489,29 +492,29 @@
                                     <ContentTemplate>
                                         <asp:PlaceHolder ID="phDiscountRow" runat="server" Visible="false">
                                             <div class="order-col discount-row">
-                                                <div>Discount Applied</div>
+                                                <div><%= Resources.Strings.Checkout_DiscountApplied %></div>
                                                 <div><strong><asp:Label ID="lblOrderDiscount" runat="server"></asp:Label></strong></div>
                                             </div>
                                         </asp:PlaceHolder>
 
                                         <div class="order-col">
-                                            <div>&nbsp;Shipping</div>
+                                            <div>&nbsp;<%= Resources.Strings.Checkout_Shipping %></div>
                                             <div><strong><asp:Label ID="lblOrderShipping" runat="server" Text="$3.50"></asp:Label></strong></div>
                                         </div>
                                         <div class="order-col">
-                                            <div><strong>TOTAL</strong></div>
+                                            <div><strong><%= Resources.Strings.Checkout_HeaderTotal %></strong></div>
                                             <div><strong class="order-total"><asp:Label ID="lblOrderTotal" runat="server"></asp:Label></strong></div>
                                         </div>
 
                                         <div class="coupon-wrapper">
                                             <a data-bs-toggle="collapse" href="#collapseCoupon" role="button" aria-expanded="false" aria-controls="collapseCoupon" class="coupon-toggle">
-                                                <i class="fas fa-tag"></i> Have a coupon code?
+                                                <i class="fas fa-tag"></i> <%= Resources.Strings.Checkout_HaveCoupon %>
                                             </a>
                                             <div class="collapse" id="collapseCoupon">
                                                 <div class="input-group input-group-sm coupon-input-container">
                                                     <asp:TextBox ID="txtCouponCode" runat="server" CssClass="form-control coupon-input" placeholder="XXXXXXXXXXXX" MaxLength="12"></asp:TextBox>
                                                     <asp:TextBox ID="txtHiddenTotalSync" runat="server" CssClass="d-none dynamic-total-sync"></asp:TextBox>
-                                                    <asp:Button ID="btnApplyCoupon" runat="server" Text="Apply" CssClass="btn btn-apply-coupon" OnClick="btnApplyCoupon_Click" />
+                                                    <asp:Button ID="btnApplyCoupon" runat="server" Text="<%$ Resources:Strings, Checkout_ApplyCoupon %>" CssClass="btn btn-apply-coupon" OnClick="btnApplyCoupon_Click" />
                                                 </div>
                                                 <asp:Label ID="lblCouponMessage" runat="server" CssClass="small mt-1 d-block" Visible="false"></asp:Label>
                                             </div>
@@ -530,32 +533,32 @@
                                 <!-- Cash on Delivery -->
                                 <div class="input-radio mt-2">
                                     <input type="radio" name="payment" id="payment2" runat="server" value="Cash" onclick="togglePaymentCaptions(this)">
-                                    <label for="payment2"><span></span>Cash on Delivery</label>
+                                    <label for="payment2"><span></span><%= Resources.Strings.Checkout_PayCash %></label>
                                     <div class="caption" id="caption-2" style="display: none;">
-                                        <p>Pay with cash upon delivery at your doorstep. Please try to have the exact amount ready.</p>
+                                        <p><%= Resources.Strings.Checkout_PayCashDesc %></p>
                                     </div>
                                 </div>
 
                                 <!-- Paypal System -->
                                 <div class="input-radio mt-2">
                                     <input type="radio" name="payment" id="payment3" runat="server" value="PayPal" onclick="togglePaymentCaptions(this)">
-                                    <label for="payment3"><span></span>Paypal System <i class="fab fa-cc-paypal text-primary ms-1"></i></label>
+                                    <label for="payment3"><span></span><%= Resources.Strings.Checkout_PayPaypal %> <i class="fab fa-cc-paypal text-primary ms-1"></i></label>
                                     <div class="caption" id="caption-3" style="display: none;">
-                                        <p>Pay safely via PayPal using your credit card, debit card, or PayPal balance. You will be redirected to the secure gateway to complete your transaction.</p>
+                                        <p><%= Resources.Strings.Checkout_PayPaypalDesc %></p>
                                     </div>
                                 </div>
                                 <!-- Virtual Wallet System -->
                                 <div class="input-radio mt-2">
                                     <input type="radio" name="payment" id="payment4" runat="server" value="VirtualWallet" onclick="togglePaymentCaptions(this)">
-                                    <label for="payment4"><span></span>Virtual Wallet <i class="fas fa-wallet text-success ms-1"></i></label>
+                                    <label for="payment4"><span></span><%= Resources.Strings.Checkout_PayWallet %> <i class="fas fa-wallet text-success ms-1"></i></label>
 
                                     <div class="caption" id="caption-4" style="display: none;">
-                                        <p>Use your VirtualWallet account to pay safely.</p>
+                                        <p><%= Resources.Strings.Checkout_PayWalletDesc %></p>
 
                                         <!-- Contenedor del Checkout de la Billetera (Sin display:none fijo) -->
                                         <div id="virtual-wallet-checkout" style="text-align: center; margin-top: 15px;">
 
-                                            <!-- EL SCRIPT DEBE IR AQUÍ para que el botón se dibuje dentro de este panel -->
+                                            <!-- EL SCRIPT DEBE IR AQUÃ para que el botÃ³n se dibuje dentro de este panel -->
                                             <script
                                                 src="http://192.168.3.27:8000/api/v1/widget/checkout.js"
                                                 data-vw-widget="true"
@@ -571,16 +574,16 @@
 
                                 <div class="input-checkbox mt-3">
                                 <input type="checkbox" id="terms">
-                                <label for="terms"><span></span>I've read and accept the <a href="#">terms & conditions</a></label>
+                                <label for="terms"><span></span><%= Resources.Strings.Checkout_TermsText1 %> <a href="#"><%= Resources.Strings.Checkout_TermsText2 %></a></label>
                             </div>
 
                                 <asp:HiddenField ID="hfTransactionID" runat="server" />
                                 <asp:Button ID="btnConfirmPayPalPayment" runat="server" Style="display: none;" OnClick="btnConfirmPayPalPayment_Click" />
 
-                                <!-- BOTÓN DE CONFIRMACIÓN DE LA BILLETERA VIRTUAL PARA EL BACKEND (C#) -->
+                                <!-- BOTÃ“N DE CONFIRMACIÃ“N DE LA BILLETERA VIRTUAL PARA EL BACKEND (C#) -->
                                 <asp:Button ID="btnConfirmWalletPayment" runat="server" Style="display: none;" OnClick="btnConfirmWalletPayment_Click" />
                                 <div class="mt-4">
-                                    <asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" CssClass="primary-btn order-submit w-100" Style="display: none !important;" OnClick="btnPlaceOrder_Click" OnClientClick="return validarCheckout();" />
+                                    <asp:Button ID="btnPlaceOrder" runat="server" Text="<%$ Resources:Strings, Checkout_PlaceOrder %>" CssClass="primary-btn order-submit w-100" Style="display: none !important;" OnClick="btnPlaceOrder_Click" OnClientClick="return validarCheckout();" />
                                     <div id="paypal-button-container" class="mt-3" style="display: none !important;"></div>
                                 </div>
 
@@ -634,7 +637,7 @@
                     if (btnNormal) btnNormal.style.setProperty('display', 'none', 'important');
                     if (btnPayPal) btnPayPal.style.setProperty('display', 'none', 'important');
 
-                    // Sincronizar montos al alternar al método de la billetera
+                    // Sincronizar montos al alternar al mÃ©todo de la billetera
                     sincronizarMontosBilletera();
                 }
             }
@@ -656,15 +659,15 @@
                 window.addEventListener('load', function () {
                     // Sincronizar montos iniciales
                     sincronizarMontosBilletera();
-                    // ESCUCHADOR DE ÉXITO DE LA BILLETERA VIRTUAL
+                    // ESCUCHADOR DE Ã‰XITO DE LA BILLETERA VIRTUAL
                     window.addEventListener('message', function (event) {
-                        // Seguridad básica (opcional, ajusta a la IP/puerto real de la billetera si usa iframes)
+                        // Seguridad bÃ¡sica (opcional, ajusta a la IP/puerto real de la billetera si usa iframes)
                         // if (event.origin !== "http://192.168.3.27:8000") return;
 
-                        // Asumiendo que el widget envía un mensaje o evento cuando el pago es exitoso
+                        // Asumiendo que el widget envÃ­a un mensaje o evento cuando el pago es exitoso
                         if (event.data === 'vw-payment-success' || event.data.status === 'success') {
 
-                            // 1. Opcional: Guardar el ID de transacción de la billetera si te lo envían
+                            // 1. Opcional: Guardar el ID de transacciÃ³n de la billetera si te lo envÃ­an
                             if (event.data.transactionId) {
                                 document.getElementById('<%= hfTransactionID.ClientID %>').value = event.data.transactionId;
                             }
@@ -674,14 +677,14 @@
                             if (loader) loader.style.display = 'flex';
                             isPaymentSubmitting = true;
 
-                            // 3. Simular el clic en el botón oculto para ir al C#
+                            // 3. Simular el clic en el botÃ³n oculto para ir al C#
                             setTimeout(function () {
                                 var btnWallet = document.getElementById('<%= btnConfirmWalletPayment.ClientID %>');
                             if (btnWallet) btnWallet.click();
                         }, 800);
                         }
                     });
-                    // Interceptar peticiones parciales asíncronas para actualizar la billetera ante cupones o envíos
+                    // Interceptar peticiones parciales asÃ­ncronas para actualizar la billetera ante cupones o envÃ­os
                     if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
                         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                             sincronizarMontosBilletera();
@@ -782,7 +785,7 @@
             });
             function isNumberKey(evt) {
                 var charCode = (evt.which) ? evt.evt.which : evt.keyCode;
-                // Permitir solo números (códigos ASCII del 48 al 57)
+                // Permitir solo nÃºmeros (cÃ³digos ASCII del 48 al 57)
                 if (charCode > 31 && (charCode < 48 || charCode > 57)) {
                     return false;
                 }
@@ -911,7 +914,7 @@
             var geocodeTimeout = null;
 
             function geocodeAndMoveMap(queryText) {
-                // Si el usuario sigue cambiando dropdowns rápido, cancelamos la búsqueda anterior (Debounce)
+                // Si el usuario sigue cambiando dropdowns rÃ¡pido, cancelamos la bÃºsqueda anterior (Debounce)
                 if (geocodeTimeout) clearTimeout(geocodeTimeout);
 
                 setMapLabel('<i class="fas fa-spinner fa-spin me-1"></i> Searching location...', 'searching');
@@ -935,7 +938,7 @@
                         .catch(function () {
                             setMapLabel('<i class="fas fa-exclamation-triangle me-1"></i> Connection error. Drag the pin manually.', 'error');
                         });
-                }, 400); // Espera 400 milisegundos antes de disparar la petición HTTP
+                }, 400); // Espera 400 milisegundos antes de disparar la peticiÃ³n HTTP
             }
 
             function searchMapAddress() {

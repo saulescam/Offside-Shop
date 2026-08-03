@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace OFFSIDESHOP
 {
-    public partial class Token : System.Web.UI.Page
+    public partial class Token : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

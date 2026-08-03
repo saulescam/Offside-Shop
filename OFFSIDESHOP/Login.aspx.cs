@@ -13,7 +13,7 @@ using Nemiro.OAuth.Clients;
 
 namespace OFFSIDESHOP
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
