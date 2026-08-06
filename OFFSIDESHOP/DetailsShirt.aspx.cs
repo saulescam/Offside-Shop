@@ -274,34 +274,48 @@ namespace OFFSIDESHOP
         {
             try
             {
+                // 1. Obtenemos el idioma actual seleccionado (ej: "es" o "en")
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
+
+                    // 2. Query actualizada con LEFT JOIN a tshirt_translations y COALESCE
                     string query = @"
-                    SELECT t.ID, t.Name, t.ImageURL, t.Description, t.Year,
-                           t.ImageURL2, t.ImageURL3, t.ImageURL4, t.ImageURL5,
-                           t.IsCustomizable, t.Id_Brand,
-                           t.Price AS OriginalPrice,
-                           CASE 
-                               WHEN o.Id_Offer IS NOT NULL THEN (t.Price - (t.Price * (o.DiscountPercentage / 100.0))) 
-                               ELSE t.Price 
-                           END AS FinalPrice,
-                           CASE WHEN o.Id_Offer IS NOT NULL THEN 1 ELSE 0 END AS IsOnSale,
-                           IFNULL(o.DiscountPercentage, 0) AS DiscountPercentage,
-                           COALESCE(b.Name_Brand, 'OffsideBrand') AS Brand, 
-                           COALESCE(tm.Name_Team, 'OffsideTeam') AS Team, 
-                           COALESCE(kt.Name_KitType, 'Special Edition') AS Type
-                    FROM tshirts t
-                    LEFT JOIN brands b ON t.Id_Brand = b.Id_Brand
-                    LEFT JOIN teams tm ON t.Id_Team = tm.Id_Team
-                    LEFT JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
-                    LEFT JOIN offer_tshirts ot ON t.ID = ot.Id_Tshirt
-                    LEFT JOIN offers o ON ot.Id_Offer = o.Id_Offer AND o.IsActive = 1 AND NOW() BETWEEN o.StartDate AND o.EndDate
-                    WHERE t.ID = @ID AND t.IsActive = 1;";
+            SELECT t.ID, 
+                   COALESCE(tr.Name, t.Name) AS Name, 
+                   COALESCE(tr.Description, t.Description) AS Description, 
+                   t.ImageURL, t.Year,
+                   t.ImageURL2, t.ImageURL3, t.ImageURL4, t.ImageURL5,
+                   t.IsCustomizable, t.Id_Brand,
+                   t.Price AS OriginalPrice,
+                   CASE 
+                       WHEN o.Id_Offer IS NOT NULL THEN (t.Price - (t.Price * (o.DiscountPercentage / 100.0))) 
+                       ELSE t.Price 
+                   END AS FinalPrice,
+                   CASE WHEN o.Id_Offer IS NOT NULL THEN 1 ELSE 0 END AS IsOnSale,
+                   IFNULL(o.DiscountPercentage, 0) AS DiscountPercentage,
+                   COALESCE(b.Name_Brand, 'OffsideBrand') AS Brand, 
+                   COALESCE(tm.Name_Team, 'OffsideTeam') AS Team, 
+                   CASE 
+                       WHEN @Lang = 'es' THEN COALESCE(kt.Name_KitType_es, kt.Name_KitType, 'Edición Especial')
+                       ELSE COALESCE(kt.Name_KitType, 'Special Edition')
+                   END AS Type
+            FROM tshirts t
+            LEFT JOIN tshirt_translations tr ON t.ID = tr.Id_Tshirt AND tr.LanguageCode = @Lang
+            LEFT JOIN brands b ON t.Id_Brand = b.Id_Brand
+            LEFT JOIN teams tm ON t.Id_Team = tm.Id_Team
+            LEFT JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
+            LEFT JOIN offer_tshirts ot ON t.ID = ot.Id_Tshirt
+            LEFT JOIN offers o ON ot.Id_Offer = o.Id_Offer AND o.IsActive = 1 AND NOW() BETWEEN o.StartDate AND o.EndDate
+            WHERE t.ID = @ID AND t.IsActive = 1;";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
                         cmd.Parameters.AddWithValue("@ID", shirtId);
+                        cmd.Parameters.AddWithValue("@Lang", currentLang); // Pasamos el idioma como parámetro
+
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -340,7 +354,10 @@ namespace OFFSIDESHOP
                                 string description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : "";
                                 if (string.IsNullOrWhiteSpace(description))
                                 {
-                                    lblDescription.Text = "Authentic OffsideShop collector jersey. Engineered with breathable fabric and premium stitching, perfect for showing your passion on and off the pitch.";
+                                    // Mensaje por defecto en el idioma correspondiente
+                                    lblDescription.Text = currentLang == "es"
+                                        ? "Camiseta auténtica de colección de OffsideShop. Diseñada con tela transpirable y costuras de alta calidad, perfecta para lucir tu pasión dentro y fuera del campo."
+                                        : "Authentic OffsideShop collector jersey. Engineered with breathable fabric and premium stitching, perfect for showing your passion on and off the pitch.";
                                 }
                                 else
                                 {
