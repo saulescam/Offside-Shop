@@ -213,6 +213,24 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.TextBox txtSubtitle;
 
         /// <summary>
+        /// Control txtTitle_ES.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTitle_ES;
+
+        /// <summary>
+        /// Control txtSubtitle_ES.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSubtitle_ES;
+
+        /// <summary>
         /// Control txtLinkURL.
         /// </summary>
         /// <remarks>
@@ -328,6 +346,15 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCategoryName;
+
+        /// <summary>
+        /// Control txtCategoryName_ES.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCategoryName_ES;
 
         /// <summary>
         /// Control btnAddCategory.
@@ -519,15 +546,6 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.TextBox txtAuthQuote;
 
         /// <summary>
-        /// Control txtAuthAuthorName.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAuthAuthorName;
-
-        /// <summary>
         /// Control txtAuthAuthorRole.
         /// </summary>
         /// <remarks>
@@ -535,6 +553,33 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAuthAuthorRole;
+
+        /// <summary>
+        /// Control txtAuthQuote_ES.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAuthQuote_ES;
+
+        /// <summary>
+        /// Control txtAuthAuthorRole_ES.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAuthAuthorRole_ES;
+
+        /// <summary>
+        /// Control txtAuthAuthorName.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAuthAuthorName;
 
         /// <summary>
         /// Control ddlAuthIsActive.

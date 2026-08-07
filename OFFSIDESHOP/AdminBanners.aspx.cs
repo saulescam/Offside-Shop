@@ -54,9 +54,15 @@ namespace OFFSIDESHOP
         // ========================== BANNERS ==========================
         private void ResetForm()
         {
-            hfEditId.Value = "0"; txtTitle.Text = ""; txtSubtitle.Text = ""; txtLinkURL.Text = "";
-            ddlIsActive.SelectedIndex = 0; lblFormTitle.Text = "Add New Banner"; lblImageRequired.Visible = true;
-            pnlCurrentImage.Visible = false; lblCurrentImagePath.Text = "";
+            hfEditId.Value = "0";
+            txtTitle.Text = ""; txtSubtitle.Text = "";
+            txtTitle_ES.Text = ""; txtSubtitle_ES.Text = "";
+            txtLinkURL.Text = "";
+            ddlIsActive.SelectedIndex = 0;
+            lblFormTitle.Text = "Add New Banner";
+            lblImageRequired.Visible = true;
+            pnlCurrentImage.Visible = false;
+            lblCurrentImagePath.Text = "";
         }
 
         private void LoadBanners()
@@ -66,9 +72,18 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    MySqlCommand cmd = new MySqlCommand("SELECT ID, Title, Subtitle, ImageURL, LinkURL, SortOrder, IsActive FROM banners ORDER BY SortOrder ASC;", con);
-                    DataTable dt = new DataTable(); new MySqlDataAdapter(cmd).Fill(dt);
-                    gvBanners.DataSource = dt; gvBanners.DataBind();
+                    string sql = @"
+                        SELECT b.ID, b.Title, b.Subtitle, b.ImageURL, b.LinkURL, b.SortOrder, b.IsActive, 
+                               bt.Title AS Title_ES, bt.Subtitle AS Subtitle_ES
+                        FROM banners b
+                        LEFT JOIN banner_translations bt ON b.ID = bt.Id_Banner AND bt.LanguageCode = 'es'
+                        ORDER BY b.SortOrder ASC;";
+
+                    MySqlCommand cmd = new MySqlCommand(sql, con);
+                    DataTable dt = new DataTable();
+                    new MySqlDataAdapter(cmd).Fill(dt);
+                    gvBanners.DataSource = dt;
+                    gvBanners.DataBind();
                 }
             }
             catch (Exception ex)
@@ -105,7 +120,17 @@ namespace OFFSIDESHOP
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTitle.Text)) { Alert("Title is required.", "error"); return; }
+            if (string.IsNullOrWhiteSpace(txtTitle.Text) || string.IsNullOrWhiteSpace(txtSubtitle.Text))
+            {
+                Alert("Title and Subtitle in English are required.", "error");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtTitle_ES.Text) || string.IsNullOrWhiteSpace(txtSubtitle_ES.Text))
+            {
+                Alert("El Título y Subtítulo en Español son requeridos.", "error");
+                return;
+            }
+
             bool isEditing = Convert.ToInt32(hfEditId.Value) > 0;
             string imgFile = HandleImageUpload(fileImagen, "banners", isEditing);
             if (imgFile == "ERROR") return;
@@ -115,27 +140,57 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    if (!isEditing)
+                    using (MySqlTransaction tx = con.BeginTransaction())
                     {
-                        int sort = Convert.ToInt32(new MySqlCommand("SELECT IFNULL(MAX(SortOrder), 0) + 1 FROM banners", con).ExecuteScalar());
-                        MySqlCommand cmd = new MySqlCommand("INSERT INTO banners (Title, Subtitle, ImageURL, LinkURL, SortOrder, IsActive) VALUES (@T, @S, @Img, @L, @SO, @A)", con);
-                        cmd.Parameters.AddWithValue("@T", txtTitle.Text.Trim()); cmd.Parameters.AddWithValue("@S", txtSubtitle.Text);
-                        cmd.Parameters.AddWithValue("@Img", imgFile); cmd.Parameters.AddWithValue("@L", txtLinkURL.Text);
-                        cmd.Parameters.AddWithValue("@SO", sort); cmd.Parameters.AddWithValue("@A", ddlIsActive.SelectedValue);
-                        cmd.ExecuteNonQuery(); Alert("Banner added!", "success");
-                    }
-                    else
-                    {
-                        string sql = imgFile != null ? "UPDATE banners SET Title=@T, Subtitle=@S, ImageURL=@Img, LinkURL=@L, IsActive=@A WHERE ID=@Id" : "UPDATE banners SET Title=@T, Subtitle=@S, LinkURL=@L, IsActive=@A WHERE ID=@Id";
-                        MySqlCommand cmd = new MySqlCommand(sql, con);
-                        cmd.Parameters.AddWithValue("@T", txtTitle.Text.Trim()); cmd.Parameters.AddWithValue("@S", txtSubtitle.Text);
-                        if (imgFile != null) cmd.Parameters.AddWithValue("@Img", imgFile);
-                        cmd.Parameters.AddWithValue("@L", txtLinkURL.Text); cmd.Parameters.AddWithValue("@A", ddlIsActive.SelectedValue);
-                        cmd.Parameters.AddWithValue("@Id", hfEditId.Value);
-                        cmd.ExecuteNonQuery(); Alert("Banner updated!", "success");
+                        int bannerId = Convert.ToInt32(hfEditId.Value);
+
+                        if (!isEditing)
+                        {
+                            int sort = Convert.ToInt32(new MySqlCommand("SELECT IFNULL(MAX(SortOrder), 0) + 1 FROM banners", con, tx).ExecuteScalar());
+                            MySqlCommand cmd = new MySqlCommand("INSERT INTO banners (Title, Subtitle, ImageURL, LinkURL, SortOrder, IsActive) VALUES (@T, @S, @Img, @L, @SO, @A); SELECT LAST_INSERT_ID();", con, tx);
+                            cmd.Parameters.AddWithValue("@T", txtTitle.Text.Trim());
+                            cmd.Parameters.AddWithValue("@S", txtSubtitle.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Img", imgFile);
+                            cmd.Parameters.AddWithValue("@L", txtLinkURL.Text.Trim());
+                            cmd.Parameters.AddWithValue("@SO", sort);
+                            cmd.Parameters.AddWithValue("@A", ddlIsActive.SelectedValue);
+
+                            bannerId = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+                        else
+                        {
+                            string sql = imgFile != null ?
+                                "UPDATE banners SET Title=@T, Subtitle=@S, ImageURL=@Img, LinkURL=@L, IsActive=@A WHERE ID=@Id" :
+                                "UPDATE banners SET Title=@T, Subtitle=@S, LinkURL=@L, IsActive=@A WHERE ID=@Id";
+
+                            MySqlCommand cmd = new MySqlCommand(sql, con, tx);
+                            cmd.Parameters.AddWithValue("@T", txtTitle.Text.Trim());
+                            cmd.Parameters.AddWithValue("@S", txtSubtitle.Text.Trim());
+                            if (imgFile != null) cmd.Parameters.AddWithValue("@Img", imgFile);
+                            cmd.Parameters.AddWithValue("@L", txtLinkURL.Text.Trim());
+                            cmd.Parameters.AddWithValue("@A", ddlIsActive.SelectedValue);
+                            cmd.Parameters.AddWithValue("@Id", bannerId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // Guardar o Actualizar Traducción en Español
+                        string transSql = @"
+                            INSERT INTO banner_translations (Id_Banner, LanguageCode, Title, Subtitle) 
+                            VALUES (@Id, 'es', @TES, @SES)
+                            ON DUPLICATE KEY UPDATE Title = @TES, Subtitle = @SES;";
+
+                        MySqlCommand transCmd = new MySqlCommand(transSql, con, tx);
+                        transCmd.Parameters.AddWithValue("@Id", bannerId);
+                        transCmd.Parameters.AddWithValue("@TES", txtTitle_ES.Text.Trim());
+                        transCmd.Parameters.AddWithValue("@SES", txtSubtitle_ES.Text.Trim());
+                        transCmd.ExecuteNonQuery();
+
+                        tx.Commit();
+                        Alert(isEditing ? "Banner updated!" : "Banner added!", "success");
                     }
                 }
-                ResetForm(); LoadBanners();
+                ResetForm();
+                LoadBanners();
             }
             catch (Exception ex)
             {
@@ -150,15 +205,28 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    MySqlCommand cmd = new MySqlCommand("SELECT * FROM banners WHERE ID = @Id", con);
+                    string sql = @"
+                        SELECT b.*, bt.Title AS Title_ES, bt.Subtitle AS Subtitle_ES 
+                        FROM banners b 
+                        LEFT JOIN banner_translations bt ON b.ID = bt.Id_Banner AND bt.LanguageCode = 'es' 
+                        WHERE b.ID = @Id";
+
+                    MySqlCommand cmd = new MySqlCommand(sql, con);
                     cmd.Parameters.AddWithValue("@Id", id);
                     using (MySqlDataReader r = cmd.ExecuteReader())
                     {
                         if (r.Read())
                         {
-                            hfEditId.Value = r["ID"].ToString(); txtTitle.Text = r["Title"].ToString(); txtSubtitle.Text = r["Subtitle"].ToString();
-                            txtLinkURL.Text = r["LinkURL"].ToString(); ddlIsActive.SelectedValue = r["IsActive"].ToString();
-                            lblFormTitle.Text = "Edit Banner"; lblImageRequired.Visible = false;
+                            hfEditId.Value = r["ID"].ToString();
+                            txtTitle.Text = r["Title"].ToString();
+                            txtSubtitle.Text = r["Subtitle"].ToString();
+                            txtTitle_ES.Text = r["Title_ES"] != DBNull.Value ? r["Title_ES"].ToString() : "";
+                            txtSubtitle_ES.Text = r["Subtitle_ES"] != DBNull.Value ? r["Subtitle_ES"].ToString() : "";
+                            txtLinkURL.Text = r["LinkURL"].ToString();
+                            ddlIsActive.SelectedValue = r["IsActive"].ToString();
+
+                            lblFormTitle.Text = "Edit Banner";
+                            lblImageRequired.Visible = false;
                             if (r["ImageURL"] != DBNull.Value) { pnlCurrentImage.Visible = true; lblCurrentImagePath.Text = r["ImageURL"].ToString(); }
                         }
                     }
@@ -184,11 +252,14 @@ namespace OFFSIDESHOP
                     con.Open();
                     DataTable dt = new DataTable();
                     new MySqlDataAdapter(new MySqlCommand("SELECT * FROM collection_categories", con)).Fill(dt);
-                    gvCategories.DataSource = dt; gvCategories.DataBind();
+                    gvCategories.DataSource = dt;
+                    gvCategories.DataBind();
 
                     ddlColCategory.DataSource = dt;
-                    ddlColCategory.DataTextField = "Name_Category"; ddlColCategory.DataValueField = "Id_Category";
-                    ddlColCategory.DataBind(); ddlColCategory.Items.Insert(0, new ListItem("- Select Category -", ""));
+                    ddlColCategory.DataTextField = "Name_Category";
+                    ddlColCategory.DataValueField = "Id_Category";
+                    ddlColCategory.DataBind();
+                    ddlColCategory.Items.Insert(0, new ListItem("- Select Category -", ""));
                 }
             }
             catch (Exception ex)
@@ -199,17 +270,26 @@ namespace OFFSIDESHOP
 
         protected void btnAddCategory_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtCategoryName.Text)) return;
+            if (string.IsNullOrWhiteSpace(txtCategoryName.Text) || string.IsNullOrWhiteSpace(txtCategoryName_ES.Text))
+            {
+                Alert("Category Name is required in both English and Spanish.", "error");
+                return;
+            }
+
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    MySqlCommand cmd = new MySqlCommand("INSERT INTO collection_categories (Name_Category) VALUES (@N)", con);
+                    MySqlCommand cmd = new MySqlCommand("INSERT INTO collection_categories (Name_Category, Name_Category_es) VALUES (@N, @NES)", con);
                     cmd.Parameters.AddWithValue("@N", txtCategoryName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NES", txtCategoryName_ES.Text.Trim());
                     cmd.ExecuteNonQuery();
                 }
-                txtCategoryName.Text = ""; LoadCategories();
+                txtCategoryName.Text = "";
+                txtCategoryName_ES.Text = "";
+                LoadCategories();
+                Alert("Category added successfully!", "success");
             }
             catch (Exception ex)
             {
@@ -221,16 +301,23 @@ namespace OFFSIDESHOP
         {
             int id = Convert.ToInt32(gvCategories.DataKeys[e.RowIndex].Value);
             ExecuteDelete("DELETE FROM collection_categories WHERE Id_Category=@Id", id);
-            LoadCategories(); LoadCollections();
+            LoadCategories();
+            LoadCollections();
         }
 
 
         // ========================== COLLECTIONS ==========================
         private void ResetColForm()
         {
-            hfColEditId.Value = "0"; txtColTitle.Text = ""; txtColLink.Text = ""; ddlColCategory.SelectedIndex = 0;
-            ddlColStatus.SelectedIndex = 0; lblColFormTitle.Text = "Add New Collection"; lblColImgReq.Visible = true;
-            pnlColImg.Visible = false; lblColImgPath.Text = "";
+            hfColEditId.Value = "0";
+            txtColTitle.Text = "";
+            txtColLink.Text = "";
+            ddlColCategory.SelectedIndex = 0;
+            ddlColStatus.SelectedIndex = 0;
+            lblColFormTitle.Text = "Add New Collection";
+            lblColImgReq.Visible = true;
+            pnlColImg.Visible = false;
+            lblColImgPath.Text = "";
         }
 
         private void LoadCollections()
@@ -241,8 +328,10 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
                     MySqlCommand cmd = new MySqlCommand("SELECT c.*, cat.Name_Category FROM collections c INNER JOIN collection_categories cat ON c.Id_Category = cat.Id_Category ORDER BY c.SortOrder ASC", con);
-                    DataTable dt = new DataTable(); new MySqlDataAdapter(cmd).Fill(dt);
-                    gvCollections.DataSource = dt; gvCollections.DataBind();
+                    DataTable dt = new DataTable();
+                    new MySqlDataAdapter(cmd).Fill(dt);
+                    gvCollections.DataSource = dt;
+                    gvCollections.DataBind();
                 }
             }
             catch (Exception ex)
@@ -295,23 +384,31 @@ namespace OFFSIDESHOP
                     {
                         int sort = Convert.ToInt32(new MySqlCommand("SELECT IFNULL(MAX(SortOrder), 0) + 1 FROM collections", con).ExecuteScalar());
                         MySqlCommand cmd = new MySqlCommand("INSERT INTO collections (Id_Category, Title, ImageURL, LinkURL, SortOrder, IsActive) VALUES (@Cat, @T, @Img, @L, @SO, @A)", con);
-                        cmd.Parameters.AddWithValue("@Cat", ddlColCategory.SelectedValue); cmd.Parameters.AddWithValue("@T", txtColTitle.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Img", imgFile); cmd.Parameters.AddWithValue("@L", txtColLink.Text.Trim());
-                        cmd.Parameters.AddWithValue("@SO", sort); cmd.Parameters.AddWithValue("@A", ddlColStatus.SelectedValue);
-                        cmd.ExecuteNonQuery(); Alert("Collection added!", "success");
+                        cmd.Parameters.AddWithValue("@Cat", ddlColCategory.SelectedValue);
+                        cmd.Parameters.AddWithValue("@T", txtColTitle.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Img", imgFile);
+                        cmd.Parameters.AddWithValue("@L", txtColLink.Text.Trim());
+                        cmd.Parameters.AddWithValue("@SO", sort);
+                        cmd.Parameters.AddWithValue("@A", ddlColStatus.SelectedValue);
+                        cmd.ExecuteNonQuery();
+                        Alert("Collection added!", "success");
                     }
                     else
                     {
                         string sql = imgFile != null ? "UPDATE collections SET Id_Category=@Cat, Title=@T, ImageURL=@Img, LinkURL=@L, IsActive=@A WHERE Id_Collection=@Id" : "UPDATE collections SET Id_Category=@Cat, Title=@T, LinkURL=@L, IsActive=@A WHERE Id_Collection=@Id";
                         MySqlCommand cmd = new MySqlCommand(sql, con);
-                        cmd.Parameters.AddWithValue("@Cat", ddlColCategory.SelectedValue); cmd.Parameters.AddWithValue("@T", txtColTitle.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Cat", ddlColCategory.SelectedValue);
+                        cmd.Parameters.AddWithValue("@T", txtColTitle.Text.Trim());
                         if (imgFile != null) cmd.Parameters.AddWithValue("@Img", imgFile);
-                        cmd.Parameters.AddWithValue("@L", txtColLink.Text.Trim()); cmd.Parameters.AddWithValue("@A", ddlColStatus.SelectedValue);
+                        cmd.Parameters.AddWithValue("@L", txtColLink.Text.Trim());
+                        cmd.Parameters.AddWithValue("@A", ddlColStatus.SelectedValue);
                         cmd.Parameters.AddWithValue("@Id", hfColEditId.Value);
-                        cmd.ExecuteNonQuery(); Alert("Collection updated!", "success");
+                        cmd.ExecuteNonQuery();
+                        Alert("Collection updated!", "success");
                     }
                 }
-                ResetColForm(); LoadCollections();
+                ResetColForm();
+                LoadCollections();
             }
             catch (Exception ex)
             {
@@ -332,10 +429,13 @@ namespace OFFSIDESHOP
                     {
                         if (r.Read())
                         {
-                            hfColEditId.Value = r["Id_Collection"].ToString(); txtColTitle.Text = r["Title"].ToString();
-                            ddlColCategory.SelectedValue = r["Id_Category"].ToString(); txtColLink.Text = r["LinkURL"].ToString();
+                            hfColEditId.Value = r["Id_Collection"].ToString();
+                            txtColTitle.Text = r["Title"].ToString();
+                            ddlColCategory.SelectedValue = r["Id_Category"].ToString();
+                            txtColLink.Text = r["LinkURL"].ToString();
                             ddlColStatus.SelectedValue = r["IsActive"].ToString();
-                            lblColFormTitle.Text = "Edit Collection"; lblColImgReq.Visible = false;
+                            lblColFormTitle.Text = "Edit Collection";
+                            lblColImgReq.Visible = false;
                             if (r["ImageURL"] != DBNull.Value) { pnlColImg.Visible = true; lblColImgPath.Text = r["ImageURL"].ToString(); }
                         }
                     }
@@ -353,9 +453,15 @@ namespace OFFSIDESHOP
         // ========================== AUTH CAROUSEL ==========================
         private void ResetAuthForm()
         {
-            hfAuthEditId.Value = "0"; txtAuthQuote.Text = ""; txtAuthAuthorName.Text = ""; txtAuthAuthorRole.Text = "";
-            ddlAuthIsActive.SelectedIndex = 0; lblAuthFormTitle.Text = "Add New Slide (Login/SignUp)"; lblAuthImageRequired.Visible = true;
-            pnlAuthCurrentImage.Visible = false; lblAuthCurrentImagePath.Text = "";
+            hfAuthEditId.Value = "0";
+            txtAuthQuote.Text = ""; txtAuthAuthorRole.Text = "";
+            txtAuthQuote_ES.Text = ""; txtAuthAuthorRole_ES.Text = "";
+            txtAuthAuthorName.Text = "";
+            ddlAuthIsActive.SelectedIndex = 0;
+            lblAuthFormTitle.Text = "Add New Slide (Login/SignUp)";
+            lblAuthImageRequired.Visible = true;
+            pnlAuthCurrentImage.Visible = false;
+            lblAuthCurrentImagePath.Text = "";
         }
 
         private void LoadAuthCarousel()
@@ -366,8 +472,10 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
                     MySqlCommand cmd = new MySqlCommand("SELECT Id_Slide, ImageURL, QuoteText, AuthorName, AuthorRole, DisplayOrder, IsActive FROM auth_carousel ORDER BY DisplayOrder ASC;", con);
-                    DataTable dt = new DataTable(); new MySqlDataAdapter(cmd).Fill(dt);
-                    gvAuthCarousel.DataSource = dt; gvAuthCarousel.DataBind();
+                    DataTable dt = new DataTable();
+                    new MySqlDataAdapter(cmd).Fill(dt);
+                    gvAuthCarousel.DataSource = dt;
+                    gvAuthCarousel.DataBind();
                 }
             }
             catch (Exception ex)
@@ -405,10 +513,12 @@ namespace OFFSIDESHOP
         protected void btnSaveAuth_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtAuthQuote.Text) || string.IsNullOrWhiteSpace(txtAuthAuthorName.Text))
-            { Alert("Quote and Author Name are required.", "error"); return; }
+            { Alert("Quote and Author Name in English are required.", "error"); return; }
+            if (string.IsNullOrWhiteSpace(txtAuthQuote_ES.Text))
+            { Alert("La Cita en Español es requerida.", "error"); return; }
 
             bool isEditing = Convert.ToInt32(hfAuthEditId.Value) > 0;
-            string imgFile = HandleImageUpload(fileAuthImagen, "auth", isEditing); // Carpeta "auth"
+            string imgFile = HandleImageUpload(fileAuthImagen, "auth", isEditing);
             if (imgFile == "ERROR") return;
 
             try
@@ -420,23 +530,31 @@ namespace OFFSIDESHOP
                     {
                         int sort = Convert.ToInt32(new MySqlCommand("SELECT IFNULL(MAX(DisplayOrder), 0) + 1 FROM auth_carousel", con).ExecuteScalar());
                         MySqlCommand cmd = new MySqlCommand("INSERT INTO auth_carousel (ImageURL, QuoteText, AuthorName, AuthorRole, DisplayOrder, IsActive) VALUES (@Img, @Q, @AN, @AR, @SO, @A)", con);
-                        cmd.Parameters.AddWithValue("@Img", imgFile); cmd.Parameters.AddWithValue("@Q", txtAuthQuote.Text.Trim());
-                        cmd.Parameters.AddWithValue("@AN", txtAuthAuthorName.Text.Trim()); cmd.Parameters.AddWithValue("@AR", txtAuthAuthorRole.Text.Trim());
-                        cmd.Parameters.AddWithValue("@SO", sort); cmd.Parameters.AddWithValue("@A", ddlAuthIsActive.SelectedValue);
-                        cmd.ExecuteNonQuery(); Alert("Slide added!", "success");
+                        cmd.Parameters.AddWithValue("@Img", imgFile);
+                        cmd.Parameters.AddWithValue("@Q", txtAuthQuote.Text.Trim());
+                        cmd.Parameters.AddWithValue("@AN", txtAuthAuthorName.Text.Trim());
+                        cmd.Parameters.AddWithValue("@AR", txtAuthAuthorRole.Text.Trim());
+                        cmd.Parameters.AddWithValue("@SO", sort);
+                        cmd.Parameters.AddWithValue("@A", ddlAuthIsActive.SelectedValue);
+                        cmd.ExecuteNonQuery();
+                        Alert("Slide added!", "success");
                     }
                     else
                     {
                         string sql = imgFile != null ? "UPDATE auth_carousel SET QuoteText=@Q, AuthorName=@AN, AuthorRole=@AR, ImageURL=@Img, IsActive=@A WHERE Id_Slide=@Id" : "UPDATE auth_carousel SET QuoteText=@Q, AuthorName=@AN, AuthorRole=@AR, IsActive=@A WHERE Id_Slide=@Id";
                         MySqlCommand cmd = new MySqlCommand(sql, con);
-                        cmd.Parameters.AddWithValue("@Q", txtAuthQuote.Text.Trim()); cmd.Parameters.AddWithValue("@AN", txtAuthAuthorName.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Q", txtAuthQuote.Text.Trim());
+                        cmd.Parameters.AddWithValue("@AN", txtAuthAuthorName.Text.Trim());
                         cmd.Parameters.AddWithValue("@AR", txtAuthAuthorRole.Text.Trim());
                         if (imgFile != null) cmd.Parameters.AddWithValue("@Img", imgFile);
-                        cmd.Parameters.AddWithValue("@A", ddlAuthIsActive.SelectedValue); cmd.Parameters.AddWithValue("@Id", hfAuthEditId.Value);
-                        cmd.ExecuteNonQuery(); Alert("Slide updated!", "success");
+                        cmd.Parameters.AddWithValue("@A", ddlAuthIsActive.SelectedValue);
+                        cmd.Parameters.AddWithValue("@Id", hfAuthEditId.Value);
+                        cmd.ExecuteNonQuery();
+                        Alert("Slide updated!", "success");
                     }
                 }
-                ResetAuthForm(); LoadAuthCarousel();
+                ResetAuthForm();
+                LoadAuthCarousel();
             }
             catch (Exception ex)
             {
@@ -457,10 +575,14 @@ namespace OFFSIDESHOP
                     {
                         if (r.Read())
                         {
-                            hfAuthEditId.Value = r["Id_Slide"].ToString(); txtAuthQuote.Text = r["QuoteText"].ToString();
-                            txtAuthAuthorName.Text = r["AuthorName"].ToString(); txtAuthAuthorRole.Text = r["AuthorRole"].ToString();
+                            hfAuthEditId.Value = r["Id_Slide"].ToString();
+                            txtAuthQuote.Text = r["QuoteText"].ToString();
+                            txtAuthAuthorName.Text = r["AuthorName"].ToString();
+                            txtAuthAuthorRole.Text = r["AuthorRole"].ToString();
                             ddlAuthIsActive.SelectedValue = r["IsActive"].ToString();
-                            lblAuthFormTitle.Text = "Edit Slide"; lblAuthImageRequired.Visible = false;
+
+                            lblAuthFormTitle.Text = "Edit Slide";
+                            lblAuthImageRequired.Visible = false;
                             if (r["ImageURL"] != DBNull.Value) { pnlAuthCurrentImage.Visible = true; lblAuthCurrentImagePath.Text = r["ImageURL"].ToString(); }
                         }
                     }

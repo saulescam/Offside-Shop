@@ -3,7 +3,7 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\inetpub\wwwroot\OffsideShop-WEB</_PublishTargetUrl>
-    <History>True|2026-08-03T18:21:26.2201507Z||;True|2026-08-03T11:54:14.2657336-06:00||;False|2026-07-29T09:11:52.5805182-06:00||;True|2026-07-25T14:07:19.2293162-06:00||;True|2026-07-25T10:52:45.9613993-06:00||;</History>
+    <History>True|2026-08-07T00:30:49.8622541Z||;True|2026-08-06T17:59:10.4132623-06:00||;True|2026-08-03T12:21:26.2201507-06:00||;True|2026-08-03T11:54:14.2657336-06:00||;False|2026-07-29T09:11:52.5805182-06:00||;True|2026-07-25T14:07:19.2293162-06:00||;True|2026-07-25T10:52:45.9613993-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -23,7 +23,7 @@
       <publishTime>07/22/2026 20:31:32</publishTime>
     </File>
     <File Include="AdminBanners.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/06/2026 18:28:04</publishTime>
     </File>
     <File Include="AdminStats.aspx">
       <publishTime>07/22/2026 20:31:32</publishTime>
@@ -263,10 +263,10 @@
       <publishTime>07/22/2026 20:31:36</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.dll">
-      <publishTime>08/03/2026 12:21:24</publishTime>
+      <publishTime>08/06/2026 18:30:48</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.pdb">
-      <publishTime>08/03/2026 12:21:24</publishTime>
+      <publishTime>08/06/2026 18:30:48</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/22/2026 20:31:36</publishTime>
@@ -635,7 +635,7 @@
       <publishTime>07/22/2026 20:31:32</publishTime>
     </File>
     <File Include="ManageSellerRequests.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/03/2026 14:18:45</publishTime>
     </File>
     <File Include="ManageUsers.aspx">
       <publishTime>07/22/2026 20:31:32</publishTime>
@@ -659,7 +659,7 @@
       <publishTime>08/01/2026 19:55:59</publishTime>
     </File>
     <File Include="SmtpSettings.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/03/2026 14:11:38</publishTime>
     </File>
     <File Include="SweetAlert/sweetalert2.all.min.js">
       <publishTime>07/22/2026 20:31:32</publishTime>
@@ -674,7 +674,7 @@
       <publishTime>07/25/2026 10:23:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/03/2026 11:54:02</publishTime>
+      <publishTime>08/06/2026 17:59:10</publishTime>
     </File>
   </ItemGroup>
 </Project>

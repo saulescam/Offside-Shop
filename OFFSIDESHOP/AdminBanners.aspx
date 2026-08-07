@@ -35,7 +35,7 @@
     <style>
         .banner-preview-thumb { width: 80px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color); }
         .collection-preview-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color); }
-        .auth-preview-thumb { width: 50px; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color); } /* Vertical orientation for Auth */
+        .auth-preview-thumb { width: 50px; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color); }
         .status-badge { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
         .status-active { background: #1a7a4a; color: #a8f0c6; }
         .status-inactive { background: #5c2323; color: #f0a8a8; }
@@ -56,25 +56,33 @@
         .btn-save-order:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); color: #000; }
         .number-badge { background: #2a2a2a; color: #d4af37; border: 1px solid #444; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 1rem; }
 
-        /* Estilos Tabs Compatibles */
+        /* Tabs */
         .nav-tabs .nav-link { color: #888; font-weight: 600; border: none; border-bottom: 2px solid transparent; padding: 12px 25px; transition: all 0.3s; background: transparent; cursor: pointer; }
         .nav-tabs .nav-link:hover { color: #d4af37; border-bottom-color: #555; }
         .nav-tabs .nav-link.active { color: #FFC800 !important; background: transparent; border: none; border-bottom: 3px solid #FFC800; }
-        .tab-content { padding-top: 30px; }
+        
+        .sub-nav-tabs { border-bottom: 1px solid #444; margin-bottom: 15px; }
+        .sub-nav-tabs .nav-link { font-size: 0.85rem; padding: 6px 15px; color: #aaa; border: 1px solid transparent; border-radius: 6px 6px 0 0; }
+        .sub-nav-tabs .nav-link.active { color: #FFC800 !important; background: rgba(255, 200, 0, 0.1); border-color: #444 #444 transparent #444; }
+
+        .tab-content { padding-top: 15px; }
         .tab-pane { display: none; }
         .tab-pane.active { display: block; }
 
-        /* DRAG AND DROP ZONE DESIGN */
-        .drag-drop-zone { border: 2px dashed var(--border-color); background: rgba(30, 41, 59, 0.05); border-radius: 12px; padding: 30px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; margin-top: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* Translate Button */
+        .btn-translate { background: #334155; color: #FFC800; border: 1px solid #FFC800; border-radius: 6px; font-size: 0.78rem; font-weight: 600; padding: 4px 10px; transition: all 0.2s ease; cursor: pointer; }
+        .btn-translate:hover { background: #FFC800; color: #000; }
+
+        /* Drag and Drop Zone */
+        .drag-drop-zone { border: 2px dashed var(--border-color); background: rgba(30, 41, 59, 0.05); border-radius: 12px; padding: 25px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; margin-top: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         body.dark-mode .drag-drop-zone { background: rgba(30, 41, 59, 0.2); }
         .drag-drop-zone:hover, .drag-drop-zone.dragover { border-color: var(--accent-gold); background: rgba(255, 200, 0, 0.04); box-shadow: 0 0 15px rgba(255, 200, 0, 0.1); }
         body.dark-mode .drag-drop-zone:hover, body.dark-mode .drag-drop-zone.dragover { background: rgba(255, 200, 0, 0.02); box-shadow: 0 0 20px rgba(255, 200, 0, 0.15); }
-        .drag-drop-icon { font-size: 2.5rem; color: var(--text-muted); margin-bottom: 12px; transition: transform 0.3s ease, color 0.3s ease; }
+        .drag-drop-icon { font-size: 2.2rem; color: var(--text-muted); margin-bottom: 8px; transition: transform 0.3s ease, color 0.3s ease; }
         .drag-drop-zone:hover .drag-drop-icon, .drag-drop-zone.dragover .drag-drop-icon { color: var(--accent-gold); transform: translateY(-4px); }
-        .drag-drop-text { font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
+        .drag-drop-text { font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
         .drag-drop-browse { color: var(--accent-gold); text-decoration: underline; }
-        .drag-drop-info { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
-        .img-preview { display: none; max-width: 100%; max-height: 180px; border-radius: 8px; margin-top: 15px; border: 2px solid var(--border-color); object-fit: cover; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+        .drag-drop-info { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
         .drag-drop-zone.has-preview .drag-drop-content { display: none; }
     </style>
 </head>
@@ -126,7 +134,7 @@
             <main class="main-content fade-in" style="animation-delay: 0.2s;">
                 <div class="container-fluid">
                     <h1 class="page-title">Storefront Display Management</h1>
-                    <p class="text-muted mb-4">Manage main hero banners, product collections, and login visuals.</p>
+                    <p class="text-muted mb-4">Manage main hero banners, product collections, and login visuals in multiple languages.</p>
 
                     <ul class="nav nav-tabs" id="adminTabs" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -147,24 +155,62 @@
                             <asp:UpdatePanel ID="upMain" runat="server">
                                 <ContentTemplate>
                                     <div class="row">
-                                        <div class="col-xl-8 col-lg-10">
+                                        <div class="col-xl-9 col-lg-11">
                                             <div class="form-card">
                                                 <asp:HiddenField ID="hfEditId" runat="server" Value="0" />
-                                                <h4 class="text-white mb-4" style="font-weight: 600;"><asp:Label ID="lblFormTitle" runat="server" Text="Add New Banner"></asp:Label></h4>
+                                                <h4 class="text-white mb-3" style="font-weight: 600;"><asp:Label ID="lblFormTitle" runat="server" Text="Add New Banner"></asp:Label></h4>
 
+                                                <!-- SUB-TABS IDIOMAS PARA BANNERS -->
+                                                <ul class="nav nav-tabs sub-nav-tabs" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="banner-en-tab" data-toggle="tab" href="#banner-en" role="tab"><i class="fas fa-globe-americas me-1"></i> English (Default)</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="banner-es-tab" data-toggle="tab" href="#banner-es" role="tab"><i class="fas fa-globe-americas me-1"></i> Spanish (Español)</a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tab-content border-bottom border-secondary pb-3 mb-3">
+                                                    <!-- ENGLISH FIELDS -->
+                                                    <div class="tab-pane active" id="banner-en" role="tabpanel">
+                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                                            <small class="text-warning font-weight-bold">Primary English Text</small>
+                                                            <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtTitle', 'txtSubtitle'], ['txtTitle_ES', 'txtSubtitle_ES'])">
+                                                                <i class="fas fa-language me-1"></i> Translate to Spanish
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <label>Title (EN) <span class="text-danger">*</span></label>
+                                                            <asp:TextBox ID="txtTitle" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="200" placeholder="e.g. World Cup Heritage"></asp:TextBox>
+                                                        </div>
+                                                        <div class="form-group mb-0">
+                                                            <label>Subtitle (EN) <span class="text-danger">*</span></label>
+                                                            <asp:TextBox ID="txtSubtitle" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="300" placeholder="e.g. Relive the magic with our authentic jerseys"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- SPANISH FIELDS -->
+                                                    <div class="tab-pane" id="banner-es" role="tabpanel">
+                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                                            <small class="text-warning font-weight-bold">Texto en Español</small>
+                                                            <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtTitle_ES', 'txtSubtitle_ES'], ['txtTitle', 'txtSubtitle'])">
+                                                                <i class="fas fa-language me-1"></i> Translate to English
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <label>Título (ES) <span class="text-danger">*</span></label>
+                                                            <asp:TextBox ID="txtTitle_ES" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="200" placeholder="ej. Herencia de la Copa Mundial"></asp:TextBox>
+                                                        </div>
+                                                        <div class="form-group mb-0">
+                                                            <label>Subtítulo (ES) <span class="text-danger">*</span></label>
+                                                            <asp:TextBox ID="txtSubtitle_ES" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="300" placeholder="ej. Revive la magia con nuestras camisetas auténticas"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- UNIVERSAL FIELDS -->
+                                                <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> Universal Banner Settings</h6>
                                                 <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Title <span class="text-danger">*</span></label>
-                                                            <asp:TextBox ID="txtTitle" runat="server" CssClass="form-control" MaxLength="200"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Subtitle</label>
-                                                            <asp:TextBox ID="txtSubtitle" runat="server" CssClass="form-control" MaxLength="300"></asp:TextBox>
-                                                        </div>
-                                                    </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Link URL <small class="text-muted">(optional)</small></label>
@@ -195,14 +241,14 @@
                                                             <p class="drag-drop-text">Drag & drop your banner image here, or <span class="drag-drop-browse">browse</span></p>
                                                             <p class="drag-drop-info">Supports JPG, WEBP, PNG (max 2MB)</p>
                                                         </div>
-                                                        <asp:FileUpload ID="fileImagen" runat="server" Style="display: none;" onchange="previewImage(this, 'imgPreview', 'bannerDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
+                                                        <asp:FileUpload ID="fileImagen" ClientIDMode="Static" runat="server" Style="display: none;" onchange="previewImage(this, 'imgPreview', 'bannerDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
                                                         <img id="imgPreview" class="img-preview" src="#" alt="Preview" />
                                                     </div>
                                                 </div>
 
                                                 <div class="row mt-4">
                                                     <div class="col-12 d-flex gap-2">
-                                                        <asp:Button ID="btnSave" runat="server" Text="&#xf0c7; Save Banner" CssClass="mybtn" OnClick="btnSave_Click" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;" />
+                                                        <asp:Button ID="btnSave" runat="server" Text="&#xf0c7; Save Banner" CssClass="mybtn" OnClick="btnSave_Click" OnClientClick="return validateBannerForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;" />
                                                         <asp:Button ID="btnCancel" runat="server" Text="&#xf00d; Cancel" CssClass="mybtn" OnClick="btnCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important;" />
                                                     </div>
                                                 </div>
@@ -239,7 +285,8 @@
                                                                 <img src='<%# GetImageThumb(Eval("ImageURL").ToString(), "banners") %>' class="banner-preview-thumb" onerror="this.src='assets/img/default.jpg';" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:BoundField DataField="Title" HeaderText="Title" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Title" HeaderText="Title (EN)" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Title_ES" HeaderText="Título (ES)" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
                                                         <asp:TemplateField HeaderText="Status">
                                                             <ItemTemplate><asp:Label ID="lblStatus" runat="server"></asp:Label></ItemTemplate>
                                                         </asp:TemplateField>
@@ -266,23 +313,32 @@
                         <div class="tab-pane" id="collections" role="tabpanel">
                             <asp:UpdatePanel ID="upCollections" runat="server">
                                 <ContentTemplate>
-                                    
                                     <!-- Categories Management -->
                                     <div class="form-card mb-5">
                                         <h5 class="text-white mb-3" style="font-weight: 600;"><i class="fas fa-tags text-warning me-2"></i>Manage Collection Categories</h5>
                                         <div class="row align-items-end">
-                                            <div class="col-md-5">
-                                                <label>New Category Name</label>
-                                                <asp:TextBox ID="txtCategoryName" runat="server" CssClass="form-control" placeholder="e.g. Classic"></asp:TextBox>
+                                            <div class="col-md-4">
+                                                <label>Category Name (EN) <span class="text-danger">*</span></label>
+                                                <asp:TextBox ID="txtCategoryName" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. Classic"></asp:TextBox>
                                             </div>
-                                            <div class="col-md-3">
-                                                <asp:Button ID="btnAddCategory" runat="server" Text="Add Category" CssClass="btn-save-order w-100" OnClick="btnAddCategory_Click" />
+                                            <div class="col-md-4">
+                                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                                    <label class="m-0">Nombre Categoría (ES) <span class="text-danger">*</span></label>
+                                                    <button type="button" class="btn-translate py-0 px-2" onclick="autoTranslate('en', 'es', ['txtCategoryName'], ['txtCategoryName_ES'])">
+                                                        Auto-ES
+                                                    </button>
+                                                </div>
+                                                <asp:TextBox ID="txtCategoryName_ES" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="ej. Clásico"></asp:TextBox>
+                                            </div>
+                                            <div class="col-md-3 mt-3 mt-md-0">
+                                                <asp:Button ID="btnAddCategory" runat="server" Text="Add Category" CssClass="btn-save-order w-100" OnClick="btnAddCategory_Click" OnClientClick="return validateCategoryForm();" />
                                             </div>
                                         </div>
                                         <div class="mt-4">
-                                            <asp:GridView ID="gvCategories" runat="server" AutoGenerateColumns="false" CssClass="table table-custom text-center align-middle w-50" DataKeyNames="Id_Category" OnRowDeleting="gvCategories_RowDeleting" EmptyDataText="No categories available.">
+                                            <asp:GridView ID="gvCategories" runat="server" AutoGenerateColumns="false" CssClass="table table-custom text-center align-middle w-75" DataKeyNames="Id_Category" OnRowDeleting="gvCategories_RowDeleting" EmptyDataText="No categories available.">
                                                 <Columns>
-                                                    <asp:BoundField DataField="Name_Category" HeaderText="Category Name" ItemStyle-HorizontalAlign="Left" />
+                                                    <asp:BoundField DataField="Name_Category" HeaderText="Category Name (EN)" ItemStyle-HorizontalAlign="Left" />
+                                                    <asp:BoundField DataField="Name_Category_es" HeaderText="Categoría (ES)" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
                                                     <asp:CommandField ShowDeleteButton="True" DeleteText="<i class='fas fa-trash text-danger'></i>" ControlStyle-CssClass="text-decoration-none" />
                                                 </Columns>
                                             </asp:GridView>
@@ -339,7 +395,7 @@
                                                             <p class="drag-drop-text">Drag & drop collection background image here, or <span class="drag-drop-browse">browse</span></p>
                                                             <p class="drag-drop-info">Supports JPG, WEBP, PNG (max 2MB)</p>
                                                         </div>
-                                                        <asp:FileUpload ID="fileColImagen" runat="server" Style="display: none;" onchange="previewImage(this, 'imgColPreview', 'colDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
+                                                        <asp:FileUpload ID="fileColImagen" ClientIDMode="Static" runat="server" Style="display: none;" onchange="previewImage(this, 'imgColPreview', 'colDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
                                                         <img id="imgColPreview" class="img-preview" src="#" alt="Preview" />
                                                     </div>
                                                 </div>
@@ -403,7 +459,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </ContentTemplate>
                                 <Triggers><asp:PostBackTrigger ControlID="btnColSave" /></Triggers>
                             </asp:UpdatePanel>
@@ -414,28 +469,66 @@
                             <asp:UpdatePanel ID="upAuth" runat="server">
                                 <ContentTemplate>
                                     <div class="row">
-                                        <div class="col-xl-8 col-lg-10">
+                                        <div class="col-xl-9 col-lg-11">
                                             <div class="form-card">
                                                 <asp:HiddenField ID="hfAuthEditId" runat="server" Value="0" />
-                                                <h4 class="text-white mb-4" style="font-weight: 600;"><asp:Label ID="lblAuthFormTitle" runat="server" Text="Add New Slide (Login/SignUp)"></asp:Label></h4>
+                                                <h4 class="text-white mb-3" style="font-weight: 600;"><asp:Label ID="lblAuthFormTitle" runat="server" Text="Add New Slide (Login/SignUp)"></asp:Label></h4>
 
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Quote / Testimonial Text <span class="text-danger">*</span></label>
-                                                            <asp:TextBox ID="txtAuthQuote" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" MaxLength="1000" placeholder="e.g. We've been using Untitled to kick start..."></asp:TextBox>
+                                                <!-- SUB-TABS IDIOMAS PARA AUTH CAROUSEL -->
+                                                <ul class="nav nav-tabs sub-nav-tabs" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="auth-en-tab" data-toggle="tab" href="#auth-en" role="tab"><i class="fas fa-globe-americas me-1"></i> English (Default)</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="auth-es-tab" data-toggle="tab" href="#auth-es" role="tab"><i class="fas fa-globe-americas me-1"></i> Spanish (Español)</a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tab-content border-bottom border-secondary pb-3 mb-3">
+                                                    <!-- ENGLISH FIELDS -->
+                                                    <div class="tab-pane active" id="auth-en" role="tabpanel">
+                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                                            <small class="text-warning font-weight-bold">English Quote & Role</small>
+                                                            <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtAuthQuote', 'txtAuthAuthorRole'], ['txtAuthQuote_ES', 'txtAuthAuthorRole_ES'])">
+                                                                <i class="fas fa-language me-1"></i> Translate to Spanish
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <label>Quote / Testimonial Text (EN) <span class="text-danger">*</span></label>
+                                                            <asp:TextBox ID="txtAuthQuote" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" MaxLength="1000" placeholder="e.g. Anyone can run. Playing football..."></asp:TextBox>
+                                                        </div>
+                                                        <div class="form-group mb-0">
+                                                            <label>Author Role (EN)</label>
+                                                            <asp:TextBox ID="txtAuthAuthorRole" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="150" placeholder="e.g. Barcelona and Netherlands legend"></asp:TextBox>
                                                         </div>
                                                     </div>
+
+                                                    <!-- SPANISH FIELDS -->
+                                                    <div class="tab-pane" id="auth-es" role="tabpanel">
+                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                                            <small class="text-warning font-weight-bold">Texto en Español</small>
+                                                            <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtAuthQuote_ES', 'txtAuthAuthorRole_ES'], ['txtAuthQuote', 'txtAuthAuthorRole'])">
+                                                                <i class="fas fa-language me-1"></i> Translate to English
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <label>Cita / Testimonio (ES) <span class="text-danger">*</span></label>
+                                                            <asp:TextBox ID="txtAuthQuote_ES" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" MaxLength="1000" placeholder="ej. Cualquiera puede correr. Jugar al fútbol..."></asp:TextBox>
+                                                        </div>
+                                                        <div class="form-group mb-0">
+                                                            <label>Rol del Autor (ES)</label>
+                                                            <asp:TextBox ID="txtAuthAuthorRole_ES" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="150" placeholder="ej. Leyenda del Barcelona y Holanda"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- UNIVERSAL FIELDS -->
+                                                <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-user-tag me-1"></i> Universal Author & Status</h6>
+                                                <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Author Name <span class="text-danger">*</span></label>
-                                                            <asp:TextBox ID="txtAuthAuthorName" runat="server" CssClass="form-control" MaxLength="100" placeholder="e.g. Olivia Rhye"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Author Role</label>
-                                                            <asp:TextBox ID="txtAuthAuthorRole" runat="server" CssClass="form-control" MaxLength="150" placeholder="e.g. Lead Designer, Layers"></asp:TextBox>
+                                                            <asp:TextBox ID="txtAuthAuthorName" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="100" placeholder="e.g. Johan Cruyff"></asp:TextBox>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -450,10 +543,9 @@
                                                 </div>
 
                                                 <div class="form-group mt-2">
-                                                    <label>Background Image <small class="text-muted">(.jpg / .webp / .png, ideal ratio for vertical split)</small><asp:Label ID="lblAuthImageRequired" runat="server" Text=" *" CssClass="text-danger"></asp:Label></label>
+                                                    <label>Background Image <small class="text-muted">(.jpg / .webp / .png)</small><asp:Label ID="lblAuthImageRequired" runat="server" Text=" *" CssClass="text-danger"></asp:Label></label>
                                                     <asp:Panel ID="pnlAuthCurrentImage" runat="server" Visible="false" CssClass="mb-2">
                                                         <small class="text-muted">Current image: </small><asp:Label ID="lblAuthCurrentImagePath" runat="server" CssClass="text-info"></asp:Label><br />
-                                                        <small class="text-muted">Leave empty to keep current image.</small>
                                                     </asp:Panel>
 
                                                     <div class="drag-drop-zone" id="authDragDropZone">
@@ -462,14 +554,14 @@
                                                             <p class="drag-drop-text">Drag & drop slide image here, or <span class="drag-drop-browse">browse</span></p>
                                                             <p class="drag-drop-info">Supports JPG, WEBP, PNG (max 2MB)</p>
                                                         </div>
-                                                        <asp:FileUpload ID="fileAuthImagen" runat="server" Style="display: none;" onchange="previewImage(this, 'imgAuthPreview', 'authDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
+                                                        <asp:FileUpload ID="fileAuthImagen" ClientIDMode="Static" runat="server" Style="display: none;" onchange="previewImage(this, 'imgAuthPreview', 'authDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
                                                         <img id="imgAuthPreview" class="img-preview" src="#" alt="Preview" />
                                                     </div>
                                                 </div>
 
                                                 <div class="row mt-4">
                                                     <div class="col-12 d-flex gap-2">
-                                                        <asp:Button ID="btnSaveAuth" runat="server" Text="&#xf0c7; Save Slide" CssClass="mybtn" OnClick="btnSaveAuth_Click" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;" />
+                                                        <asp:Button ID="btnSaveAuth" runat="server" Text="&#xf0c7; Save Slide" CssClass="mybtn" OnClick="btnSaveAuth_Click" OnClientClick="return validateAuthForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;" />
                                                         <asp:Button ID="btnAuthCancel" runat="server" Text="&#xf00d; Cancel" CssClass="mybtn" OnClick="btnAuthCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important;" />
                                                     </div>
                                                 </div>
@@ -507,7 +599,7 @@
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:BoundField DataField="AuthorName" HeaderText="Author" ItemStyle-HorizontalAlign="Left" />
-                                                        <asp:BoundField DataField="QuoteText" HeaderText="Quote" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="QuoteText" HeaderText="Quote (EN)" ItemStyle-HorizontalAlign="Left" />
                                                         <asp:TemplateField HeaderText="Status">
                                                             <ItemTemplate><asp:Label ID="lblAuthStatus" runat="server"></asp:Label></ItemTemplate>
                                                         </asp:TemplateField>
@@ -529,6 +621,7 @@
                                 <Triggers><asp:PostBackTrigger ControlID="btnSaveAuth" /></Triggers>
                             </asp:UpdatePanel>
                         </div>
+
                     </div>
 
                     <asp:Literal ID="alerta" runat="server" EnableViewState="false"></asp:Literal>
@@ -549,9 +642,97 @@
             });
         });
 
-        // ================= BANNER DRAG/DROP & SORTING =================
+        // ================= TRADUCCIÓN AUTOMÁTICA =================
+        function autoTranslate(sourceLang, targetLang, sourceInputIds, targetInputIds) {
+            for (let i = 0; i < sourceInputIds.length; i++) {
+                let srcElem = document.getElementById(sourceInputIds[i]);
+                let targetElem = document.getElementById(targetInputIds[i]);
+
+                if (!srcElem || !targetElem) continue;
+
+                let text = srcElem.value.trim();
+                if (text === '') continue;
+
+                let url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + sourceLang + '&tl=' + targetLang + '&dt=t&q=' + encodeURIComponent(text);
+
+                fetch(url)
+                    .then(function (response) { return response.json(); })
+                    .then(function (data) {
+                        if (data && data[0]) {
+                            let translatedText = data[0].map(function (item) { return item[0]; }).join('');
+                            targetElem.value = translatedText;
+
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            Toast.fire({ icon: 'success', title: 'Translated successfully!' });
+                        }
+                    })
+                    .catch(function (err) {
+                        console.error('Translation error:', err);
+                    });
+            }
+        }
+
+        // ================= VALIDACIONES BILINGÜES =================
+        function validateBannerForm() {
+            let titleEn = document.getElementById('txtTitle').value.trim();
+            let subEn = document.getElementById('txtSubtitle').value.trim();
+            let titleEs = document.getElementById('txtTitle_ES').value.trim();
+            let subEs = document.getElementById('txtSubtitle_ES').value.trim();
+
+            if (!titleEn || !subEn) {
+                Swal.fire('Missing Information', 'Please fill in all required fields in the English tab.', 'warning');
+                $('#banner-en-tab').tab('show');
+                return false;
+            }
+            if (!titleEs || !subEs) {
+                Swal.fire('Información Faltante', 'Por favor completa todos los campos requeridos en la pestaña de Español.', 'warning');
+                $('#banner-es-tab').tab('show');
+                return false;
+            }
+            return true;
+        }
+
+        function validateCategoryForm() {
+            let catEn = document.getElementById('txtCategoryName').value.trim();
+            let catEs = document.getElementById('txtCategoryName_ES').value.trim();
+
+            if (!catEn || !catEs) {
+                Swal.fire('Missing Information', 'Please fill in the category name in both English and Spanish.', 'warning');
+                return false;
+            }
+            return true;
+        }
+
+        function validateAuthForm() {
+            let quoteEn = document.getElementById('txtAuthQuote').value.trim();
+            let quoteEs = document.getElementById('txtAuthQuote_ES').value.trim();
+            let author = document.getElementById('txtAuthAuthorName').value.trim();
+
+            if (!quoteEn) {
+                Swal.fire('Missing Information', 'Please fill in the quote in English.', 'warning');
+                $('#auth-en-tab').tab('show');
+                return false;
+            }
+            if (!quoteEs) {
+                Swal.fire('Información Faltante', 'Por favor ingresa la cita en Español.', 'warning');
+                $('#auth-es-tab').tab('show');
+                return false;
+            }
+            if (!author) {
+                Swal.fire('Missing Information', 'Please enter the Author Name.', 'warning');
+                return false;
+            }
+            return true;
+        }
+
+        // ================= BANNERS DRAG/DROP & SORTING =================
         function attachOrderEventsBanners() {
-            document.querySelectorAll('.move-up').forEach(btn => {
+            document.querySelectorAll('.move-up').forEach(function (btn) {
                 btn.onclick = function (e) {
                     e.preventDefault();
                     let row = this.closest('tr');
@@ -559,7 +740,7 @@
                     if (prevRow && !prevRow.querySelector('th')) { row.parentNode.insertBefore(row, prevRow); updateOrderBanners(); }
                 };
             });
-            document.querySelectorAll('.move-down').forEach(btn => {
+            document.querySelectorAll('.move-down').forEach(function (btn) {
                 btn.onclick = function (e) {
                     e.preventDefault();
                     let row = this.closest('tr');
@@ -571,7 +752,7 @@
         function updateOrderBanners() {
             let rows = document.querySelectorAll('#gvBanners tbody tr');
             let orderArray = []; let index = 1;
-            rows.forEach(row => {
+            rows.forEach(function (row) {
                 let label = row.querySelector('.sort-order-lbl');
                 let hiddenId = row.querySelector('.banner-id');
                 if (label && hiddenId) { label.innerText = index; orderArray.push(hiddenId.value); index++; }
@@ -582,7 +763,7 @@
 
         // ================= COLLECTIONS DRAG/DROP & SORTING =================
         function attachOrderEventsCols() {
-            document.querySelectorAll('.move-up-col').forEach(btn => {
+            document.querySelectorAll('.move-up-col').forEach(function (btn) {
                 btn.onclick = function (e) {
                     e.preventDefault();
                     let row = this.closest('tr');
@@ -590,7 +771,7 @@
                     if (prevRow && !prevRow.querySelector('th')) { row.parentNode.insertBefore(row, prevRow); updateOrderCols(); }
                 };
             });
-            document.querySelectorAll('.move-down-col').forEach(btn => {
+            document.querySelectorAll('.move-down-col').forEach(function (btn) {
                 btn.onclick = function (e) {
                     e.preventDefault();
                     let row = this.closest('tr');
@@ -602,7 +783,7 @@
         function updateOrderCols() {
             let rows = document.querySelectorAll('#gvCollections tbody tr');
             let orderArray = []; let index = 1;
-            rows.forEach(row => {
+            rows.forEach(function (row) {
                 let label = row.querySelector('.sort-col-lbl');
                 let hiddenId = row.querySelector('.col-id');
                 if (label && hiddenId) { label.innerText = index; orderArray.push(hiddenId.value); index++; }
@@ -613,7 +794,7 @@
 
         // ================= AUTH CAROUSEL DRAG/DROP & SORTING =================
         function attachOrderEventsAuth() {
-            document.querySelectorAll('.move-up-auth').forEach(btn => {
+            document.querySelectorAll('.move-up-auth').forEach(function (btn) {
                 btn.onclick = function (e) {
                     e.preventDefault();
                     let row = this.closest('tr');
@@ -621,7 +802,7 @@
                     if (prevRow && !prevRow.querySelector('th')) { row.parentNode.insertBefore(row, prevRow); updateOrderAuth(); }
                 };
             });
-            document.querySelectorAll('.move-down-auth').forEach(btn => {
+            document.querySelectorAll('.move-down-auth').forEach(function (btn) {
                 btn.onclick = function (e) {
                     e.preventDefault();
                     let row = this.closest('tr');
@@ -633,7 +814,7 @@
         function updateOrderAuth() {
             let rows = document.querySelectorAll('#gvAuthCarousel tbody tr');
             let orderArray = []; let index = 1;
-            rows.forEach(row => {
+            rows.forEach(function (row) {
                 let label = row.querySelector('.sort-auth-lbl');
                 let hiddenId = row.querySelector('.auth-id');
                 if (label && hiddenId) { label.innerText = index; orderArray.push(hiddenId.value); index++; }
@@ -660,17 +841,16 @@
         function initDragDrop(zoneId, inputId, previewId) {
             var zone = document.getElementById(zoneId);
             var input = document.getElementById(inputId);
-            var preview = document.getElementById(previewId);
 
             if (!zone || !input) return;
 
             zone.addEventListener('click', function (e) { if (e.target !== input) { input.click(); } });
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (eventName) {
                 zone.addEventListener(eventName, preventDefaults, false);
                 document.body.addEventListener(eventName, preventDefaults, false);
             });
-            ['dragenter', 'dragover'].forEach(eventName => { zone.addEventListener(eventName, highlight, false); });
-            ['dragleave', 'drop'].forEach(eventName => { zone.addEventListener(eventName, unhighlight, false); });
+            ['dragenter', 'dragover'].forEach(function (eventName) { zone.addEventListener(eventName, highlight, false); });
+            ['dragleave', 'drop'].forEach(function (eventName) { zone.addEventListener(eventName, unhighlight, false); });
             zone.addEventListener('drop', handleDrop, false);
 
             function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
@@ -688,11 +868,11 @@
         }
 
         function initAllDragDrop() {
-            initDragDrop('bannerDragDropZone', '<%= fileImagen.ClientID %>', 'imgPreview');
-            initDragDrop('colDragDropZone', '<%= fileColImagen.ClientID %>', 'imgColPreview');
-            initDragDrop('authDragDropZone', '<%= fileAuthImagen.ClientID %>', 'imgAuthPreview'); // NEW!
+            initDragDrop('bannerDragDropZone', 'fileImagen', 'imgPreview');
+            initDragDrop('colDragDropZone', 'fileColImagen', 'imgColPreview');
+            initDragDrop('authDragDropZone', 'fileAuthImagen', 'imgAuthPreview');
 
-            ['imgPreview', 'imgColPreview', 'imgAuthPreview'].forEach(imgId => {
+            ['imgPreview', 'imgColPreview', 'imgAuthPreview'].forEach(function (imgId) {
                 var img = document.getElementById(imgId);
                 if (img) {
                     var zone = img.closest('.drag-drop-zone');

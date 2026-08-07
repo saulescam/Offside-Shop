@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageSellerRequests.aspx.cs" Inherits="OFFSIDESHOP.ManageSellerRequests" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageSellerRequests.aspx.cs" Inherits="OFFSIDESHOP.ManageSellerRequests" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -203,12 +203,24 @@
 
             <main class="main-content fade-in" style="animation-delay: 0.15s;">
                 <div class="container-fluid">
-                    <h1 class="page-title">Support & Seller Requests</h1>
-                    <p class="text-muted mb-4">Review incoming general support queries, coordinate order issues, and approve seller consignments into the catalog.</p>
+                    <h1 class="page-title">Support & Reviews Management</h1>
+                    <p class="text-muted mb-4">Manage support tickets, seller consignments, and product reviews.</p>
 
                     <asp:UpdatePanel ID="upMainRequests" runat="server">
                         <ContentTemplate>
-                            <!-- Tab filters by status -->
+                            
+                            <!-- Main Tabs -->
+                            <div class="nav-tabs-custom d-flex flex-wrap mb-4" style="border-bottom: 2px solid #FFC800;">
+                                <asp:LinkButton ID="btnViewTickets" runat="server" CssClass="nav-link active" OnClick="MainView_Click" CommandArgument="Tickets" style="font-size: 1.1rem;">
+                                    <i class="fas fa-ticket-alt mr-2"></i>Support Tickets
+                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnViewReviews" runat="server" CssClass="nav-link" OnClick="MainView_Click" CommandArgument="Reviews" style="font-size: 1.1rem;">
+                                    <i class="fas fa-star mr-2"></i>Product Reviews
+                                </asp:LinkButton>
+                            </div>
+
+                            <asp:Panel ID="pnlTickets" runat="server">
+                                <!-- Tab filters by status -->
                             <div class="nav-tabs-custom d-flex flex-wrap">
                                 <asp:LinkButton ID="btnTabPending" runat="server" CssClass="nav-link active" OnClick="StatusTab_Click" CommandArgument="1">
                                     <i class="fas fa-clock mr-2"></i>Pending
@@ -418,6 +430,97 @@
                                     </div>
                                 </div>
                             </asp:PlaceHolder>
+                            </asp:Panel>
+
+                            <asp:Panel ID="pnlReviews" runat="server" Visible="false">
+                                <div class="table-responsive">
+                                    <asp:GridView ID="gvReviews" runat="server"
+                                        AutoGenerateColumns="False"
+                                        GridLines="None"
+                                        CssClass="table table-custom text-center align-middle"
+                                        DataKeyNames="Id_Review"
+                                        OnRowCommand="gvReviews_RowCommand"
+                                        EmptyDataText="No product reviews found.">
+                                        <Columns>
+                                            <asp:BoundField DataField="Id_Review" HeaderText="ID" ItemStyle-Width="60px" />
+                                            <asp:BoundField DataField="ReviewDate" HeaderText="Date" DataFormatString="{0:yyyy-MM-dd HH:mm}" />
+                                            <asp:TemplateField HeaderText="User">
+                                                <ItemTemplate>
+                                                    <span class="font-weight-bold"><%# Eval("UserName") %> <%# Eval("UserLastName") %></span><br />
+                                                    <small class="text-muted"><%# Eval("UserEmail") %></small>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField DataField="ShirtName" HeaderText="Product" ItemStyle-Font-Bold="true" />
+                                            <asp:TemplateField HeaderText="Rating">
+                                                <ItemTemplate>
+                                                    <span style="color: #FFC800;"><i class="fas fa-star"></i> <%# Eval("Rating") %>/5</span>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Comment" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="250px">
+                                                <ItemTemplate>
+                                                    <div style="max-height: 80px; overflow-y: auto; font-style: italic; font-size: 0.9rem;">
+                                                        "<%# Eval("Comment") %>"
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Admin Reply" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200px">
+                                                <ItemTemplate>
+                                                    <div style="max-height: 80px; overflow-y: auto; font-size: 0.85rem; color: #17a2b8;">
+                                                        <%# string.IsNullOrEmpty(Eval("ReplyComment")?.ToString()) ? "<span class='text-muted'>No reply yet</span>" : Eval("ReplyComment") %>
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Actions" ItemStyle-Width="180px">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="btnReplyReview" runat="server"
+                                                        CommandName="ReplyReview"
+                                                        CommandArgument='<%# Eval("Id_Review") %>'
+                                                        CssClass="btn btn-sm btn-info font-weight-bold mb-1">
+                                                        <i class="fas fa-reply"></i> Reply
+                                                    </asp:LinkButton>
+                                                    <asp:LinkButton ID="btnDeleteReview" runat="server"
+                                                        CommandName="DeleteReview"
+                                                        CommandArgument='<%# Eval("Id_Review") %>'
+                                                        OnClientClick="return confirm('Are you sure you want to delete this review?');"
+                                                        CssClass="btn btn-sm btn-danger font-weight-bold mb-1">
+                                                        <i class="fas fa-trash-alt"></i> Delete
+                                                    </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+
+                                <!-- REPLY BOOTSTRAP MODAL WRAPPED IN PLACEHOLDER -->
+                                <asp:PlaceHolder ID="phReplyModal" runat="server" Visible="false">
+                                    <div class="modal-backdrop-custom">
+                                        <div class="modal-dialog-custom">
+                                            <div class="modal-header bg-dark text-white px-4 py-3 d-flex justify-content-between align-items-center">
+                                                <h5 class="modal-title font-weight-bold" style="color: #FFC800;">
+                                                    <i class="fas fa-reply mr-2"></i>Reply to Review #<asp:Literal ID="litReplyReviewId" runat="server" />
+                                                </h5>
+                                                <asp:LinkButton ID="btnCloseReplyModal" runat="server" OnClick="btnCloseReplyModal_Click" CssClass="text-white text-decoration-none" Style="font-size: 1.3rem;">&times;</asp:LinkButton>
+                                            </div>
+                                            <div class="modal-body p-4" style="color: var(--text-main) !important; background-color: var(--bg-card) !important;">
+                                                <div class="mb-3 p-3 rounded" style="background: var(--bg-panel); border: 1px solid var(--border-color) !important;">
+                                                    <small class="text-muted d-block text-uppercase font-weight-bold mb-1">User's Review</small>
+                                                    <p class="mb-0 font-italic" style="color: var(--text-main) !important;"><asp:Literal ID="litOriginalReview" runat="server" /></p>
+                                                </div>
+
+                                                <div class="form-group mt-3">
+                                                    <label for="txtReplyComment" class="font-weight-bold text-uppercase small text-muted">Your Official Reply <span class="text-danger">*</span></label>
+                                                    <asp:TextBox ID="txtReplyComment" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="Write your public reply here..." />
+                                                </div>
+                                                <asp:Label ID="lblReplyModalError" runat="server" CssClass="alert alert-danger d-block mt-3 font-weight-bold small" Visible="false" />
+                                            </div>
+                                            <div class="modal-footer px-4 py-3 d-flex justify-content-between" style="background: var(--bg-card) !important; border-top: 1px solid var(--border-color) !important;">
+                                                <asp:Button ID="btnCancelReply" runat="server" Text="Cancel" CssClass="btn btn-secondary font-weight-bold" OnClick="btnCloseReplyModal_Click" />
+                                                <asp:Button ID="btnSubmitReply" runat="server" Text="Submit Reply" CssClass="btn btn-info font-weight-bold" OnClick="btnSubmitReply_Click" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </asp:PlaceHolder>
+                            </asp:Panel>
 
                         </ContentTemplate>
                     </asp:UpdatePanel>

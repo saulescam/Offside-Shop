@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SmtpSettings.aspx.cs" Inherits="OFFSIDESHOP.SmtpSettings" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SmtpSettings.aspx.cs" Inherits="OFFSIDESHOP.SmtpSettings" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -152,6 +152,28 @@
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Assistant Configuration -->
+                    <div class="row mt-4">
+                        <div class="col-xl-6 col-lg-8">
+                            <div class="form-card">
+                                <h4 class="mb-3" style="font-weight: 700;">AI Assistant Configuration</h4>
+                                <p class="text-muted mb-4">Enable or disable the global AI Chatbot widget for the store.</p>
+                                
+                                <div class="p-3 rounded" style="background-color: var(--bg-color, #f8f9fa); border: 1px solid var(--border-color, #dee2e6);">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <span style="font-weight: 600; margin-right: 15px;">Current Status:</span>
+                                        <asp:Label ID="lblChatbotStatus" runat="server" CssClass="badge badge-pill" style="font-size: 14px; padding: 6px 12px;"></asp:Label>
+                                    </div>
+                                    <asp:Button ID="btnToggleChatbot" runat="server"
+                                        Text="&#xf011; Toggle Status"
+                                        CssClass="mybtn"
+                                        OnClick="btnToggleChatbot_Click"
+                                        Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600; padding: 8px 16px;" />
+                                </div>
                             </div>
                         </div>
                     </div>
