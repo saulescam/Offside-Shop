@@ -56,8 +56,12 @@ namespace OFFSIDESHOP
 
             int userId = Convert.ToInt32(Session["Id_User"]);
 
-            // Extraemos tambiÃ©n Default_Latitude y Default_Longitude
-            string query = "SELECT Name, LastName, Name_User, Mail, Phone, Address, Default_Latitude, Default_Longitude FROM users WHERE Id_User = @ID";
+            // Consulta que obtiene también el nombre del Rol mediante INNER JOIN
+            string query = @"SELECT u.Name, u.LastName, u.Name_User, u.Mail, u.Phone, u.Address, 
+                                    u.Default_Latitude, u.Default_Longitude, r.Name_Role 
+                             FROM users u 
+                             INNER JOIN roles r ON u.Id_Role = r.Id_Role 
+                             WHERE u.Id_User = @ID";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -77,6 +81,9 @@ namespace OFFSIDESHOP
                                 txtEmail.Text = reader["Mail"].ToString();
                                 txtPhone.Text = reader["Phone"].ToString();
                                 txtAddress.Text = reader["Address"].ToString();
+
+                                // Asignar Nombre del Rol
+                                lblAccountRole.Text = reader["Name_Role"].ToString();
 
                                 // Asignamos las coordenadas a los HiddenFields para el mapa
                                 hfDefaultLat.Value = reader["Default_Latitude"] != DBNull.Value ? reader["Default_Latitude"].ToString() : "";
@@ -101,7 +108,6 @@ namespace OFFSIDESHOP
             if (Session["Id_User"] == null) return;
             int userId = Convert.ToInt32(Session["Id_User"]);
 
-            // Actualizamos la consulta para incluir Latitude y Longitude
             string query = @"UPDATE users SET 
                                 Name = @Name, 
                                 LastName = @LastName, 
@@ -123,7 +129,6 @@ namespace OFFSIDESHOP
                     cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
                     cmd.Parameters.AddWithValue("@ID", userId);
 
-                    // Formateo seguro para puntos decimales
                     decimal? lat = null;
                     decimal? lng = null;
 
@@ -143,7 +148,6 @@ namespace OFFSIDESHOP
                         if (affected > 0)
                         {
                             ShowSweetAlert("Success", "Profile and Default Location updated successfully.", "success");
-                            // Recargar para refrescar los valores base (y que el botÃ³n de save vuelva a desactivarse)
                             LoadUserData();
                         }
                     }

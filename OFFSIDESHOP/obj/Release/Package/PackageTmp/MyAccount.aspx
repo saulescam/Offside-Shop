@@ -49,6 +49,21 @@
         .dropdown-item:hover { background-color: #FFC800; color: #000000; }
         .dropdown-item.btn-logout { border-top: 1px solid #333333; margin-top: 4px; padding-top: 10px; }
         .dropdown-item.btn-logout:hover { background-color: #D47A00 !important; }
+
+        /* Badge de Rol */
+        .role-badge {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #1a1a1a;
+            color: #FFC800;
+            border: 1px solid #FFC800;
+            width: 100%;
+        }
     </style>
 
     <script type="text/javascript">
@@ -132,7 +147,6 @@
         }
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            // Solo permite teclas del 0 al 9 (cÃ³digos ASCII 48 al 57)
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
                 return false;
             }
@@ -157,7 +171,6 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    
 
                     <asp:PlaceHolder ID="phNavbarUser" runat="server">
                         <div class="user-menu-container">
@@ -253,14 +266,25 @@
                                         <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_Username %>" /></label>
                                         <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control form-control-custom" placeholder="johndoe123"></asp:TextBox>
                                     </div>
+
+                                    <!-- APARTADO DEL ROL DE USUARIO -->
                                     <div class="col-md-6">
+                                        <label class="form-label form-label-custom">Account Role / Rol</label>
+                                        <div class="role-badge text-center">
+                                            <i class="fas fa-user-shield me-1"></i>
+                                            <asp:Label ID="lblAccountRole" runat="server" Text="Customer"></asp:Label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
                                         <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_EmailAddress %>" /></label>
                                         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control form-control-custom" Enabled="false"></asp:TextBox>
                                         <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_EmailWarning %>" /></small>
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_PhoneNumber %>" /></label>
-<asp:TextBox ID="txtPhone" runat="server" CssClass="form-control form-control-custom" placeholder="(+503) 12345678" MaxLength="8" onkeypress="return isNumberKey(event);" onpaste="return false;"></asp:TextBox>                                    </div>
+                                        <asp:TextBox ID="txtPhone" runat="server" CssClass="form-control form-control-custom" placeholder="(+503) 12345678" MaxLength="8" onkeypress="return isNumberKey(event);" onpaste="return false;"></asp:TextBox>
+                                    </div>
                                     <div class="col-12">
                                         <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_ShippingAddress %>" /></label>
                                         <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control form-control-custom" placeholder="<%$ Resources:Strings, Account_AddressPlaceholder %>" TextMode="MultiLine" Rows="2"></asp:TextBox>
@@ -372,14 +396,13 @@
         function initAccountMap() {
             var latField = document.getElementById('<%= hfDefaultLat.ClientID %>');
             var lngField = document.getElementById('<%= hfDefaultLng.ClientID %>');
-            
-            // Default to El Salvador if the user hasn't set one yet
+
             var startLat = latField.value ? parseFloat(latField.value) : 13.6929;
             var startLng = lngField.value ? parseFloat(lngField.value) : -89.2182;
             var zoomLvl = latField.value ? 16 : 9;
 
             if (accountMap !== null) {
-                accountMap.remove(); // Evita el error "Map container is already initialized" de Leaflet
+                accountMap.remove();
             }
 
             accountMap = L.map('accountMap').setView([startLat, startLng], zoomLvl);
@@ -394,28 +417,25 @@
                 var pos = accountMarker.getLatLng();
                 latField.value = pos.lat;
                 lngField.value = pos.lng;
-                
-                // Activar el botÃ³n de guardar cambios porque el mapa se moviÃ³
+
                 const saveBtn = document.getElementById('<%= btnSaveChanges.ClientID %>');
-                if(saveBtn) {
+                if (saveBtn) {
                     saveBtn.style.pointerEvents = 'auto';
                     saveBtn.style.filter = 'grayscale(0%)';
                     saveBtn.style.opacity = '1';
                     saveBtn.style.cursor = 'pointer';
                 }
             });
-            
-            // SoluciÃ³n para que el mapa se dibuje correctamente dentro de UpdatePanels
-            setTimeout(function() { accountMap.invalidateSize(); }, 200);
+
+            setTimeout(function () { accountMap.invalidateSize(); }, 200);
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             trackFormChanges();
             initAccountMap();
 
-            // Interceptar el final del proceso AJAX del UpdatePanel para revivir el mapa y los eventos
             if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
-                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                     const inputs = document.querySelectorAll('#<%= upPersonalInfo.ClientID %> input[type="text"], #<%= upPersonalInfo.ClientID %> textarea');
                     inputs.forEach(input => input.removeAttribute('data-original-value'));
                     trackFormChanges();
@@ -429,4 +449,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

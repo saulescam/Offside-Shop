@@ -37,19 +37,81 @@ namespace OFFSIDESHOP
 
         private void LoadUsers()
         {
-            using (MySqlConnection con = new MySqlConnection(connectionString))
+            try
             {
-                con.Open();
-                string query = @"SELECT u.Id_User, u.Name_User, u.Mail, u.Id_Role, r.Name_Role 
-                                 FROM users u 
-                                 INNER JOIN roles r ON u.Id_Role = r.Id_Role 
-                                 ORDER BY u.Id_Role ASC, u.Id_User ASC;";
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                DataTable dt = new DataTable();
-                new MySqlDataAdapter(cmd).Fill(dt);
-                gvUsers.DataSource = dt;
-                gvUsers.DataBind();
+                int filterRole = Convert.ToInt32(ddlFilterRole.SelectedValue);
+                string filterDeliveryStatus = ddlFilterDeliveryStatus.SelectedValue;
+                string searchUser = txtSearchUser.Text.Trim();
+
+                string query = @"
+                    SELECT 
+                        u.Id_User, 
+                        u.Name_User, 
+                        u.Mail, 
+                        u.Id_Role, 
+                        r.Name_Role,
+                        dt.Id_ActiveOrder,
+                        dt.LastUpdate,
+                        CASE 
+                            WHEN u.Id_Role != 4 THEN 'N/A'
+                            WHEN dt.Id_ActiveOrder IS NOT NULL THEN 'DELIVERING'
+                            WHEN dt.LastUpdate >= DATE_SUB(NOW(), INTERVAL 30 MINUTE) THEN 'AVAILABLE'
+                            ELSE 'OFFDUTY'
+                        END AS DeliveryStatus
+                    FROM users u 
+                    INNER JOIN roles r ON u.Id_Role = r.Id_Role 
+                    LEFT JOIN driver_tracking dt ON u.Id_User = dt.Id_Driver
+                    WHERE 1=1";
+
+                if (filterRole > 0)
+                {
+                    query += " AND u.Id_Role = @FilterRole";
+                }
+
+                if (!string.IsNullOrEmpty(searchUser))
+                {
+                    query += " AND (u.Name_User LIKE @SearchUser OR u.Mail LIKE @SearchUser)";
+                }
+
+                if (filterDeliveryStatus != "ALL")
+                {
+                    query += " HAVING DeliveryStatus = @DeliveryStatus";
+                }
+
+                query += " ORDER BY u.Id_Role ASC, u.Id_User ASC;";
+
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+
+                    if (filterRole > 0) cmd.Parameters.AddWithValue("@FilterRole", filterRole);
+                    if (!string.IsNullOrEmpty(searchUser)) cmd.Parameters.AddWithValue("@SearchUser", "%" + searchUser + "%");
+                    if (filterDeliveryStatus != "ALL") cmd.Parameters.AddWithValue("@DeliveryStatus", filterDeliveryStatus);
+
+                    DataTable dt = new DataTable();
+                    new MySqlDataAdapter(cmd).Fill(dt);
+                    gvUsers.DataSource = dt;
+                    gvUsers.DataBind();
+                }
             }
+            catch (Exception ex)
+            {
+                TriggerAlert("Error", ex.Message, "error");
+            }
+        }
+
+        protected void Filter_Changed(object sender, EventArgs e)
+        {
+            LoadUsers();
+        }
+
+        protected void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            ddlFilterRole.SelectedIndex = 0;
+            ddlFilterDeliveryStatus.SelectedIndex = 0;
+            txtSearchUser.Text = "";
+            LoadUsers();
         }
 
         protected void gvUsers_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -58,13 +120,41 @@ namespace OFFSIDESHOP
 
             DataRowView drv = (DataRowView)e.Row.DataItem;
             int currentRoleId = Convert.ToInt32(drv["Id_Role"]);
+            string deliveryStatus = drv["DeliveryStatus"] != DBNull.Value ? drv["DeliveryStatus"].ToString() : "N/A";
+            object activeOrderObj = drv["Id_ActiveOrder"];
 
             LinkButton btnEdit = (LinkButton)e.Row.FindControl("btnEdit");
             LinkButton btnPermissions = (LinkButton)e.Row.FindControl("btnPermissions");
             LinkButton btnDelete = (LinkButton)e.Row.FindControl("btnDelete");
             Label lblOwnerProtect = (Label)e.Row.FindControl("lblOwnerProtect");
+            Label lblDeliveryStatusBadge = (Label)e.Row.FindControl("lblDeliveryStatusBadge");
 
-            // Protect the Owner
+            // Configurar Badge del Repartidor (Delivery)
+            if (lblDeliveryStatusBadge != null)
+            {
+                if (currentRoleId == 4) // Si es Repartidor
+                {
+                    switch (deliveryStatus)
+                    {
+                        case "DELIVERING":
+                            string orderId = activeOrderObj != DBNull.Value ? activeOrderObj.ToString() : "";
+                            lblDeliveryStatusBadge.Text = $"<span class='badge-driver-delivering'><i class='fas fa-motorcycle mr-1'></i>On the Way (Order #{orderId})</span>";
+                            break;
+                        case "AVAILABLE":
+                            lblDeliveryStatusBadge.Text = "<span class='badge-driver-onduty'><i class='fas fa-check-circle mr-1'></i>On Duty (Available)</span>";
+                            break;
+                        default:
+                            lblDeliveryStatusBadge.Text = "<span class='badge-driver-offduty'><i class='fas fa-moon mr-1'></i>Off Duty (Resting)</span>";
+                            break;
+                    }
+                }
+                else
+                {
+                    lblDeliveryStatusBadge.Text = "<span class='text-muted small'>N/A</span>";
+                }
+            }
+
+            // Proteger al Propietario (Owner)
             if (currentRoleId == 1)
             {
                 if (btnEdit != null) btnEdit.Visible = false;
@@ -74,7 +164,6 @@ namespace OFFSIDESHOP
             }
             else
             {
-                // Only show permissions button if the user is an Admin (Role 2)
                 if (btnPermissions != null)
                 {
                     btnPermissions.Visible = (currentRoleId == 2);
@@ -88,7 +177,6 @@ namespace OFFSIDESHOP
 
             int userId = Convert.ToInt32(e.CommandArgument);
 
-            // Double security check to prevent hacking the UI
             if (EsOwner(userId))
             {
                 TriggerAlert("Access Denied", "The main Owner role cannot be modified or deleted.", "warning");
@@ -124,7 +212,7 @@ namespace OFFSIDESHOP
                                 txtEditUsername.Text = reader["Name_User"].ToString();
                                 txtEditEmail.Text = reader["Mail"].ToString();
                                 ddlEditRole.SelectedValue = reader["Id_Role"].ToString();
-                                txtEditPass.Text = ""; // Clear password field
+                                txtEditPass.Text = "";
 
                                 phEditUserModal.Visible = true;
                             }
@@ -182,7 +270,6 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    // New admins are created with 0 permissions by default
                     string query = @"INSERT INTO users (Name_User, Mail, Password, Id_Role, Perm_Products, Perm_Orders, Perm_Offers, Perm_Coupons, Perm_Banners, Perm_Tickets)
                                      VALUES (@User, @Mail, @Pass, @Role, 0, 0, 0, 0, 0, 0);";
                     MySqlCommand cmd = new MySqlCommand(query, con);
@@ -301,7 +388,6 @@ namespace OFFSIDESHOP
         {
             phPermissionsModal.Visible = false;
         }
-
 
         private bool EsOwner(int userId)
         {

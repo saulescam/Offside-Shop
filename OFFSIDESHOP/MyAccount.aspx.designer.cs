@@ -33,6 +33,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
+        /// Control btnLanguageToggle.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
+
+        /// <summary>
         /// Control phNavbarUser.
         /// </summary>
         /// <remarks>
@@ -177,6 +186,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.TextBox txtUsername;
 
         /// <summary>
+        /// Control lblAccountRole.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAccountRole;
+
+        /// <summary>
         /// Control txtEmail.
         /// </summary>
         /// <remarks>
@@ -283,9 +301,5 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdatePassword;
-        /// <summary>
-        /// Control btnLanguageToggle.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
     }
 }

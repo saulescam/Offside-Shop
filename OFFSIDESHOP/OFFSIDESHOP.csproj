@@ -342,7 +342,7 @@
     <Compile Include="AdminAudit.aspx.designer.cs">
       <DependentUpon>AdminAudit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Strings.Designer.cs">
+    <Compile Include="App_GlobalResources\Strings.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
@@ -632,8 +632,8 @@
   <ItemGroup>
     <Content Include="App_GlobalResources\Strings.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Strings.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

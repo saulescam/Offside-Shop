@@ -3,36 +3,36 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\inetpub\wwwroot\OffsideShop-WEB</_PublishTargetUrl>
-    <History>True|2026-08-07T00:30:49.8622541Z||;True|2026-08-06T17:59:10.4132623-06:00||;True|2026-08-03T12:21:26.2201507-06:00||;True|2026-08-03T11:54:14.2657336-06:00||;False|2026-07-29T09:11:52.5805182-06:00||;True|2026-07-25T14:07:19.2293162-06:00||;True|2026-07-25T10:52:45.9613993-06:00||;</History>
+    <History>True|2026-08-08T03:14:06.2037334Z||;True|2026-08-06T18:30:49.8622541-06:00||;True|2026-08-06T17:59:10.4132623-06:00||;True|2026-08-03T12:21:26.2201507-06:00||;True|2026-08-03T11:54:14.2657336-06:00||;False|2026-07-29T09:11:52.5805182-06:00||;True|2026-07-25T14:07:19.2293162-06:00||;True|2026-07-25T10:52:45.9613993-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="AboutUs.aspx">
-      <publishTime>07/31/2026 22:27:07</publishTime>
+      <publishTime>08/07/2026 19:12:22</publishTime>
     </File>
     <File Include="AddBrand.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 20:00:36</publishTime>
     </File>
     <File Include="AddLeague.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 20:00:36</publishTime>
     </File>
     <File Include="AddTeam.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 20:00:36</publishTime>
     </File>
     <File Include="AdminAudit.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 20:00:36</publishTime>
     </File>
     <File Include="AdminBanners.aspx">
-      <publishTime>08/06/2026 18:28:04</publishTime>
+      <publishTime>08/07/2026 20:00:36</publishTime>
     </File>
     <File Include="AdminStats.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 20:00:36</publishTime>
     </File>
     <File Include="App_GlobalResources/Strings.es.resx">
-      <publishTime>08/01/2026 19:37:52</publishTime>
+      <publishTime>08/07/2026 21:11:29</publishTime>
     </File>
     <File Include="App_GlobalResources/Strings.resx">
-      <publishTime>08/01/2026 19:37:37</publishTime>
+      <publishTime>08/07/2026 20:58:00</publishTime>
     </File>
     <File Include="assets/favicon.ico">
       <publishTime>07/22/2026 20:31:32</publishTime>
@@ -263,10 +263,10 @@
       <publishTime>07/22/2026 20:31:36</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.dll">
-      <publishTime>08/06/2026 18:30:48</publishTime>
+      <publishTime>08/07/2026 21:14:03</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.pdb">
-      <publishTime>08/06/2026 18:30:48</publishTime>
+      <publishTime>08/07/2026 21:14:03</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/22/2026 20:31:36</publishTime>
@@ -455,10 +455,10 @@
       <publishTime>07/22/2026 20:31:33</publishTime>
     </File>
     <File Include="Cart.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:59:46</publishTime>
     </File>
     <File Include="ChangePassword.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>08/07/2026 19:59:41</publishTime>
     </File>
     <File Include="ChatbotControl.ascx">
       <publishTime>07/25/2026 13:15:12</publishTime>
@@ -467,13 +467,13 @@
       <publishTime>07/25/2026 12:22:07</publishTime>
     </File>
     <File Include="Checkout.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:59:46</publishTime>
     </File>
     <File Include="ContactSupport.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:59:46</publishTime>
     </File>
     <File Include="css/admin-layout.css">
-      <publishTime>07/22/2026 20:31:33</publishTime>
+      <publishTime>08/07/2026 18:13:37</publishTime>
     </File>
     <File Include="css/bootstrap.min.css">
       <publishTime>07/22/2026 20:31:33</publishTime>
@@ -506,16 +506,16 @@
       <publishTime>07/31/2026 22:27:07</publishTime>
     </File>
     <File Include="Dashboard.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 20:13:36</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 19:58:17</publishTime>
     </File>
     <File Include="DeliveryDashboard.aspx">
-      <publishTime>07/31/2026 18:58:49</publishTime>
+      <publishTime>08/07/2026 19:12:22</publishTime>
     </File>
     <File Include="DetailsShirt.aspx">
-      <publishTime>08/01/2026 19:56:37</publishTime>
+      <publishTime>08/07/2026 19:58:17</publishTime>
     </File>
     <File Include="EstilosCss/AuthSplit.css">
       <publishTime>07/31/2026 22:27:07</publishTime>
@@ -536,7 +536,7 @@
       <publishTime>07/22/2026 20:31:32</publishTime>
     </File>
     <File Include="ExternalLoginResult.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 19:58:17</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.eot">
       <publishTime>07/22/2026 20:31:33</publishTime>
@@ -575,7 +575,7 @@
       <publishTime>07/22/2026 20:31:32</publishTime>
     </File>
     <File Include="Homepage.aspx">
-      <publishTime>08/01/2026 19:31:28</publishTime>
+      <publishTime>08/07/2026 19:58:17</publishTime>
     </File>
     <File Include="js/bootstrap.bundle.js">
       <publishTime>07/22/2026 20:31:34</publishTime>
@@ -620,46 +620,46 @@
       <publishTime>07/22/2026 20:31:34</publishTime>
     </File>
     <File Include="Login.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:58:17</publishTime>
     </File>
     <File Include="ManageCoupons.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 19:58:17</publishTime>
     </File>
     <File Include="ManageOffers.aspx">
-      <publishTime>07/25/2026 10:23:33</publishTime>
+      <publishTime>08/07/2026 19:59:00</publishTime>
     </File>
     <File Include="ManageOrders.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 21:08:59</publishTime>
     </File>
     <File Include="ManageProducts.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 21:03:06</publishTime>
     </File>
     <File Include="ManageSellerRequests.aspx">
-      <publishTime>08/03/2026 14:18:45</publishTime>
+      <publishTime>08/07/2026 19:57:52</publishTime>
     </File>
     <File Include="ManageUsers.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 20:46:23</publishTime>
     </File>
     <File Include="MyAccount.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:12:24</publishTime>
     </File>
     <File Include="MyOrders.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:57:32</publishTime>
     </File>
     <File Include="OrderDetail.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:57:28</publishTime>
     </File>
     <File Include="RecoverAccount.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:57:25</publishTime>
     </File>
     <File Include="SessionBridge.aspx">
-      <publishTime>07/22/2026 20:31:32</publishTime>
+      <publishTime>08/07/2026 19:57:23</publishTime>
     </File>
     <File Include="SignUp.aspx">
-      <publishTime>08/01/2026 19:55:59</publishTime>
+      <publishTime>08/07/2026 19:57:21</publishTime>
     </File>
     <File Include="SmtpSettings.aspx">
-      <publishTime>08/03/2026 14:11:38</publishTime>
+      <publishTime>08/07/2026 19:57:18</publishTime>
     </File>
     <File Include="SweetAlert/sweetalert2.all.min.js">
       <publishTime>07/22/2026 20:31:32</publishTime>
@@ -668,13 +668,13 @@
       <publishTime>07/22/2026 20:31:32</publishTime>
     </File>
     <File Include="Token.aspx">
-      <publishTime>08/01/2026 19:08:33</publishTime>
+      <publishTime>08/07/2026 19:57:03</publishTime>
     </File>
     <File Include="WalletWebhook.ashx">
       <publishTime>07/25/2026 10:23:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/06/2026 17:59:10</publishTime>
+      <publishTime>08/07/2026 21:14:05</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="OFFSIDESHOP.AboutUs" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="OFFSIDESHOP.AboutUs" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
 <!DOCTYPE html>
@@ -315,7 +315,7 @@
                         <div style="background-color: #ffffff !important; border: 1px solid #e0e0e0 !important; border-radius: 12px; padding: 40px; box-shadow: 0px 4px 20px rgba(0,0,0,0.06);">
                             <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; text-transform: uppercase; font-size: 22px;">Our Story</h3>
                             <p style="color: #444444; line-height: 1.8; font-size: 15px; margin-bottom: 0;">
-                                OFFSIDESHOP was born out of pure passion for football jerseys. We understand that a jersey isn't just sports apparel—it represents a historical moment, a legendary comeback, an unrepeatable collective emotion, or a timeless aesthetic masterpiece. Whether you are looking for the latest drop or an impossible-to-find retro classic, we curate the best kits around the globe so you can wear your passion with pride.
+                                OFFSIDESHOP was born out of pure passion for football jerseys. We understand that a jersey isn't just sports apparelâ€”it represents a historical moment, a legendary comeback, an unrepeatable collective emotion, or a timeless aesthetic masterpiece. Whether you are looking for the latest drop or an impossible-to-find retro classic, we curate the best kits around the globe so you can wear your passion with pride.
                             </p>
                         </div>
                     </div>

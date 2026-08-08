@@ -42,6 +42,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.Button btnManageProducts;
 
         /// <summary>
+        /// Control btnManageOrders.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnManageOrders;
+
+        /// <summary>
         /// Control btnManageOffers.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnManageCoupons;
+
+        /// <summary>
+        /// Control btnManageTickets.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnManageTickets;
 
         /// <summary>
         /// Control btnAddLeague.
@@ -204,6 +222,42 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.Button btnCreateUser;
 
         /// <summary>
+        /// Control ddlFilterRole.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFilterRole;
+
+        /// <summary>
+        /// Control ddlFilterDeliveryStatus.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFilterDeliveryStatus;
+
+        /// <summary>
+        /// Control txtSearchUser.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearchUser;
+
+        /// <summary>
+        /// Control btnClearFilters.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnClearFilters;
+
+        /// <summary>
         /// Control gvUsers.
         /// </summary>
         /// <remarks>
@@ -220,6 +274,24 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upModals;
+
+        /// <summary>
+        /// Control phEditUserModal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phEditUserModal;
+
+        /// <summary>
+        /// Control btnCloseEdit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCloseEdit;
 
         /// <summary>
         /// Control hfEditUserId.
@@ -274,6 +346,24 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdateUser;
+
+        /// <summary>
+        /// Control phPermissionsModal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phPermissionsModal;
+
+        /// <summary>
+        /// Control btnClosePerms.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnClosePerms;
 
         /// <summary>
         /// Control hfPermUserId.
@@ -346,41 +436,5 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSavePermissions;
-
-        /// <summary>
-        /// Control phEditUserModal.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phEditUserModal;
-
-        /// <summary>
-        /// Control btnCloseEdit.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCloseEdit;
-
-        /// <summary>
-        /// Control phPermissionsModal.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phPermissionsModal;
-
-        /// <summary>
-        /// Control btnClosePerms.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnClosePerms;
     }
 }

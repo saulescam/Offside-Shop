@@ -387,7 +387,6 @@ C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\bin\System.Buffers.x
 C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\bin\System.Memory.xml
 C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\bin\System.Numerics.Vectors.xml
 C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\bin\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\obj\Debug\OFFSIDES.C318919F.Up2Date
 C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\bin\Newtonsoft.Json.dll
 C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\bin\Newtonsoft.Json.xml
 C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\bin\itext.barcodes.dll
@@ -736,3 +735,4 @@ C:\Users\Docente\Desktop\Offside-Shop - copia (2)\OFFSIDESHOP\obj\Debug\OFFSIDES
 C:\Users\Docente\Desktop\Offside-Shop - copia (2)\OFFSIDESHOP\obj\Debug\OFFSIDES.C318919F.Up2Date
 C:\Users\Docente\Desktop\Offside-Shop - copia (2)\OFFSIDESHOP\obj\Debug\OFFSIDESHOP.dll
 C:\Users\Docente\Desktop\Offside-Shop - copia (2)\OFFSIDESHOP\obj\Debug\OFFSIDESHOP.pdb
+C:\Users\diego\OneDrive\Escritorio\Offside-Shop\OFFSIDESHOP\obj\Debug\OFFSIDES.C318919F.Up2Date

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
 		Microsoft ResX Schema
 
 		Version 1.3
@@ -58,882 +58,2106 @@
 			: using a System.ComponentModel.TypeConverter
 			: and then encoded with base64 encoding.
 	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<!-- BARRA DE NAVEGACION -->
-	<data name="Nav_Login" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- BARRA DE NAVEGACION -->
+  <data name="Nav_Login" xml:space="preserve">
     <value>Log in</value>
   </data>
-	<data name="Nav_SignUp" xml:space="preserve">
+  <data name="Nav_SignUp" xml:space="preserve">
     <value>Sign up</value>
   </data>
-	<data name="Nav_MyAccount" xml:space="preserve">
+  <data name="Nav_MyAccount" xml:space="preserve">
     <value>My Account</value>
   </data>
-	<data name="Nav_MyOrders" xml:space="preserve">
+  <data name="Nav_MyOrders" xml:space="preserve">
     <value>My Orders</value>
   </data>
-	<data name="Nav_LogOut" xml:space="preserve">
+  <data name="Nav_LogOut" xml:space="preserve">
     <value>Log out</value>
   </data>
-	<data name="Nav_AdminRole" xml:space="preserve">
+  <data name="Nav_AdminRole" xml:space="preserve">
     <value>Administrator</value>
   </data>
-	<data name="Nav_Dashboard" xml:space="preserve">
+  <data name="Nav_Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
-
-	<!-- BARRA DE BUSQUEDA Y FILTROS SUPERIORES -->
-	<data name="Search_MobileBtn" xml:space="preserve">
+  <!-- BARRA DE BUSQUEDA Y FILTROS SUPERIORES -->
+  <data name="Search_MobileBtn" xml:space="preserve">
     <value>Filters &amp; Search</value>
   </data>
-	<data name="Search_Label" xml:space="preserve">
+  <data name="Search_Label" xml:space="preserve">
     <value>Search</value>
   </data>
-	<data name="Search_Placeholder" xml:space="preserve">
+  <data name="Search_Placeholder" xml:space="preserve">
     <value>Search by team, brand, year...</value>
   </data>
-	<data name="Search_LeagueLabel" xml:space="preserve">
+  <data name="Search_LeagueLabel" xml:space="preserve">
     <value>League</value>
   </data>
-	<data name="Search_BrandLabel" xml:space="preserve">
+  <data name="Search_BrandLabel" xml:space="preserve">
     <value>Brand</value>
   </data>
-	<data name="Search_KitLabel" xml:space="preserve">
+  <data name="Search_KitLabel" xml:space="preserve">
     <value>Type of KIT</value>
   </data>
-	<data name="Search_KitAny" xml:space="preserve">
+  <data name="Search_KitAny" xml:space="preserve">
     <value>Any Kit</value>
   </data>
-	<data name="Search_Btn" xml:space="preserve">
+  <data name="Search_Btn" xml:space="preserve">
     <value>Search</value>
   </data>
-
-	<!-- TITULOS DE SECCIONES Y TARJETAS -->
-	<data name="Section_Leagues" xml:space="preserve">
+  <!-- TITULOS DE SECCIONES Y TARJETAS -->
+  <data name="Section_Leagues" xml:space="preserve">
     <value>Leagues</value>
   </data>
-	<data name="Section_Collections" xml:space="preserve">
+  <data name="Section_Collections" xml:space="preserve">
     <value>Collections</value>
   </data>
-	<data name="Section_TopSelling" xml:space="preserve">
+  <data name="Section_TopSelling" xml:space="preserve">
     <value>Top Selling</value>
   </data>
-	<data name="Section_NewJerseys" xml:space="preserve">
+  <data name="Section_NewJerseys" xml:space="preserve">
     <value>New Jerseys</value>
   </data>
-	<data name="Section_SeeMore" xml:space="preserve">
+  <data name="Section_SeeMore" xml:space="preserve">
     <value>See more</value>
   </data>
-	<data name="Card_Sale" xml:space="preserve">
+  <data name="Card_Sale" xml:space="preserve">
     <value>SALE</value>
   </data>
-	<data name="Card_Print" xml:space="preserve">
+  <data name="Card_Print" xml:space="preserve">
     <value>PRINT</value>
   </data>
-	<data name="Card_BestSeller" xml:space="preserve">
+  <data name="Card_BestSeller" xml:space="preserve">
     <value>BEST SELLER</value>
   </data>
-	<data name="Card_New" xml:space="preserve">
+  <data name="Card_New" xml:space="preserve">
     <value>NEW</value>
   </data>
-	<data name="Card_Sizes" xml:space="preserve">
+  <data name="Card_Sizes" xml:space="preserve">
     <value>Sizes:</value>
   </data>
-	<data name="Card_BuyBtn" xml:space="preserve">
+  <data name="Card_BuyBtn" xml:space="preserve">
     <value>Buy</value>
   </data>
-	<data name="Card_ShopNow" xml:space="preserve">
+  <data name="Card_ShopNow" xml:space="preserve">
     <value>Shop Now</value>
   </data>
-	<data name="Card_ViewDetails" xml:space="preserve">
+  <data name="Card_ViewDetails" xml:space="preserve">
     <value>View Details</value>
   </data>
-
-	<!-- FILTROS LATERALES -->
-	<data name="Sidebar_Title" xml:space="preserve">
+  <!-- FILTROS LATERALES -->
+  <data name="Sidebar_Title" xml:space="preserve">
     <value>Filter Catalog</value>
   </data>
-	<data name="Sidebar_Price" xml:space="preserve">
+  <data name="Sidebar_Price" xml:space="preserve">
     <value>Price Range</value>
   </data>
-	<data name="Sidebar_PriceAll" xml:space="preserve">
+  <data name="Sidebar_PriceAll" xml:space="preserve">
     <value>All Prices</value>
   </data>
-	<data name="Sidebar_PriceUnder50" xml:space="preserve">
+  <data name="Sidebar_PriceUnder50" xml:space="preserve">
     <value>Under $50</value>
   </data>
-	<data name="Sidebar_PriceOver150" xml:space="preserve">
+  <data name="Sidebar_PriceOver150" xml:space="preserve">
     <value>Over $150</value>
   </data>
-	<data name="Sidebar_Sizes" xml:space="preserve">
+  <data name="Sidebar_Sizes" xml:space="preserve">
     <value>Available Sizes</value>
   </data>
-	<data name="Sidebar_Competition" xml:space="preserve">
+  <data name="Sidebar_Competition" xml:space="preserve">
     <value>Competition / League</value>
   </data>
-	<data name="Sidebar_Team" xml:space="preserve">
+  <data name="Sidebar_Team" xml:space="preserve">
     <value>Club / Team</value>
   </data>
-	<data name="Sidebar_PromoSale" xml:space="preserve">
+  <data name="Sidebar_PromoSale" xml:space="preserve">
     <value>Special Offers / Sale</value>
   </data>
-	<data name="Sidebar_PromoPrint" xml:space="preserve">
+  <data name="Sidebar_PromoPrint" xml:space="preserve">
     <value>Supports Custom Print</value>
   </data>
-	<data name="Sidebar_BtnFilter" xml:space="preserve">
+  <data name="Sidebar_BtnFilter" xml:space="preserve">
     <value>FILTER BY</value>
   </data>
-
-	<!-- PAGINACION Y RESULTADOS -->
-	<data name="Results_MainTitle" xml:space="preserve">
+  <!-- PAGINACION Y RESULTADOS -->
+  <data name="Results_MainTitle" xml:space="preserve">
     <value>Search Results View</value>
   </data>
-	<data name="Results_FoundCount" xml:space="preserve">
+  <data name="Results_FoundCount" xml:space="preserve">
     <value>Products Found</value>
   </data>
-	<data name="Results_EmptyTitle" xml:space="preserve">
+  <data name="Results_EmptyTitle" xml:space="preserve">
     <value>No shirts matched your selected combination.</value>
   </data>
-	<data name="Results_EmptySub" xml:space="preserve">
+  <data name="Results_EmptySub" xml:space="preserve">
     <value>Try adjusting your filters or search keywords in the sidebar panel.</value>
   </data>
-	<data name="Pager_Prev" xml:space="preserve">
+  <data name="Pager_Prev" xml:space="preserve">
     <value>Previous</value>
   </data>
-	<data name="Pager_Next" xml:space="preserve">
+  <data name="Pager_Next" xml:space="preserve">
     <value>Next</value>
   </data>
-	<data name="Pager_Page" xml:space="preserve">
+  <data name="Pager_Page" xml:space="preserve">
     <value>Page</value>
   </data>
-	<data name="Pager_Of" xml:space="preserve">
+  <data name="Pager_Of" xml:space="preserve">
     <value>of</value>
   </data>
-	<!-- DETALLES DEL PRODUCTO -->
-	<data name="Nav_BackToShop" xml:space="preserve">
+  <!-- DETALLES DEL PRODUCTO -->
+  <data name="Nav_BackToShop" xml:space="preserve">
     <value>Back to Shop</value>
   </data>
-	<data name="Detail_Team" xml:space="preserve">
+  <data name="Detail_Team" xml:space="preserve">
     <value>Team:</value>
   </data>
-	<data name="Detail_Year" xml:space="preserve">
+  <data name="Detail_Year" xml:space="preserve">
     <value>Year:</value>
   </data>
-	<data name="Detail_SelectSize" xml:space="preserve">
+  <data name="Detail_SelectSize" xml:space="preserve">
     <value>Select Size:</value>
   </data>
-	<data name="Detail_SizeGuide" xml:space="preserve">
+  <data name="Detail_SizeGuide" xml:space="preserve">
     <value>Size Guide</value>
   </data>
-	<data name="Detail_SelectQuantity" xml:space="preserve">
+  <data name="Detail_SelectQuantity" xml:space="preserve">
     <value>Select Quantity:</value>
   </data>
-	<data name="Detail_CustomPrompt" xml:space="preserve">
+  <data name="Detail_CustomPrompt" xml:space="preserve">
     <value>Do you want to customize your T-shirt?</value>
   </data>
-	<data name="Detail_CustomPriceInfo" xml:space="preserve">
+  <data name="Detail_CustomPriceInfo" xml:space="preserve">
     <value>Get your favorite name and number printed for just</value>
   </data>
-	<data name="Detail_CustomName" xml:space="preserve">
+  <data name="Detail_CustomName" xml:space="preserve">
     <value>Name (Max. 12 letters)</value>
   </data>
-	<data name="Detail_CustomNumber" xml:space="preserve">
+  <data name="Detail_CustomNumber" xml:space="preserve">
     <value>Number</value>
   </data>
-	<data name="Detail_CustomWarning" xml:space="preserve">
+  <data name="Detail_CustomWarning" xml:space="preserve">
     <value>Only uppercase alphanumeric characters are allowed.</value>
   </data>
-	<data name="Detail_AddToCart" xml:space="preserve">
+  <data name="Detail_AddToCart" xml:space="preserve">
     <value>Add to Cart</value>
   </data>
-
-	<!-- PESTAÑAS Y RESEÑAS -->
-	<data name="Tab_Similar" xml:space="preserve">
+  <!-- PESTAÃ‘AS Y RESEÃ‘AS -->
+  <data name="Tab_Similar" xml:space="preserve">
     <value>You Might Also Like</value>
   </data>
-	<data name="Tab_Reviews" xml:space="preserve">
+  <data name="Tab_Reviews" xml:space="preserve">
     <value>Product Reviews</value>
   </data>
-	<data name="Review_LeaveTitle" xml:space="preserve">
+  <data name="Review_LeaveTitle" xml:space="preserve">
     <value>Leave a Review</value>
   </data>
-	<data name="Review_Rating" xml:space="preserve">
+  <data name="Review_Rating" xml:space="preserve">
     <value>Rating</value>
   </data>
-	<data name="Review_CommentLabel" xml:space="preserve">
+  <data name="Review_CommentLabel" xml:space="preserve">
     <value>Your Comment</value>
   </data>
-	<data name="Review_CommentPlaceholder" xml:space="preserve">
+  <data name="Review_CommentPlaceholder" xml:space="preserve">
     <value>Share your thoughts about this jersey...</value>
   </data>
-	<data name="Review_SubmitBtn" xml:space="preserve">
+  <data name="Review_SubmitBtn" xml:space="preserve">
     <value>Submit Review</value>
   </data>
-	<data name="Review_MustPurchase" xml:space="preserve">
+  <data name="Review_MustPurchase" xml:space="preserve">
     <value>You must purchase this shirt before leaving a review.</value>
   </data>
-	<data name="Review_NoReviews" xml:space="preserve">
+  <data name="Review_NoReviews" xml:space="preserve">
     <value>There are no reviews for this shirt</value>
   </data>
-	<data name="Review_DeleteBtn" xml:space="preserve">
+  <data name="Review_DeleteBtn" xml:space="preserve">
     <value>Delete</value>
   </data>
-	<data name="Review_DeleteConfirm" xml:space="preserve">
+  <data name="Review_DeleteConfirm" xml:space="preserve">
     <value>Are you sure you want to delete this review?</value>
   </data>
-	<data name="Review_ReplyPlaceholder" xml:space="preserve">
+  <data name="Review_ReplyPlaceholder" xml:space="preserve">
     <value>Write an official reply...</value>
   </data>
-	<data name="Review_ReplyBtn" xml:space="preserve">
+  <data name="Review_ReplyBtn" xml:space="preserve">
     <value>Reply</value>
   </data>
-	<data name="Review_OfficialReply" xml:space="preserve">
+  <data name="Review_OfficialReply" xml:space="preserve">
     <value>Official Reply</value>
   </data>
-
-	<!-- MODAL DE GUIA DE TALLAS -->
-	<data name="Modal_SizeGuideDesc" xml:space="preserve">
+  <!-- MODAL DE GUIA DE TALLAS -->
+  <data name="Modal_SizeGuideDesc" xml:space="preserve">
     <value>Measurements are shown in centimeters (cm). These are standard fan-version measurements. Please allow a slight variance due to manufacturing.</value>
   </data>
-	<data name="Modal_TableHeaderSize" xml:space="preserve">
+  <data name="Modal_TableHeaderSize" xml:space="preserve">
     <value>Size</value>
   </data>
-	<data name="Modal_TableHeaderChest" xml:space="preserve">
+  <data name="Modal_TableHeaderChest" xml:space="preserve">
     <value>Chest (cm)</value>
   </data>
-	<data name="Modal_TableHeaderLength" xml:space="preserve">
+  <data name="Modal_TableHeaderLength" xml:space="preserve">
     <value>Length (cm)</value>
   </data>
-	<!-- CARRITO DE COMPRAS (CART) -->
-	<data name="Cart_MainTitle" xml:space="preserve">
+  <!-- CARRITO DE COMPRAS (CART) -->
+  <data name="Cart_MainTitle" xml:space="preserve">
     <value>Your Shopping Cart</value>
   </data>
-	<data name="Cart_HeaderImage" xml:space="preserve">
+  <data name="Cart_HeaderImage" xml:space="preserve">
     <value>Image</value>
   </data>
-	<data name="Cart_HeaderTShirt" xml:space="preserve">
+  <data name="Cart_HeaderTShirt" xml:space="preserve">
     <value>T-Shirt</value>
   </data>
-	<data name="Cart_HeaderSize" xml:space="preserve">
+  <data name="Cart_HeaderSize" xml:space="preserve">
     <value>Size</value>
   </data>
-	<data name="Cart_HeaderPrice" xml:space="preserve">
+  <data name="Cart_HeaderPrice" xml:space="preserve">
     <value>Unitary Price</value>
   </data>
-	<data name="Cart_HeaderQuantity" xml:space="preserve">
+  <data name="Cart_HeaderQuantity" xml:space="preserve">
     <value>Quantity</value>
   </data>
-	<data name="Cart_HeaderSubtotal" xml:space="preserve">
+  <data name="Cart_HeaderSubtotal" xml:space="preserve">
     <value>Subtotal</value>
   </data>
-	<data name="Cart_BtnRemove" xml:space="preserve">
+  <data name="Cart_BtnRemove" xml:space="preserve">
     <value>Remove</value>
   </data>
-	<data name="Cart_BtnContinue" xml:space="preserve">
+  <data name="Cart_BtnContinue" xml:space="preserve">
     <value>Continue Shopping</value>
   </data>
-	<data name="Cart_TotalToPay" xml:space="preserve">
+  <data name="Cart_TotalToPay" xml:space="preserve">
     <value>Total to pay:</value>
   </data>
-	<data name="Cart_BtnCheckout" xml:space="preserve">
+  <data name="Cart_BtnCheckout" xml:space="preserve">
     <value>Proceed to Checkout</value>
   </data>
-
-	<!-- PASARELA DE PAGO (CHECKOUT) - FACTURACION -->
-	<data name="Checkout_BillingTitle" xml:space="preserve">
+  <!-- PASARELA DE PAGO (CHECKOUT) - FACTURACION -->
+  <data name="Checkout_BillingTitle" xml:space="preserve">
     <value>Billing address</value>
   </data>
-	<data name="Checkout_FirstName" xml:space="preserve">
+  <data name="Checkout_FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
-	<data name="Checkout_LastName" xml:space="preserve">
+  <data name="Checkout_LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
-	<data name="Checkout_Email" xml:space="preserve">
+  <data name="Checkout_Email" xml:space="preserve">
     <value>Email</value>
   </data>
-	<data name="Checkout_Address" xml:space="preserve">
+  <data name="Checkout_Address" xml:space="preserve">
     <value>Address</value>
   </data>
-	<data name="Checkout_Department" xml:space="preserve">
+  <data name="Checkout_Department" xml:space="preserve">
     <value>Department</value>
   </data>
-	<data name="Checkout_Municipality" xml:space="preserve">
+  <data name="Checkout_Municipality" xml:space="preserve">
     <value>Municipality</value>
   </data>
-	<data name="Checkout_District" xml:space="preserve">
+  <data name="Checkout_District" xml:space="preserve">
     <value>District / Town</value>
   </data>
-	<data name="Checkout_OrderNotes" xml:space="preserve">
+  <data name="Checkout_OrderNotes" xml:space="preserve">
     <value>Order Notes (Optional)</value>
   </data>
-
-	<!-- PASARELA DE PAGO (CHECKOUT) - MAPA INTERACTIVO -->
-	<data name="Checkout_ConfirmLocation" xml:space="preserve">
+  <!-- PASARELA DE PAGO (CHECKOUT) - MAPA INTERACTIVO -->
+  <data name="Checkout_ConfirmLocation" xml:space="preserve">
     <value>Confirm Delivery Location</value>
   </data>
-	<data name="Checkout_SearchMapPlaceholder" xml:space="preserve">
+  <data name="Checkout_SearchMapPlaceholder" xml:space="preserve">
     <value>Search an address or place...</value>
   </data>
-	<data name="Checkout_LoadingMap" xml:space="preserve">
+  <data name="Checkout_LoadingMap" xml:space="preserve">
     <value>Loading interactive map...</value>
   </data>
-	<data name="Checkout_MapInstructions" xml:space="preserve">
+  <data name="Checkout_MapInstructions" xml:space="preserve">
     <value>Click the map or drag the pin to confirm the exact delivery location.</value>
   </data>
-
-	<!-- PASARELA DE PAGO (CHECKOUT) - RESUMEN DE ORDEN Y PAGOS -->
-	<data name="Checkout_YourOrderTitle" xml:space="preserve">
+  <!-- PASARELA DE PAGO (CHECKOUT) - RESUMEN DE ORDEN Y PAGOS -->
+  <data name="Checkout_YourOrderTitle" xml:space="preserve">
     <value>Your Order</value>
   </data>
-	<data name="Checkout_HeaderProduct" xml:space="preserve">
+  <data name="Checkout_HeaderProduct" xml:space="preserve">
     <value>PRODUCT</value>
   </data>
-	<data name="Checkout_HeaderTotal" xml:space="preserve">
+  <data name="Checkout_HeaderTotal" xml:space="preserve">
     <value>TOTAL</value>
   </data>
-	<data name="Checkout_DiscountApplied" xml:space="preserve">
+  <data name="Checkout_DiscountApplied" xml:space="preserve">
     <value>Discount Applied</value>
   </data>
-	<data name="Checkout_Shipping" xml:space="preserve">
+  <data name="Checkout_Shipping" xml:space="preserve">
     <value>Shipping</value>
   </data>
-	<data name="Checkout_HaveCoupon" xml:space="preserve">
+  <data name="Checkout_HaveCoupon" xml:space="preserve">
     <value>Have a coupon code?</value>
   </data>
-	<data name="Checkout_ApplyCoupon" xml:space="preserve">
+  <data name="Checkout_ApplyCoupon" xml:space="preserve">
     <value>Apply</value>
   </data>
-	<data name="Checkout_PayCash" xml:space="preserve">
+  <data name="Checkout_PayCash" xml:space="preserve">
     <value>Cash on Delivery</value>
   </data>
-	<data name="Checkout_PayCashDesc" xml:space="preserve">
+  <data name="Checkout_PayCashDesc" xml:space="preserve">
     <value>Pay with cash upon delivery at your doorstep. Please try to have the exact amount ready.</value>
   </data>
-	<data name="Checkout_PayPaypal" xml:space="preserve">
+  <data name="Checkout_PayPaypal" xml:space="preserve">
     <value>Paypal System</value>
   </data>
-	<data name="Checkout_PayPaypalDesc" xml:space="preserve">
+  <data name="Checkout_PayPaypalDesc" xml:space="preserve">
     <value>Pay safely via PayPal using your credit card, debit card, or PayPal balance. You will be redirected to the secure gateway to complete your transaction.</value>
   </data>
-	<data name="Checkout_PayWallet" xml:space="preserve">
+  <data name="Checkout_PayWallet" xml:space="preserve">
     <value>Virtual Wallet</value>
   </data>
-	<data name="Checkout_PayWalletDesc" xml:space="preserve">
+  <data name="Checkout_PayWalletDesc" xml:space="preserve">
     <value>Use your Virtual Wallet account to pay safely.</value>
   </data>
-	<data name="Checkout_TermsText1" xml:space="preserve">
+  <data name="Checkout_TermsText1" xml:space="preserve">
     <value>I've read and accept the </value>
   </data>
-	<data name="Checkout_TermsText2" xml:space="preserve">
+  <data name="Checkout_TermsText2" xml:space="preserve">
     <value>terms &amp; conditions</value>
   </data>
-	<data name="Checkout_PlaceOrder" xml:space="preserve">
+  <data name="Checkout_PlaceOrder" xml:space="preserve">
     <value>Place Order</value>
   </data>
-	<!-- MI CUENTA (MY ACCOUNT) -->
-	<data name="Account_MainTitle" xml:space="preserve">
+  <!-- MI CUENTA (MY ACCOUNT) -->
+  <data name="Account_MainTitle" xml:space="preserve">
     <value>My Account</value>
   </data>
-
-	<!-- INFORMACION PERSONAL -->
-	<data name="Account_PersonalInfo" xml:space="preserve">
+  <!-- INFORMACION PERSONAL -->
+  <data name="Account_PersonalInfo" xml:space="preserve">
     <value>Personal Information</value>
   </data>
-	<data name="Account_FirstName" xml:space="preserve">
+  <data name="Account_FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
-	<data name="Account_LastName" xml:space="preserve">
+  <data name="Account_LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
-	<data name="Account_Username" xml:space="preserve">
+  <data name="Account_Username" xml:space="preserve">
     <value>Username</value>
   </data>
-	<data name="Account_EmailAddress" xml:space="preserve">
+  <data name="Account_EmailAddress" xml:space="preserve">
     <value>Email Address</value>
   </data>
-	<data name="Account_EmailWarning" xml:space="preserve">
+  <data name="Account_EmailWarning" xml:space="preserve">
     <value>The email cannot be modified.</value>
   </data>
-	<data name="Account_PhoneNumber" xml:space="preserve">
+  <data name="Account_PhoneNumber" xml:space="preserve">
     <value>Phone Number</value>
   </data>
-	<data name="Account_ShippingAddress" xml:space="preserve">
+  <data name="Account_ShippingAddress" xml:space="preserve">
     <value>Shipping Address</value>
   </data>
-	<data name="Account_AddressPlaceholder" xml:space="preserve">
+  <data name="Account_AddressPlaceholder" xml:space="preserve">
     <value>Enter your full street address, apartment, city, and zip code...</value>
   </data>
-
-	<!-- MAPA DE CUENTA -->
-	<data name="Account_DefaultLocation" xml:space="preserve">
+  <!-- MAPA DE CUENTA -->
+  <data name="Account_DefaultLocation" xml:space="preserve">
     <value>Default Delivery Location</value>
   </data>
-	<data name="Account_MapInstructions" xml:space="preserve">
+  <data name="Account_MapInstructions" xml:space="preserve">
     <value>Drag the pin to your exact home location.</value>
   </data>
-
-	<!-- ACCIONES PRINCIPALES -->
-	<data name="Account_SaveChanges" xml:space="preserve">
+  <!-- ACCIONES PRINCIPALES -->
+  <data name="Account_SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
   </data>
-	<data name="Account_BackHome" xml:space="preserve">
+  <data name="Account_BackHome" xml:space="preserve">
     <value>Back to Homepage</value>
   </data>
-
-	<!-- SEGURIDAD Y CONTRASEÑA -->
-	<data name="Account_SecurityTitle" xml:space="preserve">
+  <!-- SEGURIDAD Y CONTRASEÃ‘A -->
+  <data name="Account_SecurityTitle" xml:space="preserve">
     <value>Security &amp; Password</value>
   </data>
-	<data name="Account_PasswordLabel" xml:space="preserve">
+  <data name="Account_PasswordLabel" xml:space="preserve">
     <value>Password</value>
   </data>
-	<data name="Account_ChangePasswordBtn" xml:space="preserve">
+  <data name="Account_ChangePasswordBtn" xml:space="preserve">
     <value>Change Password</value>
   </data>
-	<data name="Account_CurrentPassword" xml:space="preserve">
+  <data name="Account_CurrentPassword" xml:space="preserve">
     <value>Current Password</value>
   </data>
-	<data name="Account_NewPassword" xml:space="preserve">
+  <data name="Account_NewPassword" xml:space="preserve">
     <value>New Password</value>
   </data>
-	<data name="Account_ConfirmPassword" xml:space="preserve">
+  <data name="Account_ConfirmPassword" xml:space="preserve">
     <value>Confirm New Password</value>
   </data>
-	<data name="Account_ForgotPassword" xml:space="preserve">
+  <data name="Account_ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
-	<data name="Account_Cancel" xml:space="preserve">
+  <data name="Account_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-	<data name="Account_UpdatePasswordBtn" xml:space="preserve">
+  <data name="Account_UpdatePasswordBtn" xml:space="preserve">
     <value>Update Password</value>
   </data>
-	<!-- AUTENTICACION: LOGIN -->
-	<data name="Auth_LoginTitle" xml:space="preserve">
+  <!-- AUTENTICACION: LOGIN -->
+  <data name="Auth_LoginTitle" xml:space="preserve">
     <value>Log in</value>
   </data>
-	<data name="Auth_LoginSub" xml:space="preserve">
+  <data name="Auth_LoginSub" xml:space="preserve">
     <value>Welcome back! Please enter your details.</value>
   </data>
-	<data name="Auth_UserEmail" xml:space="preserve">
+  <data name="Auth_UserEmail" xml:space="preserve">
     <value>User or Email *</value>
   </data>
-	<data name="Auth_Password" xml:space="preserve">
+  <data name="Auth_Password" xml:space="preserve">
     <value>Password *</value>
   </data>
-	<data name="Auth_ValUser" xml:space="preserve">
+  <data name="Auth_ValUser" xml:space="preserve">
     <value>Enter your user.</value>
   </data>
-	<data name="Auth_ValPass" xml:space="preserve">
+  <data name="Auth_ValPass" xml:space="preserve">
     <value>Please enter your password.</value>
   </data>
-	<data name="Auth_ForgotPass" xml:space="preserve">
+  <data name="Auth_ForgotPass" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
-	<data name="Auth_BtnLogin" xml:space="preserve">
+  <data name="Auth_BtnLogin" xml:space="preserve">
     <value>Log in</value>
   </data>
-	<data name="Auth_GoogleLogin" xml:space="preserve">
+  <data name="Auth_GoogleLogin" xml:space="preserve">
     <value>Continue with Google</value>
   </data>
-	<data name="Auth_NoAccount" xml:space="preserve">
+  <data name="Auth_NoAccount" xml:space="preserve">
     <value>Do not have an account?</value>
   </data>
-	<data name="Auth_LinkSignUp" xml:space="preserve">
+  <data name="Auth_LinkSignUp" xml:space="preserve">
     <value>Sign up</value>
   </data>
-
-	<!-- AUTENTICACION: REGISTRO (SIGN UP) -->
-	<data name="Auth_SignUpTitle" xml:space="preserve">
+  <!-- AUTENTICACION: REGISTRO (SIGN UP) -->
+  <data name="Auth_SignUpTitle" xml:space="preserve">
     <value>Create an account</value>
   </data>
-	<data name="Auth_SignUpSub" xml:space="preserve">
+  <data name="Auth_SignUpSub" xml:space="preserve">
     <value>Buy the best football shirts of all time.</value>
   </data>
-	<data name="Auth_FirstName" xml:space="preserve">
+  <data name="Auth_FirstName" xml:space="preserve">
     <value>First Name *</value>
   </data>
-	<data name="Auth_LastName" xml:space="preserve">
+  <data name="Auth_LastName" xml:space="preserve">
     <value>Last Name *</value>
   </data>
-	<data name="Auth_Username" xml:space="preserve">
+  <data name="Auth_Username" xml:space="preserve">
     <value>Username *</value>
   </data>
-	<data name="Auth_Email" xml:space="preserve">
+  <data name="Auth_Email" xml:space="preserve">
     <value>Email *</value>
   </data>
-	<data name="Auth_ConfirmPass" xml:space="preserve">
+  <data name="Auth_ConfirmPass" xml:space="preserve">
     <value>Confirm Password *</value>
   </data>
-	<data name="Auth_BtnSignUp" xml:space="preserve">
+  <data name="Auth_BtnSignUp" xml:space="preserve">
     <value>Create account</value>
   </data>
-	<data name="Auth_GoogleSignUp" xml:space="preserve">
+  <data name="Auth_GoogleSignUp" xml:space="preserve">
     <value>Sign up with Google</value>
   </data>
-	<data name="Auth_HaveAccount" xml:space="preserve">
+  <data name="Auth_HaveAccount" xml:space="preserve">
     <value>Already have an account?</value>
   </data>
-	<data name="Auth_LinkLogin" xml:space="preserve">
+  <data name="Auth_LinkLogin" xml:space="preserve">
     <value>Log in</value>
   </data>
-
-	<!-- AUTENTICACION: VERIFICAR EMAIL (Panel SignUp) -->
-	<data name="Auth_VerifyEmailTitle" xml:space="preserve">
+  <!-- AUTENTICACION: VERIFICAR EMAIL (Panel SignUp) -->
+  <data name="Auth_VerifyEmailTitle" xml:space="preserve">
     <value>Verify Email</value>
   </data>
-	<data name="Auth_VerifyEmailSub1" xml:space="preserve">
+  <data name="Auth_VerifyEmailSub1" xml:space="preserve">
     <value>We've sent a 6-digit code to</value>
   </data>
-	<data name="Auth_VerifyEmailSub2" xml:space="preserve">
+  <data name="Auth_VerifyEmailSub2" xml:space="preserve">
     <value>Please check your inbox (and spam folder) and enter the code below to activate your account.</value>
   </data>
-	<data name="Auth_BtnCompleteReg" xml:space="preserve">
+  <data name="Auth_BtnCompleteReg" xml:space="preserve">
     <value>Complete Registration</value>
   </data>
-	<data name="Auth_DiffEmail" xml:space="preserve">
+  <data name="Auth_DiffEmail" xml:space="preserve">
     <value>Use a different email</value>
   </data>
-
-	<!-- AUTENTICACION: TOKEN (Independiente) -->
-	<data name="Auth_TokenTitle" xml:space="preserve">
+  <!-- AUTENTICACION: TOKEN (Independiente) -->
+  <data name="Auth_TokenTitle" xml:space="preserve">
     <value>VERIFY TOKEN</value>
   </data>
-	<data name="Auth_TokenSub" xml:space="preserve">
+  <data name="Auth_TokenSub" xml:space="preserve">
     <value>Enter the code sent to your email</value>
   </data>
-	<data name="Auth_TokenInput" xml:space="preserve">
+  <data name="Auth_TokenInput" xml:space="preserve">
     <value>Verification Token *</value>
   </data>
-	<data name="Auth_ValToken" xml:space="preserve">
+  <data name="Auth_ValToken" xml:space="preserve">
     <value>Please enter your token.</value>
   </data>
-	<data name="Auth_BtnVerify" xml:space="preserve">
+  <data name="Auth_BtnVerify" xml:space="preserve">
     <value>Verify Token</value>
   </data>
-	<data name="Auth_BackLogin" xml:space="preserve">
+  <data name="Auth_BackLogin" xml:space="preserve">
     <value>Back to Login</value>
   </data>
-
-	<!-- AUTENTICACION: RECUPERAR CUENTA -->
-	<data name="Auth_RecoverTitle" xml:space="preserve">
+  <!-- AUTENTICACION: RECUPERAR CUENTA -->
+  <data name="Auth_RecoverTitle" xml:space="preserve">
     <value>RECOVER</value>
   </data>
-	<data name="Auth_RecoverSub" xml:space="preserve">
+  <data name="Auth_RecoverSub" xml:space="preserve">
     <value>No problem. Enter your username or email and we'll help you recover it.</value>
   </data>
-	<data name="Auth_RecoverInput" xml:space="preserve">
+  <data name="Auth_RecoverInput" xml:space="preserve">
     <value>Username or Email *</value>
   </data>
-	<data name="Auth_BtnRecover" xml:space="preserve">
+  <data name="Auth_BtnRecover" xml:space="preserve">
     <value>Recovery</value>
   </data>
-	<data name="Auth_Remembered" xml:space="preserve">
+  <data name="Auth_Remembered" xml:space="preserve">
     <value>Already remembered?</value>
   </data>
-
-	<!-- AUTENTICACION: CAMBIAR CONTRASEÑA EXACTO -->
-	<data name="Auth_ChangePassTitle" xml:space="preserve">
+  <!-- AUTENTICACION: CAMBIAR CONTRASEÃ‘A EXACTO -->
+  <data name="Auth_ChangePassTitle" xml:space="preserve">
     <value>CHANGE PASSWORD</value>
   </data>
-	<data name="Auth_ChangePassSub" xml:space="preserve">
+  <data name="Auth_ChangePassSub" xml:space="preserve">
     <value>Enter your new password</value>
   </data>
-	<data name="Auth_NewPassInput" xml:space="preserve">
+  <data name="Auth_NewPassInput" xml:space="preserve">
     <value>New Password *</value>
   </data>
-	<data name="Auth_ValNewPass" xml:space="preserve">
+  <data name="Auth_ValNewPass" xml:space="preserve">
     <value>Please enter your new password.</value>
   </data>
-	<data name="Auth_ConfirmPassInput" xml:space="preserve">
+  <data name="Auth_ConfirmPassInput" xml:space="preserve">
     <value>Confirm Password *</value>
   </data>
-	<data name="Auth_ValConfirmPass" xml:space="preserve">
+  <data name="Auth_ValConfirmPass" xml:space="preserve">
     <value>Please confirm your password.</value>
   </data>
-	<data name="Auth_BtnChangePass" xml:space="preserve">
+  <data name="Auth_BtnChangePass" xml:space="preserve">
     <value>Change Password</value>
   </data>
-	<data name="Auth_BackLogin" xml:space="preserve">
+  <data name="Auth_BackLogin" xml:space="preserve">
     <value>Back to Login</value>
   </data>
-	<!-- SOPORTE (CONTACT SUPPORT) -->
-	<data name="Contact_Title" xml:space="preserve">
+  <!-- SOPORTE (CONTACT SUPPORT) -->
+  <data name="Contact_Title" xml:space="preserve">
     <value>Submit a request</value>
   </data>
-	<data name="Contact_HelpWith" xml:space="preserve">
+  <data name="Contact_HelpWith" xml:space="preserve">
     <value>What do you need help with?</value>
   </data>
-	<data name="Contact_HelpDesc" xml:space="preserve">
+  <data name="Contact_HelpDesc" xml:space="preserve">
     <value>Please select your issue below to show the relevant fields.</value>
   </data>
-	<data name="Contact_EmailLabel" xml:space="preserve">
+  <data name="Contact_EmailLabel" xml:space="preserve">
     <value>Your email address</value>
   </data>
-	<data name="Contact_EmailPlaceholder" xml:space="preserve">
+  <data name="Contact_EmailPlaceholder" xml:space="preserve">
     <value>Please log in to auto-fill your email</value>
   </data>
-	<data name="Contact_Subject" xml:space="preserve">
+  <data name="Contact_Subject" xml:space="preserve">
     <value>Subject</value>
   </data>
-	<data name="Contact_OrderId" xml:space="preserve">
+  <data name="Contact_OrderId" xml:space="preserve">
     <value>Order ID</value>
   </data>
-	<data name="Contact_OrderIdPlaceholder" xml:space="preserve">
+  <data name="Contact_OrderIdPlaceholder" xml:space="preserve">
     <value>e.g., 34</value>
   </data>
-	<data name="Contact_OrderIdDesc" xml:space="preserve">
+  <data name="Contact_OrderIdDesc" xml:space="preserve">
     <value>You can find this in your confirmation email or My Orders section.</value>
   </data>
-	<data name="Contact_ConsignTitle" xml:space="preserve">
+  <data name="Contact_ConsignTitle" xml:space="preserve">
     <value>Consignment Details</value>
   </data>
-	<data name="Contact_Condition" xml:space="preserve">
+  <data name="Contact_Condition" xml:space="preserve">
     <value>Condition (1-10 Scale)</value>
   </data>
-	<data name="Contact_Size" xml:space="preserve">
+  <data name="Contact_Size" xml:space="preserve">
     <value>Jersey Size</value>
   </data>
-	<data name="Contact_Price" xml:space="preserve">
+  <data name="Contact_Price" xml:space="preserve">
     <value>Proposed Price ($)</value>
   </data>
-	<data name="Contact_UploadTitle" xml:space="preserve">
+  <data name="Contact_UploadTitle" xml:space="preserve">
     <value>Upload Proof Images (Front, Back, Product Tags)</value>
   </data>
-	<data name="Contact_UploadDrag" xml:space="preserve">
+  <data name="Contact_UploadDrag" xml:space="preserve">
     <value>Drag &amp; Drop your images here</value>
   </data>
-	<data name="Contact_UploadClick" xml:space="preserve">
+  <data name="Contact_UploadClick" xml:space="preserve">
     <value>or click anywhere in this box to browse files</value>
   </data>
-	<data name="Contact_UploadDesc" xml:space="preserve">
+  <data name="Contact_UploadDesc" xml:space="preserve">
     <value>Max. 3 images allowed. Supported formats: JPG, PNG, WEBP. Max. file size: 2MB.</value>
   </data>
-	<data name="Contact_DetailsTitle" xml:space="preserve">
+  <data name="Contact_DetailsTitle" xml:space="preserve">
     <value>Description / Details</value>
   </data>
-	<data name="Contact_DetailsPlaceholder" xml:space="preserve">
+  <data name="Contact_DetailsPlaceholder" xml:space="preserve">
     <value>Please enter the details of your request. A member of our support staff will respond as soon as possible.</value>
   </data>
-	<data name="Contact_BackHome" xml:space="preserve">
+  <data name="Contact_BackHome" xml:space="preserve">
     <value>Back to Homepage</value>
   </data>
-	<data name="Contact_SubmitBtn" xml:space="preserve">
+  <data name="Contact_SubmitBtn" xml:space="preserve">
     <value>Submit Request</value>
   </data>
-
-	<!-- MIS PEDIDOS (MY ORDERS) -->
-	<data name="MyOrders_Title" xml:space="preserve">
+  <!-- MIS PEDIDOS (MY ORDERS) -->
+  <data name="MyOrders_Title" xml:space="preserve">
     <value>My Order History</value>
   </data>
-	<data name="MyOrders_SubTitle" xml:space="preserve">
+  <data name="MyOrders_SubTitle" xml:space="preserve">
     <value>Review the details and status of all your purchases in OFFSIDESHOP</value>
   </data>
-	<data name="MyOrders_NoOrders" xml:space="preserve">
+  <data name="MyOrders_NoOrders" xml:space="preserve">
     <value>You haven't placed any orders yet!</value>
   </data>
-	<data name="MyOrders_OrderRef" xml:space="preserve">
+  <data name="MyOrders_OrderRef" xml:space="preserve">
     <value>Order Reference</value>
   </data>
-	<data name="MyOrders_Status" xml:space="preserve">
+  <data name="MyOrders_Status" xml:space="preserve">
     <value>Status</value>
   </data>
-	<data name="MyOrders_DatePurchased" xml:space="preserve">
+  <data name="MyOrders_DatePurchased" xml:space="preserve">
     <value>DATE PURCHASED:</value>
   </data>
-	<data name="MyOrders_ShippingDetails" xml:space="preserve">
+  <data name="MyOrders_ShippingDetails" xml:space="preserve">
     <value>SHIPPING DETAILS:</value>
   </data>
-	<data name="MyOrders_ProductsOrdered" xml:space="preserve">
+  <data name="MyOrders_ProductsOrdered" xml:space="preserve">
     <value>Products Ordered</value>
   </data>
-	<data name="MyOrders_TotalCharged" xml:space="preserve">
+  <data name="MyOrders_TotalCharged" xml:space="preserve">
     <value>Total Charged</value>
   </data>
-	<data name="MyOrders_ViewDetails" xml:space="preserve">
+  <data name="MyOrders_ViewDetails" xml:space="preserve">
     <value>View Details &amp; Actions</value>
   </data>
-
-	<!-- DETALLES DEL PEDIDO (ORDER DETAIL) -->
-	<data name="OrderDetail_BackToOrders" xml:space="preserve">
+  <!-- DETALLES DEL PEDIDO (ORDER DETAIL) -->
+  <data name="OrderDetail_BackToOrders" xml:space="preserve">
     <value>Back to My Orders</value>
   </data>
-	<data name="OrderDetail_PlacedOn" xml:space="preserve">
+  <data name="OrderDetail_PlacedOn" xml:space="preserve">
     <value>Placed on:</value>
   </data>
-	<data name="OrderDetail_LoadingStatus" xml:space="preserve">
+  <data name="OrderDetail_LoadingStatus" xml:space="preserve">
     <value>Loading order status...</value>
   </data>
-	<data name="OrderDetail_TrackDelivery" xml:space="preserve">
+  <data name="OrderDetail_TrackDelivery" xml:space="preserve">
     <value>Track Delivery</value>
   </data>
-	<data name="OrderDetail_ShippingTitle" xml:space="preserve">
+  <data name="OrderDetail_ShippingTitle" xml:space="preserve">
     <value>Shipping Address</value>
   </data>
-	<data name="OrderDetail_Customer" xml:space="preserve">
+  <data name="OrderDetail_Customer" xml:space="preserve">
     <value>Customer:</value>
   </data>
-	<data name="OrderDetail_Phone" xml:space="preserve">
+  <data name="OrderDetail_Phone" xml:space="preserve">
     <value>Phone:</value>
   </data>
-	<data name="OrderDetail_Address" xml:space="preserve">
+  <data name="OrderDetail_Address" xml:space="preserve">
     <value>Address:</value>
   </data>
-	<data name="OrderDetail_PaymentTitle" xml:space="preserve">
+  <data name="OrderDetail_PaymentTitle" xml:space="preserve">
     <value>Payment Information</value>
   </data>
-	<data name="OrderDetail_Method" xml:space="preserve">
+  <data name="OrderDetail_Method" xml:space="preserve">
     <value>Method:</value>
   </data>
-	<data name="OrderDetail_TransactionId" xml:space="preserve">
+  <data name="OrderDetail_TransactionId" xml:space="preserve">
     <value>Transaction ID:</value>
   </data>
-	<data name="OrderDetail_OrderNotes" xml:space="preserve">
+  <data name="OrderDetail_OrderNotes" xml:space="preserve">
     <value>Order Notes:</value>
   </data>
-	<data name="OrderDetail_NoNotes" xml:space="preserve">
+  <data name="OrderDetail_NoNotes" xml:space="preserve">
     <value>No notes provided.</value>
   </data>
-	<data name="OrderDetail_ItemsInOrder" xml:space="preserve">
+  <data name="OrderDetail_ItemsInOrder" xml:space="preserve">
     <value>Items in your Order</value>
   </data>
-	<data name="OrderDetail_ProductDetails" xml:space="preserve">
+  <data name="OrderDetail_ProductDetails" xml:space="preserve">
     <value>Product Details</value>
   </data>
-	<data name="OrderDetail_Price" xml:space="preserve">
+  <data name="OrderDetail_Price" xml:space="preserve">
     <value>Price</value>
   </data>
-	<data name="OrderDetail_Quantity" xml:space="preserve">
+  <data name="OrderDetail_Quantity" xml:space="preserve">
     <value>Quantity</value>
   </data>
-	<data name="OrderDetail_Subtotal" xml:space="preserve">
+  <data name="OrderDetail_Subtotal" xml:space="preserve">
     <value>Subtotal</value>
   </data>
-	<data name="OrderDetail_Size" xml:space="preserve">
+  <data name="OrderDetail_Size" xml:space="preserve">
     <value>Size:</value>
   </data>
-	<data name="OrderDetail_ItemsSubtotal" xml:space="preserve">
+  <data name="OrderDetail_ItemsSubtotal" xml:space="preserve">
     <value>Items Subtotal:</value>
   </data>
-	<data name="OrderDetail_ShippingCost" xml:space="preserve">
+  <data name="OrderDetail_ShippingCost" xml:space="preserve">
     <value>Shipping Cost:</value>
   </data>
-	<data name="OrderDetail_CancelOrder" xml:space="preserve">
+  <data name="OrderDetail_CancelOrder" xml:space="preserve">
     <value>Cancel Order</value>
   </data>
-	<data name="OrderDetail_RequestRefund" xml:space="preserve">
+  <data name="OrderDetail_RequestRefund" xml:space="preserve">
     <value>Request Refund</value>
   </data>
-	<data name="OrderDetail_ModalReasonTitle" xml:space="preserve">
+  <data name="OrderDetail_ModalReasonTitle" xml:space="preserve">
     <value>Provide a Reason for</value>
   </data>
-	<data name="OrderDetail_ModalReasonDesc" xml:space="preserve">
+  <data name="OrderDetail_ModalReasonDesc" xml:space="preserve">
     <value>Please select a reason from the list and explain why you want to proceed with this request.</value>
   </data>
-	<data name="OrderDetail_ModalSelectReason" xml:space="preserve">
+  <data name="OrderDetail_ModalSelectReason" xml:space="preserve">
     <value>Select a Reason:</value>
   </data>
-	<data name="OrderDetail_ModalComments" xml:space="preserve">
+  <data name="OrderDetail_ModalComments" xml:space="preserve">
     <value>Additional Comments (Optional):</value>
   </data>
-	<data name="OrderDetail_ModalCommentsPlaceholder" xml:space="preserve">
+  <data name="OrderDetail_ModalCommentsPlaceholder" xml:space="preserve">
     <value>Provide more details here... (Required if 'Other' is selected)</value>
   </data>
-	<data name="OrderDetail_ModalGoBack" xml:space="preserve">
+  <data name="OrderDetail_ModalGoBack" xml:space="preserve">
     <value>Go Back</value>
   </data>
-	<data name="OrderDetail_LiveTracking" xml:space="preserve">
+  <data name="OrderDetail_LiveTracking" xml:space="preserve">
     <value>Live Tracking</value>
   </data>
-	<data name="OrderDetail_ConnectingDriver" xml:space="preserve">
+  <data name="OrderDetail_ConnectingDriver" xml:space="preserve">
     <value>Connecting to delivery driver...</value>
   </data>
-	<data name="Results_FilterTitle" xml:space="preserve">
+  <data name="Results_FilterTitle" xml:space="preserve">
     <value>Filter By</value>
   </data>
-	<data name="Results_PriceRange" xml:space="preserve">
+  <data name="Results_PriceRange" xml:space="preserve">
     <value>Price Range</value>
   </data>
-	<data name="Results_AvailableSizes" xml:space="preserve">
+  <data name="Results_AvailableSizes" xml:space="preserve">
     <value>Available Sizes</value>
   </data>
-	<data name="Results_League" xml:space="preserve">
+  <data name="Results_League" xml:space="preserve">
     <value>League</value>
   </data>
-	<data name="Results_Team" xml:space="preserve">
+  <data name="Results_Team" xml:space="preserve">
     <value>Team</value>
   </data>
-	<data name="Results_Brand" xml:space="preserve">
+  <data name="Results_Brand" xml:space="preserve">
     <value>Brand</value>
   </data>
-	<data name="Results_KitType" xml:space="preserve">
+  <data name="Results_KitType" xml:space="preserve">
     <value>Kit Type</value>
   </data>
-	<data name="Results_Offers" xml:space="preserve">
+  <data name="Results_Offers" xml:space="preserve">
     <value>Show Offers Only</value>
   </data>
-	<data name="Results_Custom" xml:space="preserve">
+  <data name="Results_Custom" xml:space="preserve">
     <value>Customizable Only</value>
   </data>
-	<data name="Results_BtnFilter" xml:space="preserve">
+  <data name="Results_BtnFilter" xml:space="preserve">
     <value>Apply Filters</value>
   </data>
-	<data name="Search_KitLocal" xml:space="preserve">
+  <data name="Search_KitLocal" xml:space="preserve">
     <value>Home</value>
   </data>
-	<data name="Search_KitAway" xml:space="preserve">
+  <data name="Search_KitAway" xml:space="preserve">
     <value>Away</value>
   </data>
-	<data name="Search_KitThird" xml:space="preserve">
+  <data name="Search_KitThird" xml:space="preserve">
     <value>Third</value>
   </data>
-	<data name="Search_KitRetro" xml:space="preserve">
+  <data name="Search_KitRetro" xml:space="preserve">
     <value>Retro</value>
   </data>
-	<data name="Search_KitSpecial" xml:space="preserve">
+  <data name="Search_KitSpecial" xml:space="preserve">
     <value>Special</value>
   </data>
-	<data name="Search_KitTraining" xml:space="preserve">
+  <data name="Search_KitTraining" xml:space="preserve">
     <value>Training</value>
+  </data>
+  <!-- PANEL DE ADMINISTRACIÃ“N: MENÃš LATERAL (SIDEBAR) -->
+  <data name="Admin_Nav_ManageProducts" xml:space="preserve">
+    <value>Manage Products</value>
+  </data>
+  <data name="Admin_Nav_ManageOrders" xml:space="preserve">
+    <value>Manage Orders</value>
+  </data>
+  <data name="Admin_Nav_ManageOffers" xml:space="preserve">
+    <value>Manage Offers</value>
+  </data>
+  <data name="Admin_Nav_ManageCoupons" xml:space="preserve">
+    <value>Manage Coupons</value>
+  </data>
+  <data name="Admin_Nav_SellerRequests" xml:space="preserve">
+    <value>Seller Requests</value>
+  </data>
+  <data name="Admin_Nav_AddLeague" xml:space="preserve">
+    <value>Add League</value>
+  </data>
+  <data name="Admin_Nav_AddTeam" xml:space="preserve">
+    <value>Add Team</value>
+  </data>
+  <data name="Admin_Nav_AddBrand" xml:space="preserve">
+    <value>Add Brand</value>
+  </data>
+  <data name="Admin_Nav_ManageUsers" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
+  <data name="Admin_Nav_SmtpSettings" xml:space="preserve">
+    <value>SMTP Settings</value>
+  </data>
+  <data name="Admin_Nav_Stats" xml:space="preserve">
+    <value>Stats</value>
+  </data>
+  <data name="Admin_Nav_AuditLogs" xml:space="preserve">
+    <value>Audit Logs</value>
+  </data>
+  <data name="Admin_Nav_ManageBanners" xml:space="preserve">
+    <value>Manage Storefront</value>
+  </data>
+  <data name="Admin_Nav_Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <!-- DASHBOARD -->
+  <data name="Admin_Dash_Welcome" xml:space="preserve">
+    <value>Welcome,</value>
+  </data>
+  <data name="Admin_Dash_RegUsers" xml:space="preserve">
+    <value>Registered Users</value>
+  </data>
+  <data name="Admin_Dash_RegUsersSub" xml:space="preserve">
+    <value>Total active members registered</value>
+  </data>
+  <data name="Admin_Dash_Orders7Days" xml:space="preserve">
+    <value>Orders (7 Days)</value>
+  </data>
+  <data name="Admin_Dash_Orders7DaysSub" xml:space="preserve">
+    <value>Created in the last week</value>
+  </data>
+  <data name="Admin_Dash_PendingOrders" xml:space="preserve">
+    <value>Pending Orders</value>
+  </data>
+  <data name="Admin_Dash_PendingOrdersSub" xml:space="preserve">
+    <value>Awaiting dispatch / processing</value>
+  </data>
+  <data name="Admin_Dash_TotalProcessed" xml:space="preserve">
+    <value>Total Processed</value>
+  </data>
+  <data name="Admin_Dash_TotalProcessedSub" xml:space="preserve">
+    <value>Completed historical orders</value>
+  </data>
+  <data name="Admin_Dash_JerseysAdded" xml:space="preserve">
+    <value>Jerseys Added</value>
+  </data>
+  <data name="Admin_Dash_JerseysAddedSub" xml:space="preserve">
+    <value>Active products in catalog</value>
+  </data>
+  <data name="Admin_Dash_LeaguesAdded" xml:space="preserve">
+    <value>Leagues Added</value>
+  </data>
+  <data name="Admin_Dash_LeaguesAddedSub" xml:space="preserve">
+    <value>Football leagues registered</value>
+  </data>
+  <data name="Admin_Dash_TeamsAdded" xml:space="preserve">
+    <value>Teams Added</value>
+  </data>
+  <data name="Admin_Dash_TeamsAddedSub" xml:space="preserve">
+    <value>Clubs and national teams</value>
+  </data>
+  <data name="Admin_Dash_TopSelling" xml:space="preserve">
+    <value>Top Selling</value>
+  </data>
+  <data name="Admin_Dash_TopSellingSub" xml:space="preserve">
+    <value>Best selling item by volume</value>
+  </data>
+  <data name="Admin_Dash_TopSellingNone" xml:space="preserve">
+    <value>None yet</value>
+  </data>
+  <data name="Admin_Dash_RecentOrders" xml:space="preserve">
+    <value>Recent Orders</value>
+  </data>
+  <data name="Admin_Dash_NoRecentOrders" xml:space="preserve">
+    <value>No recent orders found.</value>
+  </data>
+  <data name="Admin_Dash_StockAlerts" xml:space="preserve">
+    <value>Stock Alerts</value>
+  </data>
+  <data name="Admin_Dash_UnitsLeft" xml:space="preserve">
+    <value>units left</value>
+  </data>
+  <data name="Admin_Dash_NoStockAlerts" xml:space="preserve">
+    <value>No critical stock alerts. All items are well stocked!</value>
+  </data>
+  <data name="Admin_Dash_PendingTickets" xml:space="preserve">
+    <value>Pending Support Tickets</value>
+  </data>
+  <data name="Admin_Dash_NoPendingTickets" xml:space="preserve">
+    <value>No pending support tickets.</value>
+  </data>
+  <data name="Admin_Dash_AuditFeed" xml:space="preserve">
+    <value>Live Security Audit Feed</value>
+  </data>
+  <data name="Admin_Dash_NoAuditLogs" xml:space="preserve">
+    <value>No security audit logs found.</value>
+  </data>
+  <data name="Admin_Dash_BannerPreview" xml:space="preserve">
+    <value>Banner Preview (Live)</value>
+  </data>
+  <data name="Admin_Dash_NoActiveBanners" xml:space="preserve">
+    <value>No active banners found.</value>
+  </data>
+  <!-- GESTIÃ“N DE USUARIOS (MANAGE USERS) -->
+  <data name="Admin_Users_Title" xml:space="preserve">
+    <value>User &amp; Role Management</value>
+  </data>
+  <data name="Admin_Users_Subtitle" xml:space="preserve">
+    <value>Only the Owner may reassign roles, edit users, or configure granular Admin Module Permissions (PBAC).</value>
+  </data>
+  <data name="Admin_Users_CreateTitle" xml:space="preserve">
+    <value>Create New User / Admin</value>
+  </data>
+  <data name="Admin_Users_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Admin_Users_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Admin_Users_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Admin_Users_Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Admin_Users_RoleNote" xml:space="preserve">
+    <value>If "Admin", configure permissions in the grid below after creating.</value>
+  </data>
+  <data name="Admin_Users_BtnCreate" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="Admin_Users_RegisteredTitle" xml:space="preserve">
+    <value>Registered Users</value>
+  </data>
+  <data name="Admin_Users_ColCurrentRole" xml:space="preserve">
+    <value>Current Role</value>
+  </data>
+  <data name="Admin_Users_ColActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Admin_Users_BtnEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Admin_Users_BtnPermissions" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="Admin_Users_BtnDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Admin_Users_DeleteConfirm" xml:space="preserve">
+    <value>Are you sure you want to permanently delete this user?</value>
+  </data>
+  <data name="Admin_Users_EditTitle" xml:space="preserve">
+    <value>Edit User</value>
+  </data>
+  <data name="Admin_Users_NewPassNote" xml:space="preserve">
+    <value>(Leave blank to keep current)</value>
+  </data>
+  <data name="Admin_Users_SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Admin_Users_PermModalTitle" xml:space="preserve">
+    <value>Admin Module Permissions</value>
+  </data>
+  <data name="Admin_Users_PermModalDesc" xml:space="preserve">
+    <value>Assign specific administrative modules to this user. They will only see the selected options in their sidebar.</value>
+  </data>
+  <data name="Admin_Users_PermProductsTitle" xml:space="preserve">
+    <value>Manage Products &amp; Catalog</value>
+  </data>
+  <data name="Admin_Users_PermProductsDesc" xml:space="preserve">
+    <value>Grants access to add, edit, and delete products, as well as manage brands, leagues, and teams.</value>
+  </data>
+  <data name="Admin_Users_PermOrdersTitle" xml:space="preserve">
+    <value>Manage Orders</value>
+  </data>
+  <data name="Admin_Users_PermOrdersDesc" xml:space="preserve">
+    <value>Grants access to view, process, and update the status of customer orders and refunds.</value>
+  </data>
+  <data name="Admin_Users_PermOffersTitle" xml:space="preserve">
+    <value>Manage Offers</value>
+  </data>
+  <data name="Admin_Users_PermOffersDesc" xml:space="preserve">
+    <value>Grants access to create and manage seasonal discounts and sale pricing across the catalog.</value>
+  </data>
+  <data name="Admin_Users_PermCouponsTitle" xml:space="preserve">
+    <value>Manage Coupons</value>
+  </data>
+  <data name="Admin_Users_PermCouponsDesc" xml:space="preserve">
+    <value>Grants access to create, toggle, and delete checkout discount codes.</value>
+  </data>
+  <data name="Admin_Users_PermBannersTitle" xml:space="preserve">
+    <value>Manage Banners</value>
+  </data>
+  <data name="Admin_Users_PermBannersDesc" xml:space="preserve">
+    <value>Grants access to update homepage promotional carousel banners and images.</value>
+  </data>
+  <data name="Admin_Users_PermTicketsTitle" xml:space="preserve">
+    <value>Manage Seller Requests (Tickets)</value>
+  </data>
+  <data name="Admin_Users_PermTicketsDesc" xml:space="preserve">
+    <value>Grants access to review and approve/reject incoming seller applications.</value>
+  </data>
+  <data name="Admin_Users_SavePermissions" xml:space="preserve">
+    <value>Save Configuration</value>
+  </data>
+  <!-- GESTIÃ“N DE CUPONES (MANAGE COUPONS) -->
+  <data name="Admin_Coupons_Title" xml:space="preserve">
+    <value>Discount Coupons</value>
+  </data>
+  <data name="Admin_Coupons_Subtitle" xml:space="preserve">
+    <value>Create and manage custom or auto-generated discount codes to incentivize purchases.</value>
+  </data>
+  <data name="Admin_Coupons_CreateTitle" xml:space="preserve">
+    <value>Create New Coupon</value>
+  </data>
+  <data name="Admin_Coupons_EditTitle" xml:space="preserve">
+    <value>Edit Coupon</value>
+  </data>
+  <data name="Admin_Coupons_CodeLabel" xml:space="preserve">
+    <value>Coupon Code (Letters &amp; Numbers)</value>
+  </data>
+  <data name="Admin_Coupons_GenerateBtn" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="Admin_Coupons_DiscountLabel" xml:space="preserve">
+    <value>Discount (%)</value>
+  </data>
+  <data name="Admin_Coupons_MaxUsesLabel" xml:space="preserve">
+    <value>Maximum Usage Limit</value>
+  </data>
+  <data name="Admin_Coupons_MaxUsesHelp" xml:space="preserve">
+    <value>How many times can this code be used globally?</value>
+  </data>
+  <data name="Admin_Coupons_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Admin_Coupons_StatusActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Admin_Coupons_StatusInactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="Admin_Coupons_SaveBtn" xml:space="preserve">
+    <value>Save Coupon</value>
+  </data>
+  <data name="Admin_Coupons_CancelBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Admin_Coupons_CatalogTitle" xml:space="preserve">
+    <value>Active Catalog</value>
+  </data>
+  <data name="Admin_Coupons_AddNew" xml:space="preserve">
+    <value>New Coupon</value>
+  </data>
+  <data name="Admin_Coupons_ColCode" xml:space="preserve">
+    <value>Coupon Code</value>
+  </data>
+  <data name="Admin_Coupons_ColDiscount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="Admin_Coupons_ColUsage" xml:space="preserve">
+    <value>Usage Stats</value>
+  </data>
+  <data name="Admin_Coupons_Used" xml:space="preserve">
+    <value>used</value>
+  </data>
+  <data name="Admin_Coupons_Empty" xml:space="preserve">
+    <value>No coupons have been created yet.</value>
+  </data>
+  <data name="Admin_Coupons_DeleteConfirm" xml:space="preserve">
+    <value>Are you sure you want to delete this coupon? Users won't be able to use it anymore.</value>
+  </data>
+  <!-- CATALOGO DE MARCAS (ADD BRAND) -->
+  <data name="Admin_Brand_Title" xml:space="preserve">
+    <value>Brand Catalog</value>
+  </data>
+  <data name="Admin_Brand_Subtitle" xml:space="preserve">
+    <value>Register the sports brands available in the system (e.g., Nike, Adidas, Puma).</value>
+  </data>
+  <data name="Admin_Brand_NameLabel" xml:space="preserve">
+    <value>Brand Name</value>
+  </data>
+  <data name="Admin_Brand_NamePlaceholder" xml:space="preserve">
+    <value>e.g. Nike, Adidas, Puma...</value>
+  </data>
+  <data name="Admin_Brand_SaveBtn" xml:space="preserve">
+    <value>Save Brand</value>
+  </data>
+  <data name="Admin_Brand_ListTitle" xml:space="preserve">
+    <value>Registered Brands</value>
+  </data>
+  <data name="Admin_Brand_ColID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Admin_Brand_ColName" xml:space="preserve">
+    <value>Brand Name</value>
+  </data>
+  <data name="Admin_Brand_ColActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Admin_Brand_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Admin_Brand_DeleteConfirm" xml:space="preserve">
+    <value>Are you sure you want to delete this brand?</value>
+  </data>
+  <!-- CATALOGO DE LIGAS (ADD LEAGUE) -->
+  <data name="Admin_League_Title" xml:space="preserve">
+    <value>League Catalog</value>
+  </data>
+  <data name="Admin_League_Subtitle" xml:space="preserve">
+    <value>Register the football leagues available in the system (e.g., LaLiga, Premier League).</value>
+  </data>
+  <data name="Admin_League_NameLabel" xml:space="preserve">
+    <value>League Name</value>
+  </data>
+  <data name="Admin_League_NamePlaceholder" xml:space="preserve">
+    <value>e.g. LaLiga, Premier League...</value>
+  </data>
+  <data name="Admin_League_SaveBtn" xml:space="preserve">
+    <value>Save League</value>
+  </data>
+  <data name="Admin_League_ListTitle" xml:space="preserve">
+    <value>Registered Leagues</value>
+  </data>
+  <data name="Admin_League_ColID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Admin_League_ColName" xml:space="preserve">
+    <value>League Name</value>
+  </data>
+  <data name="Admin_League_ColActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Admin_League_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Admin_League_DeleteConfirm" xml:space="preserve">
+    <value>Are you sure you want to delete this league? All associated teams will be deleted as well.</value>
+  </data>
+  <!-- CATALOGO DE EQUIPOS (ADD TEAM) -->
+  <data name="Admin_Team_Title" xml:space="preserve">
+    <value>Team Catalog</value>
+  </data>
+  <data name="Admin_Team_Subtitle" xml:space="preserve">
+    <value>Register teams and bind each one to its corresponding league.</value>
+  </data>
+  <data name="Admin_Team_LeagueLabel" xml:space="preserve">
+    <value>League</value>
+  </data>
+  <data name="Admin_Team_NameLabel" xml:space="preserve">
+    <value>Team Name</value>
+  </data>
+  <data name="Admin_Team_NamePlaceholder" xml:space="preserve">
+    <value>e.g. FC Barcelona, Real Madrid...</value>
+  </data>
+  <data name="Admin_Team_SaveBtn" xml:space="preserve">
+    <value>Save Team</value>
+  </data>
+  <data name="Admin_Team_NoLeagueNote" xml:space="preserve">
+    <value>Don't see a league?</value>
+  </data>
+  <data name="Admin_Team_RegisterFirst" xml:space="preserve">
+    <value>Register it first</value>
+  </data>
+  <data name="Admin_Team_ListTitle" xml:space="preserve">
+    <value>Registered Teams</value>
+  </data>
+  <data name="Admin_Team_ColID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Admin_Team_ColName" xml:space="preserve">
+    <value>Team Name</value>
+  </data>
+  <data name="Admin_Team_ColLeague" xml:space="preserve">
+    <value>League</value>
+  </data>
+  <data name="Admin_Team_ColActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Admin_Team_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Admin_Team_DeleteConfirm" xml:space="preserve">
+    <value>Are you sure you want to delete this team?</value>
+  </data>
+  <!-- GESTIÃ“N DE OFERTAS (MANAGE OFFERS) -->
+  <data name="Admin_Offers_Title" xml:space="preserve">
+    <value>Offer &amp; Promotions Management</value>
+  </data>
+  <data name="Admin_Offers_Subtitle" xml:space="preserve">
+    <value>Create global campaign windows, configure percentage discounts, and multi-assign items catalog-wide.</value>
+  </data>
+  <data name="Admin_Offers_CreateTitle" xml:space="preserve">
+    <value>Create Promotional Campaign</value>
+  </data>
+  <data name="Admin_Offers_EditTitle" xml:space="preserve">
+    <value>Edit Promotional Campaign</value>
+  </data>
+  <data name="Admin_Offers_NameLabel" xml:space="preserve">
+    <value>Campaign Name</value>
+  </data>
+  <data name="Admin_Offers_NamePlaceholder" xml:space="preserve">
+    <value>e.g. Black Friday Special</value>
+  </data>
+  <data name="Admin_Offers_DiscountLabel" xml:space="preserve">
+    <value>Discount Percentage (%)</value>
+  </data>
+  <data name="Admin_Offers_DiscountPlaceholder" xml:space="preserve">
+    <value>e.g. 20</value>
+  </data>
+  <data name="Admin_Offers_StartLabel" xml:space="preserve">
+    <value>Start Date &amp; Time</value>
+  </data>
+  <data name="Admin_Offers_StartPlaceholder" xml:space="preserve">
+    <value>Select start date...</value>
+  </data>
+  <data name="Admin_Offers_EndLabel" xml:space="preserve">
+    <value>End Date &amp; Time</value>
+  </data>
+  <data name="Admin_Offers_EndPlaceholder" xml:space="preserve">
+    <value>Select expiration date...</value>
+  </data>
+  <data name="Admin_Offers_SelectTshirts" xml:space="preserve">
+    <value>Select T-Shirts for this Campaign</value>
+  </data>
+  <data name="Admin_Offers_FilterBrand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Admin_Offers_FilterLeague" xml:space="preserve">
+    <value>League</value>
+  </data>
+  <data name="Admin_Offers_FilterTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Admin_Offers_FilterSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Admin_Offers_SearchPlaceholder" xml:space="preserve">
+    <value>Find item...</value>
+  </data>
+  <data name="Admin_Offers_SelectAll" xml:space="preserve">
+    <value>Select all (all the pages)</value>
+  </data>
+  <data name="Admin_Offers_ClearSelection" xml:space="preserve">
+    <value>Clean selection</value>
+  </data>
+  <data name="Admin_Offers_ColApply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Admin_Offers_ColID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Admin_Offers_ColModel" xml:space="preserve">
+    <value>Shirt Model</value>
+  </data>
+  <data name="Admin_Offers_ColBrand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Admin_Offers_ColTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Admin_Offers_ColPrice" xml:space="preserve">
+    <value>Base Price</value>
+  </data>
+  <data name="Admin_Offers_ColStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Admin_Offers_SaveCampaign" xml:space="preserve">
+    <value>Save Campaign</value>
+  </data>
+  <data name="Admin_Offers_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Admin_Offers_ActiveTitle" xml:space="preserve">
+    <value>Active Promotional Configurations</value>
+  </data>
+  <data name="Admin_Offers_AddNew" xml:space="preserve">
+    <value>Add Promotion Campaign</value>
+  </data>
+  <data name="Admin_Offers_ColWindow" xml:space="preserve">
+    <value>Promo Campaign Window</value>
+  </data>
+  <data name="Admin_Offers_ColDiscount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="Admin_Offers_ColStarts" xml:space="preserve">
+    <value>Starts</value>
+  </data>
+  <data name="Admin_Offers_ColExpires" xml:space="preserve">
+    <value>Expires</value>
+  </data>
+  <data name="Admin_Offers_ColState" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Admin_Offers_ColActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Admin_Offers_Empty" xml:space="preserve">
+    <value>No promotional records found.</value>
+  </data>
+  <data name="Admin_Offers_DeleteConfirm" xml:space="preserve">
+    <value>Purge this campaign and normalize affected products base pricing records?</value>
+  </data>
+  <!-- ESTADÃSTICAS DE LA TIENDA (ADMIN STATS) -->
+  <data name="Admin_Stats_Title" xml:space="preserve">
+    <value>Store Statistics</value>
+  </data>
+  <data name="Admin_Stats_Subtitle" xml:space="preserve">
+    <value>Detailed analytics and real-time performance overview of OffsideShop.</value>
+  </data>
+  <data name="Admin_Stats_Weekly" xml:space="preserve">
+    <value>Weekly Report</value>
+  </data>
+  <data name="Admin_Stats_Monthly" xml:space="preserve">
+    <value>Monthly Report</value>
+  </data>
+  <data name="Admin_Stats_Annual" xml:space="preserve">
+    <value>Annual Report</value>
+  </data>
+  <data name="Admin_Stats_ExportPdf" xml:space="preserve">
+    <value>Export Deep Report</value>
+  </data>
+  <data name="Admin_Stats_KpiRevenue" xml:space="preserve">
+    <value>Gross Revenue</value>
+  </data>
+  <data name="Admin_Stats_KpiOrders" xml:space="preserve">
+    <value>Total Orders</value>
+  </data>
+  <data name="Admin_Stats_KpiUsers" xml:space="preserve">
+    <value>Registered Users</value>
+  </data>
+  <data name="Admin_Stats_KpiPending" xml:space="preserve">
+    <value>Pending Orders</value>
+  </data>
+  <data name="Admin_Stats_ChartRevenue" xml:space="preserve">
+    <value>Sales Revenue (Last 7 Days)</value>
+  </data>
+  <data name="Admin_Stats_ChartStatus" xml:space="preserve">
+    <value>Order Status Distribution</value>
+  </data>
+  <data name="Admin_Stats_ChartTopProducts" xml:space="preserve">
+    <value>Top 5 Best Selling Products</value>
+  </data>
+  <!-- GESTIÃ“N DE PEDIDOS Y REEMBOLSOS (MANAGE ORDERS) -->
+  <data name="Admin_Orders_Title" xml:space="preserve">
+    <value>Order System Hub</value>
+  </data>
+  <data name="Admin_Orders_Subtitle" xml:space="preserve">
+    <value>Process system-wide standard retail orders, check electronic settlement routes, and resolve refund requests safely.</value>
+  </data>
+  <data name="Admin_Orders_TabActive" xml:space="preserve">
+    <value>Active Standard Orders</value>
+  </data>
+  <data name="Admin_Orders_TabRefunds" xml:space="preserve">
+    <value>Refund Request Tickets</value>
+  </data>
+  <data name="Admin_Orders_FilterStatus" xml:space="preserve">
+    <value>Status Filter</value>
+  </data>
+  <data name="Admin_Orders_FilterStartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="Admin_Orders_FilterEndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="Admin_Orders_ApplyFilters" xml:space="preserve">
+    <value>Apply Filters</value>
+  </data>
+  <data name="Admin_Orders_ColOrderId" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="Admin_Orders_ColCustomer" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="Admin_Orders_ColEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Admin_Orders_ColDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Admin_Orders_ColDepartment" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="Admin_Orders_ColTotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Admin_Orders_ColStatus" xml:space="preserve">
+    <value>Status State</value>
+  </data>
+  <data name="Admin_Orders_ColActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Admin_Orders_BtnDetails" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Admin_Orders_EmptyOrders" xml:space="preserve">
+    <value>No active standard orders match your selection criteria.</value>
+  </data>
+  <data name="Admin_Orders_ColClient" xml:space="preserve">
+    <value>Client Name</value>
+  </data>
+  <data name="Admin_Orders_ColReasonConcept" xml:space="preserve">
+    <value>Reason Concept</value>
+  </data>
+  <data name="Admin_Orders_ColAmountRefund" xml:space="preserve">
+    <value>Amount to Refund</value>
+  </data>
+  <data name="Admin_Orders_ColPaymentChannel" xml:space="preserve">
+    <value>Payment Channel</value>
+  </data>
+  <data name="Admin_Orders_ColRequestedAt" xml:space="preserve">
+    <value>Requested At</value>
+  </data>
+  <data name="Admin_Orders_ColEvaluation" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
+  <data name="Admin_Orders_BtnEvaluate" xml:space="preserve">
+    <value>Evaluate</value>
+  </data>
+  <data name="Admin_Orders_EmptyRefunds" xml:space="preserve">
+    <value>Excellent! No pending refund request tickets found.</value>
+  </data>
+  <data name="Admin_Orders_ModalBreakdown" xml:space="preserve">
+    <value>Order Breakdown Details</value>
+  </data>
+  <data name="Admin_Orders_ModalCustomerInfo" xml:space="preserve">
+    <value>Customer Info</value>
+  </data>
+  <data name="Admin_Orders_ModalLogisticsAddr" xml:space="preserve">
+    <value>Logistics Address</value>
+  </data>
+  <data name="Admin_Orders_ModalLineItems" xml:space="preserve">
+    <value>Line Items</value>
+  </data>
+  <data name="Admin_Orders_ModalPrints" xml:space="preserve">
+    <value>Customization Prints</value>
+  </data>
+  <data name="Admin_Orders_ModalNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Admin_Orders_ModalNotes" xml:space="preserve">
+    <value>Order Notes / Instructions</value>
+  </data>
+  <data name="Admin_Orders_ModalFinSummary" xml:space="preserve">
+    <value>Financial Summary</value>
+  </data>
+  <data name="Admin_Orders_ModalDismiss" xml:space="preserve">
+    <value>Dismiss Window</value>
+  </data>
+  <data name="Admin_Orders_ModalRefundTicket" xml:space="preserve">
+    <value>Refund Evaluation Ticket</value>
+  </data>
+  <data name="Admin_Orders_ModalAdminNotes" xml:space="preserve">
+    <value>Administrative Settlement Resolution Notes</value>
+  </data>
+  <data name="Admin_Orders_ModalDenyTicket" xml:space="preserve">
+    <value>Deny Ticket</value>
+  </data>
+  <!-- SOPORTE Y RESEÃ‘AS (MANAGE SELLER REQUESTS) -->
+  <data name="Admin_Seller_Title" xml:space="preserve">
+    <value>Support &amp; Reviews Management</value>
+  </data>
+  <data name="Admin_Seller_Subtitle" xml:space="preserve">
+    <value>Manage support tickets, seller consignments, and product reviews.</value>
+  </data>
+  <data name="Admin_Seller_TabTickets" xml:space="preserve">
+    <value>Support Tickets</value>
+  </data>
+  <data name="Admin_Seller_TabReviews" xml:space="preserve">
+    <value>Product Reviews</value>
+  </data>
+  <data name="Admin_Seller_StatusPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Admin_Seller_StatusUnderReview" xml:space="preserve">
+    <value>Under Review</value>
+  </data>
+  <data name="Admin_Seller_StatusResolved" xml:space="preserve">
+    <value>Resolved / Approved</value>
+  </data>
+  <data name="Admin_Seller_StatusDenied" xml:space="preserve">
+    <value>Denied</value>
+  </data>
+  <data name="Admin_Seller_FilterType" xml:space="preserve">
+    <value>Request Type Filter</value>
+  </data>
+  <data name="Admin_Seller_TypeAll" xml:space="preserve">
+    <value>All Request Types</value>
+  </data>
+  <data name="Admin_Seller_TypeGeneral" xml:space="preserve">
+    <value>General Support / Inquiries</value>
+  </data>
+  <data name="Admin_Seller_TypeOrder" xml:space="preserve">
+    <value>Order Issues</value>
+  </data>
+  <data name="Admin_Seller_TypeReventa" xml:space="preserve">
+    <value>Jersey Reventa Requests</value>
+  </data>
+  <data name="Admin_Seller_ClearFilters" xml:space="preserve">
+    <value>Clear Filters</value>
+  </data>
+  <data name="Admin_Seller_ColTicketId" xml:space="preserve">
+    <value>Ticket ID</value>
+  </data>
+  <data name="Admin_Seller_ColDateReq" xml:space="preserve">
+    <value>Date Requested</value>
+  </data>
+  <data name="Admin_Seller_ColEmail" xml:space="preserve">
+    <value>Sender Email</value>
+  </data>
+  <data name="Admin_Seller_ColReason" xml:space="preserve">
+    <value>Category Reason</value>
+  </data>
+  <data name="Admin_Seller_ColSubject" xml:space="preserve">
+    <value>Subject / Concept</value>
+  </data>
+  <data name="Admin_Seller_ColStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Admin_Seller_BtnView" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Admin_Seller_EmptyTickets" xml:space="preserve">
+    <value>No tickets match the active status and category filters.</value>
+  </data>
+  <data name="Admin_Seller_ModalResolution" xml:space="preserve">
+    <value>Support Ticket Resolution</value>
+  </data>
+  <data name="Admin_Seller_ModalMessage" xml:space="preserve">
+    <value>User Message Content</value>
+  </data>
+  <data name="Admin_Seller_ModalLinkedOrder" xml:space="preserve">
+    <value>Linked Order Reference</value>
+  </data>
+  <data name="Admin_Seller_ModalNavOrder" xml:space="preserve">
+    <value>Navigate to Order</value>
+  </data>
+  <data name="Admin_Seller_ModalConsignment" xml:space="preserve">
+    <value>Collector Jersey Consignment Details</value>
+  </data>
+  <data name="Admin_Seller_ModalPrice" xml:space="preserve">
+    <value>Proposed Payout Price:</value>
+  </data>
+  <data name="Admin_Seller_ModalCondition" xml:space="preserve">
+    <value>Declared Wear Condition:</value>
+  </data>
+  <data name="Admin_Seller_ModalProofImages" xml:space="preserve">
+    <value>Submitted Proof Images (Hover to inspect zoom or click to view fullscreen)</value>
+  </data>
+  <data name="Admin_Seller_ModalCatalogParams" xml:space="preserve">
+    <value>Catalog Listing Parameters</value>
+  </data>
+  <data name="Admin_Seller_ModalDisplayName" xml:space="preserve">
+    <value>Catalog Display Name</value>
+  </data>
+  <data name="Admin_Seller_ModalBrandMap" xml:space="preserve">
+    <value>Brand Mapping</value>
+  </data>
+  <data name="Admin_Seller_ModalLeagueMap" xml:space="preserve">
+    <value>League Mapping</value>
+  </data>
+  <data name="Admin_Seller_ModalTeamMap" xml:space="preserve">
+    <value>Team Mapping</value>
+  </data>
+  <data name="Admin_Seller_ModalYear" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Admin_Seller_ModalAdminResponse" xml:space="preserve">
+    <value>Administrative Response Notes *</value>
+  </data>
+  <data name="Admin_Seller_ModalReject" xml:space="preserve">
+    <value>Reject &amp; Deny Request</value>
+  </data>
+  <data name="Admin_Seller_ModalApprove" xml:space="preserve">
+    <value>Approve &amp; Publish Catalog</value>
+  </data>
+  <data name="Admin_Seller_ReviewNoReply" xml:space="preserve">
+    <value>No reply yet</value>
+  </data>
+  <data name="Admin_Seller_ReviewReplyBtn" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="Admin_Seller_ReviewDeleteBtn" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Admin_Seller_ReviewModalTitle" xml:space="preserve">
+    <value>Reply to Review</value>
+  </data>
+  <data name="Admin_Seller_ReviewModalOriginal" xml:space="preserve">
+    <value>User's Review</value>
+  </data>
+  <data name="Admin_Seller_ReviewModalOfficial" xml:space="preserve">
+    <value>Your Official Reply *</value>
+  </data>
+  <data name="Admin_Seller_ReviewSubmitReply" xml:space="preserve">
+    <value>Submit Reply</value>
+  </data>
+  <!-- CONFIGURACIÃ“N SMTP Y CHATBOT IA (SMTP SETTINGS) -->
+  <data name="Admin_Smtp_Title" xml:space="preserve">
+    <value>Email Server Configuration</value>
+  </data>
+  <data name="Admin_Smtp_Subtitle" xml:space="preserve">
+    <value>Set up the system sender account for transactional emails and system notifications. (Owners Only)</value>
+  </data>
+  <data name="Admin_Smtp_SenderName" xml:space="preserve">
+    <value>Sender Display Name</value>
+  </data>
+  <data name="Admin_Smtp_SenderEmail" xml:space="preserve">
+    <value>System Email Address (Gmail)</value>
+  </data>
+  <data name="Admin_Smtp_AppPassword" xml:space="preserve">
+    <value>Google App Password</value>
+  </data>
+  <data name="Admin_Smtp_AppPasswordHelp" xml:space="preserve">
+    <value>Do not use your standard personal password. Generate a 16-character secure App Password inside your Google Account Security Dashboard.</value>
+  </data>
+  <data name="Admin_Smtp_SaveBtn" xml:space="preserve">
+    <value>Save Configuration</value>
+  </data>
+  <data name="Admin_AI_Title" xml:space="preserve">
+    <value>AI Assistant Configuration</value>
+  </data>
+  <data name="Admin_AI_Subtitle" xml:space="preserve">
+    <value>Enable or disable the global AI Chatbot widget for the store.</value>
+  </data>
+  <data name="Admin_AI_CurrentStatus" xml:space="preserve">
+    <value>Current Status:</value>
+  </data>
+  <data name="Admin_AI_ToggleStatus" xml:space="preserve">
+    <value>Toggle Status</value>
+  </data>
+  <!-- PANEL DEL REPARTIDOR (DELIVERY DASHBOARD) -->
+  <data name="Driver_PageTitle" xml:space="preserve">
+    <value>Driver Hub</value>
+  </data>
+  <data name="Driver_Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="Driver_OnDuty" xml:space="preserve">
+    <value>On Duty</value>
+  </data>
+  <data name="Driver_AvailableDeliveries" xml:space="preserve">
+    <value>Available Deliveries</value>
+  </data>
+  <data name="Driver_OfflineTitle" xml:space="preserve">
+    <value>You are Offline</value>
+  </data>
+  <data name="Driver_OfflineDesc" xml:space="preserve">
+    <value>Toggle your status to 'On Duty' to start receiving delivery requests.</value>
+  </data>
+  <data name="Driver_OrderLabel" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Driver_ItemsToDeliver" xml:space="preserve">
+    <value>Items to deliver</value>
+  </data>
+  <data name="Driver_ToCollect" xml:space="preserve">
+    <value>TO COLLECT</value>
+  </data>
+  <data name="Driver_AcceptDelivery" xml:space="preserve">
+    <value>Accept Delivery</value>
+  </data>
+  <data name="Driver_SearchingOrders" xml:space="preserve">
+    <value>Searching for orders...</value>
+  </data>
+  <data name="Driver_NoOrdersDesc" xml:space="preserve">
+    <value>There are no packages ready for delivery at the moment. We will refresh automatically.</value>
+  </data>
+  <data name="Driver_ActiveTrip" xml:space="preserve">
+    <value>Active Trip</value>
+  </data>
+  <data name="Driver_PackageContents" xml:space="preserve">
+    <value>Package Contents:</value>
+  </data>
+  <data name="Driver_DropoffPoint" xml:space="preserve">
+    <value>Drop-off Point</value>
+  </data>
+  <data name="Driver_CustomerAddress" xml:space="preserve">
+    <value>Customer delivery address</value>
+  </data>
+  <data name="Driver_YourLocation" xml:space="preserve">
+    <value>Your Location</value>
+  </data>
+  <data name="Driver_LiveGps" xml:space="preserve">
+    <value>Live GPS position</value>
+  </data>
+  <data name="Driver_GettingGps" xml:space="preserve">
+    <value>Getting your GPS location...</value>
+  </data>
+  <data name="Driver_CancelTrip" xml:space="preserve">
+    <value>Cancel Trip</value>
+  </data>
+  <data name="Driver_MarkDelivered" xml:space="preserve">
+    <value>Mark Delivered</value>
+  </data>
+  <data name="Driver_CancelConfirm" xml:space="preserve">
+    <value>Are you sure you want to drop this order? It will return to the radar.</value>
+  </data>
+  <data name="Driver_CompleteConfirm" xml:space="preserve">
+    <value>Confirm that you have handed the package to the customer?</value>
+  </data>
+  <!-- AUDITORÃA DEL SISTEMA (ADMIN AUDIT) -->
+  <data name="Admin_Audit_Title" xml:space="preserve">
+    <value>System Audit Logs</value>
+  </data>
+  <data name="Admin_Audit_Subtitle" xml:space="preserve">
+    <value>Monitor administrative activities, system events, and security actions performed by administrators.</value>
+  </data>
+  <data name="Admin_Audit_FilterAction" xml:space="preserve">
+    <value>Action Type</value>
+  </data>
+  <data name="Admin_Audit_FilterModule" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Admin_Audit_FilterSearch" xml:space="preserve">
+    <value>Search Details</value>
+  </data>
+  <data name="Admin_Audit_SearchPlaceholder" xml:space="preserve">
+    <value>Search description, admin or IP...</value>
+  </data>
+  <data name="Admin_Audit_ClearFilters" xml:space="preserve">
+    <value>Clear Filters</value>
+  </data>
+  <data name="Admin_Audit_ColLogId" xml:space="preserve">
+    <value>Log ID</value>
+  </data>
+  <data name="Admin_Audit_ColAdmin" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="Admin_Audit_ColActionType" xml:space="preserve">
+    <value>Action Type</value>
+  </data>
+  <data name="Admin_Audit_ColModule" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Admin_Audit_ColDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Admin_Audit_ColIp" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="Admin_Audit_ColTimestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="Admin_Audit_Empty" xml:space="preserve">
+    <value>No audit log records match your selection criteria.</value>
+  </data>
+  <!-- GESTIÃ“N DE BANNERS Y COLECCIONES (ADMIN BANNERS) -->
+  <data name="Admin_Banners_Title" xml:space="preserve">
+    <value>Storefront Display Management</value>
+  </data>
+  <data name="Admin_Banners_Subtitle" xml:space="preserve">
+    <value>Manage main hero banners, product collections, and login visuals in multiple languages.</value>
+  </data>
+  <data name="Admin_Banners_TabMain" xml:space="preserve">
+    <value>Main Banners</value>
+  </data>
+  <data name="Admin_Banners_TabCollections" xml:space="preserve">
+    <value>Homepage Collections</value>
+  </data>
+  <data name="Admin_Banners_TabAuth" xml:space="preserve">
+    <value>Auth Carousel</value>
+  </data>
+  <!-- TAB 1: BANNERS -->
+  <data name="Admin_Banners_AddTitle" xml:space="preserve">
+    <value>Add New Banner</value>
+  </data>
+  <data name="Admin_Banners_EditTitle" xml:space="preserve">
+    <value>Edit Banner</value>
+  </data>
+  <data name="Admin_Banners_TranslateToEs" xml:space="preserve">
+    <value>Translate to Spanish</value>
+  </data>
+  <data name="Admin_Banners_TranslateToEn" xml:space="preserve">
+    <value>Translate to English</value>
+  </data>
+  <data name="Admin_Banners_TitleEN" xml:space="preserve">
+    <value>Title (EN)</value>
+  </data>
+  <data name="Admin_Banners_SubtitleEN" xml:space="preserve">
+    <value>Subtitle (EN)</value>
+  </data>
+  <data name="Admin_Banners_TitleES" xml:space="preserve">
+    <value>TÃ­tulo (ES)</value>
+  </data>
+  <data name="Admin_Banners_SubtitleES" xml:space="preserve">
+    <value>SubtÃ­tulo (ES)</value>
+  </data>
+  <data name="Admin_Banners_UniversalSettings" xml:space="preserve">
+    <value>Universal Banner Settings</value>
+  </data>
+  <data name="Admin_Banners_LinkUrl" xml:space="preserve">
+    <value>Link URL</value>
+  </data>
+  <data name="Admin_Banners_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Admin_Banners_StatusActive" xml:space="preserve">
+    <value>Active (Visible)</value>
+  </data>
+  <data name="Admin_Banners_StatusInactive" xml:space="preserve">
+    <value>Inactive (Hidden)</value>
+  </data>
+  <data name="Admin_Banners_ImageLabel" xml:space="preserve">
+    <value>Banner Image</value>
+  </data>
+  <data name="Admin_Banners_CurrentImage" xml:space="preserve">
+    <value>Current image:</value>
+  </data>
+  <data name="Admin_Banners_KeepImageNote" xml:space="preserve">
+    <value>Leave empty to keep current image.</value>
+  </data>
+  <data name="Admin_Banners_DragDropText" xml:space="preserve">
+    <value>Drag &amp; drop your banner image here, or browse</value>
+  </data>
+  <data name="Admin_Banners_SaveBanner" xml:space="preserve">
+    <value>Save Banner</value>
+  </data>
+  <data name="Admin_Banners_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Admin_Banners_OrganizerTitle" xml:space="preserve">
+    <value>Current Banners Organizer</value>
+  </data>
+  <data name="Admin_Banners_SaveOrder" xml:space="preserve">
+    <value>Save order</value>
+  </data>
+  <data name="Admin_Banners_ColOrder" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Admin_Banners_ColPreview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Admin_Banners_ColTitleEN" xml:space="preserve">
+    <value>Title (EN)</value>
+  </data>
+  <data name="Admin_Banners_ColTitleES" xml:space="preserve">
+    <value>TÃ­tulo (ES)</value>
+  </data>
+  <data name="Admin_Banners_ColStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Admin_Banners_ColActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <!-- TAB 2: COLLECTIONS -->
+  <data name="Admin_Banners_CategoriesTitle" xml:space="preserve">
+    <value>Manage Collection Categories</value>
+  </data>
+  <data name="Admin_Banners_CatNameEN" xml:space="preserve">
+    <value>Category Name (EN)</value>
+  </data>
+  <data name="Admin_Banners_CatNameES" xml:space="preserve">
+    <value>Nombre CategorÃ­a (ES)</value>
+  </data>
+  <data name="Admin_Banners_BtnAddCategory" xml:space="preserve">
+    <value>Add Category</value>
+  </data>
+  <data name="Admin_Banners_ColFormAdd" xml:space="preserve">
+    <value>Add New Collection</value>
+  </data>
+  <data name="Admin_Banners_ColFormEdit" xml:space="preserve">
+    <value>Edit Collection</value>
+  </data>
+  <data name="Admin_Banners_ColTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Admin_Banners_ColCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Admin_Banners_ColTargetLink" xml:space="preserve">
+    <value>Link URL (Shop Now target)</value>
+  </data>
+  <data name="Admin_Banners_ColBgImage" xml:space="preserve">
+    <value>Collection Background Image</value>
+  </data>
+  <data name="Admin_Banners_ColDragDrop" xml:space="preserve">
+    <value>Drag &amp; drop collection background image here, or browse</value>
+  </data>
+  <data name="Admin_Banners_SaveCollection" xml:space="preserve">
+    <value>Save Collection</value>
+  </data>
+  <data name="Admin_Banners_CurrentCollections" xml:space="preserve">
+    <value>Current Collections</value>
+  </data>
+  <!-- TAB 3: AUTH CAROUSEL -->
+  <data name="Admin_Banners_AuthFormAdd" xml:space="preserve">
+    <value>Add New Slide (Login/SignUp)</value>
+  </data>
+  <data name="Admin_Banners_AuthFormEdit" xml:space="preserve">
+    <value>Edit Slide</value>
+  </data>
+  <data name="Admin_Banners_QuoteEN" xml:space="preserve">
+    <value>Quote / Testimonial Text (EN)</value>
+  </data>
+  <data name="Admin_Banners_AuthorRoleEN" xml:space="preserve">
+    <value>Author Role (EN)</value>
+  </data>
+  <data name="Admin_Banners_QuoteES" xml:space="preserve">
+    <value>Cita / Testimonio (ES)</value>
+  </data>
+  <data name="Admin_Banners_AuthorRoleES" xml:space="preserve">
+    <value>Rol del Autor (ES)</value>
+  </data>
+  <data name="Admin_Banners_AuthorName" xml:space="preserve">
+    <value>Author Name</value>
+  </data>
+  <data name="Admin_Banners_AuthDragDrop" xml:space="preserve">
+    <value>Drag &amp; drop slide image here, or browse</value>
+  </data>
+  <data name="Admin_Banners_SaveSlide" xml:space="preserve">
+    <value>Save Slide</value>
+  </data>
+  <data name="Admin_Banners_CurrentAuthSlides" xml:space="preserve">
+    <value>Current Auth Slides</value>
+  </data>
+  <data name="Admin_Banners_ColAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="Admin_Banners_ColQuote" xml:space="preserve">
+    <value>Quote (EN)</value>
+  </data>
+  <!-- GESTIÃ“N DE USUARIOS: FILTROS Y ESTADOS DE REPARTIDORES -->
+  <data name="Admin_Users_FilterRole" xml:space="preserve">
+    <value>Filter by Role</value>
+  </data>
+  <data name="Admin_Users_AllRoles" xml:space="preserve">
+    <value>-- All Roles --</value>
+  </data>
+  <data name="Admin_Users_RoleDelivery" xml:space="preserve">
+    <value>Delivery Drivers</value>
+  </data>
+  <data name="Admin_Users_FilterDeliveryStatus" xml:space="preserve">
+    <value>Delivery Status</value>
+  </data>
+  <data name="Admin_Users_AllDeliveryStatuses" xml:space="preserve">
+    <value>-- All Delivery Statuses --</value>
+  </data>
+  <data name="Admin_Users_StatusAvailable" xml:space="preserve">
+    <value>ðŸŸ¢ On Duty (Available)</value>
+  </data>
+  <data name="Admin_Users_StatusDelivering" xml:space="preserve">
+    <value>ðŸ”µ On the Way (Delivering Order)</value>
+  </data>
+  <data name="Admin_Users_StatusOffDuty" xml:space="preserve">
+    <value>âšª Off Duty (Resting)</value>
+  </data>
+  <data name="Admin_Users_SearchLabel" xml:space="preserve">
+    <value>Search User</value>
+  </data>
+  <data name="Admin_Users_SearchPlaceholder" xml:space="preserve">
+    <value>Search by username or email...</value>
+  </data>
+  <data name="Admin_Users_ClearFilters" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Admin_Users_ColDeliveryStatus" xml:space="preserve">
+    <value>Delivery Activity Status</value>
+  </data>
+  <data name="Admin_Users_BadgeOnTheWay" xml:space="preserve">
+    <value>On the Way (Order #{0})</value>
+  </data>
+  <data name="Admin_Users_BadgeOnDuty" xml:space="preserve">
+    <value>On Duty (Available)</value>
+  </data>
+  <data name="Admin_Users_BadgeOffDuty" xml:space="preserve">
+    <value>Off Duty (Resting)</value>
+  </data>
+  <!-- NUEVOS RECURSOS DE DELIVERY DASHBOARD -->
+  <data name="Driver_GoogleMaps" xml:space="preserve">
+    <value>Google Maps</value>
+  </data>
+  <data name="Driver_Waze" xml:space="preserve">
+    <value>Waze</value>
+  </data>
+  <data name="Driver_WhatsApp" xml:space="preserve">
+    <value>WhatsApp Customer</value>
+  </data>
+  <data name="Driver_OrderNotesTitle" xml:space="preserve">
+    <value>Customer Instructions:</value>
+  </data>
+  <data name="Checkout_DeliveryDate" xml:space="preserve">
+    <value>Delivery Date</value>
+  </data>
+  <data name="Admin_Audit_ColAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Admin_Banners_Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Profile_BtnSaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Checkout_PaymentMethod" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="Admin_Banners_Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Admin_Products_CancelBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+	<!-- GESTIÓN DE PRODUCTOS (MANAGE PRODUCTS) -->
+	<data name="Admin_Products_AddNew" xml:space="preserve">
+    <value>Add New Shirt</value>
+  </data>
+	<data name="Admin_Products_Save" xml:space="preserve">
+    <value>Save Product</value>
+  </data>
+	<data name="Admin_Products_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+	<data name="Admin_Products_AllowCustom" xml:space="preserve">
+    <value>Allow personalization (Name &amp; Number printing)</value>
   </data>
 </root>

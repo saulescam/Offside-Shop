@@ -32,6 +32,24 @@
     <script src="SweetAlert/sweetalert2.all.min.js"></script>
 
     <style>
+        .filter-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .filter-card label {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
+
         .perm-card {
             background: rgba(255, 200, 0, 0.05);
             padding: 12px 15px;
@@ -104,12 +122,16 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* Modal dark mode support */
         .modal-content { background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); }
         .modal-header { border-bottom: 1px solid var(--border-color); }
         .modal-footer { border-top: 1px solid var(--border-color); }
         .close { color: var(--text-main); text-shadow: none; }
         .close:hover { color: #FFC800; }
+
+        /* Driver Status Badges */
+        .badge-driver-delivering { background-color: #3b82f6; color: #ffffff; padding: 6px 12px; border-radius: 20px; font-weight: 700; font-size: 0.78rem; }
+        .badge-driver-onduty { background-color: #10b981; color: #ffffff; padding: 6px 12px; border-radius: 20px; font-weight: 700; font-size: 0.78rem; }
+        .badge-driver-offduty { background-color: #6b7280; color: #ffffff; padding: 6px 12px; border-radius: 20px; font-weight: 700; font-size: 0.78rem; }
     </style>
 
     <script type="text/javascript">
@@ -168,7 +190,7 @@
                     <asp:UpdatePanel ID="upMain" runat="server">
                         <ContentTemplate>
                             <!-- Create New User Form Card -->
-                            <div class="form-card mb-5">
+                            <div class="form-card mb-4">
                                 <h4 class="text-white mb-3" style="font-weight: 700;"><i class="fas fa-user-plus mr-2"></i>Create New User / Admin</h4>
                                 <div class="row">
                                     <div class="col-md-3 form-group">
@@ -196,6 +218,40 @@
                                 <asp:Button ID="btnCreateUser" runat="server" Text="&#xf0c7; Create User" CssClass="mybtn" OnClick="btnCreateUser_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600; width: auto; padding: 10px 25px;" />
                             </div>
 
+                            <!-- FILTROS DE BÚSQUEDA Y ROLES -->
+                            <div class="filter-card mb-4">
+                                <div class="row align-items-end">
+                                    <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
+                                        <label>Filter by Role</label>
+                                        <asp:DropDownList ID="ddlFilterRole" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filter_Changed">
+                                            <asp:ListItem Value="0" Text="-- All Roles --"></asp:ListItem>
+                                            <asp:ListItem Value="1" Text="Owner"></asp:ListItem>
+                                            <asp:ListItem Value="2" Text="Admin"></asp:ListItem>
+                                            <asp:ListItem Value="3" Text="Customer"></asp:ListItem>
+                                            <asp:ListItem Value="4" Text="Delivery Drivers"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
+                                        <label>Delivery Status</label>
+                                        <asp:DropDownList ID="ddlFilterDeliveryStatus" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filter_Changed">
+                                            <asp:ListItem Value="ALL" Text="-- All Delivery Statuses --"></asp:ListItem>
+                                            <asp:ListItem Value="AVAILABLE" Text="🟢 On Duty (Available)"></asp:ListItem>
+                                            <asp:ListItem Value="DELIVERING" Text="🔵 On the Way (Delivering Order)"></asp:ListItem>
+                                            <asp:ListItem Value="OFFDUTY" Text="⚪ Off Duty (Resting)"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-4 col-sm-8 mb-2 mb-md-0">
+                                        <label>Search User</label>
+                                        <asp:TextBox ID="txtSearchUser" runat="server" CssClass="form-control" placeholder="Search by username or email..." AutoPostBack="true" OnTextChanged="Filter_Changed"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4 text-right">
+                                        <asp:LinkButton ID="btnClearFilters" runat="server" CssClass="btn btn-outline-secondary font-weight-bold w-100" OnClick="btnClearFilters_Click">
+                                            <i class="fas fa-eraser mr-1"></i> Clear
+                                        </asp:LinkButton>
+                                    </div>
+                                </div>
+                            </div>
+
                             <h3 class="text-white mb-3" style="font-weight: 700;"><i class="fas fa-users mr-2"></i>Registered Users</h3>
                             <div class="table-responsive">
                                 <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="Id_User" OnRowCommand="gvUsers_RowCommand" OnRowDataBound="gvUsers_RowDataBound">
@@ -208,6 +264,14 @@
                                                 <span class="badge badge-dark p-2" style="font-size: 0.85rem;"><%# Eval("Name_Role") %></span>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        
+                                        <!-- COLUMNA DINÁMICA DE ESTADO DEL REPARTIDOR -->
+                                        <asp:TemplateField HeaderText="Delivery Activity Status">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDeliveryStatusBadge" runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
                                         <asp:TemplateField HeaderText="Actions">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblOwnerProtect" runat="server" Text="<span class='text-muted'><i class='fas fa-crown'></i> Owner</span>" Visible="false"></asp:Label>
@@ -234,7 +298,7 @@
             </main>
         </div>
 
-        <!-- MODALES DE USUARIO Y PERMISOS CON RESPALDO DEL SERVIDOR -->
+        <!-- MODALES DE USUARIO Y PERMISOS -->
         <asp:UpdatePanel ID="upModals" runat="server">
             <ContentTemplate>
                 <!-- EDIT USER MODAL -->

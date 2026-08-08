@@ -9,13 +9,27 @@ using System.Web.UI.WebControls;
 
 namespace OFFSIDESHOP
 {
-    public partial class DeliveryDashboard : System.Web.UI.Page
+    public partial class DeliveryDashboard : BasePage
     {
-        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
+        private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
+
+        // Enumeración de estados de orden para evitar números mágicos
+        private enum OrderStatus
+        {
+            Pending = 1,
+            Paid = 2,
+            Shipped = 3,         // En camino / Misión activa
+            Delivered = 4,       // Entregado
+            Cancelled = 5,
+            RefundRequested = 6,
+            Refunded = 7,
+            RefundRejected = 8,
+            ReadyForPickup = 9   // En radar / Listo para que repartidor lo tome
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // BLOQUEO ABSOLUTO: Solo el Rol 4 (Delivery) puede ver esto
+            // BLOQUEO ABSOLUTO: Solo el Rol 4 (Delivery) puede acceder
             if (Session["UserRole"] == null || Convert.ToInt32(Session["UserRole"]) != 4)
             {
                 Response.Redirect("Login.aspx");
@@ -28,7 +42,7 @@ namespace OFFSIDESHOP
             }
         }
 
-        // Verifica si el repartidor cerró la app mientras tenía un pedido en la mochila
+        // Verifica si el repartidor tiene una misión en curso activa
         private void CheckForActiveMission()
         {
             int driverId = Convert.ToInt32(Session["Id_User"]);
@@ -36,23 +50,21 @@ namespace OFFSIDESHOP
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                // Buscamos si tiene alguna orden en estado Shipped (3) asignada a su ID
-                string query = "SELECT Id_Order FROM orders WHERE Id_Status = 3 AND Id_DeliveryMan = @DriverId LIMIT 1";
+                string query = "SELECT Id_Order FROM orders WHERE Id_Status = @StatusShipped AND Id_DeliveryMan = @DriverId LIMIT 1";
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
+                    cmd.Parameters.AddWithValue("@StatusShipped", (int)OrderStatus.Shipped);
                     cmd.Parameters.AddWithValue("@DriverId", driverId);
                     object result = cmd.ExecuteScalar();
 
                     if (result != null && result != DBNull.Value)
                     {
-                        // Si ya tiene una misión en curso, lo mandamos directo a esa pantalla
                         chkDutySwitch.Checked = true;
                         UpdateDutyUI();
                         LoadMissionDetails(Convert.ToInt32(result));
                     }
                     else
                     {
-                        // Si no, cargamos el Radar
                         UpdateDutyUI();
                         LoadRadar();
                     }
@@ -90,18 +102,20 @@ namespace OFFSIDESHOP
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                // Extraemos todas las órdenes pagadas (Estado 2) que nadie haya tomado aún
+                // Extraemos órdenes listas para retirar (Estado 9) sin repartidor asignado
                 string query = @"
                     SELECT o.Id_Order, o.Total, c.city_name, m.Municipality_Name, 
                            (SELECT SUM(Quantity) FROM order_details WHERE Id_Order = o.Id_Order) AS TotalItems
                     FROM orders o
                     LEFT JOIN cities c ON o.Id_City = c.id_city
                     LEFT JOIN municipalities m ON o.Id_Municipality = m.Id_Municipality
-                    WHERE o.Id_Status = 9 AND o.Id_DeliveryMan IS NULL
+                    WHERE o.Id_Status = @StatusReady AND o.Id_DeliveryMan IS NULL
                     ORDER BY o.OrderDate ASC";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
+                    cmd.Parameters.AddWithValue("@StatusReady", (int)OrderStatus.ReadyForPickup);
+
                     using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
@@ -134,33 +148,50 @@ namespace OFFSIDESHOP
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    // Al aceptar, bloqueamos la orden para este repartidor y pasamos a estado Shipped (3)
-                    // Cambia la consulta UPDATE por esta:
-                    string query = "UPDATE orders SET Id_Status = 3, Id_DeliveryMan = @DriverId WHERE Id_Order = @OrderId AND Id_Status = 9"; using (MySqlCommand cmd = new MySqlCommand(query, conn))
+
+                    // Control de condición de carrera: Solo asigna si sigue en Estado 9 y sin repartidor
+                    string query = @"UPDATE orders 
+                                    SET Id_Status = @StatusShipped, Id_DeliveryMan = @DriverId 
+                                    WHERE Id_Order = @OrderId AND Id_Status = @StatusReady AND Id_DeliveryMan IS NULL";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@StatusShipped", (int)OrderStatus.Shipped);
                         cmd.Parameters.AddWithValue("@DriverId", driverId);
                         cmd.Parameters.AddWithValue("@OrderId", orderId);
+                        cmd.Parameters.AddWithValue("@StatusReady", (int)OrderStatus.ReadyForPickup);
 
                         int affected = cmd.ExecuteNonQuery();
                         if (affected > 0)
                         {
-                            // INSERTAR el inicio del rastreo en la tabla driver_tracking
-                            string initTracking = "INSERT INTO driver_tracking (Id_Driver, CurrentLat, CurrentLng) VALUES (@DriverId, 13.7370, -89.2868) ON DUPLICATE KEY UPDATE CurrentLat=13.7370, CurrentLng=-89.2868;";
+                            // Sincronizar driver_tracking con Id_ActiveOrder
+                            string initTracking = @"INSERT INTO driver_tracking (Id_Driver, Id_ActiveOrder, CurrentLat, CurrentLng) 
+                                                    VALUES (@DriverId, @OrderId, 13.7370, -89.2868) 
+                                                    ON DUPLICATE KEY UPDATE Id_ActiveOrder = @OrderId;";
                             using (MySqlCommand cmdTrack = new MySqlCommand(initTracking, conn))
                             {
                                 cmdTrack.Parameters.AddWithValue("@DriverId", driverId);
+                                cmdTrack.Parameters.AddWithValue("@OrderId", orderId);
                                 cmdTrack.ExecuteNonQuery();
                             }
+
                             LoadMissionDetails(orderId);
+                        }
+                        else
+                        {
+                            // Alerta si otro repartidor ganó la carrera por la orden
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "orderTaken",
+                                "Swal.fire('Too late!', 'Another driver just accepted this order.', 'info');", true);
+                            LoadRadar();
                         }
                     }
                 }
             }
         }
+
         [WebMethod(EnableSession = true)]
         public static string UpdateLocation(decimal currentLat, decimal currentLng)
         {
-            // Aseguramos capturar el ID correcto
             if (HttpContext.Current.Session["Id_User"] == null) return "No Session";
 
             int driverId = Convert.ToInt32(HttpContext.Current.Session["Id_User"]);
@@ -168,9 +199,9 @@ namespace OFFSIDESHOP
 
             using (MySqlConnection conn = new MySqlConnection(connString))
             {
-                // UPSERT: Si el repartidor ya existe en la tabla, actualiza. Si no, crea.
-                string query = "INSERT INTO driver_tracking (Id_Driver, CurrentLat, CurrentLng) VALUES (@id, @lat, @lng) " +
-                               "ON DUPLICATE KEY UPDATE CurrentLat = @lat, CurrentLng = @lng";
+                string query = @"INSERT INTO driver_tracking (Id_Driver, CurrentLat, CurrentLng) 
+                                 VALUES (@id, @lat, @lng) 
+                                 ON DUPLICATE KEY UPDATE CurrentLat = @lat, CurrentLng = @lng, LastUpdate = NOW()";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
@@ -183,12 +214,13 @@ namespace OFFSIDESHOP
             }
             return "OK";
         }
+
         private void LoadMissionDetails(int orderId)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT o.Id_Order, CONCAT(o.Name, ' ', o.LastName) AS ClientName, o.Phone, o.Address, 
+                    SELECT o.Id_Order, CONCAT(o.Name, ' ', o.LastName) AS ClientName, o.Phone, o.Address, o.OrderNotes,
                            o.Latitude, o.Longitude, c.city_name, m.Municipality_Name
                     FROM orders o
                     LEFT JOIN cities c ON o.Id_City = c.id_city
@@ -203,20 +235,51 @@ namespace OFFSIDESHOP
                 {
                     if (reader.Read())
                     {
+                        string clientName = reader["ClientName"].ToString();
+                        string address = $"{reader["Address"]}, {reader["Municipality_Name"]}, {reader["city_name"]}";
+                        string phone = reader["Phone"].ToString().Replace("-", "").Replace(" ", "");
+                        string notes = reader["OrderNotes"] != DBNull.Value ? reader["OrderNotes"].ToString() : "";
+                        string lat = reader["Latitude"] != DBNull.Value ? reader["Latitude"].ToString() : "";
+                        string lng = reader["Longitude"] != DBNull.Value ? reader["Longitude"].ToString() : "";
+
                         lblMissionOrderId.Text = reader["Id_Order"].ToString();
-                        lblClientName.Text = reader["ClientName"].ToString();
-                        lblClientAddress.Text = $"{reader["Address"]}, {reader["Municipality_Name"]}, {reader["city_name"]}";
+                        lblClientName.Text = clientName;
+                        lblClientAddress.Text = address;
 
-                        string phone = reader["Phone"].ToString();
+                        // Configuración de botones de contacto
                         btnCallClient.HRef = "tel:" + phone;
+                        btnWhatsappClient.HRef = $"https://wa.me/503{phone}?text=" + HttpUtility.UrlEncode($"Hola {clientName}, soy tu repartidor de OffsideShop con tu pedido #{orderId}.");
 
-                        // Insertamos coordenadas para pintar el mapa
-                        hfDestLat.Value = reader["Latitude"] != DBNull.Value ? reader["Latitude"].ToString() : "";
-                        hfDestLng.Value = reader["Longitude"] != DBNull.Value ? reader["Longitude"].ToString() : "";
+                        // Configuración de botones GPS externos
+                        if (!string.IsNullOrEmpty(lat) && !string.IsNullOrEmpty(lng))
+                        {
+                            btnGoogleMaps.HRef = $"https://www.google.com/maps/dir/?api=1&destination={lat},{lng}&travelmode=driving";
+                            btnWaze.HRef = $"https://waze.com/ul?ll={lat},{lng}&navigate=yes";
+                            hfDestLat.Value = lat;
+                            hfDestLng.Value = lng;
+                        }
+                        else
+                        {
+                            btnGoogleMaps.HRef = "#";
+                            btnWaze.HRef = "#";
+                            hfDestLat.Value = "";
+                            hfDestLng.Value = "";
+                        }
+
+                        // Mostrar notas del cliente si existen
+                        if (!string.IsNullOrWhiteSpace(notes))
+                        {
+                            phOrderNotes.Visible = true;
+                            lblOrderNotes.Text = HttpUtility.HtmlEncode(notes);
+                        }
+                        else
+                        {
+                            phOrderNotes.Visible = false;
+                        }
                     }
                 }
 
-                // Generar un resumen de qué camisetas lleva en la mochila
+                // Generar lista de productos
                 string contentsQuery = "SELECT Quantity, ProductName FROM order_details WHERE Id_Order = @OrderId";
                 MySqlCommand cmdContents = new MySqlCommand(contentsQuery, conn);
                 cmdContents.Parameters.AddWithValue("@OrderId", orderId);
@@ -232,55 +295,111 @@ namespace OFFSIDESHOP
                 lblPackageContents.Text = items;
             }
 
-            mvDriver.ActiveViewIndex = 1; // Cambiamos la vista a Misión Activa
+            mvDriver.ActiveViewIndex = 1; // Cambiamos a la vista Misión Activa
         }
 
         protected void btnCompleteMission_Click(object sender, EventArgs e)
         {
             int orderId = Convert.ToInt32(lblMissionOrderId.Text);
+            int driverId = Convert.ToInt32(Session["Id_User"]);
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                // Pasamos el pedido a Entregado (Estado 4)
-                string query = "UPDATE orders SET Id_Status = 4 WHERE Id_Order = @OrderId";
+                // Pasar orden a Entregado (Estado 4)
+                string query = "UPDATE orders SET Id_Status = @StatusDelivered WHERE Id_Order = @OrderId";
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
+                    cmd.Parameters.AddWithValue("@StatusDelivered", (int)OrderStatus.Delivered);
                     cmd.Parameters.AddWithValue("@OrderId", orderId);
                     cmd.ExecuteNonQuery();
+                }
+
+                // Liberar el pedido activo en driver_tracking
+                string clearTrack = "UPDATE driver_tracking SET Id_ActiveOrder = NULL WHERE Id_Driver = @DriverId";
+                using (MySqlCommand cmdTrack = new MySqlCommand(clearTrack, conn))
+                {
+                    cmdTrack.Parameters.AddWithValue("@DriverId", driverId);
+                    cmdTrack.ExecuteNonQuery();
                 }
             }
 
             ScriptManager.RegisterStartupScript(this, this.GetType(), "success", "Swal.fire('Great Job!', 'Order delivered successfully.', 'success');", true);
             mvDriver.ActiveViewIndex = 0;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "stopGPS", "if(navigator.geolocation && trackingWatchId !== null) { navigator.geolocation.clearWatch(trackingWatchId); trackingWatchId = null; }", true);
             LoadRadar();
-
         }
 
         protected void btnCancelMission_Click(object sender, EventArgs e)
         {
             int orderId = Convert.ToInt32(lblMissionOrderId.Text);
+            int driverId = Convert.ToInt32(Session["Id_User"]);
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                // Si el repartidor tiene un problema (se pinchó la llanta, etc), soltamos el pedido de vuelta a la piscina (Estado 2) y quitamos su ID
-                // Cambia la consulta UPDATE por esta:
-                string query = "UPDATE orders SET Id_Status = 9, Id_DeliveryMan = NULL WHERE Id_Order = @OrderId"; using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                // Regresar orden al radar (Estado 9) y desasignar repartidor
+                string query = "UPDATE orders SET Id_Status = @StatusReady, Id_DeliveryMan = NULL WHERE Id_Order = @OrderId";
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
+                    cmd.Parameters.AddWithValue("@StatusReady", (int)OrderStatus.ReadyForPickup);
                     cmd.Parameters.AddWithValue("@OrderId", orderId);
                     cmd.ExecuteNonQuery();
+                }
+
+                // Liberar el pedido activo en driver_tracking
+                string clearTrack = "UPDATE driver_tracking SET Id_ActiveOrder = NULL WHERE Id_Driver = @DriverId";
+                using (MySqlCommand cmdTrack = new MySqlCommand(clearTrack, conn))
+                {
+                    cmdTrack.Parameters.AddWithValue("@DriverId", driverId);
+                    cmdTrack.ExecuteNonQuery();
                 }
             }
 
             mvDriver.ActiveViewIndex = 0;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "stopGPS", "if(navigator.geolocation && trackingWatchId !== null) { navigator.geolocation.clearWatch(trackingWatchId); trackingWatchId = null; }", true);
             LoadRadar();
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
         {
+            if (Session["Id_User"] != null && int.TryParse(Session["Id_User"].ToString(), out int driverId))
+            {
+                try
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    {
+                        conn.Open();
+
+                        // 1. Si tenía una orden activa asignada en camino (Estado 3), la liberamos de vuelta al radar (Estado 9)
+                        string releaseOrderQuery = @"UPDATE orders 
+                                                      SET Id_Status = @StatusReady, Id_DeliveryMan = NULL 
+                                                      WHERE Id_DeliveryMan = @DriverId AND Id_Status = @StatusShipped";
+                        using (MySqlCommand cmdOrder = new MySqlCommand(releaseOrderQuery, conn))
+                        {
+                            cmdOrder.Parameters.AddWithValue("@StatusReady", (int)OrderStatus.ReadyForPickup);
+                            cmdOrder.Parameters.AddWithValue("@StatusShipped", (int)OrderStatus.Shipped);
+                            cmdOrder.Parameters.AddWithValue("@DriverId", driverId);
+                            cmdOrder.ExecuteNonQuery();
+                        }
+
+                        // 2. Limpiamos su estado en driver_tracking para que pase a descanso (OFFDUTY)
+                        // Atrasamos LastUpdate 1 hora para que la consulta de estado lo evalúe como OFFDUTY
+                        string clearTrackingQuery = @"UPDATE driver_tracking 
+                                                      SET Id_ActiveOrder = NULL, 
+                                                          LastUpdate = DATE_SUB(NOW(), INTERVAL 1 HOUR) 
+                                                      WHERE Id_Driver = @DriverId";
+                        using (MySqlCommand cmdTrack = new MySqlCommand(clearTrackingQuery, conn))
+                        {
+                            cmdTrack.Parameters.AddWithValue("@DriverId", driverId);
+                            cmdTrack.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error al procesar logout de repartidor: " + ex.Message);
+                }
+            }
+
             Session.Clear();
             Session.Abandon();
             Response.Redirect("Login.aspx");

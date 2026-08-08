@@ -508,5 +508,23 @@ namespace OFFSIDESHOP
         {
             Response.Redirect("AdminAudit.aspx");
         }
+        // Método para forzar la cultura en esta página según la Sesión
+        protected override void InitializeCulture()
+        {
+            if (Session["Language"] != null)
+            {
+                string lang = Session["Language"].ToString();
+                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
+            }
+            base.InitializeCulture();
+        }
+
+        // Evento del botón EN / ES
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
+        }
     }
 }

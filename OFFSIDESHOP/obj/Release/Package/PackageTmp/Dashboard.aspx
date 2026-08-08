@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="OFFSIDESHOP.Dashboard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="OFFSIDESHOP.Dashboard" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -59,7 +59,7 @@
         .workspace-card {
             display: flex;
             flex-direction: column;
-            height: 350px !important; /* Uniform height for all blocks */
+            height: 350px !important;
         }
 
         .workspace-card .table-responsive {
@@ -101,6 +101,20 @@
         .table-custom td small {
             color: var(--text-muted) !important;
         }
+
+        /* Estilo del botón de cambio de idioma en blanco */
+        .lang-toggle-btn {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none !important;
+            letter-spacing: 1px;
+            transition: opacity 0.2s ease;
+        }
+        .lang-toggle-btn:hover {
+            opacity: 0.8;
+            color: #ffffff !important;
+        }
     </style>
 
     <script type="text/javascript">
@@ -114,9 +128,16 @@
 <body>
     <form id="form1" runat="server">
         <nav class="top-navbar">
-            <a class="navbar-brand" href="Homepage.aspx">
-                <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
-            </a>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a class="navbar-brand" href="Homepage.aspx" style="margin-right: 0;">
+                    <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
+                </a>
+                <!-- Botón de cambio de idioma estilo texto blanco -->
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
+                    CssClass="lang-toggle-btn" CausesValidation="false">
+                    EN / ES
+                </asp:LinkButton>
+            </div>
             <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
                 <i class="fas fa-moon"></i>
             </button>
@@ -126,50 +147,79 @@
             <aside class="sidebar fade-in">
                 <ul class="sidebar-menu">
                     <li>
-                        <asp:Button ID="btnManageProducts" CssClass="sidebar-btn" runat="server" Text="&#xf553; Manage Products" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageProducts" CssClass="sidebar-btn" runat="server" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf553; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageProducts %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d; Manage Orders</a>
+                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf46d; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOrders %>" />
+                        </a>
                     </li>
                     <li>
-                        <asp:Button ID="btnManageOffers" CssClass="sidebar-btn" runat="server" Text="&#xf155; Manage Offers" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageOffers" CssClass="sidebar-btn" runat="server" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf155; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOffers %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" Text="&#xf02c; Manage Coupons" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5; Seller Requests</a></li>
-
+                        <asp:LinkButton ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf02c; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageCoupons %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2b5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SellerRequests %>" />
+                        </a>
+                    </li>
 
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btnAddLeague" CssClass="sidebar-btn" runat="server" Text="&#xf1ae; Add League" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddLeague" CssClass="sidebar-btn" runat="server" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf1ae; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddLeague %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnAddTeam" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Team" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddTeam" CssClass="sidebar-btn" runat="server" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddTeam %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnAddBrand" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Brand" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddBrand" CssClass="sidebar-btn" runat="server" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddBrand %>" />
+                        </asp:LinkButton>
                     </li>
-
 
                     <asp:PlaceHolder ID="phOwnerMenu" runat="server">
                         <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                            <asp:Button ID="btnManageUsers" CssClass="sidebar-btn" runat="server" Text="&#xf4fe; Manage Users" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnManageUsers" CssClass="sidebar-btn" runat="server" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf4fe; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageUsers %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" Text="&#xf0e0; SMTP Settings" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf0e0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SmtpSettings %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnStats" CssClass="sidebar-btn" runat="server" Text="&#xf080; Stats" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnStats" CssClass="sidebar-btn" runat="server" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf080; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Stats %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" Text="&#xf03a; Audit Logs" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf03a; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AuditLogs %>" />
+                            </asp:LinkButton>
                         </li>
                     </asp:PlaceHolder>
                     <li>
-                        <asp:Button ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" Text="&#xf03e; Manage Banners" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf03e; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageBanners %>" />
+                        </asp:LinkButton>
                     </li>
 
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" Text="&#xf2f5; Logout" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2f5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Logout %>" />
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </aside>
@@ -177,7 +227,7 @@
             <main class="main-content fade-in" style="animation-delay: 0.2s;">
 
                 <div class="mb-4">
-                    <h1 class="page-title mb-1">Welcome, <asp:Label ID="lblAdminName" runat="server"></asp:Label></h1>
+                    <h1 class="page-title mb-1"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_Welcome %>" /> <asp:Label ID="lblAdminName" runat="server"></asp:Label></h1>
                     <asp:PlaceHolder ID="phAdminPermissions" runat="server" Visible="false">
                         <p class="text-warning font-weight-bold m-0" style="font-size: 1.1rem; letter-spacing: 0.5px;">
                             <i class="fas fa-key mr-2"></i><asp:Label ID="lblAdminPermissions" runat="server"></asp:Label>
@@ -196,12 +246,12 @@
                                         <i class="fas fa-users fa-lg"></i>
                                     </div>
                                     <div class="stat-info-container">
-                                        <h6>Registered Users</h6>
+                                        <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_RegUsers %>" /></h6>
                                         <asp:Label ID="lblUserCount" runat="server" CssClass="stat-value" Text="0"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="stat-details-footer mt-3 pt-2">
-                                    <small class="text-muted"><i class="fas fa-info-circle mr-1"></i>Total active members registered</small>
+                                    <small class="text-muted"><i class="fas fa-info-circle mr-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_RegUsersSub %>" /></small>
                                 </div>
                             </div>
                         </div>
@@ -214,12 +264,12 @@
                                         <i class="fas fa-calendar-week fa-lg"></i>
                                     </div>
                                     <div class="stat-info-container">
-                                        <h6>Orders (7 Days)</h6>
+                                        <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_Orders7Days %>" /></h6>
                                         <asp:Label ID="lblPurchasesLast7Days" runat="server" CssClass="stat-value" Text="0"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="stat-details-footer mt-3 pt-2">
-                                    <small class="text-muted"><i class="fas fa-chart-line mr-1"></i>Created in the last week</small>
+                                    <small class="text-muted"><i class="fas fa-chart-line mr-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_Orders7DaysSub %>" /></small>
                                 </div>
                             </div>
                         </div>
@@ -232,12 +282,12 @@
                                         <i class="fas fa-boxes fa-lg"></i>
                                     </div>
                                     <div class="stat-info-container">
-                                        <h6>Pending Orders</h6>
+                                        <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_PendingOrders %>" /></h6>
                                         <asp:Label ID="lblPendingOrders" runat="server" CssClass="stat-value text-warning" Text="0"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="stat-details-footer mt-3 pt-2">
-                                    <small class="text-muted"><i class="fas fa-clock mr-1"></i>Awaiting dispatch / processing</small>
+                                    <small class="text-muted"><i class="fas fa-clock mr-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_PendingOrdersSub %>" /></small>
                                 </div>
                             </div>
                         </div>
@@ -250,12 +300,12 @@
                                         <i class="fas fa-shopping-bag fa-lg"></i>
                                     </div>
                                     <div class="stat-info-container">
-                                        <h6>Total Processed</h6>
+                                        <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_TotalProcessed %>" /></h6>
                                         <asp:Label ID="lblTotalOrders" runat="server" CssClass="stat-value" Text="0"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="stat-details-footer mt-3 pt-2">
-                                    <small class="text-muted"><i class="fas fa-history mr-1"></i>Completed historical orders</small>
+                                    <small class="text-muted"><i class="fas fa-history mr-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_TotalProcessedSub %>" /></small>
                                 </div>
                             </div>
                         </div>
@@ -268,12 +318,12 @@
                                         <i class="fas fa-tshirt fa-lg"></i>
                                     </div>
                                     <div class="stat-info-container">
-                                        <h6>Jerseys Added</h6>
+                                        <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_JerseysAdded %>" /></h6>
                                         <asp:Label ID="lblShirtCount" runat="server" CssClass="stat-value" Text="0"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="stat-details-footer mt-3 pt-2">
-                                    <small class="text-muted"><i class="fas fa-tags mr-1"></i>Active products in catalog</small>
+                                    <small class="text-muted"><i class="fas fa-tags mr-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_JerseysAddedSub %>" /></small>
                                 </div>
                             </div>
                         </div>
@@ -286,12 +336,12 @@
                                         <i class="fas fa-flag fa-lg"></i>
                                     </div>
                                     <div class="stat-info-container">
-                                        <h6>Leagues Added</h6>
+                                        <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_LeaguesAdded %>" /></h6>
                                         <asp:Label ID="lblLeagues" runat="server" CssClass="stat-value" Text="0"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="stat-details-footer mt-3 pt-2">
-                                    <small class="text-muted"><i class="fas fa-globe mr-1"></i>Football leagues registered</small>
+                                    <small class="text-muted"><i class="fas fa-globe mr-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_LeaguesAddedSub %>" /></small>
                                 </div>
                             </div>
                         </div>
@@ -304,12 +354,12 @@
                                         <i class="fas fa-shield-alt fa-lg"></i>
                                     </div>
                                     <div class="stat-info-container">
-                                        <h6>Teams Added</h6>
+                                        <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_TeamsAdded %>" /></h6>
                                         <asp:Label ID="lblTeams" runat="server" CssClass="stat-value" Text="0"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="stat-details-footer mt-3 pt-2">
-                                    <small class="text-muted"><i class="fas fa-trophy mr-1"></i>Clubs and national teams</small>
+                                    <small class="text-muted"><i class="fas fa-trophy mr-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_TeamsAddedSub %>" /></small>
                                 </div>
                             </div>
                         </div>
@@ -322,12 +372,12 @@
                                         <i class="fas fa-fire fa-lg text-danger"></i>
                                     </div>
                                     <div class="stat-info-container">
-                                        <h6>Top Selling</h6>
+                                        <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_TopSelling %>" /></h6>
                                         <asp:Label ID="lblTopShirt" runat="server" CssClass="stat-value" Style="font-size: 1.05rem !important;" Text="None yet"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="stat-details-footer mt-3 pt-2">
-                                    <small class="text-muted"><i class="fas fa-star mr-1"></i>Best selling item by volume</small>
+                                    <small class="text-muted"><i class="fas fa-star mr-1"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_TopSellingSub %>" /></small>
                                 </div>
                             </div>
                         </div>
@@ -341,7 +391,7 @@
                         <div class="col-xl-6 col-lg-12 mb-4">
                             <div class="form-card p-0 workspace-card" style="overflow: hidden;">
                                 <div class="p-3 bg-dark border-bottom border-warning d-flex justify-content-between align-items-center">
-                                    <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-shopping-cart text-warning mr-2"></i>Recent Orders</h4>
+                                    <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-shopping-cart text-warning mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_RecentOrders %>" /></h4>
                                     <span class="badge badge-primary px-3 py-1 font-weight-bold">Perm_Orders</span>
                                 </div>
                                 <div class="table-responsive">
@@ -363,7 +413,7 @@
                                         <EmptyDataTemplate>
                                             <div class="text-center text-muted py-5">
                                                 <i class="fas fa-shopping-cart fa-2x mb-3 d-block text-warning"></i>
-                                                No recent orders found.
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_NoRecentOrders %>" />
                                             </div>
                                         </EmptyDataTemplate>
                                     </asp:GridView>
@@ -377,7 +427,7 @@
                         <div class="col-xl-6 col-lg-12 mb-4">
                             <div class="form-card p-0 workspace-card" style="overflow: hidden;">
                                 <div class="p-3 bg-dark border-bottom border-warning d-flex justify-content-between align-items-center">
-                                    <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-exclamation-triangle text-warning mr-2"></i>Stock Alerts</h4>
+                                    <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-exclamation-triangle text-warning mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_StockAlerts %>" /></h4>
                                     <span class="badge badge-danger px-3 py-1 font-weight-bold">Perm_Products</span>
                                 </div>
                                 <div class="table-responsive">
@@ -388,7 +438,7 @@
                                             <asp:TemplateField HeaderText="Stock Status" HeaderStyle-CssClass="text-warning font-weight-bold">
                                                 <ItemTemplate>
                                                     <span class="badge badge-danger px-3 py-1 font-weight-bold">
-                                                        <%# Eval("Stock") %> units left
+                                                        <%# Eval("Stock") %> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_UnitsLeft %>" />
                                                     </span>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
@@ -396,7 +446,7 @@
                                         <EmptyDataTemplate>
                                             <div class="text-center text-muted py-5">
                                                 <i class="fas fa-check-circle fa-2x mb-3 d-block text-success"></i>
-                                                No critical stock alerts. All items are well stocked!
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_NoStockAlerts %>" />
                                             </div>
                                         </EmptyDataTemplate>
                                     </asp:GridView>
@@ -410,7 +460,7 @@
                         <div class="col-xl-6 col-lg-12 mb-4">
                             <div class="form-card p-0 workspace-card" style="overflow: hidden;">
                                 <div class="p-3 bg-dark border-bottom border-warning d-flex justify-content-between align-items-center">
-                                    <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-ticket-alt text-warning mr-2"></i>Pending Support Tickets</h4>
+                                    <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-ticket-alt text-warning mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_PendingTickets %>" /></h4>
                                     <span class="badge badge-warning text-dark px-3 py-1 font-weight-bold">Perm_Tickets</span>
                                 </div>
                                 <div class="table-responsive">
@@ -424,7 +474,7 @@
                                         <EmptyDataTemplate>
                                             <div class="text-center text-muted py-5">
                                                 <i class="fas fa-ticket-alt fa-2x mb-3 d-block text-warning"></i>
-                                                No pending support tickets.
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_NoPendingTickets %>" />
                                             </div>
                                         </EmptyDataTemplate>
                                     </asp:GridView>
@@ -438,7 +488,7 @@
                         <div class="col-xl-6 col-lg-12 mb-4">
                             <div class="form-card p-0 workspace-card" style="overflow: hidden;">
                                 <div class="p-3 bg-dark border-bottom border-warning d-flex justify-content-between align-items-center">
-                                    <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-shield-alt text-warning mr-2"></i>Live Security Audit Feed</h4>
+                                    <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-shield-alt text-warning mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_AuditFeed %>" /></h4>
                                     <span class="badge badge-secondary px-3 py-1 font-weight-bold">Owner Only</span>
                                 </div>
                                 <div class="table-responsive">
@@ -452,7 +502,7 @@
                                         <EmptyDataTemplate>
                                             <div class="text-center text-muted py-5">
                                                 <i class="fas fa-shield-alt fa-2x mb-3 d-block text-secondary"></i>
-                                                No security audit logs found.
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_NoAuditLogs %>" />
                                             </div>
                                         </EmptyDataTemplate>
                                     </asp:GridView>
@@ -463,7 +513,7 @@
                 </div>
 
                 <div class="carousel-wrapper fade-in" style="animation-delay: 0.4s;">
-                    <h3 class="text-white mb-4" style="font-weight: 600;">Banner Preview (Live)</h3>
+                    <h3 class="text-white mb-4" style="font-weight: 600;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_BannerPreview %>" /></h3>
 
                     <asp:PlaceHolder ID="phDashCarousel" runat="server">
                         <div id="demoDash" class="carousel slide" data-ride="carousel">
@@ -505,7 +555,7 @@
 
                     <asp:PlaceHolder ID="phDashNoBanners" runat="server" Visible="false">
                         <p class="text-muted" style="padding: 40px; text-align: center; border: 1px dashed var(--border-color); border-radius: 8px;">
-                            No active banners found. <a href="AdminBanners.aspx" style="color: var(--accent-color);">Manage Banners</a>
+                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_NoActiveBanners %>" /> <a href="AdminBanners.aspx" style="color: var(--accent-color);"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageBanners %>" /></a>
                         </p>
                     </asp:PlaceHolder>
                 </div>
@@ -522,8 +572,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-
-    <!-- Slick Slider script removed since stats now use a responsive grid -->
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
@@ -554,4 +602,3 @@
     </script>
 </body>
 </html>
-

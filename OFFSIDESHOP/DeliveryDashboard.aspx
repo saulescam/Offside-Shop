@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DeliveryDashboard.aspx.cs" Inherits="OFFSIDESHOP.DeliveryDashboard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DeliveryDashboard.aspx.cs" Inherits="OFFSIDESHOP.DeliveryDashboard" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,9 +38,9 @@
             z-index: 1000;
         }
 
-            .driver-nav img {
-                height: 35px;
-            }
+        .driver-nav img {
+            height: 35px;
+        }
 
         .btn-logout {
             background: none;
@@ -73,7 +73,7 @@
             color: #374151;
         }
 
-        /* Tarjetas de Radar (Piscina de Órdenes) */
+        /* Tarjetas de Radar (Piscina de Ã“rdenes) */
         .radar-card {
             background: #fff;
             border-radius: 15px;
@@ -101,7 +101,7 @@
             font-weight: 600;
         }
 
-        /* Misión Activa */
+        /* MisiÃ³n Activa */
         .mission-header {
             background: #1a1a1a;
             color: #fff;
@@ -111,30 +111,42 @@
             margin-bottom: 20px;
         }
 
-            .mission-header h2 {
-                color: #FFC800;
-                font-weight: 900;
-                margin: 0;
-            }
+        .mission-header h2 {
+            color: #FFC800;
+            font-weight: 900;
+            margin: 0;
+        }
 
         .call-btn {
             background-color: #10b981;
             color: white;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
             text-decoration: none;
             box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+            transition: all 0.2s ease;
         }
 
-            .call-btn:hover {
-                color: white;
-                background-color: #059669;
-            }
+        .call-btn:hover {
+            color: white;
+            background-color: #059669;
+            transform: scale(1.08);
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1eb956;
+            color: white;
+        }
 
         .action-btn-huge {
             width: 100%;
@@ -152,11 +164,16 @@
             color: #888;
         }
 
-            .empty-state i {
-                font-size: 4rem;
-                color: #ddd;
-                margin-bottom: 15px;
-            }
+        .empty-state i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        /* Estilo para mapa Leaflet y ocultar cuadro de texto de OSRM */
+        .leaflet-routing-container {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -170,11 +187,8 @@
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <div class="form-check form-switch m-0 d-flex align-items-center">
-                            <!-- Usamos un input HTML nativo para que Bootstrap 5 dibuje el Switch a la perfección -->
-                            <input type="checkbox" id="chkDutySwitch" runat="server" class="form-check-input shadow-none" style="width: 45px; height: 25px; cursor: pointer; margin-top: 0;" onchange="document.getElementById('btnHiddenDuty').click();" />
-                            <!-- Botón oculto que dispara el AutoPostBack hacia tu código C# silenciosamente -->
+                            <input type="checkbox" id="chkDutySwitch" ClientIDMode="Static" runat="server" class="form-check-input shadow-none" style="width: 45px; height: 25px; cursor: pointer; margin-top: 0;" onchange="document.getElementById('btnHiddenDuty').click();" />
                             <asp:Button ID="btnHiddenDuty" ClientIDMode="Static" runat="server" OnClick="chkDuty_CheckedChanged" Style="display: none;" />
-
                             <asp:Label ID="lblDutyStatus" runat="server" CssClass="status-badge bg-offline ms-2" Text="Offline"></asp:Label>
                         </div>
                     </ContentTemplate>
@@ -231,7 +245,7 @@
                             </asp:PlaceHolder>
                         </asp:View>
 
-                        <!-- VISTA 2: MISIÓN ACTIVA (EN RUTA) -->
+                        <!-- VISTA 2: MISIÃ“N ACTIVA (EN RUTA) -->
                         <asp:View ID="viewMission" runat="server">
                             <div class="mission-header shadow-sm">
                                 <span class="text-uppercase" style="letter-spacing: 2px; font-size: 0.8rem; color: #aaa;">Active Trip</span>
@@ -240,25 +254,56 @@
 
                             <div class="card border-0 shadow-sm rounded-4 mb-4">
                                 <div class="card-body p-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                    
+                                    <!-- Cliente y Botones de Contacto Directo -->
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div>
                                             <h5 class="fw-bold mb-1">
-                                                <asp:Label ID="lblClientName" runat="server"></asp:Label></h5>
+                                                <asp:Label ID="lblClientName" runat="server"></asp:Label>
+                                            </h5>
                                             <p class="text-muted mb-0">
                                                 <i class="fas fa-map-marker-alt text-danger me-2"></i>
                                                 <asp:Label ID="lblClientAddress" runat="server"></asp:Label>
                                             </p>
                                         </div>
-                                        <a id="btnCallClient" runat="server" href="#" class="call-btn">
-                                            <i class="fas fa-phone-alt"></i>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <a id="btnCallClient" runat="server" href="#" class="call-btn" title="Call Customer">
+                                                <i class="fas fa-phone-alt"></i>
+                                            </a>
+                                            <a id="btnWhatsappClient" runat="server" href="#" target="_blank" class="call-btn whatsapp-btn" title="WhatsApp Customer">
+                                                <i class="fab fa-whatsapp"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botones de NavegaciÃ³n GPS Externa (Google Maps / Waze) -->
+                                    <div class="d-flex gap-2 mb-3">
+                                        <a id="btnGoogleMaps" runat="server" target="_blank" class="btn btn-primary w-50 fw-bold rounded-3">
+                                            <i class="fas fa-map-marked-alt me-1"></i> Google Maps
+                                        </a>
+                                        <a id="btnWaze" runat="server" target="_blank" class="btn btn-info text-white w-50 fw-bold rounded-3" style="background-color: #33ccff; border: none;">
+                                            <i class="fab fa-waze me-1"></i> Waze
                                         </a>
                                     </div>
 
+                                    <!-- Instrucciones / Notas del Cliente (OrderNotes) -->
+                                    <asp:PlaceHolder ID="phOrderNotes" runat="server" Visible="false">
+                                        <div class="alert alert-warning border-warning d-flex align-items-start gap-2 mb-3 rounded-3">
+                                            <i class="fas fa-exclamation-circle text-warning mt-1" style="font-size: 1.1rem;"></i>
+                                            <div>
+                                                <strong class="text-uppercase" style="font-size: 0.78rem;">Customer Instructions:</strong><br />
+                                                <asp:Label ID="lblOrderNotes" runat="server" CssClass="fw-semibold text-dark" Style="font-size: 0.9rem;"></asp:Label>
+                                            </div>
+                                        </div>
+                                    </asp:PlaceHolder>
+
+                                    <!-- Contenido del Paquete -->
                                     <div class="bg-light p-3 rounded-3 mb-3">
                                         <h6 class="fw-bold text-uppercase" style="font-size: 0.8rem; color: #888;">Package Contents:</h6>
                                         <asp:Label ID="lblPackageContents" runat="server" CssClass="fw-semibold text-dark" Style="font-size: 0.95rem;"></asp:Label>
                                     </div>
 
+                                    <!-- Mapa Leaflet Interactivo -->
                                     <div id="missionMap" style="height: 280px; width: 100%; border-radius: 12px; border: 2px solid #E4E7ED; z-index: 1; margin-top: 10px;"></div>
                                     <div id="mapStatusLabel" style="font-size: 0.78rem; color: #888; margin-top: 6px; min-height: 16px;"><i class="fas fa-spinner fa-spin me-1"></i> Getting your GPS location...</div>
 
@@ -269,7 +314,6 @@
 
                             <div class="d-flex gap-2">
                                 <asp:Button ID="btnCancelMission" runat="server" Text="Cancel Trip" CssClass="btn btn-outline-danger w-50 py-3 fw-bold rounded-3" OnClientClick="return confirm('Are you sure you want to drop this order? It will return to the radar.');" OnClick="btnCancelMission_Click" />
-
                                 <asp:Button ID="btnCompleteMission" runat="server" Text="Mark Delivered" CssClass="btn action-btn-huge btn-warning w-100" OnClick="btnCompleteMission_Click" OnClientClick="return confirm('Confirm that you have handed the package to the customer?');" />
                             </div>
                         </asp:View>
@@ -283,23 +327,22 @@
     <script type="text/javascript">
         var driverMap = null;
         var destMarker = null;
-var driverCurrentMarker = null;
+        var driverCurrentMarker = null;
         var routingControl = null;
         var trackingWatchId = null;
+        var radarTimer = null;
 
         // 1. Inicializa el mapa y el destino
         function initMissionMap() {
             var latField = document.getElementById('hfDestLat');
             var lngField = document.getElementById('hfDestLng');
 
-            if (!latField || !lngField) {
-                console.log('Esperando coordenadas...');
+            if (!latField || !lngField || latField.value === '' || lngField.value === '') {
                 return;
             }
 
-            var destLat = latField.value ? parseFloat(latField.value) : 13.6929;
-            var destLng = lngField.value ? parseFloat(lngField.value) : -89.2182;
-            var hasDestCoords = (latField.value !== '' && lngField.value !== '');
+            var destLat = parseFloat(latField.value);
+            var destLng = parseFloat(lngField.value);
 
             // Limpieza profunda para UpdatePanels
             if (driverMap !== null) {
@@ -308,38 +351,32 @@ var driverCurrentMarker = null;
                 driverMap = null;
                 destMarker = null;
                 driverCurrentMarker = null;
-
-                // Limpiar rutas
-                if (routingControl !== null) {
-                    routingControl = null;
-                }
+                routingControl = null;
             }
 
-            // Crear mapa con tiles de mayor calidad (CARTO Voyager)
+            // Crear mapa con tiles CARTO Voyager
             driverMap = L.map('missionMap', { zoomControl: true }).setView([destLat, destLng], 14);
 
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 subdomains: 'abcd',
                 maxZoom: 20
             }).addTo(driverMap);
 
             // Pin rojo: destino de entrega
-            if (hasDestCoords) {
-                var destinationIcon = L.icon({
-                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                });
+            var destinationIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
 
-                destMarker = L.marker([destLat, destLng], { icon: destinationIcon })
-                    .addTo(driverMap)
-                    .bindPopup('<b><i class="fas fa-map-marker-alt" style="color:#e53e3e"></i> Drop-off Point</b><br>Customer delivery address')
-                    .openPopup();
-            }
+            destMarker = L.marker([destLat, destLng], { icon: destinationIcon })
+                .addTo(driverMap)
+                .bindPopup('<b><i class="fas fa-map-marker-alt" style="color:#e53e3e"></i> Drop-off Point</b><br>Customer delivery address')
+                .openPopup();
 
             setTimeout(function () {
                 if (driverMap) driverMap.invalidateSize();
@@ -347,7 +384,7 @@ var driverCurrentMarker = null;
 
             setMapStatus('<i class="fas fa-satellite-dish me-1"></i> Connecting to GPS...', '#D47A00');
 
-            // Arrancar el radar GPS
+            // Arrancar el GPS
             startDriverTracking();
         }
 
@@ -366,7 +403,7 @@ var driverCurrentMarker = null;
             }
         }
 
-        // 3. Actualizar mapa y enviar posicion al servidor
+        // 3. Actualizar mapa y enviar posiciÃ³n al servidor
         function updateAndSendLocation(position) {
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
@@ -393,40 +430,34 @@ var driverCurrentMarker = null;
                     driverCurrentMarker.setLatLng([lat, lng]);
                 }
 
-                // Actualizar la ruta sobre CALLES entre driver y destino
+                // Actualizar la ruta sobre calles
                 if (destMarker !== null) {
                     var destLatLng = destMarker.getLatLng();
 
                     if (routingControl === null) {
-                        // Crear la ruta por primera vez
                         routingControl = L.Routing.control({
                             waypoints: [
-                                L.latLng(lat, lng), // Posición actual del driver
-                                L.latLng(destLatLng.lat, destLatLng.lng) // Destino
+                                L.latLng(lat, lng),
+                                L.latLng(destLatLng.lat, destLatLng.lng)
                             ],
-                            // Usar el servidor público de OSRM para calles
                             router: L.Routing.osrmv1({
                                 language: 'es',
-                                profile: 'driving' // Modo de conducción
+                                profile: 'driving'
                             }),
                             lineOptions: {
-                                styles: [{ color: '#FFC800', opacity: 0.9, weight: 5 }] // Mantiene el estilo y color exacto
+                                styles: [{ color: '#FFC800', opacity: 0.9, weight: 5 }]
                             },
-                            // Evitar que dibuje los pines por defecto (porque tú ya tienes los tuyos personalizados)
-                            createMarker: function() { return null; },
-                            // Configuraciones para ocultar el panel de texto y evitar alteraciones
+                            createMarker: function () { return null; },
                             addWaypoints: false,
                             routeWhileDragging: false,
                             fitSelectedRoutes: false,
                             show: false
                         }).addTo(driverMap);
 
-                        // Ocultar forzosamente el panel de instrucciones de giro con CSS inyectado
                         var routingContainer = document.querySelector('.leaflet-routing-container');
                         if (routingContainer) routingContainer.style.display = 'none';
 
                     } else {
-                        // Si la ruta ya existe, solo actualizamos el punto de inicio con el nuevo GPS
                         routingControl.setWaypoints([
                             L.latLng(lat, lng),
                             L.latLng(destLatLng.lat, destLatLng.lng)
@@ -434,7 +465,6 @@ var driverCurrentMarker = null;
                     }
                 }
 
-                // En la primera posición: hacer fitBounds para ver ambos pines
                 if (isFirstTime) {
                     if (destMarker !== null) {
                         var group = new L.featureGroup([destMarker, driverCurrentMarker]);
@@ -445,7 +475,7 @@ var driverCurrentMarker = null;
                 }
             }
 
-            // Enviar posicion al servidor via AJAX
+            // Enviar posiciÃ³n al servidor vÃ­a AJAX
             $.ajax({
                 type: 'POST',
                 url: 'DeliveryDashboard.aspx/UpdateLocation',
@@ -463,10 +493,10 @@ var driverCurrentMarker = null;
             var msg = '';
             switch (error.code) {
                 case error.PERMISSION_DENIED:
-                    msg = 'GPS permission denied. Enable location in your browser settings.';
+                    msg = 'GPS permission denied. Enable location in settings.';
                     break;
                 case error.POSITION_UNAVAILABLE:
-                    msg = 'Location unavailable. Check your GPS signal.';
+                    msg = 'Location unavailable. Check GPS signal.';
                     break;
                 case error.TIMEOUT:
                     msg = 'GPS timeout. Retrying...';
@@ -482,13 +512,35 @@ var driverCurrentMarker = null;
             if (el) { el.innerHTML = html; el.style.color = color || '#888'; }
         }
 
-        // 4. Iniciar al cargar la vista
+        // Auto-refresh silencioso para la piscina de Ã³rdenes (Radar) cada 15s
+        function checkAutoRefreshRadar() {
+            var isDutyChecked = document.getElementById('chkDutySwitch')?.checked;
+            var isMissionActive = document.getElementById('missionMap') !== null;
+
+            if (isDutyChecked && !isMissionActive) {
+                if (!radarTimer) {
+                    radarTimer = setInterval(function () {
+                        var btnHidden = document.getElementById('btnHiddenDuty');
+                        if (btnHidden) btnHidden.click();
+                    }, 15000);
+                }
+            } else {
+                if (radarTimer) {
+                    clearInterval(radarTimer);
+                    radarTimer = null;
+                }
+            }
+        }
+
+        // InicializaciÃ³n en carga de pÃ¡gina y re-binds de UpdatePanel
         document.addEventListener('DOMContentLoaded', function () {
             initMissionMap();
+            checkAutoRefreshRadar();
 
             if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                     initMissionMap();
+                    checkAutoRefreshRadar();
                 });
             }
         });

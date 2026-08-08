@@ -46,18 +46,44 @@ namespace OFFSIDESHOP
         {
             Exception ex = Server.GetLastError();
 
-            // Verificar si el error fue causado por una inyección peligrosa (Request Validation)
+            // Si el error original está envuelto en un TargetInvocationException, lo obtenemos
+            if (ex is System.Reflection.TargetInvocationException && ex.InnerException != null)
+            {
+                ex = ex.InnerException;
+            }
+
+            // Verificar si fue causado por inyección de código / caracteres no válidos
             if (ex is HttpRequestValidationException)
             {
-                // Limpiamos el error en el servidor para que no explote la pantalla amarilla
+                // Limpiamos el error en el servidor
                 Server.ClearError();
+                Response.Clear();
 
-                // Opción A: Redirigir a una página de error amigable personalizada
-                Response.Redirect("Homepage.aspx");
+                // Construimos la respuesta con SweetAlert o alert tradicional de JS
+                string script = @"
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            </head>
+            <body style='background-color: #111;'>
+                <script type='text/javascript'>
+                    Swal.fire({
+                        title: 'Invalid Input',
+                        text: 'Invalid characters.',
+                        icon: 'warning',
+                        confirmButtonColor: '#FFC800'
+                    }).then((result) => {
+                        window.location.href = 'Homepage.aspx';
+                    });
+                </script>
+            </body>
+            </html>";
 
+                Response.Write(script);
+                Response.End(); // Finaliza la respuesta para enviar el HTML/JS al navegador
             }
         }
-
         protected void Session_End(object sender, EventArgs e)
         {
 
