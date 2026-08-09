@@ -84,10 +84,10 @@
         .btn-delete { background: #7f1d1d; color: #fca5a5; }
         .btn-action:hover { opacity: 0.85; transform: scale(1.05); }
 
-        .btn-save { background: var(--gradient-blue); color: #fff; border: none; border-radius: 9px; padding: 11px 28px; font-weight: 700; cursor: pointer; }
-        .btn-save:hover { transform: translateY(-2px); box-shadow: 0 5px 16px rgba(37,99,235,0.4); }
+        .btn-save { background: var(--gradient-blue); color: #fff; border: none; border-radius: 9px; padding: 11px 28px; font-weight: 700; cursor: pointer; text-decoration: none !important; display: inline-block; }
+        .btn-save:hover { transform: translateY(-2px); box-shadow: 0 5px 16px rgba(37,99,235,0.4); color: #fff; }
 
-        .btn-add-new { background: var(--gradient-blue); color: #fff; border: none; border-radius: 10px; padding: 10px 22px; font-weight: 700; cursor: pointer; text-decoration: none; }
+        .btn-add-new { background: var(--gradient-blue); color: #fff; border: none; border-radius: 10px; padding: 10px 22px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
         .btn-add-new:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37,99,235,0.45); color: #fff; text-decoration: none; }
         
         .progress-bar-custom {
@@ -102,17 +102,37 @@
             background-color: #FFC800;
             height: 100%;
         }
+
+        /* Estilo del botón de cambio de idioma */
+        .lang-toggle-btn {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none !important;
+            letter-spacing: 1px;
+            transition: opacity 0.2s ease;
+        }
+        .lang-toggle-btn:hover {
+            opacity: 0.8;
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
+        <!-- TOP NAVBAR -->
         <nav class="top-navbar">
-            <div style="display: flex; align-items: center;">
-                <a class="navbar-brand" href="Dashboard.aspx">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a class="navbar-brand" href="Dashboard.aspx" style="margin-right: 0;">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
                 </a>
+                <!-- Botón de cambio de idioma estilo texto blanco -->
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
+                    CssClass="lang-toggle-btn" CausesValidation="false">
+                    EN / ES
+                </asp:LinkButton>
             </div>
             <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
                 <i class="fas fa-moon"></i>
@@ -120,41 +140,93 @@
         </nav>
 
         <div class="layout-wrapper">
+            <!-- SIDEBAR -->
             <aside class="sidebar fade-in">
                 <ul class="sidebar-menu">
-                    <li><asp:Button ID="btnManageProducts" CssClass="sidebar-btn" runat="server" Text="&#xf553; Manage Products" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d; Manage Orders</a></li>
-                    <li><asp:Button ID="btnManageOffers" CssClass="sidebar-btn" runat="server" Text="&#xf155; Manage Offers" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><asp:Button ID="btnManageCoupons" CssClass="sidebar-btn active" runat="server" Text="   &#xf02c; Manage Coupons" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5; Seller Requests</a></li>
+                    <li>
+                        <asp:LinkButton ID="btnManageProducts" CssClass="sidebar-btn" runat="server" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf553; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageProducts %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf46d; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOrders %>" />
+                        </a>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="btnManageOffers" CssClass="sidebar-btn" runat="server" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf155; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOffers %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="btnManageCoupons" CssClass="sidebar-btn active" runat="server" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf02c; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageCoupons %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2b5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SellerRequests %>" />
+                        </a>
+                    </li>
 
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btnAddLeague" CssClass="sidebar-btn" runat="server" Text="&#xf1ae; Add League" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddLeague" CssClass="sidebar-btn" runat="server" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf1ae; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddLeague %>" />
+                        </asp:LinkButton>
                     </li>
-                    <li><asp:Button ID="btnAddTeam" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Team" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><asp:Button ID="btnAddBrand" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Brand" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
+                    <li>
+                        <asp:LinkButton ID="btnAddTeam" CssClass="sidebar-btn" runat="server" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddTeam %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="btnAddBrand" CssClass="sidebar-btn" runat="server" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddBrand %>" />
+                        </asp:LinkButton>
+                    </li>
 
                     <asp:PlaceHolder ID="phOwnerMenu" runat="server">
                         <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                            <asp:Button ID="btnManageUsers" CssClass="sidebar-btn" runat="server" Text="&#xf4fe; Manage Users" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnManageUsers" CssClass="sidebar-btn" runat="server" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf4fe; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageUsers %>" />
+                            </asp:LinkButton>
                         </li>
-                        <li><asp:Button ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" Text="&#xf0e0; SMTP Settings" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                        <li><asp:Button ID="btnStats" CssClass="sidebar-btn" runat="server" Text="&#xf080; Stats" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                        <li><asp:Button ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" Text="&#xf03a; Audit Logs" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
+                        <li>
+                            <asp:LinkButton ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf0e0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SmtpSettings %>" />
+                            </asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="btnStats" CssClass="sidebar-btn" runat="server" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf080; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Stats %>" />
+                            </asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf03a; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AuditLogs %>" />
+                            </asp:LinkButton>
+                        </li>
                     </asp:PlaceHolder>
                     
-                    <li><asp:Button ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" Text="&#xf03e; Manage Banners" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
+                    <li>
+                        <asp:LinkButton ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf03e; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageBanners %>" />
+                        </asp:LinkButton>
+                    </li>
 
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" Text="&#xf2f5; Logout" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2f5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Logout %>" />
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </aside>
 
+            <!-- MAIN CONTENT -->
             <main class="main-content fade-in" style="animation-delay: 0.2s;">
                 <div class="container-fluid">
-                    <h1 class="page-title">Discount Coupons</h1>
-                    <p class="text-muted mb-4">Create and manage custom or auto-generated discount codes to incentivize purchases.</p>
+                    <h1 class="page-title"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_Title %>" /></h1>
+                    <p class="text-muted mb-4"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_Subtitle %>" /></p>
 
                     <asp:UpdatePanel ID="upMain" runat="server">
                         <ContentTemplate>
@@ -166,12 +238,12 @@
                                 <div class="row mt-4">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Coupon Code (Letters & Numbers) <span class="text-danger">*</span></label>
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_CodeLabel %>" /> <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <asp:TextBox ID="txtCouponCode" runat="server" CssClass="form-control" MaxLength="20" placeholder="e.g. SUMMER2026" style="text-transform:uppercase;"></asp:TextBox>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-warning font-weight-bold text-dark" onclick="return generateCouponCode();" type="button" title="Generate Random 12-char Code">
-                                                        <i class="fas fa-random"></i> Generate
+                                                        <i class="fas fa-random"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_GenerateBtn %>" />
                                                     </button>
                                                 </div>
                                             </div>
@@ -179,7 +251,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Discount (%) <span class="text-danger">*</span></label>
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_DiscountLabel %>" /> <span class="text-danger">*</span></label>
                                             <asp:TextBox ID="txtDiscount" runat="server" CssClass="form-control" MaxLength="3" placeholder="e.g. 15" onkeypress="return validarNumeros(event)"></asp:TextBox>
                                         </div>
                                     </div>
@@ -188,17 +260,17 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Maximum Usage Limit <span class="text-danger">*</span></label>
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_MaxUsesLabel %>" /> <span class="text-danger">*</span></label>
                                             <asp:TextBox ID="txtMaxUses" runat="server" CssClass="form-control" MaxLength="5" placeholder="e.g. 50" onkeypress="return validarNumeros(event)"></asp:TextBox>
-                                            <small class="text-muted">How many times can this code be used globally?</small>
+                                            <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_MaxUsesHelp %>" /></small>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Status</label>
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_Status %>" /></label>
                                             <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control">
-                                                <asp:ListItem Text="Active" Value="1"></asp:ListItem>
-                                                <asp:ListItem Text="Inactive" Value="0"></asp:ListItem>
+                                                <asp:ListItem Text="<%$ Resources:Strings, Admin_Coupons_StatusActive %>" Value="1"></asp:ListItem>
+                                                <asp:ListItem Text="<%$ Resources:Strings, Admin_Coupons_StatusInactive %>" Value="0"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>
@@ -207,10 +279,10 @@
                                 <div class="row mt-4">
                                     <div class="col-12 d-flex gap-2">
                                         <asp:LinkButton ID="btnSave" runat="server" CssClass="btn-save mr-2" OnClick="btnSave_Click">
-                                            <i class="fas fa-save mr-1"></i> Save Coupon
+                                            <i class="fas fa-save mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_SaveBtn %>" />
                                         </asp:LinkButton>
                                         <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-dark font-weight-bold py-2 px-4" style="border-radius: 9px;" OnClick="btnCancel_Click" CausesValidation="false">
-                                            Cancel
+                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_CancelBtn %>" />
                                         </asp:LinkButton>
                                     </div>
                                 </div>
@@ -218,43 +290,43 @@
 
                             <!-- CABECERA Y BOTÓN NUEVO -->
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h3 class="text-white m-0" style="font-weight: 600;"><i class="fas fa-list mr-2"></i>Active Catalog</h3>
+                                <h3 class="text-white m-0" style="font-weight: 600;"><i class="fas fa-list mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_CatalogTitle %>" /></h3>
                                 <asp:LinkButton ID="btnAddNew" runat="server" CssClass="btn-add-new" OnClick="btnAddNew_Click" CausesValidation="false">
-                                    <i class="fas fa-plus mr-1"></i> New Coupon
+                                    <i class="fas fa-plus mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_AddNew %>" />
                                 </asp:LinkButton>
                             </div>
 
                             <!-- TABLA DE DATOS -->
                             <div class="table-responsive">
-                                <asp:GridView ID="gvCoupons" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="Id_Coupon" OnRowCommand="gvCoupons_RowCommand" OnRowDataBound="gvCoupons_RowDataBound" EmptyDataText="No coupons have been created yet.">
+                                <asp:GridView ID="gvCoupons" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="Id_Coupon" OnRowCommand="gvCoupons_RowCommand" OnRowDataBound="gvCoupons_RowDataBound" EmptyDataText="<%$ Resources:Strings, Admin_Coupons_Empty %>">
                                     <Columns>
                                         <asp:BoundField DataField="Id_Coupon" HeaderText="ID" ItemStyle-Width="60px" />
-                                        <asp:TemplateField HeaderText="Coupon Code" ItemStyle-HorizontalAlign="Left">
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Coupons_ColCode %>" ItemStyle-HorizontalAlign="Left">
                                             <ItemTemplate>
                                                 <span class="font-weight-bold" style="color: #FFC800; font-size: 1.1rem; letter-spacing: 1px;"><%# Eval("Code") %></span>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Discount">
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Coupons_ColDiscount %>">
                                             <ItemTemplate>
                                                 <span class="badge badge-info p-2" style="font-size: 0.9rem;"><%# Eval("DiscountPercentage") %>% OFF</span>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Usage Stats">
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Coupons_ColUsage %>">
                                             <ItemTemplate>
                                                 <div style="text-align: left; max-width: 150px; margin: 0 auto;">
-                                                    <small class="text-muted font-weight-bold"><%# Eval("UsedCount") %> / <%# Eval("MaxUses") %> used</small>
+                                                    <small class="text-muted font-weight-bold"><%# Eval("UsedCount") %> / <%# Eval("MaxUses") %> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_Used %>" /></small>
                                                     <div class="progress-bar-custom">
                                                         <div class="progress-fill" style='width: <%# GetPercentage(Convert.ToInt32(Eval("UsedCount")), Convert.ToInt32(Eval("MaxUses"))) %>%;'></div>
                                                     </div>
                                                 </div>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Status">
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Coupons_Status %>">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblStatus" runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Actions">
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Brand_ColActions %>">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnEdit" runat="server" CssClass="btn-action btn-edit" CommandName="EditCoupon" CommandArgument='<%# Eval("Id_Coupon") %>' ToolTip="Edit"><i class="fas fa-pen"></i></asp:LinkButton>
                                                 <asp:LinkButton ID="btnToggle" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleCoupon" CommandArgument='<%# Eval("Id_Coupon") %>'><i class="fas fa-power-off"></i></asp:LinkButton>
@@ -285,7 +357,7 @@
                 var themeIcon = themeToggle.querySelector('i');
                 var isDark = document.body.classList.contains('dark-mode') || document.documentElement.classList.contains('dark-mode');
                 if (isDark && themeIcon) themeIcon.className = 'fas fa-sun';
-                
+
                 themeToggle.addEventListener('click', function (e) {
                     e.preventDefault();
                     var currentlyDark = document.body.classList.contains('dark-mode') || document.documentElement.classList.contains('dark-mode');

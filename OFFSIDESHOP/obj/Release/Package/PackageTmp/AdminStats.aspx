@@ -94,6 +94,19 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
+        .lang-toggle-btn {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none !important;
+            letter-spacing: 1px;
+            transition: opacity 0.2s ease;
+        }
+        .lang-toggle-btn:hover {
+            opacity: 0.8;
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body>
@@ -107,10 +120,14 @@
         <asp:HiddenField ID="hfTopProductsData" runat="server" Value="[]" />
 
         <nav class="top-navbar">
-            <div style="display: flex; align-items: center;">
-                <a class="navbar-brand" href="Dashboard.aspx">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a class="navbar-brand" href="Dashboard.aspx" style="margin-right: 0;">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
+                    CssClass="lang-toggle-btn" CausesValidation="false">
+                    EN / ES
+                </asp:LinkButton>
             </div>
             <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
                 <i class="fas fa-moon"></i>
@@ -121,48 +138,79 @@
             <aside class="sidebar fade-in">
                 <ul class="sidebar-menu">
                     <li>
-                        <asp:Button ID="btnManageProducts" CssClass="sidebar-btn" runat="server" Text="&#xf553; Manage Products" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageProducts" CssClass="sidebar-btn" runat="server" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf553; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageProducts %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn " style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d; Manage Orders</a>
+                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf46d; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOrders %>" />
+                        </a>
                     </li>
                     <li>
-                        <asp:Button ID="btnManageOffers" CssClass="sidebar-btn" runat="server" Text="&#xf155; Manage Offers" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageOffers" CssClass="sidebar-btn" runat="server" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf155; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOffers %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" Text="&#xf02c; Manage Coupons" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5; Seller Requests</a></li>
+                        <asp:LinkButton ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf02c; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageCoupons %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2b5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SellerRequests %>" />
+                        </a>
+                    </li>
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btnAddLeague" CssClass="sidebar-btn" runat="server" Text="&#xf1ae; Add League" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddLeague" CssClass="sidebar-btn" runat="server" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf1ae; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddLeague %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnAddTeam" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Team" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddTeam" CssClass="sidebar-btn" runat="server" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddTeam %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnAddBrand" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Brand" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddBrand" CssClass="sidebar-btn" runat="server" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddBrand %>" />
+                        </asp:LinkButton>
                     </li>
 
                     <asp:PlaceHolder ID="phOwnerMenu" runat="server">
                         <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                            <asp:Button ID="btnManageUsers" CssClass="sidebar-btn" runat="server" Text="&#xf4fe; Manage Users" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnManageUsers" CssClass="sidebar-btn" runat="server" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf4fe; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageUsers %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" Text="&#xf0e0; SMTP Settings" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf0e0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SmtpSettings %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnStats" CssClass="sidebar-btn active" runat="server" Text="&#xf080; Stats" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnStats" CssClass="sidebar-btn active" runat="server" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf080; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Stats %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" Text="&#xf03a; Audit Logs" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf03a; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AuditLogs %>" />
+                            </asp:LinkButton>
                         </li>
                     </asp:PlaceHolder>
 
                     <li>
-                        <asp:Button ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" Text="&#xf03e; Manage Banners" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf03e; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageBanners %>" />
+                        </asp:LinkButton>
                     </li>
 
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" Text="&#xf2f5; Logout" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2f5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Logout %>" />
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </aside>
@@ -173,20 +221,20 @@
                     <!-- HEADER SECTION WITH EXPORT BUTTON -->
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                         <div>
-                            <h1 class="page-title mb-1">Store Statistics</h1>
-                            <p class="text-muted mb-0">Detailed analytics and real-time performance overview of OffsideShop.</p>
+                            <h1 class="page-title mb-1"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_Title %>" /></h1>
+                            <p class="text-muted mb-0"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_Subtitle %>" /></p>
                         </div>
                         
                         <div class="d-flex align-items-center" style="gap: 15px;">
                             <div class="d-flex align-items-center bg-white p-2 rounded shadow-sm border">
                                 <i class="fas fa-file-pdf text-danger mx-2" style="font-size: 1.3rem;"></i>
                                 <asp:DropDownList ID="ddlReportPeriod" runat="server" CssClass="form-control border-0 bg-transparent fw-bold" style="width: 150px; cursor: pointer; outline: none; box-shadow: none;">
-                                    <asp:ListItem Value="WEEK" Text="Weekly Report"></asp:ListItem>
-                                    <asp:ListItem Value="MONTH" Text="Monthly Report"></asp:ListItem>
-                                    <asp:ListItem Value="YEAR" Text="Annual Report"></asp:ListItem>
+                                    <asp:ListItem Value="WEEK" Text="<%$ Resources:Strings, Admin_Stats_Weekly %>"></asp:ListItem>
+                                    <asp:ListItem Value="MONTH" Text="<%$ Resources:Strings, Admin_Stats_Monthly %>"></asp:ListItem>
+                                    <asp:ListItem Value="YEAR" Text="<%$ Resources:Strings, Admin_Stats_Annual %>"></asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:LinkButton ID="btnExportPdf" runat="server" CssClass="btn btn-dark text-warning fw-bold px-4 rounded-pill ml-2" OnClick="btnExportPdf_Click" OnClientClick="showPdfLoader();">
-                                    Export Deep Report
+                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_ExportPdf %>" />
                                 </asp:LinkButton>
                             </div>
                         </div>
@@ -196,7 +244,7 @@
                         <div class="col-xl-3 col-lg-6 col-md-6">
                             <div class="kpi-card">
                                 <div class="kpi-details">
-                                    <h6>Gross Revenue</h6>
+                                    <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_KpiRevenue %>" /></h6>
                                     <h2><asp:Label ID="lblTotalRevenue" runat="server" Text="$0.00"></asp:Label></h2>
                                 </div>
                                 <div class="kpi-icon bg-revenue"><i class="fas fa-dollar-sign"></i></div>
@@ -205,7 +253,7 @@
                         <div class="col-xl-3 col-lg-6 col-md-6">
                             <div class="kpi-card">
                                 <div class="kpi-details">
-                                    <h6>Total Orders</h6>
+                                    <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_KpiOrders %>" /></h6>
                                     <h2><asp:Label ID="lblTotalOrders" runat="server" Text="0"></asp:Label></h2>
                                 </div>
                                 <div class="kpi-icon bg-orders"><i class="fas fa-shopping-bag"></i></div>
@@ -214,7 +262,7 @@
                         <div class="col-xl-3 col-lg-6 col-md-6">
                             <div class="kpi-card">
                                 <div class="kpi-details">
-                                    <h6>Registered Users</h6>
+                                    <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_KpiUsers %>" /></h6>
                                     <h2><asp:Label ID="lblTotalUsers" runat="server" Text="0"></asp:Label></h2>
                                 </div>
                                 <div class="kpi-icon bg-users"><i class="fas fa-users"></i></div>
@@ -223,7 +271,7 @@
                         <div class="col-xl-3 col-lg-6 col-md-6">
                             <div class="kpi-card">
                                 <div class="kpi-details">
-                                    <h6>Pending Orders</h6>
+                                    <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_KpiPending %>" /></h6>
                                     <h2><asp:Label ID="lblPendingOrders" runat="server" Text="0"></asp:Label></h2>
                                 </div>
                                 <div class="kpi-icon bg-pending"><i class="fas fa-clock"></i></div>
@@ -234,13 +282,13 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="chart-container">
-                                <div class="chart-title"><i class="fas fa-chart-line mr-2"></i> Sales Revenue (Last 7 Days)</div>
+                                <div class="chart-title"><i class="fas fa-chart-line mr-2"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_ChartRevenue %>" /></div>
                                 <canvas id="revenueChart"></canvas>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="chart-container">
-                                <div class="chart-title"><i class="fas fa-chart-pie mr-2"></i> Order Status Distribution</div>
+                                <div class="chart-title"><i class="fas fa-chart-pie mr-2"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_ChartStatus %>" /></div>
                                 <canvas id="statusChart"></canvas>
                             </div>
                         </div>
@@ -249,7 +297,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="chart-container">
-                                <div class="chart-title"><i class="fas fa-trophy mr-2"></i> Top 5 Best Selling Products</div>
+                                <div class="chart-title"><i class="fas fa-trophy mr-2"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_ChartTopProducts %>" /></div>
                                 <canvas id="productsChart"></canvas>
                             </div>
                         </div>
@@ -276,7 +324,6 @@
                     Swal.showLoading()
                 }
             });
-            // El backend descargará el archivo, por lo que cerramos el loader tras unos segundos
             setTimeout(() => { Swal.close(); }, 7000);
         }
 
@@ -311,7 +358,7 @@
         });
     </script>
 
-    <!-- Renderización de Gráficos (Extrayendo de los HiddenFields) -->
+    <!-- Renderización de Gráficos -->
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
 

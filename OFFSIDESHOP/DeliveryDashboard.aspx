@@ -318,18 +318,12 @@
         <asp:ScriptManager runat="server" />
 
         <!-- HEADER DEL REPARTIDOR -->
-        <div class="driver-nav">
-            <div class="d-flex align-items-center gap-3">
-                <img src="assets/img/offsideshop_logo_white_letras.png" alt="Logo" class="d-none d-md-block" />
-            </div>
-            
-            <div class="d-flex align-items-center gap-3">
-                <!-- Botón de cambio de idioma -->
-                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
-                    CssClass="lang-toggle-btn" CausesValidation="false">
-                    EN / ES
-                </asp:LinkButton>
+        <div class="driver-nav d-flex align-items-center w-100">
+            <!-- Logo (Hidden on mobile) -->
+            <img src="assets/img/offsideshop_logo_white_letras.png" alt="Logo" class="d-none d-md-block" />
 
+            <!-- Status Switch (Left on mobile, Right on desktop) -->
+            <div class="ms-0 ms-md-auto me-auto me-md-3">
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <div class="form-check form-switch m-0 d-flex align-items-center">
@@ -339,6 +333,15 @@
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
+            </div>
+
+            <!-- Language Button (Desktop only) -->
+            <div class="d-none d-md-block me-3">
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
+                    CssClass="lang-toggle-btn" CausesValidation="false">
+                    EN / ES
+                </asp:LinkButton>
+            </div>
                 <div class="user-menu-container">
                     <button type="button" class="user-icon-btn" onclick="toggleUserMenu(this)">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -356,6 +359,11 @@
                             </p>
                         </div>
                         <div class="dropdown-content">
+                            <!-- Mobile Language Button -->
+                            <asp:LinkButton ID="btnLanguageToggleMobile" runat="server" OnClick="btnLanguageToggle_Click" CssClass="dropdown-item d-md-none" CausesValidation="false">
+                                <i class="fas fa-language"></i> EN / ES
+                            </asp:LinkButton>
+                            
                             <a href="MyAccount.aspx" class="dropdown-item">
                                 <i class="fas fa-user-cog"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_MyAccount %>" />
                             </a>
@@ -365,7 +373,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
         <div class="container mt-4">

@@ -52,7 +52,7 @@
         .toggle-on { background: #10b981; box-shadow: 0 4px 10px rgba(16,185,129,0.3); }
         .delete-icon { background: #ef4444; box-shadow: 0 4px 10px rgba(239,68,68,0.3); }
         
-        .btn-save-order { background: linear-gradient(135deg, #d4af37, #b5952f); color: #000; font-weight: 700; border: none; padding: 10px 20px; border-radius: 8px; transition: all 0.3s ease; }
+        .btn-save-order { background: linear-gradient(135deg, #d4af37, #b5952f); color: #000; font-weight: 700; border: none; padding: 10px 20px; border-radius: 8px; transition: all 0.3s ease; text-decoration: none !important; display: inline-block; }
         .btn-save-order:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); color: #000; }
         .number-badge { background: #2a2a2a; color: #d4af37; border: 1px solid #444; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 1rem; }
 
@@ -84,6 +84,19 @@
         .drag-drop-browse { color: var(--accent-gold); text-decoration: underline; }
         .drag-drop-info { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
         .drag-drop-zone.has-preview .drag-drop-content { display: none; }
+
+        .lang-toggle-btn {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none !important;
+            letter-spacing: 1px;
+            transition: opacity 0.2s ease;
+        }
+        .lang-toggle-btn:hover {
+            opacity: 0.8;
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body>
@@ -91,10 +104,14 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
         <nav class="top-navbar">
-            <div style="display: flex; align-items: center;">
-                <a class="navbar-brand" href="Dashboard.aspx">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a class="navbar-brand" href="Dashboard.aspx" style="margin-right: 0;">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
+                    CssClass="lang-toggle-btn" CausesValidation="false">
+                    EN / ES
+                </asp:LinkButton>
             </div>
             <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
                 <i class="fas fa-moon"></i>
@@ -104,47 +121,98 @@
         <div class="layout-wrapper">
             <aside class="sidebar fade-in">
                 <ul class="sidebar-menu">
-                    <li><asp:Button ID="btnManageProducts" CssClass="sidebar-btn" runat="server" Text="&#xf553; Manage Products" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d; Manage Orders</a></li>
-                    <li><asp:Button ID="btnManageOffers" CssClass="sidebar-btn" runat="server" Text="&#xf155; Manage Offers" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><asp:Button ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" Text="&#xf02c; Manage Coupons" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5; Seller Requests</a></li>
-                    <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btnAddLeague" CssClass="sidebar-btn" runat="server" Text="&#xf1ae; Add League" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                    <li>
+                        <asp:LinkButton ID="btnManageProducts" CssClass="sidebar-btn" runat="server" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf553; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageProducts %>" />
+                        </asp:LinkButton>
                     </li>
-                    <li><asp:Button ID="btnAddTeam" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Team" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><asp:Button ID="btnAddBrand" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Brand" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
+                    <li>
+                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf46d; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOrders %>" />
+                        </a>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="btnManageOffers" CssClass="sidebar-btn" runat="server" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf155; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOffers %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf02c; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageCoupons %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2b5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SellerRequests %>" />
+                        </a>
+                    </li>
+                    <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
+                        <asp:LinkButton ID="btnAddLeague" CssClass="sidebar-btn" runat="server" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf1ae; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddLeague %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="btnAddTeam" CssClass="sidebar-btn" runat="server" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddTeam %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="btnAddBrand" CssClass="sidebar-btn" runat="server" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddBrand %>" />
+                        </asp:LinkButton>
+                    </li>
 
                     <asp:PlaceHolder ID="phOwnerMenu" runat="server">
                         <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                            <asp:Button ID="btnManageUsers" CssClass="sidebar-btn" runat="server" Text="&#xf4fe; Manage Users" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnManageUsers" CssClass="sidebar-btn" runat="server" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf4fe; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageUsers %>" />
+                            </asp:LinkButton>
                         </li>
-                        <li><asp:Button ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" Text="&#xf0e0; SMTP Settings" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                        <li><asp:Button ID="btnStats" CssClass="sidebar-btn" runat="server" Text="&#xf080; Stats" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                        <li><asp:Button ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" Text="&#xf03a; Audit Logs" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
+                        <li>
+                            <asp:LinkButton ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf0e0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SmtpSettings %>" />
+                            </asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="btnStats" CssClass="sidebar-btn" runat="server" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf080; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Stats %>" />
+                            </asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf03a; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AuditLogs %>" />
+                            </asp:LinkButton>
+                        </li>
                     </asp:PlaceHolder>
-                    <li><asp:Button ID="btnAdminBanners" CssClass="sidebar-btn active" runat="server" Text="&#xf03e; Manage Storefront" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
+
+                    <li>
+                        <asp:LinkButton ID="btnAdminBanners" CssClass="sidebar-btn active" runat="server" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf03e; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageBanners %>" />
+                        </asp:LinkButton>
+                    </li>
 
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" Text="&#xf2f5; Logout" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2f5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Logout %>" />
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </aside>
 
             <main class="main-content fade-in" style="animation-delay: 0.2s;">
                 <div class="container-fluid">
-                    <h1 class="page-title">Storefront Display Management</h1>
-                    <p class="text-muted mb-4">Manage main hero banners, product collections, and login visuals in multiple languages.</p>
+                    <h1 class="page-title"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_Title %>" /></h1>
+                    <p class="text-muted mb-4"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_Subtitle %>" /></p>
 
                     <ul class="nav nav-tabs" id="adminTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="banners-tab" data-toggle="tab" href="#banners" role="tab">Main Banners</a>
+                            <a class="nav-link active" id="banners-tab" data-toggle="tab" href="#banners" role="tab"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TabMain %>" /></a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="collections-tab" data-toggle="tab" href="#collections" role="tab">Homepage Collections</a>
+                            <a class="nav-link" id="collections-tab" data-toggle="tab" href="#collections" role="tab"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TabCollections %>" /></a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="auth-tab" data-toggle="tab" href="#auth" role="tab"><i class="fas fa-lock me-1"></i> Auth Carousel</a>
+                            <a class="nav-link" id="auth-tab" data-toggle="tab" href="#auth" role="tab"><i class="fas fa-lock me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TabAuth %>" /></a>
                         </li>
                     </ul>
 
@@ -176,15 +244,15 @@
                                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                                             <small class="text-warning font-weight-bold">Primary English Text</small>
                                                             <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtTitle', 'txtSubtitle'], ['txtTitle_ES', 'txtSubtitle_ES'])">
-                                                                <i class="fas fa-language me-1"></i> Translate to Spanish
+                                                                <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEs %>" />
                                                             </button>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <label>Title (EN) <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TitleEN %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtTitle" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="200" placeholder="e.g. World Cup Heritage"></asp:TextBox>
                                                         </div>
                                                         <div class="form-group mb-0">
-                                                            <label>Subtitle (EN) <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SubtitleEN %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtSubtitle" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="300" placeholder="e.g. Relive the magic with our authentic jerseys"></asp:TextBox>
                                                         </div>
                                                     </div>
@@ -194,51 +262,51 @@
                                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                                             <small class="text-warning font-weight-bold">Texto en Español</small>
                                                             <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtTitle_ES', 'txtSubtitle_ES'], ['txtTitle', 'txtSubtitle'])">
-                                                                <i class="fas fa-language me-1"></i> Translate to English
+                                                                <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEn %>" />
                                                             </button>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <label>Título (ES) <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TitleES %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtTitle_ES" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="200" placeholder="ej. Herencia de la Copa Mundial"></asp:TextBox>
                                                         </div>
                                                         <div class="form-group mb-0">
-                                                            <label>Subtítulo (ES) <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SubtitleES %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtSubtitle_ES" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="300" placeholder="ej. Revive la magia con nuestras camisetas auténticas"></asp:TextBox>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <!-- UNIVERSAL FIELDS -->
-                                                <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> Universal Banner Settings</h6>
+                                                <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_UniversalSettings %>" /></h6>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Link URL <small class="text-muted">(optional)</small></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_LinkUrl %>" /> <small class="text-muted">(optional)</small></label>
                                                             <asp:TextBox ID="txtLinkURL" runat="server" CssClass="form-control" MaxLength="500"></asp:TextBox>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Status <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_Status %>" /> <span class="text-danger">*</span></label>
                                                             <asp:DropDownList ID="ddlIsActive" runat="server" CssClass="form-control">
-                                                                <asp:ListItem Value="1" Text="Active (Visible)"></asp:ListItem>
-                                                                <asp:ListItem Value="0" Text="Inactive (Hidden)"></asp:ListItem>
+                                                                <asp:ListItem Value="1" Text="<%$ Resources:Strings, Admin_Banners_StatusActive %>"></asp:ListItem>
+                                                                <asp:ListItem Value="0" Text="<%$ Resources:Strings, Admin_Banners_StatusInactive %>"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group mt-2">
-                                                    <label>Banner Image <small class="text-muted">(.jpg / .webp / .png, max 2 MB)</small><asp:Label ID="lblImageRequired" runat="server" Text=" *" CssClass="text-danger"></asp:Label></label>
+                                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ImageLabel %>" /> <small class="text-muted">(.jpg / .webp / .png, max 2 MB)</small><asp:Label ID="lblImageRequired" runat="server" Text=" *" CssClass="text-danger"></asp:Label></label>
                                                     <asp:Panel ID="pnlCurrentImage" runat="server" Visible="false" CssClass="mb-2">
-                                                        <small class="text-muted">Current image: </small><asp:Label ID="lblCurrentImagePath" runat="server" CssClass="text-info"></asp:Label><br />
-                                                        <small class="text-muted">Leave empty to keep current image.</small>
+                                                        <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_CurrentImage %>" /> </small><asp:Label ID="lblCurrentImagePath" runat="server" CssClass="text-info"></asp:Label><br />
+                                                        <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_KeepImageNote %>" /></small>
                                                     </asp:Panel>
 
                                                     <div class="drag-drop-zone" id="bannerDragDropZone">
                                                         <div class="drag-drop-content">
                                                             <i class="fas fa-cloud-upload-alt drag-drop-icon"></i>
-                                                            <p class="drag-drop-text">Drag & drop your banner image here, or <span class="drag-drop-browse">browse</span></p>
+                                                            <p class="drag-drop-text"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_DragDropText %>" /></p>
                                                             <p class="drag-drop-info">Supports JPG, WEBP, PNG (max 2MB)</p>
                                                         </div>
                                                         <asp:FileUpload ID="fileImagen" ClientIDMode="Static" runat="server" Style="display: none;" onchange="previewImage(this, 'imgPreview', 'bannerDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
@@ -248,8 +316,12 @@
 
                                                 <div class="row mt-4">
                                                     <div class="col-12 d-flex gap-2">
-                                                        <asp:Button ID="btnSave" runat="server" Text="&#xf0c7; Save Banner" CssClass="mybtn" OnClick="btnSave_Click" OnClientClick="return validateBannerForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;" />
-                                                        <asp:Button ID="btnCancel" runat="server" Text="&#xf00d; Cancel" CssClass="mybtn" OnClick="btnCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important;" />
+                                                        <asp:LinkButton ID="btnSave" runat="server" CssClass="mybtn" OnClick="btnSave_Click" OnClientClick="return validateBannerForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; text-decoration: none; display: inline-block;">
+                                                            &#xf0c7;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SaveBanner %>" />
+                                                        </asp:LinkButton>
+                                                        <asp:LinkButton ID="btnCancel" runat="server" CssClass="mybtn" OnClick="btnCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important; text-decoration: none; display: inline-block;">
+                                                            &#xf00d;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_Cancel %>" />
+                                                        </asp:LinkButton>
                                                     </div>
                                                 </div>
                                             </div>
@@ -259,10 +331,10 @@
                                     <div class="row mt-5">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                                <h3 class="text-white m-0" style="font-weight: 600;">Current Banners Organizer</h3>
+                                                <h3 class="text-white m-0" style="font-weight: 600;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_OrganizerTitle %>" /></h3>
                                                 <asp:HiddenField ID="hfNewOrder" runat="server" />
                                                 <asp:LinkButton ID="btnSaveOrder" runat="server" CssClass="btn-save-order" OnClick="btnSaveOrder_Click">
-                                                    <i class="fas fa-save mr-2"></i>Save order
+                                                    <i class="fas fa-save mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SaveOrder %>" />
                                                 </asp:LinkButton>
                                             </div>
                                             <div class="table-responsive">
@@ -274,23 +346,23 @@
                                                                 <a href="javascript:void(0);" class="arrow-btn move-down"><i class="fas fa-caret-down"></i></a>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Order">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColOrder %>">
                                                             <ItemTemplate>
                                                                 <span class="number-badge sort-order-lbl"><%# Eval("SortOrder") %></span>
                                                                 <input type="hidden" class="banner-id" value='<%# Eval("ID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Preview">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColPreview %>">
                                                             <ItemTemplate>
                                                                 <img src='<%# GetImageThumb(Eval("ImageURL").ToString(), "banners") %>' class="banner-preview-thumb" onerror="this.src='assets/img/default.jpg';" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:BoundField DataField="Title" HeaderText="Title (EN)" ItemStyle-HorizontalAlign="Left" />
-                                                        <asp:BoundField DataField="Title_ES" HeaderText="Título (ES)" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
-                                                        <asp:TemplateField HeaderText="Status">
+                                                        <asp:BoundField DataField="Title" HeaderText="<%$ Resources:Strings, Admin_Banners_ColTitleEN %>" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Title_ES" HeaderText="<%$ Resources:Strings, Admin_Banners_ColTitleES %>" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColStatus %>">
                                                             <ItemTemplate><asp:Label ID="lblStatus" runat="server"></asp:Label></ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Actions">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColActions %>">
                                                             <ItemTemplate>
                                                                 <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
                                                                     <asp:LinkButton ID="btnEdit" runat="server" CssClass="action-icon edit-icon" CommandName="EditBanner" CommandArgument='<%# Eval("ID") %>'><i class="fas fa-pen"></i></asp:LinkButton>
@@ -315,15 +387,15 @@
                                 <ContentTemplate>
                                     <!-- Categories Management -->
                                     <div class="form-card mb-5">
-                                        <h5 class="text-white mb-3" style="font-weight: 600;"><i class="fas fa-tags text-warning me-2"></i>Manage Collection Categories</h5>
+                                        <h5 class="text-white mb-3" style="font-weight: 600;"><i class="fas fa-tags text-warning me-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_CategoriesTitle %>" /></h5>
                                         <div class="row align-items-end">
                                             <div class="col-md-4">
-                                                <label>Category Name (EN) <span class="text-danger">*</span></label>
+                                                <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_CatNameEN %>" /> <span class="text-danger">*</span></label>
                                                 <asp:TextBox ID="txtCategoryName" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. Classic"></asp:TextBox>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="d-flex justify-content-between align-items-center mb-1">
-                                                    <label class="m-0">Nombre Categoría (ES) <span class="text-danger">*</span></label>
+                                                    <label class="m-0"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_CatNameES %>" /> <span class="text-danger">*</span></label>
                                                     <button type="button" class="btn-translate py-0 px-2" onclick="autoTranslate('en', 'es', ['txtCategoryName'], ['txtCategoryName_ES'])">
                                                         Auto-ES
                                                     </button>
@@ -331,14 +403,16 @@
                                                 <asp:TextBox ID="txtCategoryName_ES" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="ej. Clásico"></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mt-3 mt-md-0">
-                                                <asp:Button ID="btnAddCategory" runat="server" Text="Add Category" CssClass="btn-save-order w-100" OnClick="btnAddCategory_Click" OnClientClick="return validateCategoryForm();" />
+                                                <asp:LinkButton ID="btnAddCategory" runat="server" CssClass="btn-save-order w-100 text-center" OnClick="btnAddCategory_Click" OnClientClick="return validateCategoryForm();">
+                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_BtnAddCategory %>" />
+                                                </asp:LinkButton>
                                             </div>
                                         </div>
                                         <div class="mt-4">
                                             <asp:GridView ID="gvCategories" runat="server" AutoGenerateColumns="false" CssClass="table table-custom text-center align-middle w-75" DataKeyNames="Id_Category" OnRowDeleting="gvCategories_RowDeleting" EmptyDataText="No categories available.">
                                                 <Columns>
-                                                    <asp:BoundField DataField="Name_Category" HeaderText="Category Name (EN)" ItemStyle-HorizontalAlign="Left" />
-                                                    <asp:BoundField DataField="Name_Category_es" HeaderText="Categoría (ES)" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
+                                                    <asp:BoundField DataField="Name_Category" HeaderText="<%$ Resources:Strings, Admin_Banners_CatNameEN %>" ItemStyle-HorizontalAlign="Left" />
+                                                    <asp:BoundField DataField="Name_Category_es" HeaderText="<%$ Resources:Strings, Admin_Banners_CatNameES %>" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
                                                     <asp:CommandField ShowDeleteButton="True" DeleteText="<i class='fas fa-trash text-danger'></i>" ControlStyle-CssClass="text-decoration-none" />
                                                 </Columns>
                                             </asp:GridView>
@@ -355,44 +429,44 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Title <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColTitle %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtColTitle" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Category <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColCategory %>" /> <span class="text-danger">*</span></label>
                                                             <asp:DropDownList ID="ddlColCategory" runat="server" CssClass="form-control"></asp:DropDownList>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Link URL (Shop Now target) <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColTargetLink %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtColLink" runat="server" CssClass="form-control" MaxLength="255"></asp:TextBox>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Status</label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_Status %>" /></label>
                                                             <asp:DropDownList ID="ddlColStatus" runat="server" CssClass="form-control">
-                                                                <asp:ListItem Value="1" Text="Active"></asp:ListItem>
-                                                                <asp:ListItem Value="0" Text="Inactive"></asp:ListItem>
+                                                                <asp:ListItem Value="1" Text="<%$ Resources:Strings, Admin_Banners_StatusActive %>"></asp:ListItem>
+                                                                <asp:ListItem Value="0" Text="<%$ Resources:Strings, Admin_Banners_StatusInactive %>"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group mt-2">
-                                                    <label>Collection Background Image <small class="text-muted">(.jpg / .webp / .png)</small><asp:Label ID="lblColImgReq" runat="server" Text=" *" CssClass="text-danger"></asp:Label></label>
+                                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColBgImage %>" /> <small class="text-muted">(.jpg / .webp / .png)</small><asp:Label ID="lblColImgReq" runat="server" Text=" *" CssClass="text-danger"></asp:Label></label>
                                                     <asp:Panel ID="pnlColImg" runat="server" Visible="false" CssClass="mb-2">
-                                                        <small class="text-muted">Current image: </small>
+                                                        <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_CurrentImage %>" /> </small>
                                                         <asp:Label ID="lblColImgPath" runat="server" CssClass="text-info"></asp:Label>
                                                     </asp:Panel>
 
                                                     <div class="drag-drop-zone" id="colDragDropZone">
                                                         <div class="drag-drop-content">
                                                             <i class="fas fa-cloud-upload-alt drag-drop-icon"></i>
-                                                            <p class="drag-drop-text">Drag & drop collection background image here, or <span class="drag-drop-browse">browse</span></p>
+                                                            <p class="drag-drop-text"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColDragDrop %>" /></p>
                                                             <p class="drag-drop-info">Supports JPG, WEBP, PNG (max 2MB)</p>
                                                         </div>
                                                         <asp:FileUpload ID="fileColImagen" ClientIDMode="Static" runat="server" Style="display: none;" onchange="previewImage(this, 'imgColPreview', 'colDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
@@ -402,8 +476,12 @@
 
                                                 <div class="row mt-4">
                                                     <div class="col-12 d-flex gap-2">
-                                                        <asp:Button ID="btnColSave" runat="server" Text="&#xf0c7; Save Collection" CssClass="mybtn" OnClick="btnColSave_Click" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;" />
-                                                        <asp:Button ID="btnColCancel" runat="server" Text="&#xf00d; Cancel" CssClass="mybtn" OnClick="btnColCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important;" />
+                                                        <asp:LinkButton ID="btnColSave" runat="server" CssClass="mybtn" OnClick="btnColSave_Click" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; text-decoration: none; display: inline-block;">
+                                                            &#xf0c7;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SaveCollection %>" />
+                                                        </asp:LinkButton>
+                                                        <asp:LinkButton ID="btnColCancel" runat="server" CssClass="mybtn" OnClick="btnColCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important; text-decoration: none; display: inline-block;">
+                                                            &#xf00d;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_Cancel %>" />
+                                                        </asp:LinkButton>
                                                     </div>
                                                 </div>
                                             </div>
@@ -414,10 +492,10 @@
                                     <div class="row mt-5">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                                <h3 class="text-white m-0" style="font-weight: 600;">Current Collections</h3>
+                                                <h3 class="text-white m-0" style="font-weight: 600;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_CurrentCollections %>" /></h3>
                                                 <asp:HiddenField ID="hfColOrder" runat="server" />
                                                 <asp:LinkButton ID="btnSaveColOrder" runat="server" CssClass="btn-save-order" OnClick="btnSaveColOrder_Click">
-                                                    <i class="fas fa-save mr-2"></i>Save order
+                                                    <i class="fas fa-save mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SaveOrder %>" />
                                                 </asp:LinkButton>
                                             </div>
                                             <div class="table-responsive">
@@ -429,23 +507,23 @@
                                                                 <a href="javascript:void(0);" class="arrow-btn move-down-col"><i class="fas fa-caret-down"></i></a>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Order">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColOrder %>">
                                                             <ItemTemplate>
                                                                 <span class="number-badge sort-col-lbl"><%# Eval("SortOrder") %></span>
                                                                 <input type="hidden" class="col-id" value='<%# Eval("Id_Collection") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Image">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColPreview %>">
                                                             <ItemTemplate>
                                                                 <img src='<%# GetImageThumb(Eval("ImageURL").ToString(), "collections") %>' class="collection-preview-thumb" onerror="this.src='assets/img/default.jpg';" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:BoundField DataField="Title" HeaderText="Title" ItemStyle-HorizontalAlign="Left" />
-                                                        <asp:BoundField DataField="Name_Category" HeaderText="Category" />
-                                                        <asp:TemplateField HeaderText="Status">
+                                                        <asp:BoundField DataField="Title" HeaderText="<%$ Resources:Strings, Admin_Banners_ColTitle %>" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Name_Category" HeaderText="<%$ Resources:Strings, Admin_Banners_ColCategory %>" />
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColStatus %>">
                                                             <ItemTemplate><asp:Label ID="lblColStatus" runat="server"></asp:Label></ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Actions">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColActions %>">
                                                             <ItemTemplate>
                                                                 <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
                                                                     <asp:LinkButton ID="btnEditCol" runat="server" CssClass="action-icon edit-icon" CommandName="EditCol" CommandArgument='<%# Eval("Id_Collection") %>'><i class="fas fa-pen"></i></asp:LinkButton>
@@ -490,15 +568,15 @@
                                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                                             <small class="text-warning font-weight-bold">English Quote & Role</small>
                                                             <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtAuthQuote', 'txtAuthAuthorRole'], ['txtAuthQuote_ES', 'txtAuthAuthorRole_ES'])">
-                                                                <i class="fas fa-language me-1"></i> Translate to Spanish
+                                                                <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEs %>" />
                                                             </button>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <label>Quote / Testimonial Text (EN) <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_QuoteEN %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtAuthQuote" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" MaxLength="1000" placeholder="e.g. Anyone can run. Playing football..."></asp:TextBox>
                                                         </div>
                                                         <div class="form-group mb-0">
-                                                            <label>Author Role (EN)</label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_AuthorRoleEN %>" /></label>
                                                             <asp:TextBox ID="txtAuthAuthorRole" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="150" placeholder="e.g. Barcelona and Netherlands legend"></asp:TextBox>
                                                         </div>
                                                     </div>
@@ -508,15 +586,15 @@
                                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                                             <small class="text-warning font-weight-bold">Texto en Español</small>
                                                             <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtAuthQuote_ES', 'txtAuthAuthorRole_ES'], ['txtAuthQuote', 'txtAuthAuthorRole'])">
-                                                                <i class="fas fa-language me-1"></i> Translate to English
+                                                                <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEn %>" />
                                                             </button>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <label>Cita / Testimonio (ES) <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_QuoteES %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtAuthQuote_ES" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" MaxLength="1000" placeholder="ej. Cualquiera puede correr. Jugar al fútbol..."></asp:TextBox>
                                                         </div>
                                                         <div class="form-group mb-0">
-                                                            <label>Rol del Autor (ES)</label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_AuthorRoleES %>" /></label>
                                                             <asp:TextBox ID="txtAuthAuthorRole_ES" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="150" placeholder="ej. Leyenda del Barcelona y Holanda"></asp:TextBox>
                                                         </div>
                                                     </div>
@@ -527,16 +605,16 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Author Name <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_AuthorName %>" /> <span class="text-danger">*</span></label>
                                                             <asp:TextBox ID="txtAuthAuthorName" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="100" placeholder="e.g. Johan Cruyff"></asp:TextBox>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Status <span class="text-danger">*</span></label>
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_Status %>" /> <span class="text-danger">*</span></label>
                                                             <asp:DropDownList ID="ddlAuthIsActive" runat="server" CssClass="form-control">
-                                                                <asp:ListItem Value="1" Text="Active (Visible)"></asp:ListItem>
-                                                                <asp:ListItem Value="0" Text="Inactive (Hidden)"></asp:ListItem>
+                                                                <asp:ListItem Value="1" Text="<%$ Resources:Strings, Admin_Banners_StatusActive %>"></asp:ListItem>
+                                                                <asp:ListItem Value="0" Text="<%$ Resources:Strings, Admin_Banners_StatusInactive %>"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </div>
                                                     </div>
@@ -545,13 +623,13 @@
                                                 <div class="form-group mt-2">
                                                     <label>Background Image <small class="text-muted">(.jpg / .webp / .png)</small><asp:Label ID="lblAuthImageRequired" runat="server" Text=" *" CssClass="text-danger"></asp:Label></label>
                                                     <asp:Panel ID="pnlAuthCurrentImage" runat="server" Visible="false" CssClass="mb-2">
-                                                        <small class="text-muted">Current image: </small><asp:Label ID="lblAuthCurrentImagePath" runat="server" CssClass="text-info"></asp:Label><br />
+                                                        <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_CurrentImage %>" /> </small><asp:Label ID="lblAuthCurrentImagePath" runat="server" CssClass="text-info"></asp:Label><br />
                                                     </asp:Panel>
 
                                                     <div class="drag-drop-zone" id="authDragDropZone">
                                                         <div class="drag-drop-content">
                                                             <i class="fas fa-image drag-drop-icon"></i>
-                                                            <p class="drag-drop-text">Drag & drop slide image here, or <span class="drag-drop-browse">browse</span></p>
+                                                            <p class="drag-drop-text"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_AuthDragDrop %>" /></p>
                                                             <p class="drag-drop-info">Supports JPG, WEBP, PNG (max 2MB)</p>
                                                         </div>
                                                         <asp:FileUpload ID="fileAuthImagen" ClientIDMode="Static" runat="server" Style="display: none;" onchange="previewImage(this, 'imgAuthPreview', 'authDragDropZone')" accept=".jpg,.jpeg,.png,.webp" />
@@ -561,8 +639,12 @@
 
                                                 <div class="row mt-4">
                                                     <div class="col-12 d-flex gap-2">
-                                                        <asp:Button ID="btnSaveAuth" runat="server" Text="&#xf0c7; Save Slide" CssClass="mybtn" OnClick="btnSaveAuth_Click" OnClientClick="return validateAuthForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;" />
-                                                        <asp:Button ID="btnAuthCancel" runat="server" Text="&#xf00d; Cancel" CssClass="mybtn" OnClick="btnAuthCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important;" />
+                                                        <asp:LinkButton ID="btnSaveAuth" runat="server" CssClass="mybtn" OnClick="btnSaveAuth_Click" OnClientClick="return validateAuthForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; text-decoration: none; display: inline-block;">
+                                                            &#xf0c7;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SaveSlide %>" />
+                                                        </asp:LinkButton>
+                                                        <asp:LinkButton ID="btnAuthCancel" runat="server" CssClass="mybtn" OnClick="btnAuthCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important; text-decoration: none; display: inline-block;">
+                                                            &#xf00d;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_Cancel %>" />
+                                                        </asp:LinkButton>
                                                     </div>
                                                 </div>
                                             </div>
@@ -572,10 +654,10 @@
                                     <div class="row mt-5">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                                <h3 class="text-white m-0" style="font-weight: 600;">Current Auth Slides</h3>
+                                                <h3 class="text-white m-0" style="font-weight: 600;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_CurrentAuthSlides %>" /></h3>
                                                 <asp:HiddenField ID="hfAuthOrder" runat="server" />
                                                 <asp:LinkButton ID="btnSaveAuthOrder" runat="server" CssClass="btn-save-order" OnClick="btnSaveAuthOrder_Click">
-                                                    <i class="fas fa-save mr-2"></i>Save order
+                                                    <i class="fas fa-save mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SaveOrder %>" />
                                                 </asp:LinkButton>
                                             </div>
                                             <div class="table-responsive">
@@ -587,23 +669,23 @@
                                                                 <a href="javascript:void(0);" class="arrow-btn move-down-auth"><i class="fas fa-caret-down"></i></a>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Order">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColOrder %>">
                                                             <ItemTemplate>
                                                                 <span class="number-badge sort-auth-lbl"><%# Eval("DisplayOrder") %></span>
                                                                 <input type="hidden" class="auth-id" value='<%# Eval("Id_Slide") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Preview">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColPreview %>">
                                                             <ItemTemplate>
                                                                 <img src='<%# GetImageThumb(Eval("ImageURL").ToString(), "auth") %>' class="auth-preview-thumb" onerror="this.src='assets/img/default.jpg';" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:BoundField DataField="AuthorName" HeaderText="Author" ItemStyle-HorizontalAlign="Left" />
-                                                        <asp:BoundField DataField="QuoteText" HeaderText="Quote (EN)" ItemStyle-HorizontalAlign="Left" />
-                                                        <asp:TemplateField HeaderText="Status">
+                                                        <asp:BoundField DataField="AuthorName" HeaderText="<%$ Resources:Strings, Admin_Banners_ColAuthor %>" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="QuoteText" HeaderText="<%$ Resources:Strings, Admin_Banners_ColQuote %>" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColStatus %>">
                                                             <ItemTemplate><asp:Label ID="lblAuthStatus" runat="server"></asp:Label></ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Actions">
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColActions %>">
                                                             <ItemTemplate>
                                                                 <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
                                                                     <asp:LinkButton ID="btnEditAuth" runat="server" CssClass="action-icon edit-icon" CommandName="EditAuth" CommandArgument='<%# Eval("Id_Slide") %>'><i class="fas fa-pen"></i></asp:LinkButton>
