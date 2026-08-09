@@ -402,6 +402,8 @@ namespace OFFSIDESHOP
                 ClearFormPanel();
                 pnlOfferForm.Visible = false;
                 LoadOffers();
+                AuditLogger.LogActivity("CREATE", "ManageOffers", $"Created offer ID #{targetOfferId}");
+
             }
             catch (Exception ex)
             {
@@ -492,6 +494,8 @@ namespace OFFSIDESHOP
                     cmd.Parameters.AddWithValue("@Id", offerId);
                     cmd.ExecuteNonQuery();
                 }
+                AuditLogger.LogActivity("UPDATE", "ManageOffers", $"Toggled status for offer ID #{offerId   }");
+
                 alerta.Text = "<script>Swal.fire({toast:true,position:'top-end',icon:'success',title:'Campaign visibility altered.',showConfirmButton:false,timer:1800});</script>";
             }
             catch (Exception ex)
@@ -511,6 +515,7 @@ namespace OFFSIDESHOP
                     cmd.Parameters.AddWithValue("@Id", offerId);
                     cmd.ExecuteNonQuery();
                 }
+                AuditLogger.LogActivity("DELETE", "ManageOffers", $"Deleted offer ID #{offerId}");
                 alerta.Text = "<script>Swal.fire('Purged', 'Promotional configurations stripped from relational records.', 'success');</script>";
             }
             catch (Exception ex)

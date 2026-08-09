@@ -3,7 +3,7 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\inetpub\wwwroot\OffsideShop-WEB</_PublishTargetUrl>
-    <History>True|2026-08-09T00:48:25.3874000Z||;True|2026-08-08T18:37:56.3202573-06:00||;True|2026-08-07T21:14:06.2037334-06:00||;True|2026-08-06T18:30:49.8622541-06:00||;True|2026-08-06T17:59:10.4132623-06:00||;True|2026-08-03T12:21:26.2201507-06:00||;True|2026-08-03T11:54:14.2657336-06:00||;False|2026-07-29T09:11:52.5805182-06:00||;True|2026-07-25T14:07:19.2293162-06:00||;True|2026-07-25T10:52:45.9613993-06:00||;</History>
+    <History>True|2026-08-09T19:59:08.0314296Z||;True|2026-08-08T18:48:25.3874000-06:00||;True|2026-08-08T18:37:56.3202573-06:00||;True|2026-08-07T21:14:06.2037334-06:00||;True|2026-08-06T18:30:49.8622541-06:00||;True|2026-08-06T17:59:10.4132623-06:00||;True|2026-08-03T12:21:26.2201507-06:00||;True|2026-08-03T11:54:14.2657336-06:00||;False|2026-07-29T09:11:52.5805182-06:00||;True|2026-07-25T14:07:19.2293162-06:00||;True|2026-07-25T10:52:45.9613993-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -29,10 +29,10 @@
       <publishTime>08/08/2026 17:40:27</publishTime>
     </File>
     <File Include="App_GlobalResources/Strings.es.resx">
-      <publishTime>08/08/2026 18:14:03</publishTime>
+      <publishTime>08/09/2026 13:52:49</publishTime>
     </File>
     <File Include="App_GlobalResources/Strings.resx">
-      <publishTime>08/08/2026 18:14:05</publishTime>
+      <publishTime>08/09/2026 13:52:49</publishTime>
     </File>
     <File Include="assets/favicon.ico">
       <publishTime>07/22/2026 20:31:32</publishTime>
@@ -263,10 +263,10 @@
       <publishTime>07/22/2026 20:31:36</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.dll">
-      <publishTime>08/08/2026 18:48:24</publishTime>
+      <publishTime>08/09/2026 13:59:00</publishTime>
     </File>
     <File Include="bin/OFFSIDESHOP.pdb">
-      <publishTime>08/08/2026 18:48:24</publishTime>
+      <publishTime>08/09/2026 13:59:00</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/22/2026 20:31:36</publishTime>
@@ -620,7 +620,7 @@
       <publishTime>07/22/2026 20:31:34</publishTime>
     </File>
     <File Include="Login.aspx">
-      <publishTime>08/07/2026 19:58:17</publishTime>
+      <publishTime>08/09/2026 13:52:49</publishTime>
     </File>
     <File Include="ManageCoupons.aspx">
       <publishTime>08/08/2026 14:08:50</publishTime>
@@ -656,7 +656,7 @@
       <publishTime>08/07/2026 19:57:23</publishTime>
     </File>
     <File Include="SignUp.aspx">
-      <publishTime>08/07/2026 19:57:21</publishTime>
+      <publishTime>08/09/2026 13:52:49</publishTime>
     </File>
     <File Include="SmtpSettings.aspx">
       <publishTime>08/08/2026 17:31:16</publishTime>

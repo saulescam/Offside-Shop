@@ -417,6 +417,8 @@ namespace OFFSIDESHOP
                         ShowAlert("Request Denied", "The support ticket has been marked as Denied.", "info");
                         phDetailModal.Visible = false;
                         LoadTickets();
+                        AuditLogger.LogActivity("DENY", "ManageSellerRequests", $"Denied ticket ID #{ticketId}");
+
                     }
                     catch (Exception ex)
                     {
@@ -565,6 +567,8 @@ namespace OFFSIDESHOP
                             ShowAlert("Approved & Published", "The request was successfully approved and the jersey added to the catalog.", "success");
                             phDetailModal.Visible = false;
                             LoadTickets();
+                            AuditLogger.LogActivity("APPROVE", "ManageSellerRequests", $"Approved ticket ID #{ticketId}");
+
                         }
                         catch (Exception ex)
                         {
@@ -601,6 +605,8 @@ namespace OFFSIDESHOP
                             catch (Exception) { }
 
                             ShowAlert("Resolved", "The ticket has been marked as Resolved.", "success");
+                            AuditLogger.LogActivity("RESOLVE", "ManageSellerRequests", $"Resolved ticket ID #{ticketId}");
+
                             phDetailModal.Visible = false;
                             LoadTickets();
                         }
@@ -746,6 +752,8 @@ namespace OFFSIDESHOP
                             conn.Open();
                             cmd.ExecuteNonQuery();
                             ShowAlert("Deleted", "The review has been deleted.", "success");
+                            AuditLogger.LogActivity("DELETE", "ManageSellerRequests", $"Deleted review ID #{reviewId}");
+
                             LoadReviews();
                         }
                         catch (Exception ex)
@@ -821,6 +829,8 @@ namespace OFFSIDESHOP
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         ShowAlert("Success", "Your reply has been saved.", "success");
+                        AuditLogger.LogActivity("REPLY", "ManageSellerRequests", $"Replied to review ID #{reviewId}");
+
                         phReplyModal.Visible = false;
                         LoadReviews();
                     }

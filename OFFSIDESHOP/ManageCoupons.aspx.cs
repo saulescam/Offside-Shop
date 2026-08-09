@@ -150,6 +150,8 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@IsActive", isActive);
                         cmd.ExecuteNonQuery();
                         TriggerSweetAlert("Created", "Coupon created successfully.", "success");
+                        AuditLogger.LogActivity("CREATE", "ManageCoupons", $"Created coupon ID #{editId}");
+
                     }
                     else // UPDATE
                     {
@@ -161,6 +163,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@Id", editId);
                         cmd.ExecuteNonQuery();
                         TriggerSweetAlert("Updated", "Coupon updated successfully.", "success");
+                        AuditLogger.LogActivity("UPDATE", "ManageCoupons", $"Updated coupon ID #{editId}");
                     }
                 }
 
@@ -261,6 +264,8 @@ namespace OFFSIDESHOP
                             cmd.Parameters.AddWithValue("@Id", couponId);
                             cmd.ExecuteNonQuery();
                             TriggerSweetAlert("Deleted", "Coupon permanently removed.", "success");
+                            AuditLogger.LogActivity("DELETE", "ManageCoupons", $"Deleted coupon ID #{couponId}");
+
                         }
                         LoadCoupons();
                         break;

@@ -9,7 +9,7 @@
 
     <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="Font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap" rel="stylesheet" />
     <link href="EstilosCss/AuthSplit.css" rel="stylesheet" />
 
@@ -32,19 +32,21 @@
     <form id="form1" runat="server">
         <div class="split-container">
             <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" Style="position: absolute; top: 20px; right: 20px; z-index: 1000; font-weight: 600; color: #111; text-decoration: none; padding: 5px 10px; background: rgba(255,255,255,0.7); border-radius: 5px;">EN / ES</asp:LinkButton>
-            
+
             <!-- LEFT PANEL: VISUAL / CAROUSEL -->
             <div class="split-left">
                 <div class="visual-icon">
                     <img src="assets/img/offsidelogo.png" alt="Icon" />
                 </div>
-                
+
                 <div id="authCarousel" class="carousel slide" data-ride="carousel" data-bs-ride="carousel" data-interval="5000" data-bs-interval="5000">
                     <div class="carousel-inner">
                         <asp:Repeater ID="rptCarousel" runat="server">
                             <ItemTemplate>
                                 <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
-                                    <img src='<%# ResolveUrl(Eval("ImageURL").ToString()) %>' alt="Slide" />
+                                    <!-- AQUÍ ESTÁ EL CAMBIO DE LA IMAGEN: object-position: top center -->
+                                    <img src='<%# ResolveUrl(Eval("ImageURL").ToString()) %>' alt="Slide" style='object-fit: cover; width: 100%; height: 100%; object-position: <%# Eval("Id_Slide").ToString() == "5" ? "top center" : "center center" %>;' />
+
                                     <div class="carousel-caption-custom">
                                         <div class="carousel-text-area">
                                             <h2>"<%# Eval("QuoteText") %>"</h2>
@@ -58,14 +60,16 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
-                    
+
                     <!-- BOTONES FUERA DEL REPEATER (ESTATICOS) -->
                     <div class="carousel-static-nav">
                         <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="prev" data-bs-slide="prev">
-                            <i class="fa fa-arrow-left"></i>
+                            <!-- AQUÍ ESTÁ EL CAMBIO DE LA FLECHA IZQUIERDA -->
+                            <i class="fas fa-arrow-left"></i>
                         </a>
                         <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="next" data-bs-slide="next">
-                            <i class="fa fa-arrow-right"></i>
+                            <!-- AQUÍ ESTÁ EL CAMBIO DE LA FLECHA DERECHA -->
+                            <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -74,13 +78,13 @@
             <!-- RIGHT PANEL: FORM -->
             <div class="split-right">
                 <div class="form-wrapper">
-                    
+
                     <div class="brand-logo-right">
                         <a href="Homepage.aspx">
                             <img src="assets/img/flag-football.png" alt="OFFSIDESHOP" />
                         </a>
                     </div>
-                    
+
                     <div class="form-header">
                         <h2><%= Resources.Strings.Auth_LoginTitle %></h2>
                         <p><%= Resources.Strings.Auth_LoginSub %></p>
@@ -125,7 +129,7 @@
                             Text="<%$ Resources:Strings, Auth_BtnLogin %>"
                             CssClass="btn-login"
                             OnClick="btnEntrar_Click"></asp:Button>
-     
+
                         <asp:LinkButton ID="btnGoogleLogin" runat="server"
                             CssClass="btn-google"
                             OnClick="btnGoogleLogin_Click">
@@ -141,7 +145,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </form>
 

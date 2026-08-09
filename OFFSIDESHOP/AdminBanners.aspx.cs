@@ -187,6 +187,8 @@ namespace OFFSIDESHOP
 
                         tx.Commit();
                         Alert(isEditing ? "Banner updated!" : "Banner added!", "success");
+                        AuditLogger.LogActivity(isEditing ? "UPDATE" : "CREATE", "AdminBanners", $"Banner ID #{bannerId}");
+
                     }
                 }
                 ResetForm();
@@ -290,6 +292,8 @@ namespace OFFSIDESHOP
                 txtCategoryName_ES.Text = "";
                 LoadCategories();
                 Alert("Category added successfully!", "success");
+                AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created category  {txtCategoryName.Text.Trim()}");
+
             }
             catch (Exception ex)
             {
@@ -392,6 +396,8 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@A", ddlColStatus.SelectedValue);
                         cmd.ExecuteNonQuery();
                         Alert("Collection added!", "success");
+                        AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created collection ID #{ddlColCategory.SelectedValue}");
+
                     }
                     else
                     {
@@ -405,6 +411,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@Id", hfColEditId.Value);
                         cmd.ExecuteNonQuery();
                         Alert("Collection updated!", "success");
+                        AuditLogger.LogActivity("UPDATE", "AdminBanners", $"Updated collection ID #{hfColEditId.Value}");   
                     }
                 }
                 ResetColForm();
@@ -538,6 +545,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@A", ddlAuthIsActive.SelectedValue);
                         cmd.ExecuteNonQuery();
                         Alert("Slide added!", "success");
+                        AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created auth slide ID #{txtAuthAuthorName.Text.Trim()}");
                     }
                     else
                     {
@@ -551,6 +559,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@Id", hfAuthEditId.Value);
                         cmd.ExecuteNonQuery();
                         Alert("Slide updated!", "success");
+                        AuditLogger.LogActivity("UPDATE", "AdminBanners", $"Updated auth slide ID #{hfAuthEditId.Value}");
                     }
                 }
                 ResetAuthForm();
@@ -634,6 +643,7 @@ namespace OFFSIDESHOP
                     {
                         for (int i = 0; i < ids.Length; i++) { MySqlCommand cmd = new MySqlCommand(sql, con, tx); cmd.Parameters.AddWithValue("@order", i + 1); cmd.Parameters.AddWithValue("@id", ids[i]); cmd.ExecuteNonQuery(); }
                         tx.Commit(); Alert("Order updated!", "success");
+                        AuditLogger.LogActivity("UPDATE", "AdminBanners", $"Updated order for banner IDs: {hfValue}");
                     }
                 }
             }

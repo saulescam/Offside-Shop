@@ -510,6 +510,8 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
                 alerta.Text = "<script>Swal.fire({toast:true,position:'top-end',icon:'success',title:'Status toggled',showConfirmButton:false,timer:1800});</script>";
+                AuditLogger.LogActivity("UPDATE", "ManageProducts", $"Toggled status for product ID #{productId}");
+
             }
             catch (Exception ex)
             {
@@ -529,6 +531,8 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
                 alerta.Text = "<script>Swal.fire('Deleted', 'The shirt has been permanently removed.', 'success');</script>";
+                AuditLogger.LogActivity("DELETE", "ManageProducts", $"Deleted product ID #{productId}");
+
             }
             catch (Exception ex)
             {
@@ -746,6 +750,7 @@ namespace OFFSIDESHOP
 
                         tx.Commit();
                         alerta.Text = "<script>Swal.fire('Success', 'Product saved successfully with translations!', 'success');</script>";
+                        AuditLogger.LogActivity("UPDATE", "ManageProducts", $"Updated product ID #{targetProductId}");
                     }
                 }
 

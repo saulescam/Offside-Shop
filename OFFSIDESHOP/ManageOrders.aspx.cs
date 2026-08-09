@@ -421,6 +421,8 @@ namespace OFFSIDESHOP
                 }
 
                 TriggerSweetAlert("Success", "Order status operational scope updated successfully!", "success");
+                AuditLogger.LogActivity("UPDATE", "ManageOrders", $"Updated order ID #{orderId} to status ID #{newStatusId}");
+
                 LoadOrders();
                 UpdateRefundBadgeCount();
             }
@@ -620,6 +622,8 @@ namespace OFFSIDESHOP
 
                         EmailService.SendRefundApprovedNotification(customerEmail, customerName, orderId.ToString(), refundAmount, resolutionNotes);
                         TriggerSweetAlert("Approved", "Sandbox refund authorization cleared successfully.", "success");
+                        AuditLogger.LogActivity("APPROVE", "ManageOrders", $"Approved refund for order ID #{orderId}");
+
                         LoadRefundTickets();
                         UpdateRefundBadgeCount();
                     }
@@ -733,6 +737,8 @@ namespace OFFSIDESHOP
 
                         EmailService.SendRefundDeniedNotification(customerEmail, customerName, orderId.ToString(), resolutionNotes);
                         TriggerSweetAlert("Ticket Denied", "The request has been officially closed and rejected.", "info");
+                        AuditLogger.LogActivity("DENY", "ManageOrders", $"Denied refund for order ID #{orderId}");
+
                         LoadRefundTickets();
                         UpdateRefundBadgeCount();
                     }
