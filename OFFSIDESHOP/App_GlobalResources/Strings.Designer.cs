@@ -1915,7 +1915,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Create Promotional Campaign.
+        ///   Busca una cadena traducida similar a Create New Promo Campaign Window.
         /// </summary>
         internal static string Admin_Offers_CreateTitle {
             get {
@@ -5007,6 +5007,33 @@ namespace Resources {
         internal static string Driver_PageTitle {
             get {
                 return ResourceManager.GetString("Driver_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Payment Status.
+        /// </summary>
+        internal static string Driver_PaymentMethod {
+            get {
+                return ResourceManager.GetString("Driver_PaymentMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Collect in cash: {0:C}.
+        /// </summary>
+        internal static string Driver_PaymentStatus_Collect {
+            get {
+                return ResourceManager.GetString("Driver_PaymentStatus_Collect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Paid (Online Payment).
+        /// </summary>
+        internal static string Driver_PaymentStatus_Paid {
+            get {
+                return ResourceManager.GetString("Driver_PaymentStatus_Paid", resourceCulture);
             }
         }
         

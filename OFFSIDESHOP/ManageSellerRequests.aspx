@@ -96,8 +96,15 @@
         }
 
         @keyframes slideDown {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .zoom-effect {
@@ -105,12 +112,12 @@
             cursor: zoom-in;
         }
 
-        .zoom-effect:hover {
-            transform: scale(1.6);
-            z-index: 9999;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            position: relative;
-        }
+            .zoom-effect:hover {
+                transform: scale(1.6);
+                z-index: 9999;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+                position: relative;
+            }
 
         .badge-status {
             font-size: 0.75rem;
@@ -118,6 +125,112 @@
             border-radius: 12px;
             font-weight: bold;
         }
+
+        /* Estilo del botón de cambio de idioma */
+        .lang-toggle-btn {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none !important;
+            letter-spacing: 1px;
+            transition: opacity 0.2s ease;
+        }
+
+            .lang-toggle-btn:hover {
+                opacity: 0.8;
+                color: #ffffff !important;
+            }
+     /* ========================================================= */
+/* FIX DEFINITIVO PARA VISIBILIDAD DE PESTAÑAS (TABS)        */
+/* ========================================================= */
+.nav-tabs-custom {
+    border-bottom: 2px solid #e5e7eb !important;
+    margin-bottom: 25px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+/* Estado Inactivo (Pestañas no seleccionadas: Normal, Visited, Focus, Hover) */
+.nav-tabs-custom .nav-link,
+.nav-tabs-custom .nav-link:link,
+.nav-tabs-custom .nav-link:visited {
+    border: none !important;
+    background: transparent !important;
+    color: #4b5563 !important; /* Gris oscuro 100% visible en fondo blanco */
+    font-weight: 700 !important;
+    padding: 12px 20px !important;
+    transition: all 0.2s ease-in-out !important;
+    text-decoration: none !important;
+    opacity: 0.85 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Iconos y texto interno en pestañas inactivas */
+.nav-tabs-custom .nav-link *,
+.nav-tabs-custom .nav-link i,
+.nav-tabs-custom .nav-link span {
+    color: #4b5563 !important;
+}
+
+/* Estado Hover y Focus (Al pasar el mouse o al hacer clic) */
+.nav-tabs-custom .nav-link:hover,
+.nav-tabs-custom .nav-link:focus,
+.nav-tabs-custom .nav-link:active {
+    color: #111827 !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+}
+
+.nav-tabs-custom .nav-link:hover *,
+.nav-tabs-custom .nav-link:focus *,
+.nav-tabs-custom .nav-link:active * {
+    color: #111827 !important;
+}
+
+/* Estado Activo (Pestaña Seleccionada) */
+.nav-tabs-custom .nav-link.active,
+.nav-tabs-custom .nav-link.active:link,
+.nav-tabs-custom .nav-link.active:visited,
+.nav-tabs-custom .nav-link.active:hover,
+.nav-tabs-custom .nav-link.active:focus {
+    color: #d97706 !important; /* Dorado / Amarillo oscuro legible */
+    border: none !important;
+    border-bottom: 3px solid #f59e0b !important; /* Línea inferior dorada */
+    background: transparent !important;
+    opacity: 1 !important;
+}
+
+/* Iconos y texto interno en pestaña activa */
+.nav-tabs-custom .nav-link.active *,
+.nav-tabs-custom .nav-link.active i,
+.nav-tabs-custom .nav-link.active span {
+    color: #d97706 !important;
+}
+
+/* Adaptación automática si se activa el MODO OSCURO */
+html.dark-mode .nav-tabs-custom .nav-link,
+html.dark-mode .nav-tabs-custom .nav-link:link,
+html.dark-mode .nav-tabs-custom .nav-link:visited,
+body.dark-mode .nav-tabs-custom .nav-link {
+    color: #9ca3af !important;
+}
+
+html.dark-mode .nav-tabs-custom .nav-link *,
+body.dark-mode .nav-tabs-custom .nav-link * {
+    color: #9ca3af !important;
+}
+
+html.dark-mode .nav-tabs-custom .nav-link.active,
+body.dark-mode .nav-tabs-custom .nav-link.active {
+    color: #FFC800 !important;
+    border-bottom-color: #FFC800 !important;
+}
+
+html.dark-mode .nav-tabs-custom .nav-link.active *,
+body.dark-mode .nav-tabs-custom .nav-link.active * {
+    color: #FFC800 !important;
+}
     </style>
     <script type="text/javascript">
         function openFullscreenImage(imgElement) {
@@ -138,11 +251,17 @@
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
+        <!-- TOP NAVBAR -->
         <nav class="top-navbar">
-            <div style="display: flex; align-items: center;">
-                <a class="navbar-brand" href="Dashboard.aspx">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a class="navbar-brand" href="Dashboard.aspx" style="margin-right: 0;">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
                 </a>
+                <!-- Botón de cambio de idioma estilo texto blanco -->
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click"
+                    CssClass="lang-toggle-btn" CausesValidation="false">
+                    EN / ES
+                </asp:LinkButton>
             </div>
             <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
                 <i class="fas fa-moon"></i>
@@ -150,286 +269,331 @@
         </nav>
 
         <div class="layout-wrapper">
+            <!-- SIDEBAR -->
             <aside class="sidebar fade-in">
                 <ul class="sidebar-menu">
                     <li>
-                        <asp:Button ID="btnManageProducts" CssClass="sidebar-btn" runat="server" Text="&#xf553; Manage Products" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageProducts" CssClass="sidebar-btn" runat="server" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf553; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageProducts %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d; Manage Orders</a>
+                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d;
+                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOrders %>" />
+                        </a>
                     </li>
                     <li>
-                        <asp:Button ID="btnManageOffers" CssClass="sidebar-btn" runat="server" Text="&#xf155; Manage Offers" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageOffers" CssClass="sidebar-btn" runat="server" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf155; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOffers %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" Text="&#xf02c; Manage Coupons" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf02c; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageCoupons %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn active" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5; Seller Requests</a>
+                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn active" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5;
+                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SellerRequests %>" />
+                        </a>
                     </li>
+
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btnAddLeague" CssClass="sidebar-btn" runat="server" Text="&#xf1ae; Add League" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddLeague" CssClass="sidebar-btn" runat="server" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf1ae; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddLeague %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnAddTeam" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Team" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddTeam" CssClass="sidebar-btn" runat="server" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddTeam %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnAddBrand" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Brand" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddBrand" CssClass="sidebar-btn" runat="server" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddBrand %>" />
+                        </asp:LinkButton>
                     </li>
 
                     <asp:PlaceHolder ID="phOwnerMenu" runat="server">
                         <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                            <asp:Button ID="btnManageUsers" CssClass="sidebar-btn" runat="server" Text="&#xf4fe; Manage Users" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnManageUsers" CssClass="sidebar-btn" runat="server" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf4fe; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageUsers %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" Text="&#xf0e0; SMTP Settings" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf0e0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SmtpSettings %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnStats" CssClass="sidebar-btn" runat="server" Text="&#xf080; Stats" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnStats" CssClass="sidebar-btn" runat="server" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf080; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Stats %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" Text="&#xf03a; Audit Logs" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnAuditLogs" CssClass="sidebar-btn" runat="server" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf03a; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AuditLogs %>" />
+                            </asp:LinkButton>
                         </li>
                     </asp:PlaceHolder>
                     <li>
-                        <asp:Button ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" Text="&#xf03e; Manage Banners" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf03e; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageBanners %>" />
+                        </asp:LinkButton>
                     </li>
 
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" Text="&#xf2f5; Logout" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2f5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Logout %>" />
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </aside>
 
+            <!-- MAIN CONTENT -->
             <main class="main-content fade-in" style="animation-delay: 0.15s;">
                 <div class="container-fluid">
-                    <h1 class="page-title">Support & Reviews Management</h1>
-                    <p class="text-muted mb-4">Manage support tickets, seller consignments, and product reviews.</p>
+                    <h1 class="page-title">
+                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_Title %>" /></h1>
+                    <p class="text-muted mb-4">
+                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_Subtitle %>" /></p>
 
                     <asp:UpdatePanel ID="upMainRequests" runat="server">
                         <ContentTemplate>
-                            
+
                             <!-- Main Tabs -->
                             <div class="nav-tabs-custom d-flex flex-wrap mb-4" style="border-bottom: 2px solid #FFC800;">
-                                <asp:LinkButton ID="btnViewTickets" runat="server" CssClass="nav-link active" OnClick="MainView_Click" CommandArgument="Tickets" style="font-size: 1.1rem;">
-                                    <i class="fas fa-ticket-alt mr-2"></i>Support Tickets
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnViewReviews" runat="server" CssClass="nav-link" OnClick="MainView_Click" CommandArgument="Reviews" style="font-size: 1.1rem;">
-                                    <i class="fas fa-star mr-2"></i>Product Reviews
-                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnViewTickets" runat="server" CssClass="nav-link active" OnClick="MainView_Click" CommandArgument="Tickets" Style="font-size: 1.1rem;"></asp:LinkButton>
+                                <asp:LinkButton ID="btnViewReviews" runat="server" CssClass="nav-link" OnClick="MainView_Click" CommandArgument="Reviews" Style="font-size: 1.1rem;"></asp:LinkButton>
                             </div>
 
                             <asp:Panel ID="pnlTickets" runat="server">
                                 <!-- Tab filters by status -->
-                            <div class="nav-tabs-custom d-flex flex-wrap">
-                                <asp:LinkButton ID="btnTabPending" runat="server" CssClass="nav-link active" OnClick="StatusTab_Click" CommandArgument="1">
-                                    <i class="fas fa-clock mr-2"></i>Pending
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnTabUnderReview" runat="server" CssClass="nav-link" OnClick="StatusTab_Click" CommandArgument="2">
-                                    <i class="fas fa-search mr-2"></i>Under Review
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnTabResolved" runat="server" CssClass="nav-link" OnClick="StatusTab_Click" CommandArgument="3">
-                                    <i class="fas fa-check-circle mr-2"></i>Resolved / Approved
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnTabDenied" runat="server" CssClass="nav-link" OnClick="StatusTab_Click" CommandArgument="4">
-                                    <i class="fas fa-times-circle mr-2"></i>Denied
-                                </asp:LinkButton>
-                            </div>
+                                <div class="nav-tabs-custom d-flex flex-wrap">
+                                    <asp:LinkButton ID="btnTabPending" runat="server" CssClass="nav-link active" OnClick="StatusTab_Click" CommandArgument="1"></asp:LinkButton>
+                                    <asp:LinkButton ID="btnTabUnderReview" runat="server" CssClass="nav-link" OnClick="StatusTab_Click" CommandArgument="2"></asp:LinkButton>
+                                    <asp:LinkButton ID="btnTabResolved" runat="server" CssClass="nav-link" OnClick="StatusTab_Click" CommandArgument="3"></asp:LinkButton>
+                                    <asp:LinkButton ID="btnTabDenied" runat="server" CssClass="nav-link" OnClick="StatusTab_Click" CommandArgument="4"></asp:LinkButton>
+                                </div>
 
-                            <!-- Dropdown filter by type -->
-                            <div class="filter-card">
-                                <div class="row align-items-end">
-                                    <div class="col-md-5 col-sm-12">
-                                        <label for="ddlFilterType">Request Type Filter</label>
-                                        <asp:DropDownList ID="ddlFilterType" runat="server"
-                                            CssClass="form-control text-dark font-weight-bold"
-                                            AutoPostBack="true"
-                                            OnSelectedIndexChanged="ddlFilterType_SelectedIndexChanged">
-                                            <asp:ListItem Value="ALL" Text="All Request Types" Selected="True"></asp:ListItem>
-                                            <asp:ListItem Value="GENERAL" Text="General Support / Inquiries"></asp:ListItem>
-                                            <asp:ListItem Value="ORDER" Text="Order Issues"></asp:ListItem>
-                                            <asp:ListItem Value="SELLER" Text="Jersey Reventa Requests"></asp:ListItem>
-                                        </asp:DropDownList>
-                                    </div>
-                                    <div class="col-md-7 col-sm-12 text-right">
-                                        <asp:LinkButton ID="btnClearFilters" runat="server" CssClass="btn btn-outline-secondary font-weight-bold" OnClick="btnClearFilters_Click">
-                                            <i class="fas fa-eraser mr-1"></i> Clear Filters
-                                        </asp:LinkButton>
+                                <!-- Dropdown filter by type -->
+                                <div class="filter-card">
+                                    <div class="row align-items-end">
+                                        <div class="col-md-5 col-sm-12">
+                                            <label for="ddlFilterType">
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_FilterType %>" /></label>
+                                            <asp:DropDownList ID="ddlFilterType" runat="server"
+                                                CssClass="form-control text-dark font-weight-bold"
+                                                AutoPostBack="true"
+                                                OnSelectedIndexChanged="ddlFilterType_SelectedIndexChanged">
+                                                <asp:ListItem Value="ALL" Text="<%$ Resources:Strings, Admin_Seller_TypeAll %>" Selected="True"></asp:ListItem>
+                                                <asp:ListItem Value="GENERAL" Text="<%$ Resources:Strings, Admin_Seller_TypeGeneral %>"></asp:ListItem>
+                                                <asp:ListItem Value="ORDER" Text="<%$ Resources:Strings, Admin_Seller_TypeOrder %>"></asp:ListItem>
+                                                <asp:ListItem Value="SELLER" Text="<%$ Resources:Strings, Admin_Seller_TypeReventa %>"></asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                        <div class="col-md-7 col-sm-12 text-right">
+                                            <asp:LinkButton ID="btnClearFilters" runat="server" CssClass="btn btn-outline-secondary font-weight-bold" OnClick="btnClearFilters_Click">
+                                            <i class="fas fa-eraser mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ClearFilters %>" />
+                                            </asp:LinkButton>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Tickets Grid -->
-                            <div class="table-responsive">
-                                <asp:GridView ID="gvTickets" runat="server"
-                                    AutoGenerateColumns="False"
-                                    GridLines="None"
-                                    CssClass="table table-custom text-center align-middle"
-                                    DataKeyNames="Id_Ticket"
-                                    OnRowCommand="gvTickets_RowCommand"
-                                    OnRowDataBound="gvTickets_RowDataBound"
-                                    EmptyDataText="No tickets match the active status and category filters.">
-                                    <Columns>
-                                        <asp:BoundField DataField="Id_Ticket" HeaderText="Ticket ID" ItemStyle-Width="90px" />
-                                        <asp:BoundField DataField="Created_At" HeaderText="Date Requested" DataFormatString="{0:yyyy-MM-dd HH:mm}" />
-                                        <asp:BoundField DataField="User_Email" HeaderText="Sender Email" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:BoundField DataField="Reason_Name" HeaderText="Category Reason" ItemStyle-Font-Bold="true" />
-                                        <asp:BoundField DataField="Subject" HeaderText="Subject / Concept" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:TemplateField HeaderText="Status">
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblStatusBadge" runat="server"></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Actions" ItemStyle-Width="120px">
-                                            <ItemTemplate>
-                                                <asp:LinkButton ID="btnView" runat="server"
-                                                    CommandName="ViewDetails"
-                                                    CommandArgument='<%# Eval("Id_Ticket") %>'
-                                                    CssClass="btn btn-sm btn-warning font-weight-bold px-3">
-                                                    <i class="fas fa-folder-open mr-1"></i> View
-                                                </asp:LinkButton>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                    </Columns>
-                                </asp:GridView>
-                            </div>
+                                <!-- Tickets Grid -->
+                                <div class="table-responsive">
+                                    <asp:GridView ID="gvTickets" runat="server"
+                                        AutoGenerateColumns="False"
+                                        GridLines="None"
+                                        CssClass="table table-custom text-center align-middle"
+                                        DataKeyNames="Id_Ticket"
+                                        OnRowCommand="gvTickets_RowCommand"
+                                        OnRowDataBound="gvTickets_RowDataBound"
+                                        EmptyDataText="<%$ Resources:Strings, Admin_Seller_EmptyTickets %>">
+                                        <Columns>
+                                            <asp:BoundField DataField="Id_Ticket" HeaderText="<%$ Resources:Strings, Admin_Seller_ColTicketId %>" ItemStyle-Width="90px" />
+                                            <asp:BoundField DataField="Created_At" HeaderText="<%$ Resources:Strings, Admin_Seller_ColDateReq %>" DataFormatString="{0:yyyy-MM-dd HH:mm}" />
+                                            <asp:BoundField DataField="User_Email" HeaderText="<%$ Resources:Strings, Admin_Seller_ColEmail %>" ItemStyle-HorizontalAlign="Left" />
+                                            <asp:BoundField DataField="Reason_Name" HeaderText="<%$ Resources:Strings, Admin_Seller_ColReason %>" ItemStyle-Font-Bold="true" />
+                                            <asp:BoundField DataField="Subject" HeaderText="<%$ Resources:Strings, Admin_Seller_ColSubject %>" ItemStyle-HorizontalAlign="Left" />
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Seller_ColStatus %>">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblStatusBadge" runat="server"></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Brand_ColActions %>" ItemStyle-Width="120px">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="btnView" runat="server"
+                                                        CommandName="ViewDetails"
+                                                        CommandArgument='<%# Eval("Id_Ticket") %>'
+                                                        CssClass="btn btn-sm btn-warning font-weight-bold px-3">
+                                                    <i class="fas fa-folder-open mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_BtnView %>" />
+                                                    </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
 
-                            <!-- DETAIL BOOTSTRAP MODAL WRAPPED IN UPDATEPANEL -->
-                            <asp:PlaceHolder ID="phDetailModal" runat="server" Visible="false">
-                                <div class="modal-backdrop-custom">
-                                    <div class="modal-dialog-custom">
-                                        <div class="modal-header bg-dark text-white px-4 py-3 d-flex justify-content-between align-items-center">
-                                            <h5 class="modal-title font-weight-bold" style="color: #FFC800;">
-                                                <i class="fas fa-ticket-alt mr-2"></i>Support Ticket Resolution #<asp:Literal ID="litModalTicketId" runat="server" />
-                                            </h5>
-                                            <asp:LinkButton ID="btnCloseX" runat="server" OnClick="btnCloseModal_Click" CssClass="text-white text-decoration-none" Style="font-size: 1.3rem;">&times;</asp:LinkButton>
-                                        </div>
-                                        <div class="modal-body p-4" style="color: var(--text-main) !important; background-color: var(--bg-card) !important; max-height: 70vh; overflow-y: auto;">
-                                            
-                                            <!-- General customer / subject information -->
-                                            <div class="row mb-3 border-bottom pb-2" style="border-color: var(--border-color) !important;">
-                                                <div class="col-6">
-                                                    <small class="text-muted d-block text-uppercase font-weight-bold">Sender Email</small>
-                                                    <span class="font-weight-bold" style="color: var(--text-main) !important;"><asp:Literal ID="litModalUserEmail" runat="server" /></span>
+                                <!-- DETAIL BOOTSTRAP MODAL WRAPPED IN UPDATEPANEL -->
+                                <asp:PlaceHolder ID="phDetailModal" runat="server" Visible="false">
+                                    <div class="modal-backdrop-custom">
+                                        <div class="modal-dialog-custom">
+                                            <div class="modal-header bg-dark text-white px-4 py-3 d-flex justify-content-between align-items-center">
+                                                <h5 class="modal-title font-weight-bold" style="color: #FFC800;">
+                                                    <i class="fas fa-ticket-alt mr-2"></i>
+                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalResolution %>" />
+                                                    #<asp:Literal ID="litModalTicketId" runat="server" />
+                                                </h5>
+                                                <asp:LinkButton ID="btnCloseX" runat="server" OnClick="btnCloseModal_Click" CssClass="text-white text-decoration-none" Style="font-size: 1.3rem;">&times;</asp:LinkButton>
+                                            </div>
+                                            <div class="modal-body p-4" style="color: var(--text-main) !important; background-color: var(--bg-card) !important; max-height: 70vh; overflow-y: auto;">
+
+                                                <!-- General customer / subject information -->
+                                                <div class="row mb-3 border-bottom pb-2" style="border-color: var(--border-color) !important;">
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block text-uppercase font-weight-bold">
+                                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ColEmail %>" /></small>
+                                                        <span class="font-weight-bold" style="color: var(--text-main) !important;">
+                                                            <asp:Literal ID="litModalUserEmail" runat="server" /></span>
+                                                    </div>
+                                                    <div class="col-6 text-right">
+                                                        <small class="text-muted d-block text-uppercase font-weight-bold">
+                                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ColDateReq %>" /></small>
+                                                        <span style="color: var(--text-main) !important;">
+                                                            <asp:Literal ID="litModalCreatedAt" runat="server" /></span>
+                                                    </div>
                                                 </div>
-                                                <div class="col-6 text-right">
-                                                    <small class="text-muted d-block text-uppercase font-weight-bold">Date Received</small>
-                                                    <span style="color: var(--text-main) !important;"><asp:Literal ID="litModalCreatedAt" runat="server" /></span>
+
+                                                <div class="mb-3">
+                                                    <small class="text-muted d-block text-uppercase font-weight-bold">
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ColSubject %>" /></small>
+                                                    <h6 class="font-weight-bold" style="font-size: 1.1rem; color: var(--text-main) !important;">
+                                                        <asp:Literal ID="litModalSubject" runat="server" /></h6>
                                                 </div>
-                                            </div>
 
-                                            <div class="mb-3">
-                                                <small class="text-muted d-block text-uppercase font-weight-bold">Subject Concept</small>
-                                                <h6 class="font-weight-bold" style="font-size: 1.1rem; color: var(--text-main) !important;"><asp:Literal ID="litModalSubject" runat="server" /></h6>
-                                            </div>
+                                                <div class="mb-3 p-3 rounded" style="background: var(--bg-panel); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;">
+                                                    <small class="text-muted d-block text-uppercase font-weight-bold mb-1">
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalMessage %>" /></small>
+                                                    <p class="mb-0" style="white-space: pre-wrap; font-size: 0.95rem; font-style: italic; color: var(--text-main) !important;">
+                                                        <asp:Literal ID="litModalMessage" runat="server" /></p>
+                                                </div>
 
-                                            <div class="mb-3 p-3 rounded" style="background: var(--bg-panel); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;">
-                                                <small class="text-muted d-block text-uppercase font-weight-bold mb-1">User Message Content</small>
-                                                <p class="mb-0" style="white-space: pre-wrap; font-size: 0.95rem; font-style: italic; color: var(--text-main) !important;"><asp:Literal ID="litModalMessage" runat="server" /></p>
-                                            </div>
-
-                                            <!-- Dynamic conditional content: Order Issues -->
-                                            <asp:Panel ID="pnlModalOrder" runat="server" Visible="false" style="background: var(--bg-panel); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mb-3 p-3 rounded">
-                                                <h6 class="text-info font-weight-bold mb-2"><i class="fas fa-shopping-bag mr-2"></i>Linked Order Reference</h6>
-                                                <p class="mb-0" style="color: var(--text-main) !important;">
-                                                    <strong>Order Reference ID:</strong> 
-                                                    <span class="badge bg-info text-white font-weight-bold px-2 py-1" style="font-size: 0.95rem;">
-                                                        <asp:Literal ID="litModalOrderId" runat="server" />
-                                                    </span>
-                                                    <a href='ManageOrders.aspx?id=<%= litModalOrderId.Text %>' class="btn btn-sm btn-outline-info ml-2 font-weight-bold" target="_blank">
-                                                        <i class="fas fa-external-link-alt"></i> Navigate to Order
-                                                    </a>
-                                                </p>
-                                            </asp:Panel>
-
-                                            <!-- Dynamic conditional content: Seller Request / Reventa -->
-                                            <asp:Panel ID="pnlModalSeller" runat="server" Visible="false" style="background: var(--bg-panel); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mb-3 p-3 rounded">
-                                                <h6 class="text-warning font-weight-bold mb-3"><i class="fas fa-hand-holding-usd mr-2"></i>Collector Jersey Consignment Details</h6>
-                                                
-                                                <div class="row mb-3" style="color: var(--text-main) !important;">
-                                                    <div class="col-md-6">
-                                                        <strong>Proposed Payout Price:</strong> 
-                                                        <span class="font-weight-bold text-success" style="font-size: 1.05rem;">
-                                                            $<asp:Literal ID="litModalProposedPrice" runat="server" />
+                                                <!-- Dynamic conditional content: Order Issues -->
+                                                <asp:Panel ID="pnlModalOrder" runat="server" Visible="false" Style="background: var(--bg-panel); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mb-3 p-3 rounded">
+                                                    <h6 class="text-info font-weight-bold mb-2"><i class="fas fa-shopping-bag mr-2"></i>
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalLinkedOrder %>" /></h6>
+                                                    <p class="mb-0" style="color: var(--text-main) !important;">
+                                                        <strong>
+                                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_ColOrderId %>" />:</strong>
+                                                        <span class="badge bg-info text-white font-weight-bold px-2 py-1" style="font-size: 0.95rem;">
+                                                            <asp:Literal ID="litModalOrderId" runat="server" />
                                                         </span>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <strong>Declared Wear Condition:</strong> 
-                                                        <span class="badge bg-warning text-dark font-weight-bold px-2 py-1">
-                                                            <asp:Literal ID="litModalItemCondition" runat="server" />
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Gallery with zoom-on-hover effect -->
-                                                <small class="text-muted d-block text-uppercase font-weight-bold mb-2">Submitted Proof Images (Hover to inspect zoom or click to view fullscreen)</small>
-                                                <div class="row mb-4">
-                                                    <div class="col-md-4 text-center">
-                                                        <asp:Image ID="imgModal1" runat="server" CssClass="img-fluid rounded border zoom-effect" style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
-                                                        <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
-                                                            <i class="fas fa-expand-arrows-alt"></i> Fullscreen
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-4 text-center">
-                                                        <asp:Image ID="imgModal2" runat="server" CssClass="img-fluid rounded border zoom-effect" style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
-                                                        <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
-                                                            <i class="fas fa-expand-arrows-alt"></i> Fullscreen
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-4 text-center">
-                                                        <asp:Image ID="imgModal3" runat="server" CssClass="img-fluid rounded border zoom-effect" style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
-                                                        <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
-                                                            <i class="fas fa-expand-arrows-alt"></i> Fullscreen
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Catalog mapping configuration options -->
-                                                <asp:Panel ID="pnlModalCatalogMapping" runat="server" style="background: var(--bg-card); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mt-3 p-3 rounded">
-                                                    <h6 class="text-success font-weight-bold mb-3"><i class="fas fa-tags mr-2"></i>Catalog Listing Parameters</h6>
-                                                    <div class="form-group">
-                                                        <label class="small text-muted font-weight-bold mb-1">Catalog Display Name</label>
-                                                        <asp:TextBox ID="txtNewProductName" runat="server" CssClass="form-control form-control-sm font-weight-bold" placeholder="e.g. 1998 France Cup Final Jersey" />
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3 form-group">
-                                                            <label class="small text-muted font-weight-bold mb-1">Brand Mapping</label>
-                                                            <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-control form-control-sm" />
-                                                        </div>
-                                                        <div class="col-md-3 form-group">
-                                                            <label class="small text-muted font-weight-bold mb-1">League Mapping</label>
-                                                            <asp:DropDownList ID="ddlLeague" runat="server" CssClass="form-control form-control-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlLeague_SelectedIndexChanged" />
-                                                        </div>
-                                                        <div class="col-md-3 form-group">
-                                                            <label class="small text-muted font-weight-bold mb-1">Team Mapping</label>
-                                                            <asp:DropDownList ID="ddlTeam" runat="server" CssClass="form-control form-control-sm" />
-                                                        </div>
-                                                        <div class="col-md-3 form-group">
-                                                            <label class="small text-muted font-weight-bold mb-1">Year</label>
-                                                            <asp:TextBox ID="txtYear" runat="server" CssClass="form-control form-control-sm" MaxLength="4" placeholder="e.g. 1998" />
-                                                        </div>
-                                                    </div>
+                                                        <a href='ManageOrders.aspx?id=<%= litModalOrderId.Text %>' class="btn btn-sm btn-outline-info ml-2 font-weight-bold" target="_blank">
+                                                            <i class="fas fa-external-link-alt"></i>
+                                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalNavOrder %>" />
+                                                        </a>
+                                                    </p>
                                                 </asp:Panel>
-                                            </asp:Panel>
 
-                                            <!-- Resolution input: Admin comments -->
-                                            <div class="form-group mt-3">
-                                                <label for="txtAdminNotes" class="font-weight-bold text-uppercase small text-muted">Administrative Response Notes <span class="text-danger">*</span></label>
-                                                <asp:TextBox ID="txtAdminNotes" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="Specify approval verification results, shipment tracking numbers, or rejection details for user response..." />
+                                                <!-- Dynamic conditional content: Seller Request / Reventa -->
+                                                <asp:Panel ID="pnlModalSeller" runat="server" Visible="false" Style="background: var(--bg-panel); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mb-3 p-3 rounded">
+                                                    <h6 class="text-warning font-weight-bold mb-3"><i class="fas fa-hand-holding-usd mr-2"></i>
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalConsignment %>" /></h6>
+
+                                                    <div class="row mb-3" style="color: var(--text-main) !important;">
+                                                        <div class="col-md-6">
+                                                            <strong>
+                                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalPrice %>" /></strong>
+                                                            <span class="font-weight-bold text-success" style="font-size: 1.05rem;">$<asp:Literal ID="litModalProposedPrice" runat="server" />
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>
+                                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalCondition %>" /></strong>
+                                                            <span class="badge bg-warning text-dark font-weight-bold px-2 py-1">
+                                                                <asp:Literal ID="litModalItemCondition" runat="server" />
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Gallery with zoom-on-hover effect -->
+                                                    <small class="text-muted d-block text-uppercase font-weight-bold mb-2">
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalProofImages %>" /></small>
+                                                    <div class="row mb-4">
+                                                        <div class="col-md-4 text-center">
+                                                            <asp:Image ID="imgModal1" runat="server" CssClass="img-fluid rounded border zoom-effect" Style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
+                                                            <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
+                                                                <i class="fas fa-expand-arrows-alt"></i>Fullscreen
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-4 text-center">
+                                                            <asp:Image ID="imgModal2" runat="server" CssClass="img-fluid rounded border zoom-effect" Style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
+                                                            <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
+                                                                <i class="fas fa-expand-arrows-alt"></i>Fullscreen
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-4 text-center">
+                                                            <asp:Image ID="imgModal3" runat="server" CssClass="img-fluid rounded border zoom-effect" Style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
+                                                            <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
+                                                                <i class="fas fa-expand-arrows-alt"></i>Fullscreen
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Catalog mapping configuration options -->
+                                                    <asp:Panel ID="pnlModalCatalogMapping" runat="server" Style="background: var(--bg-card); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mt-3 p-3 rounded">
+                                                        <h6 class="text-success font-weight-bold mb-3"><i class="fas fa-tags mr-2"></i>
+                                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalCatalogParams %>" /></h6>
+                                                        <div class="form-group">
+                                                            <label class="small text-muted font-weight-bold mb-1">
+                                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalDisplayName %>" /></label>
+                                                            <asp:TextBox ID="txtNewProductName" runat="server" CssClass="form-control form-control-sm font-weight-bold" placeholder="e.g. 1998 France Cup Final Jersey" />
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3 form-group">
+                                                                <label class="small text-muted font-weight-bold mb-1">
+                                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalBrandMap %>" /></label>
+                                                                <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-control form-control-sm" />
+                                                            </div>
+                                                            <div class="col-md-3 form-group">
+                                                                <label class="small text-muted font-weight-bold mb-1">
+                                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalLeagueMap %>" /></label>
+                                                                <asp:DropDownList ID="ddlLeague" runat="server" CssClass="form-control form-control-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlLeague_SelectedIndexChanged" />
+                                                            </div>
+                                                            <div class="col-md-3 form-group">
+                                                                <label class="small text-muted font-weight-bold mb-1">
+                                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalTeamMap %>" /></label>
+                                                                <asp:DropDownList ID="ddlTeam" runat="server" CssClass="form-control form-control-sm" />
+                                                            </div>
+                                                            <div class="col-md-3 form-group">
+                                                                <label class="small text-muted font-weight-bold mb-1">
+                                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalYear %>" /></label>
+                                                                <asp:TextBox ID="txtYear" runat="server" CssClass="form-control form-control-sm" MaxLength="4" placeholder="e.g. 1998" />
+                                                            </div>
+                                                        </div>
+                                                    </asp:Panel>
+                                                </asp:Panel>
+
+                                                <!-- Resolution input: Admin comments -->
+                                                <div class="form-group mt-3">
+                                                    <label for="txtAdminNotes" class="font-weight-bold text-uppercase small text-muted">
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalAdminResponse %>" /></label>
+                                                    <asp:TextBox ID="txtAdminNotes" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="Specify approval verification results, shipment tracking numbers, or rejection details for user response..." />
+                                                </div>
+
+                                                <asp:Label ID="lblModalError" runat="server" CssClass="alert alert-danger d-block mt-3 font-weight-bold small" Visible="false" />
                                             </div>
-
-                                            <asp:Label ID="lblModalError" runat="server" CssClass="alert alert-danger d-block mt-3 font-weight-bold small" Visible="false" />
-                                        </div>
-                                        <div class="modal-footer px-4 py-3 d-flex justify-content-between" style="background: var(--bg-card) !important; border-top: 1px solid var(--border-color) !important;">
-                                            <asp:Button ID="btnCancel" runat="server" Text="Close Details" CssClass="btn btn-secondary font-weight-bold" OnClick="btnCloseModal_Click" />
-                                            <div>
-                                                <asp:Button ID="btnReject" runat="server" Text="Reject & Deny Request" CssClass="btn btn-danger font-weight-bold mr-2" OnClick="btnReject_Click" />
-                                                <asp:Button ID="btnApprove" runat="server" Text="Approve & Publish Catalog" CssClass="btn btn-success font-weight-bold" OnClick="btnApprove_Click" />
+                                            <div class="modal-footer px-4 py-3 d-flex justify-content-between" style="background: var(--bg-card) !important; border-top: 1px solid var(--border-color) !important;">
+                                                <asp:Button ID="btnCancel" runat="server" Text="Close Details" CssClass="btn btn-secondary font-weight-bold" OnClick="btnCloseModal_Click" />
+                                                <div>
+                                                    <asp:Button ID="btnReject" runat="server" Text="Reject & Deny Request" CssClass="btn btn-danger font-weight-bold mr-2" OnClick="btnReject_Click" />
+                                                    <asp:Button ID="btnApprove" runat="server" Text="Approve & Publish Catalog" CssClass="btn btn-success font-weight-bold" OnClick="btnApprove_Click" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </asp:PlaceHolder>
+                                </asp:PlaceHolder>
                             </asp:Panel>
 
                             <asp:Panel ID="pnlReviews" runat="server" Visible="false">
@@ -443,7 +607,7 @@
                                         EmptyDataText="No product reviews found.">
                                         <Columns>
                                             <asp:BoundField DataField="Id_Review" HeaderText="ID" ItemStyle-Width="60px" />
-                                            <asp:BoundField DataField="ReviewDate" HeaderText="Date" DataFormatString="{0:yyyy-MM-dd HH:mm}" />
+                                            <asp:BoundField DataField="ReviewDate" HeaderText="<%$ Resources:Strings, Admin_Orders_ColDate %>" DataFormatString="{0:yyyy-MM-dd HH:mm}" />
                                             <asp:TemplateField HeaderText="User">
                                                 <ItemTemplate>
                                                     <span class="font-weight-bold"><%# Eval("UserName") %> <%# Eval("UserLastName") %></span><br />
@@ -451,39 +615,39 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="ShirtName" HeaderText="Product" ItemStyle-Font-Bold="true" />
-                                            <asp:TemplateField HeaderText="Rating">
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Review_Rating %>">
                                                 <ItemTemplate>
-                                                    <span style="color: #FFC800;"><i class="fas fa-star"></i> <%# Eval("Rating") %>/5</span>
+                                                    <span style="color: #FFC800;"><i class="fas fa-star"></i><%# Eval("Rating") %>/5</span>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Comment" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="250px">
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Review_CommentLabel %>" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="250px">
                                                 <ItemTemplate>
                                                     <div style="max-height: 80px; overflow-y: auto; font-style: italic; font-size: 0.9rem;">
                                                         "<%# Eval("Comment") %>"
                                                     </div>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Admin Reply" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200px">
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Review_OfficialReply %>" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="200px">
                                                 <ItemTemplate>
                                                     <div style="max-height: 80px; overflow-y: auto; font-size: 0.85rem; color: #17a2b8;">
-                                                        <%# string.IsNullOrEmpty(Eval("ReplyComment")?.ToString()) ? "<span class='text-muted'>No reply yet</span>" : Eval("ReplyComment") %>
+                                                        <%# string.IsNullOrEmpty(Eval("ReplyComment")?.ToString()) ? "<span class='text-muted'>" + GetGlobalResourceObject("Strings", "Admin_Seller_ReviewNoReply") + "</span>" : Eval("ReplyComment") %>
                                                     </div>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Actions" ItemStyle-Width="180px">
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Brand_ColActions %>" ItemStyle-Width="180px">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="btnReplyReview" runat="server"
                                                         CommandName="ReplyReview"
                                                         CommandArgument='<%# Eval("Id_Review") %>'
                                                         CssClass="btn btn-sm btn-info font-weight-bold mb-1">
-                                                        <i class="fas fa-reply"></i> Reply
+                                                        <i class="fas fa-reply"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ReviewReplyBtn %>" />
                                                     </asp:LinkButton>
                                                     <asp:LinkButton ID="btnDeleteReview" runat="server"
                                                         CommandName="DeleteReview"
                                                         CommandArgument='<%# Eval("Id_Review") %>'
                                                         OnClientClick="return confirm('Are you sure you want to delete this review?');"
                                                         CssClass="btn btn-sm btn-danger font-weight-bold mb-1">
-                                                        <i class="fas fa-trash-alt"></i> Delete
+                                                        <i class="fas fa-trash-alt"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ReviewDeleteBtn %>" />
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
@@ -497,25 +661,30 @@
                                         <div class="modal-dialog-custom">
                                             <div class="modal-header bg-dark text-white px-4 py-3 d-flex justify-content-between align-items-center">
                                                 <h5 class="modal-title font-weight-bold" style="color: #FFC800;">
-                                                    <i class="fas fa-reply mr-2"></i>Reply to Review #<asp:Literal ID="litReplyReviewId" runat="server" />
+                                                    <i class="fas fa-reply mr-2"></i>
+                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ReviewModalTitle %>" />
+                                                    #<asp:Literal ID="litReplyReviewId" runat="server" />
                                                 </h5>
                                                 <asp:LinkButton ID="btnCloseReplyModal" runat="server" OnClick="btnCloseReplyModal_Click" CssClass="text-white text-decoration-none" Style="font-size: 1.3rem;">&times;</asp:LinkButton>
                                             </div>
                                             <div class="modal-body p-4" style="color: var(--text-main) !important; background-color: var(--bg-card) !important;">
                                                 <div class="mb-3 p-3 rounded" style="background: var(--bg-panel); border: 1px solid var(--border-color) !important;">
-                                                    <small class="text-muted d-block text-uppercase font-weight-bold mb-1">User's Review</small>
-                                                    <p class="mb-0 font-italic" style="color: var(--text-main) !important;"><asp:Literal ID="litOriginalReview" runat="server" /></p>
+                                                    <small class="text-muted d-block text-uppercase font-weight-bold mb-1">
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ReviewModalOriginal %>" /></small>
+                                                    <p class="mb-0 font-italic" style="color: var(--text-main) !important;">
+                                                        <asp:Literal ID="litOriginalReview" runat="server" /></p>
                                                 </div>
 
                                                 <div class="form-group mt-3">
-                                                    <label for="txtReplyComment" class="font-weight-bold text-uppercase small text-muted">Your Official Reply <span class="text-danger">*</span></label>
+                                                    <label for="txtReplyComment" class="font-weight-bold text-uppercase small text-muted">
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ReviewModalOfficial %>" /></label>
                                                     <asp:TextBox ID="txtReplyComment" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="Write your public reply here..." />
                                                 </div>
                                                 <asp:Label ID="lblReplyModalError" runat="server" CssClass="alert alert-danger d-block mt-3 font-weight-bold small" Visible="false" />
                                             </div>
                                             <div class="modal-footer px-4 py-3 d-flex justify-content-between" style="background: var(--bg-card) !important; border-top: 1px solid var(--border-color) !important;">
-                                                <asp:Button ID="btnCancelReply" runat="server" Text="Cancel" CssClass="btn btn-secondary font-weight-bold" OnClick="btnCloseReplyModal_Click" />
-                                                <asp:Button ID="btnSubmitReply" runat="server" Text="Submit Reply" CssClass="btn btn-info font-weight-bold" OnClick="btnSubmitReply_Click" />
+                                                <asp:Button ID="btnCancelReply" runat="server" Text="<%$ Resources:Strings, Account_Cancel %>" CssClass="btn btn-secondary font-weight-bold" OnClick="btnCloseReplyModal_Click" />
+                                                <asp:Button ID="btnSubmitReply" runat="server" Text="<%$ Resources:Strings, Admin_Seller_ReviewSubmitReply %>" CssClass="btn btn-info font-weight-bold" OnClick="btnSubmitReply_Click" />
                                             </div>
                                         </div>
                                     </div>

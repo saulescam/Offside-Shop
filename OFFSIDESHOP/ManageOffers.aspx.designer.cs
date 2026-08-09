@@ -33,13 +33,31 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
+        /// Control btnLanguageToggle.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
+
+        /// <summary>
         /// Control btnManageProducts.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManageProducts;
+        protected global::System.Web.UI.WebControls.LinkButton btnManageProducts;
+
+        /// <summary>
+        /// Control btnManageOrders.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnManageOrders;
 
         /// <summary>
         /// Control btnManageOffers.
@@ -48,7 +66,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManageOffers;
+        protected global::System.Web.UI.WebControls.LinkButton btnManageOffers;
 
         /// <summary>
         /// Control btnManageCoupons.
@@ -57,7 +75,16 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManageCoupons;
+        protected global::System.Web.UI.WebControls.LinkButton btnManageCoupons;
+
+        /// <summary>
+        /// Control btnManageTickets.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnManageTickets;
 
         /// <summary>
         /// Control btnAddLeague.
@@ -66,7 +93,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddLeague;
+        protected global::System.Web.UI.WebControls.LinkButton btnAddLeague;
 
         /// <summary>
         /// Control btnAddTeam.
@@ -75,7 +102,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddTeam;
+        protected global::System.Web.UI.WebControls.LinkButton btnAddTeam;
 
         /// <summary>
         /// Control btnAddBrand.
@@ -84,7 +111,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddBrand;
+        protected global::System.Web.UI.WebControls.LinkButton btnAddBrand;
 
         /// <summary>
         /// Control phOwnerMenu.
@@ -102,7 +129,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManageUsers;
+        protected global::System.Web.UI.WebControls.LinkButton btnManageUsers;
 
         /// <summary>
         /// Control btnSmtpSettings.
@@ -111,7 +138,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSmtpSettings;
+        protected global::System.Web.UI.WebControls.LinkButton btnSmtpSettings;
 
         /// <summary>
         /// Control btnStats.
@@ -120,7 +147,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStats;
+        protected global::System.Web.UI.WebControls.LinkButton btnStats;
 
         /// <summary>
         /// Control btnAuditLogs.
@@ -129,7 +156,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAuditLogs;
+        protected global::System.Web.UI.WebControls.LinkButton btnAuditLogs;
 
         /// <summary>
         /// Control btnAdminBanners.
@@ -138,7 +165,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAdminBanners;
+        protected global::System.Web.UI.WebControls.LinkButton btnAdminBanners;
 
         /// <summary>
         /// Control btncerrar.
@@ -147,7 +174,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btncerrar;
+        protected global::System.Web.UI.WebControls.LinkButton btncerrar;
 
         /// <summary>
         /// Control pnlOfferForm.
@@ -291,7 +318,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveOffer;
+        protected global::System.Web.UI.WebControls.LinkButton btnSaveOffer;
 
         /// <summary>
         /// Control btnCancelForm.
@@ -300,7 +327,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelForm;
+        protected global::System.Web.UI.WebControls.LinkButton btnCancelForm;
 
         /// <summary>
         /// Control lbAddNewOffer.

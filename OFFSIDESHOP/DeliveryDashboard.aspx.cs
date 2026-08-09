@@ -13,7 +13,7 @@ namespace OFFSIDESHOP
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
-        // Enumeración de estados de orden para evitar números mágicos
+        // Enumeración de estados de orden
         private enum OrderStatus
         {
             Pending = 1,
@@ -39,6 +39,7 @@ namespace OFFSIDESHOP
             if (!IsPostBack)
             {
                 CheckForActiveMission();
+                LoadDriverProfile();
             }
         }
 
@@ -72,6 +73,37 @@ namespace OFFSIDESHOP
             }
         }
 
+        private void LoadDriverProfile()
+        {
+            if (Session["Id_User"] != null)
+            {
+                int driverId = Convert.ToInt32(Session["Id_User"]);
+                string query = "SELECT Name, Mail FROM users WHERE Id_User = @Id";
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", driverId);
+                        try
+                        {
+                            conn.Open();
+                            MySqlDataReader reader = cmd.ExecuteReader();
+                            if (reader.Read())
+                            {
+                                if (lblDriverName != null) lblDriverName.Text = reader["Name"].ToString();
+                                if (lblDriverEmail != null) lblDriverEmail.Text = reader["Mail"].ToString();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            if (lblDriverName != null) lblDriverName.Text = "Driver";
+                        }
+                    }
+                }
+            }
+        }
+
         protected void chkDuty_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDutyUI();
@@ -80,17 +112,16 @@ namespace OFFSIDESHOP
 
         private void UpdateDutyUI()
         {
-            if (chkDutySwitch.Checked)
+            bool isOnDuty = chkDutySwitch.Checked;
+            UpdateDutyBadgeText(isOnDuty);
+
+            if (isOnDuty)
             {
-                lblDutyStatus.Text = "On Duty";
-                lblDutyStatus.CssClass = "status-badge bg-online";
                 phOnline.Visible = true;
                 phOffline.Visible = false;
             }
             else
             {
-                lblDutyStatus.Text = "Offline";
-                lblDutyStatus.CssClass = "status-badge bg-offline";
                 phOnline.Visible = false;
                 phOffline.Visible = true;
             }
@@ -149,7 +180,7 @@ namespace OFFSIDESHOP
                 {
                     conn.Open();
 
-                    // Control de condición de carrera: Solo asigna si sigue en Estado 9 y sin repartidor
+                    // Control de condición de carrera
                     string query = @"UPDATE orders 
                                     SET Id_Status = @StatusShipped, Id_DeliveryMan = @DriverId 
                                     WHERE Id_Order = @OrderId AND Id_Status = @StatusReady AND Id_DeliveryMan IS NULL";
@@ -164,7 +195,6 @@ namespace OFFSIDESHOP
                         int affected = cmd.ExecuteNonQuery();
                         if (affected > 0)
                         {
-                            // Sincronizar driver_tracking con Id_ActiveOrder
                             string initTracking = @"INSERT INTO driver_tracking (Id_Driver, Id_ActiveOrder, CurrentLat, CurrentLng) 
                                                     VALUES (@DriverId, @OrderId, 13.7370, -89.2868) 
                                                     ON DUPLICATE KEY UPDATE Id_ActiveOrder = @OrderId;";
@@ -179,7 +209,6 @@ namespace OFFSIDESHOP
                         }
                         else
                         {
-                            // Alerta si otro repartidor ganó la carrera por la orden
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "orderTaken",
                                 "Swal.fire('Too late!', 'Another driver just accepted this order.', 'info');", true);
                             LoadRadar();
@@ -221,7 +250,7 @@ namespace OFFSIDESHOP
             {
                 string query = @"
                     SELECT o.Id_Order, CONCAT(o.Name, ' ', o.LastName) AS ClientName, o.Phone, o.Address, o.OrderNotes,
-                           o.Latitude, o.Longitude, c.city_name, m.Municipality_Name
+                           o.Latitude, o.Longitude, c.city_name, m.Municipality_Name, o.Total, o.Id_PaymentMethod
                     FROM orders o
                     LEFT JOIN cities c ON o.Id_City = c.id_city
                     LEFT JOIN municipalities m ON o.Id_Municipality = m.Id_Municipality
@@ -242,9 +271,26 @@ namespace OFFSIDESHOP
                         string lat = reader["Latitude"] != DBNull.Value ? reader["Latitude"].ToString() : "";
                         string lng = reader["Longitude"] != DBNull.Value ? reader["Longitude"].ToString() : "";
 
+                        decimal total = reader["Total"] != DBNull.Value ? Convert.ToDecimal(reader["Total"]) : 0;
+                        int paymentMethodId = reader["Id_PaymentMethod"] != DBNull.Value ? Convert.ToInt32(reader["Id_PaymentMethod"]) : 1;
+
                         lblMissionOrderId.Text = reader["Id_Order"].ToString();
                         lblClientName.Text = clientName;
                         lblClientAddress.Text = address;
+
+                        // Evaluación del Método de Pago:
+                        if (paymentMethodId == 1) // 1 = Cash on Delivery
+                        {
+                            string collectFormat = GetGlobalResourceObject("Strings", "Driver_PaymentStatus_Collect")?.ToString() ?? "Collect in cash: {0:C}";
+                            lblPaymentStatus.Text = string.Format(collectFormat, total);
+                            lblPaymentStatus.CssClass = "badge bg-warning text-dark fs-6 py-2 px-3 w-100";
+                        }
+                        else // Pago Online (PayPal / Tarjeta)
+                        {
+                            string paidText = GetGlobalResourceObject("Strings", "Driver_PaymentStatus_Paid")?.ToString() ?? "Paid (Online)";
+                            lblPaymentStatus.Text = paidText;
+                            lblPaymentStatus.CssClass = "badge bg-success text-white fs-6 py-2 px-3 w-100";
+                        }
 
                         // Configuración de botones de contacto
                         btnCallClient.HRef = "tel:" + phone;
@@ -306,7 +352,6 @@ namespace OFFSIDESHOP
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                // Pasar orden a Entregado (Estado 4)
                 string query = "UPDATE orders SET Id_Status = @StatusDelivered WHERE Id_Order = @OrderId";
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
@@ -315,7 +360,6 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                // Liberar el pedido activo en driver_tracking
                 string clearTrack = "UPDATE driver_tracking SET Id_ActiveOrder = NULL WHERE Id_Driver = @DriverId";
                 using (MySqlCommand cmdTrack = new MySqlCommand(clearTrack, conn))
                 {
@@ -337,7 +381,6 @@ namespace OFFSIDESHOP
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                // Regresar orden al radar (Estado 9) y desasignar repartidor
                 string query = "UPDATE orders SET Id_Status = @StatusReady, Id_DeliveryMan = NULL WHERE Id_Order = @OrderId";
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
@@ -346,7 +389,6 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                // Liberar el pedido activo en driver_tracking
                 string clearTrack = "UPDATE driver_tracking SET Id_ActiveOrder = NULL WHERE Id_Driver = @DriverId";
                 using (MySqlCommand cmdTrack = new MySqlCommand(clearTrack, conn))
                 {
@@ -369,7 +411,6 @@ namespace OFFSIDESHOP
                     {
                         conn.Open();
 
-                        // 1. Si tenía una orden activa asignada en camino (Estado 3), la liberamos de vuelta al radar (Estado 9)
                         string releaseOrderQuery = @"UPDATE orders 
                                                       SET Id_Status = @StatusReady, Id_DeliveryMan = NULL 
                                                       WHERE Id_DeliveryMan = @DriverId AND Id_Status = @StatusShipped";
@@ -381,8 +422,6 @@ namespace OFFSIDESHOP
                             cmdOrder.ExecuteNonQuery();
                         }
 
-                        // 2. Limpiamos su estado en driver_tracking para que pase a descanso (OFFDUTY)
-                        // Atrasamos LastUpdate 1 hora para que la consulta de estado lo evalúe como OFFDUTY
                         string clearTrackingQuery = @"UPDATE driver_tracking 
                                                       SET Id_ActiveOrder = NULL, 
                                                           LastUpdate = DATE_SUB(NOW(), INTERVAL 1 HOUR) 
@@ -403,6 +442,43 @@ namespace OFFSIDESHOP
             Session.Clear();
             Session.Abandon();
             Response.Redirect("Login.aspx");
+        }
+
+        protected override void InitializeCulture()
+        {
+            if (Session["Language"] != null)
+            {
+                string lang = Session["Language"].ToString();
+                string cultureName = (lang == "es") ? "es-SV" : "en-US";
+                System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
+                ci.NumberFormat.CurrencySymbol = "$";
+                System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+            }
+            base.InitializeCulture();
+        }
+
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
+        }
+
+        private void UpdateDutyBadgeText(bool isOnDuty)
+        {
+            string textOnDuty = GetGlobalResourceObject("Strings", "Driver_OnDuty")?.ToString() ?? "On Duty";
+            string textOffline = GetGlobalResourceObject("Strings", "Driver_Offline")?.ToString() ?? "Offline";
+
+            if (isOnDuty)
+            {
+                lblDutyStatus.Text = textOnDuty;
+                lblDutyStatus.CssClass = "status-badge bg-online ms-2";
+            }
+            else
+            {
+                lblDutyStatus.Text = textOffline;
+                lblDutyStatus.CssClass = "status-badge bg-offline ms-2";
+            }
         }
     }
 }

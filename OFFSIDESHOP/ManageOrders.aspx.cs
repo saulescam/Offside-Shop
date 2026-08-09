@@ -52,6 +52,10 @@ namespace OFFSIDESHOP
             if (!IsPostBack)
             {
                 ViewState["ActiveTab"] = "ORDERS";
+                
+                string tabOrdersName = GetGlobalResourceObject("Strings", "Admin_Orders_TabActive")?.ToString() ?? "Active Orders";
+                btnTabOrders.Text = $"<i class=\"fas fa-boxes mr-2\"></i>{tabOrdersName}";
+                
                 LoadFilterStatuses();
                 LoadOrders();
                 UpdateRefundBadgeCount();
@@ -185,6 +189,7 @@ namespace OFFSIDESHOP
 
         private void UpdateRefundBadgeCount()
         {
+            int count = 0;
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connectionString))
@@ -193,15 +198,17 @@ namespace OFFSIDESHOP
                     string query = "SELECT COUNT(1) FROM orders WHERE Id_Status = 6;";
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
-                        int count = Convert.ToInt32(cmd.ExecuteScalar());
-                        litRefundBadgeCount.Text = count.ToString();
+                        count = Convert.ToInt32(cmd.ExecuteScalar());
                     }
                 }
             }
             catch (Exception)
             {
-                litRefundBadgeCount.Text = "0";
+                count = 0;
             }
+            
+            string tabName = GetGlobalResourceObject("Strings", "Admin_Orders_TabRefunds")?.ToString() ?? "Refunds";
+            btnTabRefunds.Text = $"<i class=\"fas fa-hand-holding-usd mr-2\"></i>{tabName} <span class=\"badge badge-danger badge-refund\">{count}</span>";
         }
         #endregion
 

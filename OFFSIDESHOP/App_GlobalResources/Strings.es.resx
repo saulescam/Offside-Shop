@@ -2160,4 +2160,13 @@
   <data name="Admin_Products_AllowCustom" xml:space="preserve">
     <value>Permitir personalización (Estampado de Nombre y Número)</value>
   </data>
+	<data name="Driver_PaymentMethod" xml:space="preserve">
+    <value>Estado del Pago</value>
+  </data>
+	<data name="Driver_PaymentStatus_Paid" xml:space="preserve">
+    <value>Pago realizado</value>
+  </data>
+	<data name="Driver_PaymentStatus_Collect" xml:space="preserve">
+    <value>Cobrar en efectivo: {0:C}</value>
+  </data>
 </root>

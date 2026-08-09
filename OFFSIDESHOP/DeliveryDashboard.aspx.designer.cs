@@ -24,6 +24,33 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Control lblDriverName.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDriverName;
+
+        /// <summary>
+        /// Control lblDriverEmail.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDriverEmail;
+
+        /// <summary>
+        /// Control btnLanguageToggle.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
+
+        /// <summary>
         /// Control chkDutySwitch.
         /// </summary>
         /// <remarks>
@@ -177,6 +204,24 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.HtmlControls.HtmlAnchor btnWhatsappClient;
 
         /// <summary>
+        /// Control litPaymentTitle.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litPaymentTitle;
+
+        /// <summary>
+        /// Control lblPaymentStatus.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPaymentStatus;
+
+        /// <summary>
         /// Control btnGoogleMaps.
         /// </summary>
         /// <remarks>
@@ -246,7 +291,7 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelMission;
+        protected global::System.Web.UI.WebControls.LinkButton btnCancelMission;
 
         /// <summary>
         /// Control btnCompleteMission.
@@ -255,6 +300,6 @@ namespace OFFSIDESHOP
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCompleteMission;
+        protected global::System.Web.UI.WebControls.LinkButton btnCompleteMission;
     }
 }

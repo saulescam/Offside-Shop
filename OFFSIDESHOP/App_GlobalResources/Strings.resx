@@ -1338,7 +1338,7 @@
     <value>Create global campaign windows, configure percentage discounts, and multi-assign items catalog-wide.</value>
   </data>
   <data name="Admin_Offers_CreateTitle" xml:space="preserve">
-    <value>Create Promotional Campaign</value>
+    <value>Create New Promo Campaign Window</value>
   </data>
   <data name="Admin_Offers_EditTitle" xml:space="preserve">
     <value>Edit Promotional Campaign</value>
@@ -2159,5 +2159,14 @@
   </data>
 	<data name="Admin_Products_AllowCustom" xml:space="preserve">
     <value>Allow personalization (Name &amp; Number printing)</value>
+  </data>
+	<data name="Driver_PaymentMethod" xml:space="preserve">
+    <value>Payment Status</value>
+  </data>
+	<data name="Driver_PaymentStatus_Paid" xml:space="preserve">
+    <value>Paid (Online Payment)</value>
+  </data>
+	<data name="Driver_PaymentStatus_Collect" xml:space="preserve">
+    <value>Collect in cash: {0:C}</value>
   </data>
 </root>

@@ -48,16 +48,16 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
-            .filter-card label {
-                color: var(--text-muted);
-                font-weight: 600;
-                font-size: 0.8rem;
-                text-transform: uppercase;
-                letter-spacing: 0.8px;
-                margin-bottom: 6px;
-            }
+        .filter-card label {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
 
-        /* ── Paginación ── */
+        /* Paginación */
         .pagination-custom td { padding: 24px 4px 10px 4px; }
         .pagination-custom a, .pagination-custom span {
             display: inline-block;
@@ -96,6 +96,19 @@
             border: 1px solid transparent;
             box-shadow: 0 5px 15px rgba(251, 191, 36, 0.5);
         }
+
+        .lang-toggle-btn {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none !important;
+            letter-spacing: 1px;
+            transition: opacity 0.2s ease;
+        }
+        .lang-toggle-btn:hover {
+            opacity: 0.8;
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body>
@@ -103,10 +116,14 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
         <nav class="top-navbar">
-            <div style="display: flex; align-items: center;">
-                <a class="navbar-brand" href="Dashboard.aspx">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a class="navbar-brand" href="Dashboard.aspx" style="margin-right: 0;">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
                 </a>
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
+                    CssClass="lang-toggle-btn" CausesValidation="false">
+                    EN / ES
+                </asp:LinkButton>
             </div>
             <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
                 <i class="fas fa-moon"></i>
@@ -117,62 +134,93 @@
             <aside class="sidebar fade-in">
                 <ul class="sidebar-menu">
                     <li>
-                        <asp:Button ID="btnManageProducts" CssClass="sidebar-btn" runat="server" Text="&#xf553; Manage Products" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageProducts" CssClass="sidebar-btn" runat="server" OnClick="btnManageProducts_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf553; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageProducts %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d; Manage Orders</a>
+                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf46d; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOrders %>" />
+                        </a>
                     </li>
                     <li>
-                        <asp:Button ID="btnManageOffers" CssClass="sidebar-btn" runat="server" Text="&#xf155; Manage Offers" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnManageOffers" CssClass="sidebar-btn" runat="server" OnClick="btnManageOffers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf155; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOffers %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" Text="&#xf02c; Manage Coupons" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" /></li>
-                    <li><a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5; Seller Requests</a></li>
+                        <asp:LinkButton ID="btnManageCoupons" CssClass="sidebar-btn" runat="server" OnClick="btnManageCoupons_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf02c; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageCoupons %>" />
+                        </asp:LinkButton>
+                    </li>
+                    <li>
+                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2b5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SellerRequests %>" />
+                        </a>
+                    </li>
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btnAddLeague" CssClass="sidebar-btn" runat="server" Text="&#xf1ae; Add League" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddLeague" CssClass="sidebar-btn" runat="server" OnClick="btnAddLeague_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf1ae; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddLeague %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnAddTeam" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Team" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddTeam" CssClass="sidebar-btn" runat="server" OnClick="btnAddTeam_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddTeam %>" />
+                        </asp:LinkButton>
                     </li>
                     <li>
-                        <asp:Button ID="btnAddBrand" CssClass="sidebar-btn" runat="server" Text="&#xf0c0; Add Brand" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAddBrand" CssClass="sidebar-btn" runat="server" OnClick="btnAddBrand_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf0c0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AddBrand %>" />
+                        </asp:LinkButton>
                     </li>
 
                     <asp:PlaceHolder ID="phOwnerMenu" runat="server">
                         <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                            <asp:Button ID="btnManageUsers" CssClass="sidebar-btn" runat="server" Text="&#xf4fe; Manage Users" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnManageUsers" CssClass="sidebar-btn" runat="server" OnClick="btnManageUsers_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf4fe; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageUsers %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" Text="&#xf0e0; SMTP Settings" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnSmtpSettings" CssClass="sidebar-btn" runat="server" OnClick="btnSmtpSettings_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf0e0; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SmtpSettings %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnStats" CssClass="sidebar-btn" runat="server" Text="&#xf080; Stats" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnStats" CssClass="sidebar-btn" runat="server" OnClick="btnStats_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf080; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Stats %>" />
+                            </asp:LinkButton>
                         </li>
                         <li>
-                            <asp:Button ID="btnAuditLogs" CssClass="sidebar-btn active" runat="server" Text="&#xf03a; Audit Logs" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                            <asp:LinkButton ID="btnAuditLogs" CssClass="sidebar-btn active" runat="server" OnClick="btnAuditLogs_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                                &#xf03a; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_AuditLogs %>" />
+                            </asp:LinkButton>
                         </li>
                     </asp:PlaceHolder>
                     <li>
-                        <asp:Button ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" Text="&#xf03e; Manage Banners" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btnAdminBanners" CssClass="sidebar-btn" runat="server" OnClick="btnAdminBanners_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf03e; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageBanners %>" />
+                        </asp:LinkButton>
                     </li>
 
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-                        <asp:Button ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" Text="&#xf2f5; Logout" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;" />
+                        <asp:LinkButton ID="btncerrar" CssClass="sidebar-btn btn-logout" runat="server" OnClick="btncerrar_Click" Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600;">
+                            &#xf2f5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_Logout %>" />
+                        </asp:LinkButton>
                     </li>
                 </ul>
             </aside>
 
             <main class="main-content fade-in" style="animation-delay: 0.15s;">
                 <div class="container-fluid">
-                    <h1 class="page-title">System Audit Logs</h1>
-                    <p class="text-muted mb-4">Monitor administrative activities, system events, and security actions performed by administrators.</p>
+                    <h1 class="page-title"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_Title %>" /></h1>
+                    <p class="text-muted mb-4"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_Subtitle %>" /></p>
 
                     <asp:UpdatePanel ID="upAuditLogs" runat="server">
                         <ContentTemplate>
                             <div class="filter-card">
                                 <div class="row align-items-end">
                                     <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
-                                        <label for="ddlFilterAction">Action Type</label>
+                                        <label for="ddlFilterAction"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterAction %>" /></label>
                                         <asp:DropDownList ID="ddlFilterAction" runat="server"
                                             CssClass="form-control"
                                             AutoPostBack="true"
@@ -180,7 +228,7 @@
                                         </asp:DropDownList>
                                     </div>
                                     <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
-                                        <label for="ddlFilterModule">Module</label>
+                                        <label for="ddlFilterModule"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterModule %>" /></label>
                                         <asp:DropDownList ID="ddlFilterModule" runat="server"
                                             CssClass="form-control"
                                             AutoPostBack="true"
@@ -188,7 +236,7 @@
                                         </asp:DropDownList>
                                     </div>
                                     <div class="col-md-4 col-sm-6 mb-2 mb-md-0">
-                                        <label for="txtSearch">Search Details</label>
+                                        <label for="txtSearch"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterSearch %>" /></label>
                                         <asp:TextBox ID="txtSearch" runat="server"
                                             CssClass="form-control"
                                             placeholder="Search description, admin or IP..."
@@ -197,9 +245,11 @@
                                         </asp:TextBox>
                                     </div>
                                     <div class="col-md-2 col-sm-6 text-right">
-                                        <asp:Button ID="btnClear" runat="server" Text="Clear Filters"
+                                        <asp:LinkButton ID="btnClear" runat="server"
                                             CssClass="btn btn-secondary btn-block font-weight-bold"
-                                            OnClick="btnClear_Click" Style="border-radius: 8px; padding: 8px;" />
+                                            OnClick="btnClear_Click" Style="border-radius: 8px; padding: 8px; text-decoration: none; display: block;">
+                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_ClearFilters %>" />
+                                        </asp:LinkButton>
                                     </div>
                                 </div>
                             </div>
@@ -213,16 +263,16 @@
                                     AllowPaging="true"
                                     PageSize="20"
                                     OnPageIndexChanging="gvAuditLogs_PageIndexChanging"
-                                    EmptyDataText="No audit log records match your selection criteria.">
+                                    EmptyDataText="<%$ Resources:Strings, Admin_Audit_Empty %>">
                                     <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
                                     <Columns>
-                                        <asp:BoundField DataField="Id_Log" HeaderText="Log ID" ItemStyle-Width="80px" />
-                                        <asp:BoundField DataField="AdminName" HeaderText="Administrator" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:BoundField DataField="Action_Type" HeaderText="Action Type" />
-                                        <asp:BoundField DataField="Module" HeaderText="Module" />
-                                        <asp:BoundField DataField="Description" HeaderText="Description" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:BoundField DataField="IP_Address" HeaderText="IP Address" ItemStyle-Width="130px" />
-                                        <asp:BoundField DataField="Created_At" HeaderText="Timestamp" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}" ItemStyle-Width="160px" />
+                                        <asp:BoundField DataField="Id_Log" HeaderText="<%$ Resources:Strings, Admin_Audit_ColLogId %>" ItemStyle-Width="80px" />
+                                        <asp:BoundField DataField="AdminName" HeaderText="<%$ Resources:Strings, Admin_Audit_ColAdmin %>" ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="Action_Type" HeaderText="<%$ Resources:Strings, Admin_Audit_ColActionType %>" />
+                                        <asp:BoundField DataField="Module" HeaderText="<%$ Resources:Strings, Admin_Audit_ColModule %>" />
+                                        <asp:BoundField DataField="Description" HeaderText="<%$ Resources:Strings, Admin_Audit_ColDescription %>" ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="IP_Address" HeaderText="<%$ Resources:Strings, Admin_Audit_ColIp %>" ItemStyle-Width="130px" />
+                                        <asp:BoundField DataField="Created_At" HeaderText="<%$ Resources:Strings, Admin_Audit_ColTimestamp %>" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}" ItemStyle-Width="160px" />
                                     </Columns>
                                 </asp:GridView>
                             </div>
@@ -266,4 +316,3 @@
     </script>
 </body>
 </html>
-

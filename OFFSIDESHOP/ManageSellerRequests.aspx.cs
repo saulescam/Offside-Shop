@@ -7,8 +7,22 @@ using System.IO;
 
 namespace OFFSIDESHOP
 {
-    public partial class ManageSellerRequests : System.Web.UI.Page
+    public partial class ManageSellerRequests : BasePage
     {
+        protected override void InitializeCulture()
+        {
+            if (Session["Language"] != null)
+            {
+                string lang = Session["Language"].ToString();
+                string cultureName = (lang == "es") ? "es-SV" : "en-US";
+                System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
+                ci.NumberFormat.CurrencySymbol = "$";
+                System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+            }
+            base.InitializeCulture();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Role validation: Admin (2) or Owner (1) only
@@ -40,16 +54,30 @@ namespace OFFSIDESHOP
                 ViewState["ActiveStatus"] = 1;
                 phOwnerMenu.Visible = (role == 1);
 
+                // Fix: Set Text programmatically so UpdatePanel partial postbacks preserve the HTML content
+                btnViewTickets.Text = "<i class=\"fas fa-ticket-alt mr-2\"></i>" + (GetGlobalResourceObject("Strings", "Admin_Seller_TabTickets") ?? "Support Tickets");
+                btnViewReviews.Text = "<i class=\"fas fa-star mr-2\"></i>" + (GetGlobalResourceObject("Strings", "Admin_Seller_TabReviews") ?? "Product Reviews");
+
+                btnTabPending.Text = "<i class=\"fas fa-clock mr-2\"></i>" + (GetGlobalResourceObject("Strings", "Admin_Seller_StatusPending") ?? "Pending");
+                btnTabUnderReview.Text = "<i class=\"fas fa-search mr-2\"></i>" + (GetGlobalResourceObject("Strings", "Admin_Seller_StatusUnderReview") ?? "Under Review");
+                btnTabResolved.Text = "<i class=\"fas fa-check-circle mr-2\"></i>" + (GetGlobalResourceObject("Strings", "Admin_Seller_StatusResolved") ?? "Resolved");
+                btnTabDenied.Text = "<i class=\"fas fa-times-circle mr-2\"></i>" + (GetGlobalResourceObject("Strings", "Admin_Seller_StatusDenied") ?? "Denied");
+
                 LoadFilterReasons();
                 LoadMappingDropdowns();
                 LoadTickets();
             }
         }
 
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
+        }
+
         private void LoadFilterReasons()
         {
-            // We load the filter reasons for the dropdown if needed, 
-            // but the request type filter (ALL, GENERAL, ORDER, SELLER) is hardcoded in .aspx
+            // Request type filter is hardcoded in .aspx
         }
 
         private void LoadMappingDropdowns()
@@ -59,7 +87,7 @@ namespace OFFSIDESHOP
                 try
                 {
                     conn.Open();
-                    
+
                     // Brands
                     MySqlDataAdapter daBrand = new MySqlDataAdapter("SELECT Id_Brand, Name_Brand FROM brands ORDER BY Name_Brand ASC", conn);
                     DataTable dtBrand = new DataTable();
@@ -180,21 +208,26 @@ namespace OFFSIDESHOP
                 Label lblBadge = (Label)e.Row.FindControl("lblStatusBadge");
                 int status = Convert.ToInt32(rowView["Status"]);
 
+                string pendingText = GetGlobalResourceObject("Strings", "Admin_Seller_StatusPending")?.ToString() ?? "Pending";
+                string underReviewText = GetGlobalResourceObject("Strings", "Admin_Seller_StatusUnderReview")?.ToString() ?? "Under Review";
+                string resolvedText = GetGlobalResourceObject("Strings", "Admin_Seller_StatusResolved")?.ToString() ?? "Resolved / Approved";
+                string deniedText = GetGlobalResourceObject("Strings", "Admin_Seller_StatusDenied")?.ToString() ?? "Denied";
+
                 if (status == 1)
                 {
-                    lblBadge.Text = "<span class='badge bg-warning text-dark'>Pending</span>";
+                    lblBadge.Text = $"<span class='badge bg-warning text-dark'>{pendingText}</span>";
                 }
                 else if (status == 2)
                 {
-                    lblBadge.Text = "<span class='badge bg-info text-white'>Under Review</span>";
+                    lblBadge.Text = $"<span class='badge bg-info text-white'>{underReviewText}</span>";
                 }
                 else if (status == 3)
                 {
-                    lblBadge.Text = "<span class='badge bg-success text-white'>Resolved / Approved</span>";
+                    lblBadge.Text = $"<span class='badge bg-success text-white'>{resolvedText}</span>";
                 }
                 else if (status == 4)
                 {
-                    lblBadge.Text = "<span class='badge bg-danger text-white'>Denied</span>";
+                    lblBadge.Text = $"<span class='badge bg-danger text-white'>{deniedText}</span>";
                 }
             }
         }
@@ -265,7 +298,7 @@ namespace OFFSIDESHOP
                                     litModalItemCondition.Text = reader["Item_Condition"] != DBNull.Value ? reader["Item_Condition"].ToString() : "Unknown";
 
                                     string path = "~/assets/uploads/tickets/";
-                                    
+
                                     if (reader["ImageURL1"] != DBNull.Value && !string.IsNullOrEmpty(reader["ImageURL1"].ToString()))
                                     {
                                         imgModal1.Visible = true;
@@ -321,11 +354,11 @@ namespace OFFSIDESHOP
 
                                     if (reqImages)
                                     {
-                                        btnApprove.Text = "Approve & Add to Catalog";
+                                        btnApprove.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalApprove")?.ToString() ?? "Approve & Publish Catalog";
                                     }
                                     else
                                     {
-                                        btnApprove.Text = "Save Resolution";
+                                        btnApprove.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalApprove")?.ToString() ?? "Save Resolution";
                                     }
                                 }
 
@@ -477,11 +510,11 @@ namespace OFFSIDESHOP
                                 File.Copy(sourcePath + img3, targetPath + img3, true);
                             }
 
-                            // 2. Insert into tshirts catalog - CORREGIDO: Id_KitType cambiado de 8 a 4 (Retro) y nombres de columnas sincronizados
+                            // 2. Insert into tshirts catalog (Id_KitType 7 = Retro)
                             string insertSql = @"INSERT INTO tshirts 
-                                         (Name, Id_Brand, Id_Team, Year, Id_KitType, Price, ImageURL, ImageURL2, ImageURL3, Description, IsPreOwned, ItemCondition, Id_OwnerUser) 
-                                         VALUES (@Name, @BrandId, @TeamId, @Year, 7, @Price, @Img1, @Img2, @Img3, @Desc, 1, @Cond, @OwnerId);
-                                         SELECT LAST_INSERT_ID();";
+                                                 (Name, Id_Brand, Id_Team, Year, Id_KitType, Price, ImageURL, ImageURL2, ImageURL3, Description, IsPreOwned, ItemCondition, Id_OwnerUser) 
+                                                 VALUES (@Name, @BrandId, @TeamId, @Year, 7, @Price, @Img1, @Img2, @Img3, @Desc, 1, @Cond, @OwnerId);
+                                                 SELECT LAST_INSERT_ID();";
 
                             int newTshirtId = 0;
                             using (MySqlCommand cmdInsert = new MySqlCommand(insertSql, conn, transaction))
@@ -726,7 +759,7 @@ namespace OFFSIDESHOP
             {
                 int reviewId = Convert.ToInt32(e.CommandArgument);
                 ViewState["ActiveReviewId"] = reviewId;
-                
+
                 // Get existing comment to display in the modal
                 using (MySqlConnection conn = data.ObtenerConexion())
                 {
