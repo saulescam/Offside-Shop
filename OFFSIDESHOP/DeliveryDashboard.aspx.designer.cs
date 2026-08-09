@@ -51,6 +51,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
 
         /// <summary>
+        /// Control btnLanguageToggleMobile.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggleMobile;
+
+        /// <summary>
         /// Control chkDutySwitch.
         /// </summary>
         /// <remarks>

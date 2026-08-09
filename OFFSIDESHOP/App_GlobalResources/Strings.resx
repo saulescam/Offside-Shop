@@ -1,76 +1,96 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
-		Microsoft ResX Schema
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -89,15 +109,14 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>1.3</value>
+    <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <!-- BARRA DE NAVEGACION -->
   <data name="Nav_Login" xml:space="preserve">
     <value>Log in</value>
   </data>
@@ -119,7 +138,6 @@
   <data name="Nav_Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
-  <!-- BARRA DE BUSQUEDA Y FILTROS SUPERIORES -->
   <data name="Search_MobileBtn" xml:space="preserve">
     <value>Filters &amp; Search</value>
   </data>
@@ -144,7 +162,6 @@
   <data name="Search_Btn" xml:space="preserve">
     <value>Search</value>
   </data>
-  <!-- TITULOS DE SECCIONES Y TARJETAS -->
   <data name="Section_Leagues" xml:space="preserve">
     <value>Leagues</value>
   </data>
@@ -184,7 +201,6 @@
   <data name="Card_ViewDetails" xml:space="preserve">
     <value>View Details</value>
   </data>
-  <!-- FILTROS LATERALES -->
   <data name="Sidebar_Title" xml:space="preserve">
     <value>Filter Catalog</value>
   </data>
@@ -218,7 +234,6 @@
   <data name="Sidebar_BtnFilter" xml:space="preserve">
     <value>FILTER BY</value>
   </data>
-  <!-- PAGINACION Y RESULTADOS -->
   <data name="Results_MainTitle" xml:space="preserve">
     <value>Search Results View</value>
   </data>
@@ -243,7 +258,6 @@
   <data name="Pager_Of" xml:space="preserve">
     <value>of</value>
   </data>
-  <!-- DETALLES DEL PRODUCTO -->
   <data name="Nav_BackToShop" xml:space="preserve">
     <value>Back to Shop</value>
   </data>
@@ -280,7 +294,6 @@
   <data name="Detail_AddToCart" xml:space="preserve">
     <value>Add to Cart</value>
   </data>
-  <!-- PESTAÃ‘AS Y RESEÃ‘AS -->
   <data name="Tab_Similar" xml:space="preserve">
     <value>You Might Also Like</value>
   </data>
@@ -323,7 +336,6 @@
   <data name="Review_OfficialReply" xml:space="preserve">
     <value>Official Reply</value>
   </data>
-  <!-- MODAL DE GUIA DE TALLAS -->
   <data name="Modal_SizeGuideDesc" xml:space="preserve">
     <value>Measurements are shown in centimeters (cm). These are standard fan-version measurements. Please allow a slight variance due to manufacturing.</value>
   </data>
@@ -336,7 +348,6 @@
   <data name="Modal_TableHeaderLength" xml:space="preserve">
     <value>Length (cm)</value>
   </data>
-  <!-- CARRITO DE COMPRAS (CART) -->
   <data name="Cart_MainTitle" xml:space="preserve">
     <value>Your Shopping Cart</value>
   </data>
@@ -370,7 +381,6 @@
   <data name="Cart_BtnCheckout" xml:space="preserve">
     <value>Proceed to Checkout</value>
   </data>
-  <!-- PASARELA DE PAGO (CHECKOUT) - FACTURACION -->
   <data name="Checkout_BillingTitle" xml:space="preserve">
     <value>Billing address</value>
   </data>
@@ -398,7 +408,6 @@
   <data name="Checkout_OrderNotes" xml:space="preserve">
     <value>Order Notes (Optional)</value>
   </data>
-  <!-- PASARELA DE PAGO (CHECKOUT) - MAPA INTERACTIVO -->
   <data name="Checkout_ConfirmLocation" xml:space="preserve">
     <value>Confirm Delivery Location</value>
   </data>
@@ -411,7 +420,6 @@
   <data name="Checkout_MapInstructions" xml:space="preserve">
     <value>Click the map or drag the pin to confirm the exact delivery location.</value>
   </data>
-  <!-- PASARELA DE PAGO (CHECKOUT) - RESUMEN DE ORDEN Y PAGOS -->
   <data name="Checkout_YourOrderTitle" xml:space="preserve">
     <value>Your Order</value>
   </data>
@@ -460,11 +468,9 @@
   <data name="Checkout_PlaceOrder" xml:space="preserve">
     <value>Place Order</value>
   </data>
-  <!-- MI CUENTA (MY ACCOUNT) -->
   <data name="Account_MainTitle" xml:space="preserve">
     <value>My Account</value>
   </data>
-  <!-- INFORMACION PERSONAL -->
   <data name="Account_PersonalInfo" xml:space="preserve">
     <value>Personal Information</value>
   </data>
@@ -492,21 +498,18 @@
   <data name="Account_AddressPlaceholder" xml:space="preserve">
     <value>Enter your full street address, apartment, city, and zip code...</value>
   </data>
-  <!-- MAPA DE CUENTA -->
   <data name="Account_DefaultLocation" xml:space="preserve">
     <value>Default Delivery Location</value>
   </data>
   <data name="Account_MapInstructions" xml:space="preserve">
     <value>Drag the pin to your exact home location.</value>
   </data>
-  <!-- ACCIONES PRINCIPALES -->
   <data name="Account_SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
   </data>
   <data name="Account_BackHome" xml:space="preserve">
     <value>Back to Homepage</value>
   </data>
-  <!-- SEGURIDAD Y CONTRASEÃ‘A -->
   <data name="Account_SecurityTitle" xml:space="preserve">
     <value>Security &amp; Password</value>
   </data>
@@ -534,7 +537,6 @@
   <data name="Account_UpdatePasswordBtn" xml:space="preserve">
     <value>Update Password</value>
   </data>
-  <!-- AUTENTICACION: LOGIN -->
   <data name="Auth_LoginTitle" xml:space="preserve">
     <value>Log in</value>
   </data>
@@ -568,7 +570,6 @@
   <data name="Auth_LinkSignUp" xml:space="preserve">
     <value>Sign up</value>
   </data>
-  <!-- AUTENTICACION: REGISTRO (SIGN UP) -->
   <data name="Auth_SignUpTitle" xml:space="preserve">
     <value>Create an account</value>
   </data>
@@ -602,7 +603,6 @@
   <data name="Auth_LinkLogin" xml:space="preserve">
     <value>Log in</value>
   </data>
-  <!-- AUTENTICACION: VERIFICAR EMAIL (Panel SignUp) -->
   <data name="Auth_VerifyEmailTitle" xml:space="preserve">
     <value>Verify Email</value>
   </data>
@@ -618,7 +618,6 @@
   <data name="Auth_DiffEmail" xml:space="preserve">
     <value>Use a different email</value>
   </data>
-  <!-- AUTENTICACION: TOKEN (Independiente) -->
   <data name="Auth_TokenTitle" xml:space="preserve">
     <value>VERIFY TOKEN</value>
   </data>
@@ -637,7 +636,6 @@
   <data name="Auth_BackLogin" xml:space="preserve">
     <value>Back to Login</value>
   </data>
-  <!-- AUTENTICACION: RECUPERAR CUENTA -->
   <data name="Auth_RecoverTitle" xml:space="preserve">
     <value>RECOVER</value>
   </data>
@@ -653,7 +651,6 @@
   <data name="Auth_Remembered" xml:space="preserve">
     <value>Already remembered?</value>
   </data>
-  <!-- AUTENTICACION: CAMBIAR CONTRASEÃ‘A EXACTO -->
   <data name="Auth_ChangePassTitle" xml:space="preserve">
     <value>CHANGE PASSWORD</value>
   </data>
@@ -675,10 +672,6 @@
   <data name="Auth_BtnChangePass" xml:space="preserve">
     <value>Change Password</value>
   </data>
-  <data name="Auth_BackLogin" xml:space="preserve">
-    <value>Back to Login</value>
-  </data>
-  <!-- SOPORTE (CONTACT SUPPORT) -->
   <data name="Contact_Title" xml:space="preserve">
     <value>Submit a request</value>
   </data>
@@ -742,7 +735,6 @@
   <data name="Contact_SubmitBtn" xml:space="preserve">
     <value>Submit Request</value>
   </data>
-  <!-- MIS PEDIDOS (MY ORDERS) -->
   <data name="MyOrders_Title" xml:space="preserve">
     <value>My Order History</value>
   </data>
@@ -773,7 +765,6 @@
   <data name="MyOrders_ViewDetails" xml:space="preserve">
     <value>View Details &amp; Actions</value>
   </data>
-  <!-- DETALLES DEL PEDIDO (ORDER DETAIL) -->
   <data name="OrderDetail_BackToOrders" xml:space="preserve">
     <value>Back to My Orders</value>
   </data>
@@ -915,7 +906,6 @@
   <data name="Search_KitTraining" xml:space="preserve">
     <value>Training</value>
   </data>
-  <!-- PANEL DE ADMINISTRACIÃ“N: MENÃš LATERAL (SIDEBAR) -->
   <data name="Admin_Nav_ManageProducts" xml:space="preserve">
     <value>Manage Products</value>
   </data>
@@ -958,7 +948,6 @@
   <data name="Admin_Nav_Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <!-- DASHBOARD -->
   <data name="Admin_Dash_Welcome" xml:space="preserve">
     <value>Welcome,</value>
   </data>
@@ -1046,7 +1035,6 @@
   <data name="Admin_Dash_NoActiveBanners" xml:space="preserve">
     <value>No active banners found.</value>
   </data>
-  <!-- GESTIÃ“N DE USUARIOS (MANAGE USERS) -->
   <data name="Admin_Users_Title" xml:space="preserve">
     <value>User &amp; Role Management</value>
   </data>
@@ -1149,7 +1137,6 @@
   <data name="Admin_Users_SavePermissions" xml:space="preserve">
     <value>Save Configuration</value>
   </data>
-  <!-- GESTIÃ“N DE CUPONES (MANAGE COUPONS) -->
   <data name="Admin_Coupons_Title" xml:space="preserve">
     <value>Discount Coupons</value>
   </data>
@@ -1216,7 +1203,6 @@
   <data name="Admin_Coupons_DeleteConfirm" xml:space="preserve">
     <value>Are you sure you want to delete this coupon? Users won't be able to use it anymore.</value>
   </data>
-  <!-- CATALOGO DE MARCAS (ADD BRAND) -->
   <data name="Admin_Brand_Title" xml:space="preserve">
     <value>Brand Catalog</value>
   </data>
@@ -1250,7 +1236,6 @@
   <data name="Admin_Brand_DeleteConfirm" xml:space="preserve">
     <value>Are you sure you want to delete this brand?</value>
   </data>
-  <!-- CATALOGO DE LIGAS (ADD LEAGUE) -->
   <data name="Admin_League_Title" xml:space="preserve">
     <value>League Catalog</value>
   </data>
@@ -1284,7 +1269,6 @@
   <data name="Admin_League_DeleteConfirm" xml:space="preserve">
     <value>Are you sure you want to delete this league? All associated teams will be deleted as well.</value>
   </data>
-  <!-- CATALOGO DE EQUIPOS (ADD TEAM) -->
   <data name="Admin_Team_Title" xml:space="preserve">
     <value>Team Catalog</value>
   </data>
@@ -1330,7 +1314,6 @@
   <data name="Admin_Team_DeleteConfirm" xml:space="preserve">
     <value>Are you sure you want to delete this team?</value>
   </data>
-  <!-- GESTIÃ“N DE OFERTAS (MANAGE OFFERS) -->
   <data name="Admin_Offers_Title" xml:space="preserve">
     <value>Offer &amp; Promotions Management</value>
   </data>
@@ -1448,7 +1431,6 @@
   <data name="Admin_Offers_DeleteConfirm" xml:space="preserve">
     <value>Purge this campaign and normalize affected products base pricing records?</value>
   </data>
-  <!-- ESTADÃSTICAS DE LA TIENDA (ADMIN STATS) -->
   <data name="Admin_Stats_Title" xml:space="preserve">
     <value>Store Statistics</value>
   </data>
@@ -1488,7 +1470,6 @@
   <data name="Admin_Stats_ChartTopProducts" xml:space="preserve">
     <value>Top 5 Best Selling Products</value>
   </data>
-  <!-- GESTIÃ“N DE PEDIDOS Y REEMBOLSOS (MANAGE ORDERS) -->
   <data name="Admin_Orders_Title" xml:space="preserve">
     <value>Order System Hub</value>
   </data>
@@ -1603,7 +1584,6 @@
   <data name="Admin_Orders_ModalDenyTicket" xml:space="preserve">
     <value>Deny Ticket</value>
   </data>
-  <!-- SOPORTE Y RESEÃ‘AS (MANAGE SELLER REQUESTS) -->
   <data name="Admin_Seller_Title" xml:space="preserve">
     <value>Support &amp; Reviews Management</value>
   </data>
@@ -1742,7 +1722,6 @@
   <data name="Admin_Seller_ReviewSubmitReply" xml:space="preserve">
     <value>Submit Reply</value>
   </data>
-  <!-- CONFIGURACIÃ“N SMTP Y CHATBOT IA (SMTP SETTINGS) -->
   <data name="Admin_Smtp_Title" xml:space="preserve">
     <value>Email Server Configuration</value>
   </data>
@@ -1776,7 +1755,6 @@
   <data name="Admin_AI_ToggleStatus" xml:space="preserve">
     <value>Toggle Status</value>
   </data>
-  <!-- PANEL DEL REPARTIDOR (DELIVERY DASHBOARD) -->
   <data name="Driver_PageTitle" xml:space="preserve">
     <value>Driver Hub</value>
   </data>
@@ -1846,7 +1824,6 @@
   <data name="Driver_CompleteConfirm" xml:space="preserve">
     <value>Confirm that you have handed the package to the customer?</value>
   </data>
-  <!-- AUDITORÃA DEL SISTEMA (ADMIN AUDIT) -->
   <data name="Admin_Audit_Title" xml:space="preserve">
     <value>System Audit Logs</value>
   </data>
@@ -1892,7 +1869,6 @@
   <data name="Admin_Audit_Empty" xml:space="preserve">
     <value>No audit log records match your selection criteria.</value>
   </data>
-  <!-- GESTIÃ“N DE BANNERS Y COLECCIONES (ADMIN BANNERS) -->
   <data name="Admin_Banners_Title" xml:space="preserve">
     <value>Storefront Display Management</value>
   </data>
@@ -1908,7 +1884,6 @@
   <data name="Admin_Banners_TabAuth" xml:space="preserve">
     <value>Auth Carousel</value>
   </data>
-  <!-- TAB 1: BANNERS -->
   <data name="Admin_Banners_AddTitle" xml:space="preserve">
     <value>Add New Banner</value>
   </data>
@@ -1990,7 +1965,6 @@
   <data name="Admin_Banners_ColActions" xml:space="preserve">
     <value>Actions</value>
   </data>
-  <!-- TAB 2: COLLECTIONS -->
   <data name="Admin_Banners_CategoriesTitle" xml:space="preserve">
     <value>Manage Collection Categories</value>
   </data>
@@ -2030,7 +2004,6 @@
   <data name="Admin_Banners_CurrentCollections" xml:space="preserve">
     <value>Current Collections</value>
   </data>
-  <!-- TAB 3: AUTH CAROUSEL -->
   <data name="Admin_Banners_AuthFormAdd" xml:space="preserve">
     <value>Add New Slide (Login/SignUp)</value>
   </data>
@@ -2067,7 +2040,6 @@
   <data name="Admin_Banners_ColQuote" xml:space="preserve">
     <value>Quote (EN)</value>
   </data>
-  <!-- GESTIÃ“N DE USUARIOS: FILTROS Y ESTADOS DE REPARTIDORES -->
   <data name="Admin_Users_FilterRole" xml:space="preserve">
     <value>Filter by Role</value>
   </data>
@@ -2113,7 +2085,6 @@
   <data name="Admin_Users_BadgeOffDuty" xml:space="preserve">
     <value>Off Duty (Resting)</value>
   </data>
-  <!-- NUEVOS RECURSOS DE DELIVERY DASHBOARD -->
   <data name="Driver_GoogleMaps" xml:space="preserve">
     <value>Google Maps</value>
   </data>
@@ -2147,26 +2118,28 @@
   <data name="Admin_Products_CancelBtn" xml:space="preserve">
     <value>Cancel</value>
   </data>
-	<!-- GESTIÓN DE PRODUCTOS (MANAGE PRODUCTS) -->
-	<data name="Admin_Products_AddNew" xml:space="preserve">
+  <data name="Admin_Products_AddNew" xml:space="preserve">
     <value>Add New Shirt</value>
   </data>
-	<data name="Admin_Products_Save" xml:space="preserve">
+  <data name="Admin_Products_Save" xml:space="preserve">
     <value>Save Product</value>
   </data>
-	<data name="Admin_Products_Cancel" xml:space="preserve">
+  <data name="Admin_Products_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-	<data name="Admin_Products_AllowCustom" xml:space="preserve">
+  <data name="Admin_Products_AllowCustom" xml:space="preserve">
     <value>Allow personalization (Name &amp; Number printing)</value>
   </data>
-	<data name="Driver_PaymentMethod" xml:space="preserve">
+  <data name="Driver_PaymentMethod" xml:space="preserve">
     <value>Payment Status</value>
   </data>
-	<data name="Driver_PaymentStatus_Paid" xml:space="preserve">
+  <data name="Driver_PaymentStatus_Paid" xml:space="preserve">
     <value>Paid (Online Payment)</value>
   </data>
-	<data name="Driver_PaymentStatus_Collect" xml:space="preserve">
+  <data name="Driver_PaymentStatus_Collect" xml:space="preserve">
     <value>Collect in cash: {0:C}</value>
+  </data>
+  <data name="Auth_AlreadyAccount" xml:space="preserve">
+    <value>Already have an account?</value>
   </data>
 </root>

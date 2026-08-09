@@ -32,7 +32,11 @@ namespace OFFSIDESHOP
 
             if (!IsPostBack)
             {
-                rptCarousel.DataSource = AuthCarousel.GetActiveSlides();
+                // 1. Obtener idioma actual de la sesión
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
+                // 2. Cargar el carrusel pasando el idioma
+                rptCarousel.DataSource = AuthCarousel.GetActiveSlides(currentLang);
                 rptCarousel.DataBind();
             }
 

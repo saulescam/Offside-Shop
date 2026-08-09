@@ -29,152 +29,159 @@
                 </div>
                 
                 <div id="authCarousel" class="carousel slide" data-ride="carousel" data-bs-ride="carousel" data-interval="5000" data-bs-interval="5000">
-                    <div class="carousel-inner">
-                        <asp:Repeater ID="rptCarousel" runat="server">
-                            <ItemTemplate>
-                                <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
-                                    <img src='<%# ResolveUrl(Eval("ImageURL").ToString()) %>' alt="Slide" />
-                                    <div class="carousel-caption-custom">
-                                        <div class="carousel-text-area">
-                                            <h2>"<%# Eval("QuoteText") %>"</h2>
-                                            <div class="carousel-author">
-                                                <h4><%# Eval("AuthorName") %></h4>
-                                                <p><%# Eval("AuthorRole") %></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </div>
-                    
-                    <!-- BOTONES FUERA DEL REPEATER (ESTATICOS) -->
-                    <div class="carousel-static-nav">
-                        <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="prev" data-bs-slide="prev">
-                            <i class="fa fa-arrow-left"></i>
-                        </a>
-                        <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="next" data-bs-slide="next">
-                            <i class="fa fa-arrow-right"></i>
-                        </a>
+    <div class="carousel-inner">
+        <asp:Repeater ID="rptCarousel" runat="server">
+            <ItemTemplate>
+                <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
+                    <!-- AQUÍ ESTÁ EL CAMBIO DE LA IMAGEN: object-position: top center -->
+                  <img src='<%# ResolveUrl(Eval("ImageURL").ToString()) %>' alt="Slide" style='object-fit: cover; width: 100%; height: 100%; object-position: <%# Eval("Id_Slide").ToString() == "5" ? "top center" : "center center" %>;' />
+                    <div class="carousel-caption-custom">
+                        <div class="carousel-text-area">
+                            <h2>"<%# Eval("QuoteText") %>"</h2>
+                            <div class="carousel-author">
+                                <h4><%# Eval("AuthorName") %></h4>
+                                <p><%# Eval("AuthorRole") %></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+    
+    <!-- BOTONES FUERA DEL REPEATER (ESTATICOS) -->
+    <div class="carousel-static-nav">
+        <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="prev" data-bs-slide="prev">
+            <!-- AQUÍ ESTÁ EL CAMBIO DE LA FLECHA IZQUIERDA -->
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="next" data-bs-slide="next">
+            <!-- AQUÍ ESTÁ EL CAMBIO DE LA FLECHA DERECHA -->
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
             </div>
 
             <!-- RIGHT PANEL: FORM -->
             <div class="split-right">
-                <asp:UpdatePanel ID="upRegister" runat="server" style="width: 100%; display: flex; justify-content: center; margin: auto 0;">
-                    <ContentTemplate>
-                        <div class="form-wrapper">
-                            <div class="brand-logo-right">
-                                <a href="Homepage.aspx">
-                            <img src="assets/img/flag-football.png" alt="OFFSIDESHOP" />
-                                </a>
+    <asp:UpdatePanel ID="upRegister" runat="server" style="width: 100%; display: flex; justify-content: center; margin: auto 0;">
+        <ContentTemplate>
+            <div class="form-wrapper">
+                <div class="brand-logo-right">
+                    <a href="Homepage.aspx">
+                        <img src="assets/img/flag-football.png" alt="OFFSIDESHOP" />
+                    </a>
+                </div>
+
+                <!-- PANEL 1: FORMULARIO DE REGISTRO -->
+                <asp:Panel ID="pnlRegister" runat="server">
+                    <div class="form-header">
+                        <h2><%= Resources.Strings.Auth_SignUpTitle %></h2>
+                        <p><%= Resources.Strings.Auth_SignUpSub %></p>
+                    </div>
+
+                    <div class="register-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <asp:TextBox ID="txtfirst" runat="server"
+                                        placeholder="<%$ Resources:Strings, Auth_FirstName %>" type="text" CssClass="form-control"
+                                        onpaste="return false" minlength="2" MaxLength="30"
+                                        onkeypress="return validateLetters(event)" required="required"></asp:TextBox>
+                                </div>
                             </div>
 
-                            <!-- PANEL 1: FORMULARIO DE REGISTRO -->
-                            <asp:Panel ID="pnlRegister" runat="server">
-                                <div class="form-header">
-                                    <h2><%= Resources.Strings.Auth_SignUpTitle %></h2>
-                                    <p><%= Resources.Strings.Auth_SignUpSub %></p>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <asp:TextBox ID="txtapellido" runat="server"
+                                        placeholder="<%$ Resources:Strings, Auth_LastName %>" type="text" CssClass="form-control"
+                                        onpaste="return false" minlength="2" MaxLength="30"
+                                        onkeypress="return validateLetters(event)" required="required"></asp:TextBox>
                                 </div>
-
-                                <div class="register-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <asp:TextBox ID="txtfirst" runat="server"
-                                                    placeholder="<%$ Resources:Strings, Auth_FirstName %>" type="text" CssClass="form-control"
-                                                    onpaste="return false" minlength="2" MaxLength="30"
-                                                    onkeypress="return validateLetters(event)" required="required"></asp:TextBox>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <asp:TextBox ID="txtapellido" runat="server"
-                                                    placeholder="<%$ Resources:Strings, Auth_LastName %>" type="text" CssClass="form-control"
-                                                    onpaste="return false" minlength="2" MaxLength="30"
-                                                    onkeypress="return validateLetters(event)" required="required"></asp:TextBox>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <asp:TextBox ID="txtusuario" runat="server"
-                                            placeholder="<%$ Resources:Strings, Auth_Username %>" type="text" CssClass="form-control"
-                                            onpaste="return false" minlength="4" MaxLength="15"
-                                            required="required"></asp:TextBox>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <asp:TextBox ID="txtgmail" runat="server"
-                                            placeholder="<%$ Resources:Strings, Auth_Email %>" type="email" CssClass="form-control"
-                                            onpaste="return false" minlength="5" MaxLength="50"
-                                            required="required"></asp:TextBox>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <asp:TextBox ID="txtclave" runat="server"
-                                                    placeholder="<%$ Resources:Strings, Auth_Password %>" type="password" CssClass="form-control"
-                                                    onpaste="return false" onkeypress="return validatePasswordChars(event)"
-                                                    minlength="6" MaxLength="15" required="required"></asp:TextBox>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <asp:TextBox ID="txtconfirm" runat="server"
-                                                    placeholder="<%$ Resources:Strings, Auth_ConfirmPass %>" type="password" CssClass="form-control"
-                                                    onpaste="return false" onkeypress="return validatePasswordChars(event)"
-                                                    minlength="6" MaxLength="15" required="required"></asp:TextBox>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Al hacer clic, ejecuta la validaciÃ³n JS y muestra el loading spinner -->
-                                    <asp:Button ID="btnRegistrar" runat="server"
-                                        Text="<%$ Resources:Strings, Auth_BtnSignUp %>" CssClass="btn-register" OnClick="btnRegistrar_Click" OnClientClick="if(!validateForm()) return false;" />
-
-                                    <asp:LinkButton ID="btnGoogleSign" runat="server"
-                                        CssClass="btn-google" OnClick="btnGoogleSign_Click">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/1280px-Google_Favicon_2025.svg.png" alt="Google" />
-                                        <span><%= Resources.Strings.Auth_GoogleSignUp %></span>
-                                    </asp:LinkButton>
-
-                                    <div class="login-link">
-                                        <p><%= Resources.Strings.Auth_HaveAccount %> <a href="Login.aspx"><%= Resources.Strings.Auth_LinkLogin %></a></p>
-                                    </div>
-                                </div>
-                            </asp:Panel>
-
-                            <!-- PANEL 2: INGRESO DEL TOKEN -->
-                            <asp:Panel ID="pnlVerify" runat="server" Visible="false">
-                                <div class="form-header text-center">
-                                    <h2><i class="fas fa-envelope-open-text" style="color: #FFC800;"></i> <%= Resources.Strings.Auth_VerifyEmailTitle %></h2>
-                                    <p class="mt-2"><%= Resources.Strings.Auth_VerifyEmailSub1 %> <br/><strong id="displayEmail" runat="server" style="color: #111;"></strong></p>
-                                </div>
-                                
-                                <div class="register-body text-center p-0 mt-4">
-                                    <p class="text-muted mb-4" style="font-size: 14px;"><%= Resources.Strings.Auth_VerifyEmailSub2 %></p>
-                                    
-                                    <div class="form-group d-flex justify-content-center">
-                                        <asp:TextBox ID="txtToken" runat="server" CssClass="form-control text-center mx-auto" placeholder="000000" MaxLength="6" style="font-size: 32px; letter-spacing: 12px; font-weight: bold; width: 75%; border: 1px solid #ddd; border-radius: 8px;"></asp:TextBox>
-                                    </div>
-                                    
-                                    <asp:Button ID="btnVerify" runat="server" Text="<%$ Resources:Strings, Auth_BtnCompleteReg %>" CssClass="btn-register mt-4" OnClick="btnVerify_Click" OnClientClick="showSpinner('Verifying code...');" />
-                                    
-                                    <div class="mt-4">
-                                        <asp:LinkButton ID="btnBack" runat="server" CssClass="text-muted text-decoration-none" style="font-size: 14px; font-weight: 500;" OnClick="btnBack_Click"><i class="fas fa-arrow-left mr-1"></i> <%= Resources.Strings.Auth_DiffEmail %></asp:LinkButton>
-                                    </div>
-                                </div>
-                            </asp:Panel>
-
+                            </div>
                         </div>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
+
+                        <div class="form-group">
+                            <asp:TextBox ID="txtusuario" runat="server"
+                                placeholder="<%$ Resources:Strings, Auth_Username %>" type="text" CssClass="form-control"
+                                onpaste="return false" minlength="4" MaxLength="15"
+                                required="required"></asp:TextBox>
+                        </div>
+
+                        <div class="form-group">
+                            <asp:TextBox ID="txtgmail" runat="server"
+                                placeholder="<%$ Resources:Strings, Auth_Email %>" type="email" CssClass="form-control"
+                                onpaste="return false" minlength="5" MaxLength="50"
+                                required="required"></asp:TextBox>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <asp:TextBox ID="txtclave" runat="server"
+                                        placeholder="<%$ Resources:Strings, Auth_Password %>" type="password" CssClass="form-control"
+                                        onpaste="return false" onkeypress="return validatePasswordChars(event)"
+                                        minlength="6" MaxLength="15" required="required"></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <asp:TextBox ID="txtconfirm" runat="server"
+                                        placeholder="<%$ Resources:Strings, Auth_ConfirmPass %>" type="password" CssClass="form-control"
+                                        onpaste="return false" onkeypress="return validatePasswordChars(event)"
+                                        minlength="6" MaxLength="15" required="required"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Al hacer clic, ejecuta la validación JS y muestra el loading spinner -->
+                        <asp:Button ID="btnRegistrar" runat="server"
+                            Text="<%$ Resources:Strings, Auth_BtnSignUp %>" CssClass="btn-register" OnClick="btnRegistrar_Click" OnClientClick="if(!validateForm()) return false;" />
+
+                        <!-- Aquí se usa Literal por seguridad dentro del LinkButton -->
+                        <asp:LinkButton ID="btnGoogleSign" runat="server"
+                            CssClass="btn-google" OnClick="btnGoogleSign_Click">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/1280px-Google_Favicon_2025.svg.png" alt="Google" />
+                            <span><asp:Literal runat="server" Text="<%$ Resources:Strings, Auth_GoogleSignUp %>" /></span>
+                        </asp:LinkButton>
+
+                        <div class="login-link">
+                            <p><%= Resources.Strings.Auth_HaveAccount %> <a href="Login.aspx"><%= Resources.Strings.Auth_LinkLogin %></a></p>
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <!-- PANEL 2: INGRESO DEL TOKEN -->
+                <asp:Panel ID="pnlVerify" runat="server" Visible="false">
+                    <div class="form-header text-center">
+                        <h2><i class="fas fa-envelope-open-text" style="color: #FFC800;"></i> <%= Resources.Strings.Auth_VerifyEmailTitle %></h2>
+                        <p class="mt-2"><%= Resources.Strings.Auth_VerifyEmailSub1 %> <br/><strong id="displayEmail" runat="server" style="color: #111;"></strong></p>
+                    </div>
+                    
+                    <div class="register-body text-center p-0 mt-4">
+                        <p class="text-muted mb-4" style="font-size: 14px;"><%= Resources.Strings.Auth_VerifyEmailSub2 %></p>
+                        
+                        <div class="form-group d-flex justify-content-center">
+                            <asp:TextBox ID="txtToken" runat="server" CssClass="form-control text-center mx-auto" placeholder="000000" MaxLength="6" style="font-size: 32px; letter-spacing: 12px; font-weight: bold; width: 75%; border: 1px solid #ddd; border-radius: 8px;"></asp:TextBox>
+                        </div>
+                        
+                        <asp:Button ID="btnVerify" runat="server" Text="<%$ Resources:Strings, Auth_BtnCompleteReg %>" CssClass="btn-register mt-4" OnClick="btnVerify_Click" OnClientClick="showSpinner('Verifying code...');" />
+                        
+                        <div class="mt-4">
+                            <!-- Aquí también usamos Literal en lugar de %= % -->
+                            <asp:LinkButton ID="btnBack" runat="server" CssClass="text-muted text-decoration-none" style="font-size: 14px; font-weight: 500;" OnClick="btnBack_Click">
+                                <i class="fas fa-arrow-left mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Auth_DiffEmail %>" />
+                            </asp:LinkButton>
+                        </div>
+                    </div>
+                </asp:Panel>
+
             </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</div>
         </div>
     </form>
 

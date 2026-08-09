@@ -3670,6 +3670,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Already have an account?.
+        /// </summary>
+        internal static string Auth_AlreadyAccount {
+            get {
+                return ResourceManager.GetString("Auth_AlreadyAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Back to Login.
         /// </summary>
         internal static string Auth_BackLogin {

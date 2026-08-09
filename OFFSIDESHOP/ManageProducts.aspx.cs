@@ -71,6 +71,8 @@ namespace OFFSIDESHOP
 
         private void PopulateFilterDropDowns()
         {
+            string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
@@ -95,13 +97,23 @@ namespace OFFSIDESHOP
                 foreach (DataRow row in dtLeagues.Rows)
                     ddlFilterLeague.Items.Add(new ListItem(row["Name_League"].ToString(), row["Id_League"].ToString()));
 
-                // Tipos de Kit
-                MySqlCommand cmdKits = new MySqlCommand("SELECT Id_KitType, Name_KitType FROM kit_types ORDER BY Id_KitType ASC;", con);
+                // Tipos de Kit (TRADUCIDO SEGÚN IDIOMA)
+                string sqlKits = @"
+            SELECT Id_KitType, 
+                   CASE 
+                       WHEN @Lang = 'es' THEN COALESCE(Name_KitType_es, Name_KitType)
+                       ELSE Name_KitType 
+                   END AS Name_KitType 
+            FROM kit_types 
+            ORDER BY Id_KitType ASC;";
+
+                MySqlCommand cmdKits = new MySqlCommand(sqlKits, con);
+                cmdKits.Parameters.AddWithValue("@Lang", currentLang);
                 DataTable dtKits = new DataTable();
                 new MySqlDataAdapter(cmdKits).Fill(dtKits);
 
                 ddlFilterKitType.Items.Clear();
-                ddlFilterKitType.Items.Add(new ListItem("-- All Kit Types --", "0"));
+                ddlFilterKitType.Items.Add(new ListItem(currentLang == "es" ? "-- Todos los Tipos --" : "-- All Kit Types --", "0"));
                 foreach (DataRow row in dtKits.Rows)
                 {
                     ddlFilterKitType.Items.Add(new ListItem(row["Name_KitType"].ToString(), row["Id_KitType"].ToString()));
@@ -146,6 +158,8 @@ namespace OFFSIDESHOP
 
         private void PopulateFormDropDowns()
         {
+            string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
@@ -170,13 +184,23 @@ namespace OFFSIDESHOP
                 foreach (DataRow row in dtLeagues.Rows)
                     ddlFormLeague.Items.Add(new ListItem(row["Name_League"].ToString(), row["Id_League"].ToString()));
 
-                // Form – Tipos de Kit
-                MySqlCommand cmdKits = new MySqlCommand("SELECT Id_KitType, Name_KitType FROM kit_types ORDER BY Id_KitType ASC;", con);
+                // Form – Tipos de Kit (TRADUCIDO SEGÚN IDIOMA)
+                string sqlKits = @"
+            SELECT Id_KitType, 
+                   CASE 
+                       WHEN @Lang = 'es' THEN COALESCE(Name_KitType_es, Name_KitType)
+                       ELSE Name_KitType 
+                   END AS Name_KitType 
+            FROM kit_types 
+            ORDER BY Id_KitType ASC;";
+
+                MySqlCommand cmdKits = new MySqlCommand(sqlKits, con);
+                cmdKits.Parameters.AddWithValue("@Lang", currentLang);
                 DataTable dtKits = new DataTable();
                 new MySqlDataAdapter(cmdKits).Fill(dtKits);
 
                 ddlFormKitType.Items.Clear();
-                ddlFormKitType.Items.Add(new ListItem("-- Select Kit Type --", "0"));
+                ddlFormKitType.Items.Add(new ListItem(currentLang == "es" ? "-- Seleccionar Tipo de Kit --" : "-- Select Kit Type --", "0"));
                 foreach (DataRow row in dtKits.Rows)
                 {
                     ddlFormKitType.Items.Add(new ListItem(row["Name_KitType"].ToString(), row["Id_KitType"].ToString()));
@@ -226,6 +250,8 @@ namespace OFFSIDESHOP
         {
             try
             {
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
                 int filterBrand = Convert.ToInt32(ddlFilterBrand.SelectedValue);
                 int filterLeague = Convert.ToInt32(ddlFilterLeague.SelectedValue);
                 int filterTeam = Convert.ToInt32(ddlFilterTeam.SelectedValue);
@@ -234,30 +260,33 @@ namespace OFFSIDESHOP
                 string searchName = txtSearchName.Text.Trim();
 
                 string sql = @"
-                    SELECT
-                        t.ID,
-                        t.Name,
-                        t.Price,
-                        t.Year,
-                        t.ImageURL,
-                        t.IsActive,
-                        tt.Name AS Name_ES,
-                        tt.Description AS Description_ES,
-                        b.Name_Brand  AS BrandName,
-                        tm.Name_Team  AS TeamName,
-                        kt.Name_KitType AS KitTypeName,
-                        COALESCE(sv.TotalStock, 0) AS TotalStock
-                    FROM tshirts t
-                    LEFT JOIN tshirt_translations tt ON t.ID = tt.Id_Tshirt AND tt.LanguageCode = 'es'
-                    INNER JOIN brands b ON t.Id_Brand = b.Id_Brand
-                    INNER JOIN teams tm ON t.Id_Team = tm.Id_Team
-                    INNER JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
-                    LEFT JOIN (
-                        SELECT Id_Tshirt, SUM(Stock) AS TotalStock
-                        FROM tshirt_variants
-                        GROUP BY Id_Tshirt
-                    ) sv ON t.ID = sv.Id_Tshirt
-                    WHERE 1=1";
+            SELECT
+                t.ID,
+                t.Name,
+                t.Price,
+                t.Year,
+                t.ImageURL,
+                t.IsActive,
+                tt.Name AS Name_ES,
+                tt.Description AS Description_ES,
+                b.Name_Brand  AS BrandName,
+                tm.Name_Team  AS TeamName,
+                CASE 
+                    WHEN @Lang = 'es' THEN COALESCE(kt.Name_KitType_es, kt.Name_KitType)
+                    ELSE kt.Name_KitType 
+                END AS KitTypeName,
+                COALESCE(sv.TotalStock, 0) AS TotalStock
+            FROM tshirts t
+            LEFT JOIN tshirt_translations tt ON t.ID = tt.Id_Tshirt AND tt.LanguageCode = 'es'
+            INNER JOIN brands b ON t.Id_Brand = b.Id_Brand
+            INNER JOIN teams tm ON t.Id_Team = tm.Id_Team
+            INNER JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
+            LEFT JOIN (
+                SELECT Id_Tshirt, SUM(Stock) AS TotalStock
+                FROM tshirt_variants
+                GROUP BY Id_Tshirt
+            ) sv ON t.ID = sv.Id_Tshirt
+            WHERE 1=1";
 
                 if (filterBrand > 0)
                     sql += " AND t.Id_Brand = @FilterBrand";
@@ -283,6 +312,8 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
                     MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                    cmd.Parameters.AddWithValue("@Lang", currentLang);
 
                     if (filterBrand > 0) cmd.Parameters.AddWithValue("@FilterBrand", filterBrand);
                     if (filterLeague > 0) cmd.Parameters.AddWithValue("@FilterLeague", filterLeague);

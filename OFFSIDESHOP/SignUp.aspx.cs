@@ -9,12 +9,25 @@ namespace OFFSIDESHOP
     public partial class SignUp : System.Web.UI.Page
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
-
+        protected override void InitializeCulture()
+        {
+            if (Session["Language"] != null)
+            {
+                string lang = Session["Language"].ToString();
+                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
+            }
+            base.InitializeCulture();
+        }
         protected void Page_Load(object sender, EventArgs e)
-        { 
+        {
             if (!IsPostBack)
             {
-                rptCarousel.DataSource = AuthCarousel.GetActiveSlides();
+                // 1. Obtener idioma actual de la sesión (por defecto "en")
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
+                // 2. Cargar el carrusel pasando el idioma
+                rptCarousel.DataSource = AuthCarousel.GetActiveSlides(currentLang);
                 rptCarousel.DataBind();
             }
 
