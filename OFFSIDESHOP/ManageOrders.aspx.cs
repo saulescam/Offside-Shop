@@ -17,6 +17,7 @@ namespace OFFSIDESHOP
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
         private static readonly HttpClient httpClient = new HttpClient();
+        private DataTable translatedStatusesCache = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -217,18 +218,35 @@ namespace OFFSIDESHOP
         {
             try
             {
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    MySqlCommand cmd = new MySqlCommand("SELECT Id_Status, Status_Name FROM order_statuses ORDER BY Id_Status ASC;", con);
+                    // Consulta con CASE WHEN para traer el estado en español si aplica
+                    string query = @"
+                SELECT Id_Status, 
+                       CASE 
+                           WHEN @Lang = 'es' THEN COALESCE(Status_Name_es, Status_Name)
+                           ELSE Status_Name 
+                       END AS Status_Name
+                FROM order_statuses 
+                ORDER BY Id_Status ASC;";
+
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@Lang", currentLang);
+
                     DataTable dt = new DataTable();
                     new MySqlDataAdapter(cmd).Fill(dt);
 
                     ddlFilterStatus.Items.Clear();
-                    ddlFilterStatus.Items.Add(new ListItem("-- All Statuses --", "0"));
+                    string allStatusesText = currentLang == "es" ? "-- Todos los Estados --" : "-- All Statuses --";
+                    ddlFilterStatus.Items.Add(new ListItem(allStatusesText, "0"));
+
                     foreach (DataRow row in dt.Rows)
                     {
                         string idStat = row["Id_Status"].ToString();
+                        // Ocultamos los estados de reembolso/completados según tu lógica original
                         if (idStat != "6" && idStat != "7" && idStat != "8")
                         {
                             ddlFilterStatus.Items.Add(new ListItem(row["Status_Name"].ToString(), idStat));
@@ -238,8 +256,9 @@ namespace OFFSIDESHOP
             }
             catch (Exception)
             {
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
                 ddlFilterStatus.Items.Clear();
-                ddlFilterStatus.Items.Add(new ListItem("-- All Statuses --", "0"));
+                ddlFilterStatus.Items.Add(new ListItem(currentLang == "es" ? "-- Todos los Estados --" : "-- All Statuses --", "0"));
             }
         }
 
@@ -253,18 +272,27 @@ namespace OFFSIDESHOP
         {
             try
             {
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
+                    // Modificamos el campo s.Status_Name usando un CASE WHEN y conservamos el alias AS Status_Name
                     string query = @"SELECT o.Id_Order, o.OrderDate, o.Total, o.Id_Status,
-                                            CONCAT(o.Name, ' ', o.LastName) AS CustomerName, o.Mail, s.Status_Name,
-                                            IFNULL(c.city_name, '') AS City_Name
-                                     FROM orders o
-                                     INNER JOIN order_statuses s ON o.Id_Status = s.Id_Status
-                                     LEFT JOIN cities c ON o.Id_City = c.id_city
-                                     WHERE o.Id_Status NOT IN (6, 7, 8)";
+                                    CONCAT(o.Name, ' ', o.LastName) AS CustomerName, o.Mail, 
+                                    CASE 
+                                        WHEN @Lang = 'es' THEN COALESCE(s.Status_Name_es, s.Status_Name)
+                                        ELSE s.Status_Name 
+                                    END AS Status_Name,
+                                    IFNULL(c.city_name, '') AS City_Name
+                             FROM orders o
+                             INNER JOIN order_statuses s ON o.Id_Status = s.Id_Status
+                             LEFT JOIN cities c ON o.Id_City = c.id_city
+                             WHERE o.Id_Status NOT IN (6, 7, 8)";
 
                     MySqlCommand cmd = new MySqlCommand();
+                    // Agregamos el parámetro del idioma
+                    cmd.Parameters.AddWithValue("@Lang", currentLang);
 
                     // Aplicar Filtro de Estado
                     if (ddlFilterStatus.SelectedValue != "0" && !string.IsNullOrEmpty(ddlFilterStatus.SelectedValue))
@@ -308,7 +336,35 @@ namespace OFFSIDESHOP
             gvOrders.PageIndex = e.NewPageIndex;
             LoadOrders(); // Recarga la tabla de datos en la página seleccionada
         }
+        private DataTable GetTranslatedStatuses()
+        {
+            DataTable dt = new DataTable();
+            string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
 
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT Id_Status, 
+                   CASE 
+                       WHEN @Lang = 'es' THEN COALESCE(Status_Name_es, Status_Name)
+                       ELSE Status_Name 
+                   END AS Status_Name
+            FROM order_statuses 
+            WHERE Id_Status NOT IN (6, 7, 8) 
+            ORDER BY Id_Status ASC;";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@Lang", currentLang);
+                    con.Open();
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            return dt;
+        }
         protected void gvOrders_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -316,17 +372,28 @@ namespace OFFSIDESHOP
                 DropDownList ddlGridStatus = (DropDownList)e.Row.FindControl("ddlGridStatus");
                 if (ddlGridStatus != null)
                 {
+                    // 1. Cargamos los estados traducidos si aún no están en caché
+                    if (translatedStatusesCache == null)
+                    {
+                        translatedStatusesCache = GetTranslatedStatuses();
+                    }
+
+                    // 2. Limpiamos cualquier opción en inglés estática del HTML
+                    ddlGridStatus.Items.Clear();
+
+                    // 3. Llenamos el DropDownList con las traducciones
+                    foreach (DataRow row in translatedStatusesCache.Rows)
+                    {
+                        ddlGridStatus.Items.Add(new ListItem(row["Status_Name"].ToString(), row["Id_Status"].ToString()));
+                    }
+
+                    // 4. Seleccionamos el estado actual de la orden
                     DataRowView rowView = (DataRowView)e.Row.DataItem;
                     int currentStatusId = Convert.ToInt32(rowView["Id_Status"]);
 
                     ListItem item = ddlGridStatus.Items.FindByValue(currentStatusId.ToString());
                     if (item != null)
                     {
-                        ddlGridStatus.SelectedValue = currentStatusId.ToString();
-                    }
-                    else
-                    {
-                        ddlGridStatus.Items.Add(new ListItem(rowView["Status_Name"].ToString(), currentStatusId.ToString()));
                         ddlGridStatus.SelectedValue = currentStatusId.ToString();
                     }
                 }

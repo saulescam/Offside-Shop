@@ -527,10 +527,11 @@ namespace OFFSIDESHOP
                      FROM tshirt_variants tv2
                      WHERE tv2.Id_Tshirt = t.ID AND tv2.Stock > 0),
                 'N/A') AS Sizes
-            FROM tshirts t
+           FROM tshirts t
             LEFT JOIN tshirt_translations tr ON t.ID = tr.Id_Tshirt AND tr.LanguageCode = @Lang
             LEFT JOIN brands    b  ON t.Id_Brand   = b.Id_Brand
             LEFT JOIN teams     tm ON t.Id_Team    = tm.Id_Team
+            LEFT JOIN leagues   l  ON tm.Id_League = l.Id_League 
             LEFT JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
             LEFT JOIN offer_tshirts ot ON t.ID = ot.Id_Tshirt
             LEFT JOIN offers o ON ot.Id_Offer = o.Id_Offer AND o.IsActive = 1 AND NOW() BETWEEN o.StartDate AND o.EndDate
@@ -540,7 +541,12 @@ namespace OFFSIDESHOP
                     {
                         if (hasSearchText)
                         {
-                            query += " AND (t.Name LIKE @Search OR b.Name_Brand LIKE @Search OR tm.Name_Team LIKE @Search OR CAST(t.Year AS CHAR) LIKE @Search) ";
+                            // Separar palabras para la consulta SQL
+                            string[] words = searchText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            for (int i = 0; i < words.Length; i++)
+                            {
+                                query += $" AND (t.Name LIKE @Search{i} OR b.Name_Brand LIKE @Search{i} OR tm.Name_Team LIKE @Search{i} OR CAST(t.Year AS CHAR) LIKE @Search{i} OR l.Name_League LIKE @Search{i} OR kt.Name_KitType LIKE @Search{i} OR kt.Name_KitType_es LIKE @Search{i}) ";
+                            }
                         }
 
                         if (hasSideLeague) query += " AND tm.Id_League = @SideLeagueId ";
@@ -587,7 +593,14 @@ namespace OFFSIDESHOP
 
                     if (isSearchMode)
                     {
-                        if (hasSearchText) cmd.Parameters.AddWithValue("@Search", "%" + searchText + "%");
+                        if (hasSearchText)
+                        {
+                            string[] words = searchText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            for (int i = 0; i < words.Length; i++)
+                            {
+                                cmd.Parameters.AddWithValue($"@Search{i}", "%" + words[i] + "%");
+                            }
+                        }
 
                         if (hasLeagueFilter) cmd.Parameters.AddWithValue("@LeagueId", Convert.ToInt32(ddlLeague.SelectedValue));
                         else if (hasSideLeague) cmd.Parameters.AddWithValue("@SideLeagueId", Convert.ToInt32(ddlSideLeague.SelectedValue));
@@ -649,17 +662,27 @@ namespace OFFSIDESHOP
                         phLeaguesSection.Visible = false;
                         phTopBarFilters.Visible = false;
 
+                        string lblResultsFor = currentLang == "es" ? "Resultados de búsqueda para:" : "Search results for:";
+                        string lblLeagueText = currentLang == "es" ? "Liga" : "League";
+                        string lblBrandText = currentLang == "es" ? "Marca" : "Brand";
+                        string lblKitText = currentLang == "es" ? "Tipo" : "Kit";
+                        string lblClubText = currentLang == "es" ? "Equipo" : "Club";
+
                         List<string> filterDetails = new List<string>();
                         if (hasSearchText) filterDetails.Add($"\"{searchText}\"");
-                        if (hasSideLeague) filterDetails.Add($"League: {ddlSideLeague.SelectedItem.Text}");
-                        else if (hasLeagueFilter) filterDetails.Add($"League: {ddlLeague.SelectedItem.Text}");
-                        if (hasSideBrand) filterDetails.Add($"Brand: {ddlSideBrand.SelectedItem.Text}");
-                        else if (hasBrandFilter) filterDetails.Add($"Brand: {ddlBrand.SelectedItem.Text}");
-                        if (hasSideKitType) filterDetails.Add($"Kit: {ddlSideKitType.SelectedItem.Text}");
-                        else if (hasKitTypeFilter) filterDetails.Add($"Kit: {ddlKitType.SelectedItem.Text}");
-                        if (hasSideTeam) filterDetails.Add($"Club: {ddlSideTeam.SelectedItem.Text}");
 
-                        lblSearchTerm.Text = "Search results for: " + string.Join(", ", filterDetails);
+                        if (hasSideLeague) filterDetails.Add($"{lblLeagueText}: {ddlSideLeague.SelectedItem.Text}");
+                        else if (hasLeagueFilter) filterDetails.Add($"{lblLeagueText}: {ddlLeague.SelectedItem.Text}");
+
+                        if (hasSideBrand) filterDetails.Add($"{lblBrandText}: {ddlSideBrand.SelectedItem.Text}");
+                        else if (hasBrandFilter) filterDetails.Add($"{lblBrandText}: {ddlBrand.SelectedItem.Text}");
+
+                        if (hasSideKitType) filterDetails.Add($"{lblKitText}: {ddlSideKitType.SelectedItem.Text}");
+                        else if (hasKitTypeFilter) filterDetails.Add($"{lblKitText}: {ddlKitType.SelectedItem.Text}");
+
+                        if (hasSideTeam) filterDetails.Add($"{lblClubText}: {ddlSideTeam.SelectedItem.Text}");
+
+                        lblSearchTerm.Text = $"{lblResultsFor} " + string.Join(", ", filterDetails);
                         litMatchesCount.Text = dt.Rows.Count.ToString();
 
                         if (dt.Rows.Count == 0)
@@ -861,7 +884,33 @@ namespace OFFSIDESHOP
         // ──────────────────────────────────────────────────────────────
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            // 1. Recargar los equipos ANTES de tocar las selecciones
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                LoadSideTeams(conn, "ALL");
+            }
+
+            // 2. Limpiar TODOS los filtros laterales forzosamente
+            if (ddlSideLeague != null) { ddlSideLeague.ClearSelection(); ddlSideLeague.SelectedIndex = 0; }
+            if (ddlSideBrand != null) { ddlSideBrand.ClearSelection(); ddlSideBrand.SelectedIndex = 0; }
+            if (ddlSideKitType != null) { ddlSideKitType.ClearSelection(); ddlSideKitType.SelectedIndex = 0; }
+            if (ddlSideTeam != null) { ddlSideTeam.ClearSelection(); ddlSideTeam.SelectedIndex = 0; }
+            if (ddlSidePriceRange != null) { ddlSidePriceRange.ClearSelection(); ddlSidePriceRange.SelectedIndex = 0; }
+
+            if (chkSideOnSale != null) chkSideOnSale.Checked = false;
+            if (chkSideCustomizable != null) chkSideCustomizable.Checked = false;
+
+            if (cblSideSizes != null)
+            {
+                foreach (ListItem item in cblSideSizes.Items) item.Selected = false;
+            }
+
+            // 3. Sincronizar la barra principal (Aquí buscará tu marca "nike" y LA SELECCIONARÁ)
             SynchronizeMainSearchToSidebar();
+
+            // 4. Ejecutar consulta SQL
+            SearchCurrentPage = 0;
             LoadProducts();
         }
 
@@ -914,7 +963,7 @@ namespace OFFSIDESHOP
                     ddlSideLeague.DataTextField = "Name_League";
                     ddlSideLeague.DataValueField = "Id_League";
                     ddlSideLeague.DataBind();
-                    ddlSideLeague.Items.Insert(0, new ListItem("All Leagues", "ALL"));
+                    ddlSideLeague.Items.Insert(0, new ListItem(currentLang == "es" ? "Todas las Ligas" : "All Leagues", "ALL"));
                 }
 
                 LoadSideTeams(conn, "ALL");
@@ -926,18 +975,18 @@ namespace OFFSIDESHOP
                     ddlSideBrand.DataTextField = "Name_Brand";
                     ddlSideBrand.DataValueField = "Id_Brand";
                     ddlSideBrand.DataBind();
-                    ddlSideBrand.Items.Insert(0, new ListItem("All Brands", "ALL"));
+                    ddlSideBrand.Items.Insert(0, new ListItem(currentLang == "es" ? "Todas las Marcas" : "All Brands", "ALL"));
                 }
 
-                // Populate Kit Styles (TRADUCIDO)
+                // Populate Kit Styles
                 string querySideKits = @"
-    SELECT Id_KitType, 
-           CASE 
-               WHEN @Lang = 'es' THEN COALESCE(Name_KitType_es, Name_KitType)
-               ELSE Name_KitType 
-           END AS Name_KitType 
-    FROM kit_types 
-    ORDER BY Name_KitType ASC;";
+            SELECT Id_KitType, 
+                   CASE 
+                       WHEN @Lang = 'es' THEN COALESCE(Name_KitType_es, Name_KitType)
+                       ELSE Name_KitType 
+                   END AS Name_KitType 
+            FROM kit_types 
+            ORDER BY Name_KitType ASC;";
 
                 using (MySqlCommand cmd = new MySqlCommand(querySideKits, conn))
                 {
@@ -955,11 +1004,47 @@ namespace OFFSIDESHOP
                     cblSideSizes.DataSource = cmd.ExecuteReader();
                     cblSideSizes.DataBind();
                 }
+
+                // ------------------------------------------------------------------
+                // NUEVO: Rango de Precios Bilingüe (Sobreescribe el HTML)
+                // ------------------------------------------------------------------
+                if (ddlSidePriceRange != null)
+                {
+                    // Guardamos la selección actual por si el usuario ya había elegido un precio
+                    string selectedPrice = ddlSidePriceRange.SelectedValue;
+
+                    ddlSidePriceRange.Items.Clear(); // Borramos los que están en inglés en el HTML
+
+                    if (currentLang == "es")
+                    {
+                        ddlSidePriceRange.Items.Add(new ListItem("Todos los Precios", ""));
+                        ddlSidePriceRange.Items.Add(new ListItem("Menos de $50", "0-50"));
+                        ddlSidePriceRange.Items.Add(new ListItem("De $50 a $100", "50-100"));
+                        ddlSidePriceRange.Items.Add(new ListItem("De $100 a $150", "100-150"));
+                        ddlSidePriceRange.Items.Add(new ListItem("Más de $150", "150-99999"));
+                    }
+                    else
+                    {
+                        ddlSidePriceRange.Items.Add(new ListItem("All Prices", ""));
+                        ddlSidePriceRange.Items.Add(new ListItem("Under $50", "0-50"));
+                        ddlSidePriceRange.Items.Add(new ListItem("$50 to $100", "50-100"));
+                        ddlSidePriceRange.Items.Add(new ListItem("$100 to $150", "100-150"));
+                        ddlSidePriceRange.Items.Add(new ListItem("Over $150", "150-99999"));
+                    }
+
+                    // Restaurar la selección
+                    if (!string.IsNullOrEmpty(selectedPrice) && ddlSidePriceRange.Items.FindByValue(selectedPrice) != null)
+                    {
+                        ddlSidePriceRange.SelectedValue = selectedPrice;
+                    }
+                }
             }
         }
 
         private void LoadSideTeams(MySqlConnection conn, string leagueId)
         {
+            string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
             string query = (leagueId == "ALL")
                 ? "SELECT Id_Team, Name_Team FROM teams ORDER BY Name_Team ASC"
                 : "SELECT Id_Team, Name_Team FROM teams WHERE Id_League = @IdLeague ORDER BY Name_Team ASC";
@@ -971,11 +1056,17 @@ namespace OFFSIDESHOP
                 DataTable dt = new DataTable();
                 using (MySqlDataAdapter da = new MySqlDataAdapter(cmd)) { da.Fill(dt); }
 
+                ddlSideTeam.ClearSelection();
+
                 ddlSideTeam.DataSource = dt;
                 ddlSideTeam.DataTextField = "Name_Team";
                 ddlSideTeam.DataValueField = "Id_Team";
                 ddlSideTeam.DataBind();
-                ddlSideTeam.Items.Insert(0, new ListItem("All Clubs", "ALL"));
+
+                // Traducción del ítem por defecto
+                ddlSideTeam.Items.Insert(0, new ListItem(currentLang == "es" ? "Todos los Equipos" : "All Clubs", "ALL"));
+
+                ddlSideTeam.SelectedIndex = 0;
             }
         }
 
@@ -990,25 +1081,99 @@ namespace OFFSIDESHOP
 
         private void SynchronizeMainSearchToSidebar()
         {
+            // --- Sincronizar las barras superiores si el usuario las usó ---
             if (ddlLeague.SelectedIndex > 0)
             {
                 ddlSideLeague.SelectedValue = ddlLeague.SelectedValue;
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
-                {
-                    conn.Open();
-                    LoadSideTeams(conn, ddlSideLeague.SelectedValue);
-                }
-                ddlLeague.SelectedIndex = 0; // Clear top bar so it doesn't conflict
+                using (MySqlConnection conn = new MySqlConnection(connectionString)) { conn.Open(); LoadSideTeams(conn, ddlSideLeague.SelectedValue); }
+                ddlLeague.SelectedIndex = 0;
             }
-            if (ddlBrand.SelectedIndex > 0) 
+            if (ddlBrand.SelectedIndex > 0)
             {
                 ddlSideBrand.SelectedValue = ddlBrand.SelectedValue;
-                ddlBrand.SelectedIndex = 0; // Clear top bar
+                ddlBrand.SelectedIndex = 0;
             }
-            if (ddlKitType.SelectedIndex > 0) 
+            if (ddlKitType.SelectedIndex > 0)
             {
                 ddlSideKitType.SelectedValue = ddlKitType.SelectedValue;
-                ddlKitType.SelectedIndex = 0; // Clear top bar
+                ddlKitType.SelectedIndex = 0;
+            }
+
+            // --- Auto-selección inteligente por MÚLTIPLES palabras ---
+            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                // Separamos lo que escribió el usuario por espacios (ej: "bundesliga", "bayern")
+                string[] searchWords = txtSearch.Text.Trim().ToLower().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string word in searchWords)
+                {
+                    if (word.Length <= 2) continue; // Ignorar palabras muy cortas como "el", "de", "y"
+
+                    // 1. Buscar y seleccionar Liga (solo si no hemos seleccionado una todavía)
+                    if (ddlSideLeague != null && ddlSideLeague.SelectedIndex == 0)
+                    {
+                        foreach (ListItem item in ddlSideLeague.Items)
+                        {
+                            if (item.Value != "ALL" && item.Text.ToLower().Contains(word))
+                            {
+                                ddlSideLeague.SelectedValue = item.Value;
+                                // Recargar equipos de la liga encontrada
+                                using (MySqlConnection conn = new MySqlConnection(connectionString)) { conn.Open(); LoadSideTeams(conn, item.Value); }
+                                break;
+                            }
+                        }
+                    }
+
+                    // 2. Buscar y seleccionar Equipo
+                    if (ddlSideTeam != null && ddlSideTeam.SelectedIndex == 0)
+                    {
+                        foreach (ListItem item in ddlSideTeam.Items)
+                        {
+                            if (item.Value != "ALL" && item.Text.ToLower().Contains(word))
+                            {
+                                ddlSideTeam.SelectedValue = item.Value;
+                                break;
+                            }
+                        }
+                    }
+
+                    // 3. Buscar y seleccionar Marca
+                    if (ddlSideBrand != null && ddlSideBrand.SelectedIndex == 0)
+                    {
+                        foreach (ListItem item in ddlSideBrand.Items)
+                        {
+                            if (item.Value != "ALL" && item.Text.ToLower().Contains(word))
+                            {
+                                ddlSideBrand.SelectedValue = item.Value;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (ddlSideKitType != null && ddlSideKitType.SelectedIndex == 0)
+                    {
+                        foreach (ListItem item in ddlSideKitType.Items)
+                        {
+                            string text = item.Text.ToLower();
+                            bool isMatch = text.Contains(word);
+
+                            // Lógica bilingüe: emparejar traducciones si la palabra escrita está en un idioma y la interfaz en otro
+                            if (!isMatch)
+                            {
+                                if ((word == "local" && text.Contains("home")) || (word == "home" && text.Contains("local"))) isMatch = true;
+                                else if ((word == "visitante" && text.Contains("away")) || (word == "away" && text.Contains("visitante"))) isMatch = true;
+                                else if ((word == "tercera" && text.Contains("third")) || (word == "third" && text.Contains("tercera"))) isMatch = true;
+                                else if ((word == "portero" && text.Contains("goalkeeper")) || (word == "goalkeeper" && text.Contains("portero"))) isMatch = true;
+                            }
+
+                            if (item.Value != "ALL" && isMatch)
+                            {
+                                ddlSideKitType.SelectedValue = item.Value;
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
