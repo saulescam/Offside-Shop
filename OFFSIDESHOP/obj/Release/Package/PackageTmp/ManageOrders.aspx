@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOrders.aspx.cs" Inherits="OFFSIDESHOP.ManageOrders" Async="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOrders.aspx.cs" Inherits="OFFSIDESHOP.ManageOrders" Async="true" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -215,15 +215,8 @@
                     <asp:UpdatePanel ID="upMainOrders" runat="server">
                         <ContentTemplate>
                             <div class="nav-tabs-custom d-flex">
-                                <asp:LinkButton ID="btnTabOrders" runat="server" CssClass="nav-link active" OnClick="btnTabOrders_Click">
-                                    <i class="fas fa-boxes mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_TabActive %>" />
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnTabRefunds" runat="server" CssClass="nav-link" OnClick="btnTabRefunds_Click">
-                                    <i class="fas fa-hand-holding-usd mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_TabRefunds %>" />
-                                    <span class="badge badge-danger badge-refund">
-                                        <asp:Literal ID="litRefundBadgeCount" runat="server" Text="0"></asp:Literal>
-                                    </span>
-                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnTabOrders" runat="server" CssClass="nav-link active" OnClick="btnTabOrders_Click"></asp:LinkButton>
+                                <asp:LinkButton ID="btnTabRefunds" runat="server" CssClass="nav-link" OnClick="btnTabRefunds_Click"></asp:LinkButton>
                             </div>
 
                             <asp:PlaceHolder ID="phOrdersView" runat="server" Visible="true">
