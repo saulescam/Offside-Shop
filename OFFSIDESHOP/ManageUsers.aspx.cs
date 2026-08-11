@@ -138,13 +138,16 @@ namespace OFFSIDESHOP
                     {
                         case "DELIVERING":
                             string orderId = activeOrderObj != DBNull.Value ? activeOrderObj.ToString() : "";
-                            lblDeliveryStatusBadge.Text = $"<span class='badge-driver-delivering'><i class='fas fa-motorcycle mr-1'></i>On the Way (Order #{orderId})</span>";
+                            string textOnTheWay = string.Format(AlertHelper.GetResourceString(this, "Driver_Badge_OnTheWay"), orderId);
+                            lblDeliveryStatusBadge.Text = $"<span class='badge-driver-delivering'><i class='fas fa-motorcycle mr-1'></i>{textOnTheWay}</span>";
                             break;
                         case "AVAILABLE":
-                            lblDeliveryStatusBadge.Text = "<span class='badge-driver-onduty'><i class='fas fa-check-circle mr-1'></i>On Duty (Available)</span>";
+                            string textOnDuty = AlertHelper.GetResourceString(this, "Driver_Badge_OnDuty");
+                            lblDeliveryStatusBadge.Text = $"<span class='badge-driver-onduty'><i class='fas fa-check-circle mr-1'></i>{textOnDuty}</span>";
                             break;
                         default:
-                            lblDeliveryStatusBadge.Text = "<span class='badge-driver-offduty'><i class='fas fa-moon mr-1'></i>Off Duty (Resting)</span>";
+                            string textOffDuty = AlertHelper.GetResourceString(this, "Driver_Badge_OffDuty");
+                            lblDeliveryStatusBadge.Text = $"<span class='badge-driver-offduty'><i class='fas fa-moon mr-1'></i>{textOffDuty}</span>";
                             break;
                     }
                 }

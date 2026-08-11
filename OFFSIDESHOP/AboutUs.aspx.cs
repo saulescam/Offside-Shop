@@ -6,7 +6,7 @@ using System.Web.UI;
 
 namespace OFFSIDESHOP
 {
-    public partial class AboutUs : System.Web.UI.Page
+    public partial class AboutUs : BasePage
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
@@ -49,6 +49,12 @@ namespace OFFSIDESHOP
             }
         }
 
+        protected void btnLanguageToggle_Click(object sender, EventArgs e)
+        {
+            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+            Response.Redirect(Request.RawUrl);
+        }
+
         private void CargarDatosPerfilUsuario()
         {
             if (Session["Id_User"] != null)
@@ -74,7 +80,7 @@ namespace OFFSIDESHOP
                                 }
                                 else
                                 {
-                                    lblFullName.Text = "User not found";
+                                    lblFullName.Text = AlertHelper.GetResourceString(this, "Account_UserNotFound");
                                 }
                             }
                         }
@@ -87,7 +93,7 @@ namespace OFFSIDESHOP
             }
             else
             {
-                lblFullName.Text = "No active session";
+                lblFullName.Text = AlertHelper.GetResourceString(this, "Account_NoActiveSession");
             }
 
             if (upPerfil != null)

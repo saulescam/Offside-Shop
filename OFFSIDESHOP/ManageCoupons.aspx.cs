@@ -86,7 +86,7 @@ namespace OFFSIDESHOP
         private void ResetForm()
         {
             hfEditId.Value = "0";
-            lblFormTitle.Text = "Create New Coupon";
+            lblFormTitle.Text = AlertHelper.GetResourceString(this, "Coupon_Title_Create");
             txtCouponCode.Text = "";
             txtDiscount.Text = "";
             txtMaxUses.Text = "10";
@@ -237,7 +237,7 @@ namespace OFFSIDESHOP
                                         ddlStatus.SelectedValue = "0";
                                     }
 
-                                    lblFormTitle.Text = "Edit Coupon";
+                                    lblFormTitle.Text = AlertHelper.GetResourceString(this, "Coupon_Title_Edit");
                                     pnlCouponForm.Visible = true;
                                 }
                             }

@@ -620,7 +620,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
                                 <label>Search by Name</label>
-                                <asp:TextBox ID="txtSearchName" runat="server" CssClass="form-control" placeholder="Search shirt name..." AutoPostBack="true" OnTextChanged="Filters_Changed"></asp:TextBox>
+                                <asp:TextBox ID="txtSearchName" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Placeholder_SearchShirt %>" AutoPostBack="true" OnTextChanged="Filters_Changed"></asp:TextBox>
                             </div>
                             <div class="col-md-1 col-sm-6 text-right">
                                 <asp:LinkButton ID="lbClearFilters" runat="server" CssClass="text-muted" Style="font-size: 0.8rem; text-decoration: underline; display: block; margin-top: 20px;" CausesValidation="false" OnClick="lbClearFilters_Click">Clear</asp:LinkButton>
@@ -665,7 +665,7 @@
                                     <ItemTemplate>
                                         <asp:Button ID="btnEdit" runat="server" CssClass="btn-action btn-edit" CommandName="EditProduct" CommandArgument='<%# Eval("ID") %>' Text="&#xf044;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
                                         <asp:Button ID="btnToggle" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleStatus" CommandArgument='<%# Eval("ID") %>' Text="&#xf06e;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
-                                        <asp:Button ID="btnDelete" runat="server" CssClass="btn-action btn-delete" CommandName="PermanentDelete" CommandArgument='<%# Eval("ID") %>' OnClientClick="return confirm('Are you sure you want to permanently delete this shirt?');" Text="&#xf2ed;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
+                                        <asp:Button ID="btnDelete" runat="server" CssClass="btn-action btn-delete" CommandName="PermanentDelete" CommandArgument='<%# Eval("ID") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteProduct") + "\");" %>' Text="&#xf2ed;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

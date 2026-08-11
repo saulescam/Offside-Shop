@@ -107,10 +107,10 @@
 
             <div class="col-md-5 text-center">
                 <ul class="footer-links">
-                    <li><a href="Homepage.aspx">Home</a></li>
-                    <li><a href="Homepage.aspx#collections-section">Collections</a></li>
-                    <li><a href="AboutUs.aspx">About Us</a></li>
-                    <li><a href="ContactSupport.aspx">Contact</a></li>
+                    <li><a href="Homepage.aspx"><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Home %>" /></a></li>
+                    <li><a href="Homepage.aspx#collections-section"><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Collections %>" /></a></li>
+                    <li><a href="AboutUs.aspx"><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_AboutUs %>" /></a></li>
+                    <li><a href="ContactSupport.aspx"><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Contact %>" /></a></li>
                 </ul>
             </div>
 

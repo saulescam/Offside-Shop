@@ -343,8 +343,8 @@
                             </button>
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="dropdown-content">
-                                    <a href="Login.aspx" class="dropdown-item"><i class="fas fa-sign-in-alt"></i>Log in</a>
-                                    <a href="SignUp.aspx" class="dropdown-item"><i class="fas fa-user-plus"></i>Sign up</a>
+                                    <a href="Login.aspx" class="dropdown-item"><i class="fas fa-sign-in-alt"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Login %>" /></a>
+                                    <a href="SignUp.aspx" class="dropdown-item"><i class="fas fa-user-plus"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_SignUp %>" /></a>
                                 </div>
                             </div>
                         </div>
@@ -358,14 +358,14 @@
                                     </button>
                                     <div id="userDropdownMenuUser" class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                         <div class="user-info">
-                                            <p class="user-fullname"><asp:Label ID="lblFullName" runat="server" Text="Cargando..."></asp:Label></p>
+                                            <p class="user-fullname"><asp:Label ID="lblFullName" runat="server" Text="<%$ Resources:Strings, Account_Loading %>"></asp:Label></p>
                                             <p class="user-email"><asp:Label ID="lblUserEmail" runat="server" Text=""></asp:Label></p>
                                         </div>
                                         <div class="dropdown-content">
-                                            <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click"><i class="fas fa-user-cog"></i> My Account</asp:LinkButton>
-                                            <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click"><i class="fas fa-clipboard-list"></i> My Orders</asp:LinkButton>
-                                            <asp:LinkButton ID="btnNavCart" runat="server" CssClass="dropdown-item" OnClick="btnNavCart_Click"><i class="fas fa-shopping-cart"></i>Cart <span class="badge"><asp:Label ID="lblCartCount" runat="server" Text="0"></asp:Label></span></asp:LinkButton>
-                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                            <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click"><i class="fas fa-user-cog"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_MyAccount %>" /></asp:LinkButton>
+                                            <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click"><i class="fas fa-clipboard-list"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_MyOrders %>" /></asp:LinkButton>
+                                            <asp:LinkButton ID="btnNavCart" runat="server" CssClass="dropdown-item" OnClick="btnNavCart_Click"><i class="fas fa-shopping-cart"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Cart %>" /> <span class="badge"><asp:Label ID="lblCartCount" runat="server" Text="0"></asp:Label></span></asp:LinkButton>
+                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                         </div>
                                     </div>
                                 </ContentTemplate>
@@ -380,12 +380,12 @@
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="user-info">
                                     <p class="user-fullname"><asp:Label ID="lblAdminName" runat="server" Text="Admin"></asp:Label></p>
-                                    <p class="user-role">Administrator</p>
+                                    <p class="user-role"><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_AdminRole %>" /></p>
                                 </div>
                                 <div class="dropdown-content">
-                                    <a href="MyAccount.aspx" class="dropdown-item"><i class="fas fa-user-cog"></i>My Account</a>
-                                    <a href="Dashboard.aspx" class="dropdown-item"><i class="fas fa-chart-line"></i>Dashboard</a>
-                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                    <a href="MyAccount.aspx" class="dropdown-item"><i class="fas fa-user-cog"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_MyAccount %>" /></a>
+                                    <a href="Dashboard.aspx" class="dropdown-item"><i class="fas fa-chart-line"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Dashboard %>" /></a>
+                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOffers.aspx.cs" Inherits="OFFSIDESHOP.ManageOffers" Async="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOffers.aspx.cs" Inherits="OFFSIDESHOP.ManageOffers" Async="true" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -488,13 +488,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Offers_StartLabel %>" /> <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control en-datepicker" placeholder="Select start date..."></asp:TextBox>
+                                    <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control en-datepicker" placeholder="<%$ Resources:Strings, Placeholder_SelectStartDate %>"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Offers_EndLabel %>" /> <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control en-datepicker" placeholder="Select expiration date..."></asp:TextBox>
+                                    <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control en-datepicker" placeholder="<%$ Resources:Strings, Placeholder_SelectEndDate %>"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -522,7 +522,7 @@
                                                 </div>
                                                 <div class="col-md-3 col-sm-6 mb-2">
                                                     <label style="font-size: 0.7rem;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Offers_FilterSearch %>" /></label>
-                                                    <asp:TextBox ID="txtShirtSearch" runat="server" CssClass="form-control form-control-sm" placeholder="Find item..." AutoPostBack="true" OnTextChanged="ShirtFilters_Changed"></asp:TextBox>
+                                                    <asp:TextBox ID="txtShirtSearch" runat="server" CssClass="form-control form-control-sm" placeholder="<%$ Resources:Strings, Placeholder_SearchShirt %>" AutoPostBack="true" OnTextChanged="ShirtFilters_Changed"></asp:TextBox>
                                                 </div>
                                             </div>
                                         </div>
@@ -611,7 +611,7 @@
                                     <ItemTemplate>
                                         <asp:Button ID="btnEditOffer" runat="server" CssClass="btn-action btn-edit" CommandName="EditOffer" CommandArgument='<%# Eval("Id_Offer") %>' Text="&#xf044;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
                                         <asp:Button ID="btnToggleOffer" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleOffer" CommandArgument='<%# Eval("Id_Offer") %>' Text="&#xf06e;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
-                                        <asp:Button ID="btnDeleteOffer" runat="server" CssClass="btn-action btn-delete" CommandName="DeleteOffer" CommandArgument='<%# Eval("Id_Offer") %>' OnClientClick="return confirm('Purge this campaign and normalize affected products base pricing records?');" Text="&#xf2ed;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
+                                        <asp:Button ID="btnDeleteOffer" runat="server" CssClass="btn-action btn-delete" CommandName="DeleteOffer" CommandArgument='<%# Eval("Id_Offer") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteOffer") + "\");" %>' Text="&#xf2ed;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

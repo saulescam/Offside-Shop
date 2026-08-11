@@ -229,12 +229,12 @@ namespace OFFSIDESHOP
         {
             if (isEnabled)
             {
-                lblChatbotStatus.Text = "Online";
+                lblChatbotStatus.Text = AlertHelper.GetResourceString(this, "Admin_AI_Online");
                 lblChatbotStatus.CssClass = "badge badge-pill badge-success";
             }
             else
             {
-                lblChatbotStatus.Text = "Offline";
+                lblChatbotStatus.Text = AlertHelper.GetResourceString(this, "Admin_AI_Offline");
                 lblChatbotStatus.CssClass = "badge badge-pill badge-danger";
             }
         }

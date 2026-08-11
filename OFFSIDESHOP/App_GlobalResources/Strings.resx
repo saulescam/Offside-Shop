@@ -294,6 +294,9 @@
   <data name="Detail_AddToCart" xml:space="preserve">
     <value>Add to Cart</value>
   </data>
+  <data name="Detail_OutOfStock" xml:space="preserve">
+    <value>Out of Stock</value>
+  </data>
   <data name="Tab_Similar" xml:space="preserve">
     <value>You Might Also Like</value>
   </data>
@@ -2722,13 +2725,94 @@
     <value>GPS error: </value>
   </data>
   <data name="Driver_Gps_Active" xml:space="preserve">
-    <value>GPS active &mdash; Accuracy: ~</value>
+    <value>GPS active — Accuracy: ~</value>
   </data>
   <data name="Alert_Details_LoadErrorText" xml:space="preserve">
     <value>Unable to load shirt details.</value>
   </data>
   <data name="Alert_Details_AuthRequiredTitle" xml:space="preserve">
     <value>Authentication Required</value>
+  </data>
+  <data name="Checkout_LoaderTitle" xml:space="preserve">
+    <value>Secure Payment Processing</value>
+  </data>
+  <data name="Checkout_LoaderText" xml:space="preserve">
+    <value>Processing your order... Please do not close this tab or refresh the page.</value>
+  </data>
+  <data name="Checkout_LoaderSecurity" xml:space="preserve">
+    <value>256-bit SSL Secured Connection</value>
+  </data>
+  <data name="OrderDetail_SubmitRequest" xml:space="preserve">
+    <value>Submit Request</value>
+  </data>
+  <data name="Nav_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Driver_Badge_OnTheWay" xml:space="preserve">
+    <value>On the Way (Order #{0})</value>
+  </data>
+  <data name="Driver_Badge_OnDuty" xml:space="preserve">
+    <value>On Duty (Available)</value>
+  </data>
+  <data name="Driver_Badge_OffDuty" xml:space="preserve">
+    <value>Off Duty (Resting)</value>
+  </data>
+  <data name="Admin_AI_Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="Admin_AI_Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="Confirm_DeleteCoupon" xml:space="preserve">
+    <value>Are you sure you want to delete this coupon? Users won't be able to use it anymore.</value>
+  </data>
+  <data name="Confirm_DeleteOffer" xml:space="preserve">
+    <value>Purge this campaign and normalize affected products base pricing records?</value>
+  </data>
+  <data name="Confirm_DeleteReview" xml:space="preserve">
+    <value>Are you sure you want to delete this review?</value>
+  </data>
+  <data name="Confirm_DeleteUser" xml:space="preserve">
+    <value>Are you sure you want to permanently delete this user?</value>
+  </data>
+  <data name="Confirm_DeleteProduct" xml:space="preserve">
+    <value>Are you sure you want to permanently delete this shirt?</value>
+  </data>
+  <data name="Confirm_DeleteBanner" xml:space="preserve">
+    <value>Delete banner?</value>
+  </data>
+  <data name="Confirm_DeleteCollection" xml:space="preserve">
+    <value>Delete collection?</value>
+  </data>
+  <data name="Confirm_DeleteSlide" xml:space="preserve">
+    <value>Delete slide?</value>
+  </data>
+  <data name="Confirm_DeleteTeam" xml:space="preserve">
+    <value>Are you sure you want to delete this team?</value>
+  </data>
+  <data name="Confirm_DeleteLeague" xml:space="preserve">
+    <value>Are you sure you want to delete this league? All associated teams will be deleted as well.</value>
+  </data>
+  <data name="Confirm_DeleteBrand" xml:space="preserve">
+    <value>Are you sure you want to delete this brand?</value>
+  </data>
+  <data name="Placeholder_SelectStartDate" xml:space="preserve">
+    <value>Select start date...</value>
+  </data>
+  <data name="Placeholder_SelectEndDate" xml:space="preserve">
+    <value>Select expiration date...</value>
+  </data>
+  <data name="Placeholder_SearchShirt" xml:space="preserve">
+    <value>Search shirt name...</value>
+  </data>
+  <data name="Placeholder_SearchUser" xml:space="preserve">
+    <value>Search by username or email...</value>
+  </data>
+  <data name="Placeholder_AdminNotes" xml:space="preserve">
+    <value>Specify approval verification results, shipment tracking numbers, or grounds for denial here...</value>
+  </data>
+  <data name="Placeholder_PublicReply" xml:space="preserve">
+    <value>Write your public reply here...</value>
   </data>
   <data name="Alert_Details_AuthRequiredText" xml:space="preserve">
     <value>Please log in to add items to your cart.</value>
@@ -2801,5 +2885,182 @@
   </data>
   <data name="Alert_Details_ReplySuccessText" xml:space="preserve">
     <value>Your official reply has been saved.</value>
+  </data>
+  <data name="OrderStatus_Pending_Title" xml:space="preserve">
+    <value>Awaiting Payment</value>
+  </data>
+  <data name="OrderStatus_Pending_Desc" xml:space="preserve">
+    <value>Your order has been placed successfully. If you chose Cash on Delivery, please have the exact amount ready for the driver.</value>
+  </data>
+  <data name="OrderStatus_Paid_Title" xml:space="preserve">
+    <value>Payment Confirmed</value>
+  </data>
+  <data name="OrderStatus_Paid_Desc" xml:space="preserve">
+    <value>Payment successful! We are currently preparing your jerseys. A delivery driver will be assigned shortly.</value>
+  </data>
+  <data name="OrderStatus_Shipped_Title" xml:space="preserve">
+    <value>Order on the Way!</value>
+  </data>
+  <data name="OrderStatus_Shipped_Desc" xml:space="preserve">
+    <value>Your order has left our store! Our delivery driver is currently heading to your location.</value>
+  </data>
+  <data name="OrderStatus_Delivered_Title" xml:space="preserve">
+    <value>Delivered</value>
+  </data>
+  <data name="OrderStatus_Delivered_Desc" xml:space="preserve">
+    <value>This order has been successfully delivered. We hope you enjoy your new gear!</value>
+  </data>
+  <data name="OrderStatus_Cancelled_Title" xml:space="preserve">
+    <value>Order Cancelled</value>
+  </data>
+  <data name="OrderStatus_Cancelled_Desc" xml:space="preserve">
+    <value>This order has been cancelled. If you believe this is an error, please contact support.</value>
+  </data>
+  <data name="OrderStatus_RefundReq_Title" xml:space="preserve">
+    <value>Refund Under Review</value>
+  </data>
+  <data name="OrderStatus_RefundReq_Desc" xml:space="preserve">
+    <value>You have requested a refund. Our administrative team is currently reviewing your ticket.</value>
+  </data>
+  <data name="OrderStatus_Refunded_Title" xml:space="preserve">
+    <value>Refund Processed</value>
+  </data>
+  <data name="OrderStatus_Refunded_Desc" xml:space="preserve">
+    <value>Your refund request was approved and the funds have been returned to your account.</value>
+  </data>
+  <data name="OrderStatus_RefundDeclined_Title" xml:space="preserve">
+    <value>Refund Declined</value>
+  </data>
+  <data name="OrderStatus_RefundDeclined_Desc" xml:space="preserve">
+    <value>Your refund request was reviewed and declined. The order remains valid and paid.</value>
+  </data>
+  <data name="OrderStatus_Packaged_Title" xml:space="preserve">
+    <value>Order Packaged</value>
+  </data>
+  <data name="OrderStatus_Packaged_Desc" xml:space="preserve">
+    <value>Your items have been carefully packaged and are currently waiting for a delivery driver to pick them up from our store.</value>
+  </data>
+  <data name="OrderDetail_SelectReason" xml:space="preserve">
+    <value>-- Select a Reason --</value>
+  </data>
+  <data name="OrderDetail_ErrorSelectReason" xml:space="preserve">
+    <value>Please select a valid reason from the list.</value>
+  </data>
+  <data name="OrderDetail_ErrorOtherReason" xml:space="preserve">
+    <value>Since you selected 'Other', please provide more details in the comments field (minimum 10 characters).</value>
+  </data>
+  <data name="OrderDetail_ErrorInvalidAction" xml:space="preserve">
+    <value>This action is no longer valid for the current state of the order.</value>
+  </data>
+  <data name="OrderDetail_CancelSuccessTitle" xml:space="preserve">
+    <value>Order Cancelled</value>
+  </data>
+  <data name="OrderDetail_CancelSuccessText" xml:space="preserve">
+    <value>Order cancelled successfully.</value>
+  </data>
+  <data name="OrderDetail_RefundSuccessTitle" xml:space="preserve">
+    <value>Refund Requested</value>
+  </data>
+  <data name="OrderDetail_RefundSuccessText" xml:space="preserve">
+    <value>Your refund request has been submitted to the administrator for review.</value>
+  </data>
+  <data name="Coupon_Title_Create" xml:space="preserve">
+    <value>Create New Coupon</value>
+  </data>
+  <data name="Coupon_Title_Edit" xml:space="preserve">
+    <value>Edit Coupon</value>
+  </data>
+  <data name="Offer_Title_Create" xml:space="preserve">
+    <value>Create New Promo Campaign Window</value>
+  </data>
+  <data name="Detail_PageTitle" xml:space="preserve">
+    <value>OffsideShop - Shirt Details</value>
+  </data>
+  <data name="Account_Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Search_ClearFilters" xml:space="preserve">
+    <value>Clear Filters</value>
+  </data>
+  <data name="Carousel_Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Carousel_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Search_AllLeagues" xml:space="preserve">
+    <value>All Leagues</value>
+  </data>
+  <data name="Search_AllBrands" xml:space="preserve">
+    <value>All Brands</value>
+  </data>
+  <data name="Modal_NoSizeGuide" xml:space="preserve">
+    <value>No size guide available for this brand.</value>
+  </data>
+  <data name="Account_RoleLabel" xml:space="preserve">
+    <value>Account Role</value>
+  </data>
+  <data name="Nav_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Nav_Collections" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="Nav_AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="Nav_Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Nav_Cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="About_PageTitle" xml:space="preserve">
+    <value>OffsideShop - About Us</value>
+  </data>
+  <data name="About_HeaderTitle" xml:space="preserve">
+    <value>About OffsideShop</value>
+  </data>
+  <data name="About_HeaderSubtitle" xml:space="preserve">
+    <value>We are more than a store. We are the home of football culture, retro collector's gems, and modern kits.</value>
+  </data>
+  <data name="About_StoryTitle" xml:space="preserve">
+    <value>Our Story</value>
+  </data>
+  <data name="About_StoryBody" xml:space="preserve">
+    <value>OFFSIDESHOP was born out of pure passion for football jerseys. We understand that a jersey isn't just sports apparel—it represents a historical moment, a legendary comeback, an unrepeatable collective emotion, or a timeless aesthetic masterpiece. Whether you are looking for the latest drop or an impossible-to-find retro classic, we curate the best kits around the globe so you can wear your passion with pride.</value>
+  </data>
+  <data name="About_WhyUsTitle" xml:space="preserve">
+    <value>Why Choose Us?</value>
+  </data>
+  <data name="About_Adv1Title" xml:space="preserve">
+    <value>Premium &amp; Rare Kits</value>
+  </data>
+  <data name="About_Adv1Body" xml:space="preserve">
+    <value>From underground drops and high-end collabs to legendary retro grails. If it's unique, it's inside our locker room.</value>
+  </data>
+  <data name="About_Adv2Title" xml:space="preserve">
+    <value>Safe &amp; Secure Shopping</value>
+  </data>
+  <data name="About_Adv2Body" xml:space="preserve">
+    <value>Integrated with industry-standard secure payment processors. Your transactions and private details are fully encrypted.</value>
+  </data>
+  <data name="About_Adv3Title" xml:space="preserve">
+    <value>Real-Time Logistics</value>
+  </data>
+  <data name="About_Adv3Body" xml:space="preserve">
+    <value>No guessing games. Monitor your order history and dispatch phases in real-time from your personal dashboard.</value>
+  </data>
+  <data name="Reason_1" xml:space="preserve">
+    <value>Order Status / Shipping Inquiry</value>
+  </data>
+  <data name="Reason_2" xml:space="preserve">
+    <value>Consign / Sell a Retro Shirt</value>
+  </data>
+  <data name="Reason_3" xml:space="preserve">
+    <value>Returns &amp; Exchanges</value>
+  </data>
+  <data name="Reason_4" xml:space="preserve">
+    <value>General Question</value>
   </data>
 </root>

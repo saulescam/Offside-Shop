@@ -233,10 +233,10 @@
                 <i class="fas fa-circle-notch fa-spin loader-spinner"></i>
                 <i class="fas fa-lock loader-lock"></i>
             </div>
-            <h4 class="loader-title">Secure Payment Processing</h4>
-            <p class="loader-text">Processing your order... Please do not close this tab or refresh the page.</p>
+            <h4 class="loader-title"><%= Resources.Strings.Checkout_LoaderTitle %></h4>
+            <p class="loader-text"><%= Resources.Strings.Checkout_LoaderText %></p>
             <div class="loader-security-badge">
-                <i class="fas fa-shield-alt"></i> 256-bit SSL Secured Connection
+                <i class="fas fa-shield-alt"></i> <%= Resources.Strings.Checkout_LoaderSecurity %>
             </div>
         </div>
     </div>

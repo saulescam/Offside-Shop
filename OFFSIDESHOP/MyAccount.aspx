@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MyAccount.aspx.cs" Inherits="OFFSIDESHOP.MyAccount" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MyAccount.aspx.cs" Inherits="OFFSIDESHOP.MyAccount" %>
 
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>My Account - OffsideShop</title>
+    <title><%= Resources.Strings.Account_MainTitle %> - OffsideShop</title>
 
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -217,11 +217,11 @@
                                     <p class="user-fullname">
                                         <asp:Label ID="lblAdminName" runat="server" Text="Admin"></asp:Label>
                                     </p>
-                                    <p class="user-role">Administrator</p>
+                                    <p class="user-role"><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_AdminRole %>" /></p>
                                 </div>
                                 <div class="dropdown-content">
                                     <a href="Dashboard.aspx" class="dropdown-item">
-                                        <i class="fas fa-chart-line"></i>Dashboard
+                                        <i class="fas fa-chart-line"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Dashboard %>" />
                                     </a>
                                     <asp:Button ID="Button2" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
                                     <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
@@ -269,7 +269,7 @@
 
                                     <!-- APARTADO DEL ROL DE USUARIO -->
                                     <div class="col-md-6">
-                                        <label class="form-label form-label-custom">Account Role / Rol</label>
+                                        <label class="form-label form-label-custom"><asp:Literal runat="server" Text="<%$ Resources:Strings, Account_RoleLabel %>" /></label>
                                         <div class="role-badge text-center">
                                             <i class="fas fa-user-shield me-1"></i>
                                             <asp:Label ID="lblAccountRole" runat="server" Text="Customer"></asp:Label>

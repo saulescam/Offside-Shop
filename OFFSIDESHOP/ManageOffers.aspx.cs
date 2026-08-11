@@ -304,7 +304,7 @@ namespace OFFSIDESHOP
         {
             ClearFormPanel();
             Session["SelectedShirtIds"] = new HashSet<int>();
-            lblFormTitle.Text = "Create New Promo Campaign Window";
+            lblFormTitle.Text = AlertHelper.GetResourceString(this, "Offer_Title_Create");
             pnlOfferForm.Visible = true;
             LoadShirtsSelection();
         }

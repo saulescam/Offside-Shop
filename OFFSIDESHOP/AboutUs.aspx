@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="OFFSIDESHOP.AboutUs" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="OFFSIDESHOP.AboutUs" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>OffsideShop - About Us</title>
+    <title><%= Resources.Strings.About_PageTitle %></title>
 
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
@@ -192,6 +192,7 @@
         <a class="navbar-brand" href="Homepage.aspx">
             <img src="assets/img/offsideshop_logo_white_letras.png" alt="OffsideShop Logo" style="max-height: 45px; width: auto;" />
         </a>
+        <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" CssClass="lang-switcher" style="color: #fff; text-decoration: none; font-weight: bold; margin-left: 10px; margin-right: auto;">EN / ES</asp:LinkButton>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -210,10 +211,10 @@
                     <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                         <div class="dropdown-content">
                             <a href="Login.aspx" class="dropdown-item">
-                                <i class="fas fa-sign-in-alt"></i>Log in
+                                <i class="fas fa-sign-in-alt"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Login %>" />
                             </a>
                             <a href="SignUp.aspx" class="dropdown-item">
-                                <i class="fas fa-user-plus"></i>Sign up
+                                <i class="fas fa-user-plus"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_SignUp %>" />
                             </a>
                         </div>
                     </div>
@@ -234,7 +235,7 @@
                             <div id="userDropdownMenuUser" class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="user-info">
                                     <p class="user-fullname">
-                                        <asp:Label ID="lblFullName" runat="server" Text="Cargando..."></asp:Label>
+                                        <asp:Label ID="lblFullName" runat="server" Text="<%$ Resources:Strings, Account_Loading %>"></asp:Label>
                                     </p>
                                     <p class="user-email">
                                         <asp:Label ID="lblUserEmail" runat="server" Text=""></asp:Label>
@@ -242,21 +243,21 @@
                                 </div>
                                 <div class="dropdown-content">
                                     <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click">
-                                        <i class="fas fa-user-cog"></i> My Account
+                                        <i class="fas fa-user-cog"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_MyAccount %>" />
                                     </asp:LinkButton>
 
                                     <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click">
-                                        <i class="fas fa-clipboard-list"></i> My Orders
+                                        <i class="fas fa-clipboard-list"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_MyOrders %>" />
                                     </asp:LinkButton>
 
                                     <asp:LinkButton ID="btnNavCart" runat="server" CssClass="dropdown-item" OnClick="btnNavCart_Click">
-                                        <i class="fas fa-shopping-cart"></i>Cart 
+                                        <i class="fas fa-shopping-cart"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Cart %>" /> 
                                         <span class="badge">
                                             <asp:Label ID="lblCartCount" runat="server" Text="0"></asp:Label>
                                         </span>
                                     </asp:LinkButton>
 
-                                    <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                    <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                 </div>
                             </div>
                         </ContentTemplate>
@@ -277,16 +278,16 @@
                             <p class="user-fullname">
                                 <asp:Label ID="lblAdminName" runat="server" Text="Admin"></asp:Label>
                             </p>
-                            <p class="user-role">Administrator</p>
+                            <p class="user-role"><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_AdminRole %>" /></p>
                         </div>
                         <div class="dropdown-content">
                             <a href="MyAccount.aspx" class="dropdown-item">
-                                <i class="fas fa-user-cog"></i>My Account
+                                <i class="fas fa-user-cog"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_MyAccount %>" />
                             </a>
                             <a href="Dashboard.aspx" class="dropdown-item">
-                                <i class="fas fa-chart-line"></i>Dashboard
+                                <i class="fas fa-chart-line"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_Dashboard %>" />
                             </a>
-                            <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                            <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                         </div>
                     </div>
                 </div>
@@ -304,8 +305,8 @@
                 <!-- Header -->
                 <div class="row justify-content-center text-center mb-5">
                     <div class="col-lg-8">
-                        <h2 style="color: #1a1a1a !important; font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">About OffsideShop</h2>
-                        <p style="color: #666666 !important; font-size: 18px;">We are more than a store. We are the home of football culture, retro collector's gems, and modern kits.</p>
+                        <h2 style="color: #1a1a1a !important; font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;"><asp:Literal runat="server" Text="<%$ Resources:Strings, About_HeaderTitle %>" /></h2>
+                        <p style="color: #666666 !important; font-size: 18px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, About_HeaderSubtitle %>" /></p>
                     </div>
                 </div>
 
@@ -313,9 +314,9 @@
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-10">
                         <div style="background-color: #ffffff !important; border: 1px solid #e0e0e0 !important; border-radius: 12px; padding: 40px; box-shadow: 0px 4px 20px rgba(0,0,0,0.06);">
-                            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; text-transform: uppercase; font-size: 22px;">Our Story</h3>
+                            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; text-transform: uppercase; font-size: 22px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, About_StoryTitle %>" /></h3>
                             <p style="color: #444444; line-height: 1.8; font-size: 15px; margin-bottom: 0;">
-                                OFFSIDESHOP was born out of pure passion for football jerseys. We understand that a jersey isn't just sports apparelâ€”it represents a historical moment, a legendary comeback, an unrepeatable collective emotion, or a timeless aesthetic masterpiece. Whether you are looking for the latest drop or an impossible-to-find retro classic, we curate the best kits around the globe so you can wear your passion with pride.
+                                <asp:Literal runat="server" Text="<%$ Resources:Strings, About_StoryBody %>" />
                             </p>
                         </div>
                     </div>
@@ -324,7 +325,7 @@
                 <!-- Our Advantages Section -->
                 <div class="row justify-content-center text-center mb-4">
                     <div class="col-12">
-                        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 1px; font-size: 22px; margin-bottom: 40px;">Why Choose Us?</h3>
+                        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 1px; font-size: 22px; margin-bottom: 40px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, About_WhyUsTitle %>" /></h3>
                     </div>
                 </div>
 
@@ -336,9 +337,9 @@
                             <div class="icon-box">
                                 <i class="fa-solid fa-shirt"></i>
                             </div>
-                            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: #1a1a1a; margin-bottom: 12px;">Premium & Rare Kits</h4>
+                            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: #1a1a1a; margin-bottom: 12px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, About_Adv1Title %>" /></h4>
                             <p style="color: #666666; font-size: 14px; line-height: 1.6; margin-bottom: 0;">
-                                From underground drops and high-end collabs to legendary retro grails. If it's unique, it's inside our locker room.
+                                <asp:Literal runat="server" Text="<%$ Resources:Strings, About_Adv1Body %>" />
                             </p>
                         </div>
                     </div>
@@ -349,9 +350,9 @@
                             <div class="icon-box">
                                 <i class="fa-solid fa-shield-halved"></i>
                             </div>
-                            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: #1a1a1a; margin-bottom: 12px;">Safe & Secure Shopping</h4>
+                            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: #1a1a1a; margin-bottom: 12px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, About_Adv2Title %>" /></h4>
                             <p style="color: #666666; font-size: 14px; line-height: 1.6; margin-bottom: 0;">
-                                Integrated with industry-standard secure payment processors. Your transactions and private details are fully encrypted.
+                                <asp:Literal runat="server" Text="<%$ Resources:Strings, About_Adv2Body %>" />
                             </p>
                         </div>
                     </div>
@@ -362,9 +363,9 @@
                             <div class="icon-box">
                                 <i class="fa-solid fa-truck-fast"></i>
                             </div>
-                            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: #1a1a1a; margin-bottom: 12px;">Real-Time Logistics</h4>
+                            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: #1a1a1a; margin-bottom: 12px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, About_Adv3Title %>" /></h4>
                             <p style="color: #666666; font-size: 14px; line-height: 1.6; margin-bottom: 0;">
-                                No guessing games. Monitor your order history and dispatch phases in real-time from your personal dashboard.
+                                <asp:Literal runat="server" Text="<%$ Resources:Strings, About_Adv3Body %>" />
                             </p>
                         </div>
                     </div>

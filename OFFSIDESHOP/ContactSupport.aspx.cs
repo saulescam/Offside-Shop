@@ -124,7 +124,18 @@ namespace OFFSIDESHOP
                         conn.Open();
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            ddlReason.DataSource = reader;
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                string key = "Reason_" + dr["Id_ContactReason"];
+                                string locName = AlertHelper.GetResourceString(this, key);
+                                if (!string.IsNullOrEmpty(locName) && !locName.StartsWith("[Resource"))
+                                {
+                                    dr["Reason_Name"] = locName;
+                                }
+                            }
+                            ddlReason.DataSource = dt;
                             ddlReason.DataTextField = "Reason_Name";
                             ddlReason.DataValueField = "Id_ContactReason";
                             ddlReason.DataBind();

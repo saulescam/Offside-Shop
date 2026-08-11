@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DetailsShirt.aspx.cs" Inherits="OFFSIDESHOP.DetailsShirt" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DetailsShirt.aspx.cs" Inherits="OFFSIDESHOP.DetailsShirt" %>
 <%@ Register Src="~/ChatbotControl.ascx" TagPrefix="uc" TagName="Chatbot" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>OffsideShop - Shirt Details</title>
+    <title><%= Resources.Strings.Detail_PageTitle %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
@@ -802,7 +802,7 @@
                                         <div id="userDropdownMenuUser" class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                             <div class="user-info">
                                                 <p class="user-fullname">
-                                                    <asp:Label ID="lblFullName" runat="server" Text="Cargando..."></asp:Label>
+                                                    <asp:Label ID="lblFullName" runat="server" Text="<%$ Resources:Strings, Account_Loading %>"></asp:Label>
                                                 </p>
                                                 <p class="user-email">
                                                     <asp:Label ID="lblUserEmail" runat="server" Text=""></asp:Label>
@@ -839,7 +839,7 @@
                                     <p class="user-fullname">
                                         <asp:Label ID="lblAdminName" runat="server" Text="Admin"></asp:Label>
                                     </p>
-                                    <p class="user-role">Administrator</p>
+                                    <p class="user-role"><asp:Literal runat="server" Text="<%$ Resources:Strings, Nav_AdminRole %>" /></p>
                                 </div>
                                 <div class="dropdown-content">
                                     <a href="Dashboard.aspx" class="dropdown-item">
@@ -909,7 +909,7 @@
 
                         <div class="col-lg-2 col-md-12 d-flex gap-2">
                             <asp:Button ID="btnSearch" runat="server" Text="<%$ Resources:Strings, Search_Btn %>" CssClass="btn btn-danger-custom w-100 fw-bold" OnClick="btnSearch_Click" />
-                            <asp:LinkButton ID="btnReset" runat="server" CssClass="btn btn-outline-light-custom" OnClick="btnReset_Click" ToolTip="Clear Filters">
+                            <asp:LinkButton ID="btnReset" runat="server" CssClass="btn btn-outline-light-custom" OnClick="btnReset_Click" ToolTip="<%$ Resources:Strings, Search_ClearFilters %>">
                         <i class="fas fa-undo"></i>
                             </asp:LinkButton>
                         </div>
@@ -936,11 +936,11 @@
                             <asp:PlaceHolder ID="phCarouselControls" runat="server">
                                 <button class="carousel-control-prev" type="button" data-bs-target="#jerseyCarousel" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
+                                    <span class="visually-hidden"><asp:Literal runat="server" Text="<%$ Resources:Strings, Carousel_Previous %>" /></span>
                                 </button>
                                 <button class="carousel-control-next" type="button" data-bs-target="#jerseyCarousel" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
+                                    <span class="visually-hidden"><asp:Literal runat="server" Text="<%$ Resources:Strings, Carousel_Next %>" /></span>
                                 </button>
                             </asp:PlaceHolder>
                         </div>
@@ -1227,7 +1227,7 @@
                                                             CommandArgument='<%# Eval("Id_Review") %>'
                                                             CssClass="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1"
                                                             Style="border-radius: 20px; padding: 4px 12px;"
-                                                            OnClientClick="<%$ Resources:Strings, Review_DeleteConfirm %>"
+                                                            OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteReview") + "\");" %>'
                                                             Visible='<%# CanDeleteReview(Eval("Id_User")) %>'>
                                     <i class="fa fa-trash"></i> <%= Resources.Strings.Review_DeleteBtn %>
                                                         </asp:LinkButton>
@@ -1283,7 +1283,7 @@
                 <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
                     <div class="modal-header bg-dark text-white" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
                         <h5 class="modal-title fw-bold text-warning" id="sizeGuideModalLabel">
-                            <i class="fas fa-ruler-combined me-2"></i>Size Guide (<asp:Label ID="lblGuideBrand" runat="server"></asp:Label>)
+                            <i class="fas fa-ruler-combined me-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Detail_SizeGuide %>" /> (<asp:Label ID="lblGuideBrand" runat="server"></asp:Label>)
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

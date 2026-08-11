@@ -83,7 +83,16 @@ namespace OFFSIDESHOP
                                 txtAddress.Text = reader["Address"].ToString();
 
                                 // Asignar Nombre del Rol
-                                lblAccountRole.Text = reader["Name_Role"].ToString();
+                                string roleName = reader["Name_Role"].ToString();
+                                bool isEs = Session["Language"] != null && Session["Language"].ToString() == "es";
+                                if (roleName.Equals("Customer", StringComparison.OrdinalIgnoreCase) || roleName.Equals("Cliente", StringComparison.OrdinalIgnoreCase))
+                                    lblAccountRole.Text = isEs ? "Cliente" : "Customer";
+                                else if (roleName.Equals("Administrator", StringComparison.OrdinalIgnoreCase) || roleName.Equals("Administrador", StringComparison.OrdinalIgnoreCase))
+                                    lblAccountRole.Text = isEs ? "Administrador" : "Administrator";
+                                else if (roleName.Equals("Seller", StringComparison.OrdinalIgnoreCase) || roleName.Equals("Vendedor", StringComparison.OrdinalIgnoreCase))
+                                    lblAccountRole.Text = isEs ? "Vendedor" : "Seller";
+                                else
+                                    lblAccountRole.Text = roleName;
 
                                 // Asignamos las coordenadas a los HiddenFields para el mapa
                                 hfDefaultLat.Value = reader["Default_Latitude"] != DBNull.Value ? reader["Default_Latitude"].ToString() : "";

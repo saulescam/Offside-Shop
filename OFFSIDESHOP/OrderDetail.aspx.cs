@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using MySql.Data.MySqlClient;
 using System.Web.UI;
@@ -325,47 +325,47 @@ namespace OFFSIDESHOP
                     statusAlertBox.Style["background-color"] = "#fffbeb";
                     statusAlertBox.Style["border-left"] = "5px solid #f59e0b";
                     statusIcon.Attributes["class"] = "fas fa-clock fa-2x me-3 text-warning";
-                    statusTitle.InnerText = "Awaiting Payment";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Pending_Title");
                     statusTitle.Style["color"] = "#d97706";
-                    statusDescription.InnerText = "Your order has been placed successfully. If you chose Cash on Delivery, please have the exact amount ready for the driver.";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Pending_Desc");
                     statusDescription.Style["color"] = "#92400e";
                     break;
                 case 2: // Paid
                     statusAlertBox.Style["background-color"] = "#f0fdf4";
                     statusAlertBox.Style["border-left"] = "5px solid #10b981";
                     statusIcon.Attributes["class"] = "fas fa-check-circle fa-2x me-3 text-success";
-                    statusTitle.InnerText = "Payment Confirmed";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Paid_Title");
                     statusTitle.Style["color"] = "#047857";
-                    statusDescription.InnerText = "Payment successful! We are currently preparing your jerseys. A delivery driver will be assigned shortly.";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Paid_Desc");
                     statusDescription.Style["color"] = "#065f46";
                     break;
                 case 3: // Shipped
                     statusAlertBox.Style["background-color"] = "#eff6ff";
                     statusAlertBox.Style["border-left"] = "5px solid #3b82f6";
                     statusIcon.Attributes["class"] = "fas fa-motorcycle fa-2x me-3 text-primary";
-                    statusTitle.InnerText = "Order on the Way!";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Shipped_Title");
                     statusTitle.Style["color"] = "#1d4ed8";
-                    statusDescription.InnerText = "Your order has left our store! Our delivery driver is currently heading to your location.";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Shipped_Desc");
                     statusDescription.Style["color"] = "#1e40af";
-                    // SE REVELA EL BOTÃ“N DE TRACKING AL ESTAR EN CAMINO
+                    // SE REVELA EL BOTÓN DE TRACKING AL ESTAR EN CAMINO
                     trackerButtonContainer.Visible = true;
                     break;
                 case 4: // Delivered
                     statusAlertBox.Style["background-color"] = "#f3f4f6";
                     statusAlertBox.Style["border-left"] = "5px solid #6b7280";
                     statusIcon.Attributes["class"] = "fas fa-box-open fa-2x me-3 text-secondary";
-                    statusTitle.InnerText = "Delivered";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Delivered_Title");
                     statusTitle.Style["color"] = "#374151";
-                    statusDescription.InnerText = "This order has been successfully delivered. We hope you enjoy your new gear!";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Delivered_Desc");
                     statusDescription.Style["color"] = "#1f2937";
                     break;
                 case 5: // Cancelled
                     statusAlertBox.Style["background-color"] = "#fef2f2";
                     statusAlertBox.Style["border-left"] = "5px solid #ef4444";
                     statusIcon.Attributes["class"] = "fas fa-times-circle fa-2x me-3 text-danger";
-                    statusTitle.InnerText = "Order Cancelled";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Cancelled_Title");
                     statusTitle.Style["color"] = "#b91c1c";
-                    statusDescription.InnerText = "This order has been cancelled. If you believe this is an error, please contact support.";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Cancelled_Desc");
                     statusDescription.Style["color"] = "#991b1b";
                     break;
                 case 6: // Refund Requested
@@ -373,27 +373,27 @@ namespace OFFSIDESHOP
                     statusAlertBox.Style["border-left"] = "5px solid #f97316";
                     statusIcon.Attributes["class"] = "fas fa-undo fa-2x me-3";
                     statusIcon.Style["color"] = "#ea580c";
-                    statusTitle.InnerText = "Refund Under Review";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundReq_Title");
                     statusTitle.Style["color"] = "#c2410c";
-                    statusDescription.InnerText = "You have requested a refund. Our administrative team is currently reviewing your ticket.";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundReq_Desc");
                     statusDescription.Style["color"] = "#9a3412";
                     break;
                 case 7: // Refunded
                     statusAlertBox.Style["background-color"] = "#ecfdf5";
                     statusAlertBox.Style["border-left"] = "5px solid #059669";
                     statusIcon.Attributes["class"] = "fas fa-hand-holding-usd fa-2x me-3 text-success";
-                    statusTitle.InnerText = "Refund Processed";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Refunded_Title");
                     statusTitle.Style["color"] = "#047857";
-                    statusDescription.InnerText = "Your refund request was approved and the funds have been returned to your account.";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Refunded_Desc");
                     statusDescription.Style["color"] = "#065f46";
                     break;
                 case 8: // Refund Rejected
                     statusAlertBox.Style["background-color"] = "#fef2f2";
                     statusAlertBox.Style["border-left"] = "5px solid #dc2626";
                     statusIcon.Attributes["class"] = "fas fa-exclamation-circle fa-2x me-3 text-danger";
-                    statusTitle.InnerText = "Refund Declined";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundDeclined_Title");
                     statusTitle.Style["color"] = "#b91c1c";
-                    statusDescription.InnerText = "Your refund request was reviewed and declined. The order remains valid and paid.";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundDeclined_Desc");
                     statusDescription.Style["color"] = "#991b1b";
                     break;
                 case 9: // Ready for Pickup (El cliente lo ve como Empaquetado)
@@ -401,9 +401,9 @@ namespace OFFSIDESHOP
                     statusAlertBox.Style["border-left"] = "5px solid #d946ef";
                     statusIcon.Attributes["class"] = "fas fa-box fa-2x me-3";
                     statusIcon.Style["color"] = "#c026d3";
-                    statusTitle.InnerText = "Order Packaged";
+                    statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Packaged_Title");
                     statusTitle.Style["color"] = "#a21caf";
-                    statusDescription.InnerText = "Your items have been carefully packaged and are currently waiting for a delivery driver to pick them up from our store.";
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Packaged_Desc");
                     statusDescription.Style["color"] = "#86198f";
                     break;
             }
@@ -473,7 +473,8 @@ namespace OFFSIDESHOP
                 }
             }
 
-            ddlReasons.Items.Insert(0, new ListItem("-- Select a Reason --", ""));
+            string defaultSelect = AlertHelper.GetResourceString(this, "OrderDetail_SelectReason");
+            ddlReasons.Items.Insert(0, new ListItem(defaultSelect, ""));
         }
 
         protected void btnCloseModal_Click(object sender, EventArgs e)
@@ -485,7 +486,7 @@ namespace OFFSIDESHOP
         {
             if (string.IsNullOrEmpty(ddlReasons.SelectedValue))
             {
-                lblModalError.Text = "Please select a valid reason from the list.";
+                lblModalError.Text = AlertHelper.GetResourceString(this, "OrderDetail_ErrorSelectReason");
                 lblModalError.Visible = true;
                 return;
             }
@@ -494,11 +495,11 @@ namespace OFFSIDESHOP
             string selectedReasonTitle = ddlReasons.SelectedItem.Text;
             string reasonText = txtReason.Text.Trim();
 
-            if (selectedReasonTitle.Contains("Other"))
+            if (selectedReasonTitle.Contains("Other") || selectedReasonTitle.Contains("Otro"))
             {
                 if (string.IsNullOrEmpty(reasonText) || reasonText.Length < 10)
                 {
-                    lblModalError.Text = "Since you selected 'Other', please provide more details in the comments field (minimum 10 characters).";
+                    lblModalError.Text = AlertHelper.GetResourceString(this, "OrderDetail_ErrorOtherReason");
                     lblModalError.Visible = true;
                     return;
                 }
@@ -520,7 +521,7 @@ namespace OFFSIDESHOP
             }
             else
             {
-                lblModalError.Text = "This action is no longer valid for the current state of the order.";
+                lblModalError.Text = AlertHelper.GetResourceString(this, "OrderDetail_ErrorInvalidAction");
                 lblModalError.Visible = true;
                 return;
             }
@@ -589,15 +590,18 @@ namespace OFFSIDESHOP
                                 EmailService.SendRefundNotification(customerEmail, customerName, idOrder.ToString(), orderTotal);
                             }
 
-                            string titleAlert = actionType == "CANCEL" ? "Order Cancelled" : "Refund Requested";
+                            string titleAlert = actionType == "CANCEL" 
+                                ? AlertHelper.GetResourceString(this, "OrderDetail_CancelSuccessTitle") 
+                                : AlertHelper.GetResourceString(this, "OrderDetail_RefundSuccessTitle");
+
                             string successMessage = actionType == "CANCEL"
-                                ? "Order cancelled successfully."
-                                : "Your refund request has been submitted to the administrator for review.";
+                                ? AlertHelper.GetResourceString(this, "OrderDetail_CancelSuccessText")
+                                : AlertHelper.GetResourceString(this, "OrderDetail_RefundSuccessText");
 
                             string swalScript = $@"
                                 Swal.fire({{
-                                    title: '{titleAlert}',
-                                    text: '{successMessage}',
+                                    title: '{titleAlert.Replace("'", "\\'")}',
+                                    text: '{successMessage.Replace("'", "\\'")}',
                                     icon: 'success',
                                     confirmButtonColor: '#FFC800'
                                 }}).then((result) => {{
@@ -654,8 +658,8 @@ namespace OFFSIDESHOP
 
         private void ShowAlert(string message)
         {
-            string cleanMessage = message.Replace("'", "\\'").Replace("\r\n", " ");
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "errorAlert", $"alert('{cleanMessage}');", true);
+            string script = AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", message, "error");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "errorAlert", script, true);
         }
 
         protected void btncerrar_Click(object sender, EventArgs e)

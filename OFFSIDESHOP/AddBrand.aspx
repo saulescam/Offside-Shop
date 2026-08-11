@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddBrand.aspx.cs" Inherits="OFFSIDESHOP.AddBrand" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddBrand.aspx.cs" Inherits="OFFSIDESHOP.AddBrand" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -210,7 +210,7 @@
                                                 <asp:LinkButton ID="lbDeleteBrand" runat="server"
                                                     CommandName="Delete"
                                                     CssClass="btn btn-sm btn-danger"
-                                                    OnClientClick="return confirm('Are you sure you want to delete this brand?');"
+                                                    OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteBrand") + "\");" %>'
                                                     Style="font-weight: 600; border-radius: 6px; padding: 4px 12px;">
                                                     <i class="fas fa-trash-alt mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Brand_Delete %>" />
                                                 </asp:LinkButton>

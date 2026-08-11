@@ -230,7 +230,7 @@ namespace OFFSIDESHOP
                     using (MySqlDataReader rdr = cmdL.ExecuteReader())
                     {
                         ddlLeague.Items.Clear();
-                        ddlLeague.Items.Add(new ListItem("All Leagues", ""));
+                        ddlLeague.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Search_AllLeagues"), ""));
                         while (rdr.Read())
                         {
                             ddlLeague.Items.Add(new ListItem(rdr["Name_League"].ToString(), rdr["Id_League"].ToString()));
@@ -241,7 +241,7 @@ namespace OFFSIDESHOP
                     using (MySqlDataReader rdr = cmdB.ExecuteReader())
                     {
                         ddlBrand.Items.Clear();
-                        ddlBrand.Items.Add(new ListItem("All Brands", ""));
+                        ddlBrand.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Search_AllBrands"), ""));
                         while (rdr.Read())
                         {
                             ddlBrand.Items.Add(new ListItem(rdr["Name_Brand"].ToString(), rdr["Id_Brand"].ToString()));
@@ -446,7 +446,7 @@ namespace OFFSIDESHOP
 
                             if (sb.Length == 0)
                             {
-                                litSizeGuideTable.Text = "<tr><td colspan='3' class='text-muted'>No size guide available for this brand.</td></tr>";
+                                litSizeGuideTable.Text = $"<tr><td colspan='3' class='text-muted'>{AlertHelper.GetResourceString(this, "Modal_NoSizeGuide")}</td></tr>";
                             }
                             else
                             {
@@ -500,13 +500,13 @@ namespace OFFSIDESHOP
                         {
                             btnAddCart.Enabled = false;
                             btnAddCart.CssClass = "btn btn-secondary w-100 disabled";
-                            btnAddCart.Text = "Out of Stock";
+                            btnAddCart.Text = AlertHelper.GetResourceString(this, "Detail_OutOfStock");
                         }
                         else
                         {
                             btnAddCart.Enabled = true;
                             btnAddCart.CssClass = "btn btn-buy w-100";
-                            btnAddCart.Text = "Add to Cart";
+                            btnAddCart.Text = AlertHelper.GetResourceString(this, "Detail_AddToCart");
                         }
                     }
                 }
