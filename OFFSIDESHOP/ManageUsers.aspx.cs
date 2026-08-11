@@ -97,7 +97,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                TriggerAlert("Error", ex.Message, "error");
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -179,7 +179,7 @@ namespace OFFSIDESHOP
 
             if (EsOwner(userId))
             {
-                TriggerAlert("Access Denied", "The main Owner role cannot be modified or deleted.", "warning");
+                TriggerAlert("Alert_Users_OwnerProtectTitle", "Alert_Users_OwnerProtectText", "warning");
                 return;
             }
 
@@ -194,7 +194,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@UserId", userId);
                         cmd.ExecuteNonQuery();
                     }
-                    TriggerAlert("Deleted", "User has been permanently deleted.", "success");
+                    TriggerAlert("Alert_DeletedTitle", "Alert_Users_DeletedText", "success");
                     LoadUsers();
                 }
                 else if (e.CommandName == "EditUser")
@@ -246,7 +246,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                TriggerAlert("Error", ex.Message, "error");
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -258,7 +258,7 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(mail) || string.IsNullOrEmpty(pass))
             {
-                TriggerAlert("Error", "Please fill all required fields.", "error");
+                TriggerAlert("Alert_ErrorTitle", "Alert_Users_FieldsRequired", "error");
                 return;
             }
 
@@ -281,12 +281,12 @@ namespace OFFSIDESHOP
                 }
 
                 txtNewUser.Text = ""; txtNewEmail.Text = ""; txtNewPass.Text = ""; ddlNewRole.SelectedIndex = 0;
-                TriggerAlert("Success", "User created. If it is an Admin, click 'Permissions' in the grid to grant access.", "success");
+                TriggerAlert("Alert_SuccessTitle", "Alert_Users_CreatedText", "success");
                 LoadUsers();
             }
             catch (Exception ex)
             {
-                TriggerAlert("Error", ex.Message, "error");
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -300,7 +300,7 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(mail))
             {
-                TriggerAlert("Error", "Username and Email cannot be empty.", "warning");
+                TriggerAlert("Alert_ErrorTitle", "Alert_Users_FieldsEmpty", "warning");
                 return;
             }
 
@@ -332,12 +332,12 @@ namespace OFFSIDESHOP
                 }
 
                 phEditUserModal.Visible = false;
-                TriggerAlert("Updated", "User information updated successfully.", "success");
+                TriggerAlert("Alert_SuccessTitle", "Alert_Users_UpdatedText", "success");
                 LoadUsers();
             }
             catch (Exception ex)
             {
-                TriggerAlert("Error", ex.Message, "error");
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -370,12 +370,12 @@ namespace OFFSIDESHOP
                 }
 
                 phPermissionsModal.Visible = false;
-                TriggerAlert("Saved", "Permissions have been configured successfully.", "success");
+                TriggerAlert("Alert_SuccessTitle", "Alert_Users_PermissionsSavedText", "success");
                 LoadUsers();
             }
             catch (Exception ex)
             {
-                TriggerAlert("Error", ex.Message, "error");
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -401,11 +401,9 @@ namespace OFFSIDESHOP
             }
         }
 
-        private void TriggerAlert(string title, string text, string icon)
+        private void TriggerAlert(string titleKey, string textKey, string icon)
         {
-            string safeTitle = title.Replace("'", "\\'");
-            string safeText = text.Replace("'", "\\'").Replace("\r\n", " ");
-            string script = $"Swal.fire('{safeTitle}', '{safeText}', '{icon}');";
+            string script = AlertHelper.GetSafeAlertScript(this, titleKey, textKey, icon);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "sweetalert", script, true);
         }
 

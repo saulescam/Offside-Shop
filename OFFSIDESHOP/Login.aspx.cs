@@ -60,19 +60,7 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrWhiteSpace(rawUser) || string.IsNullOrWhiteSpace(rawPass))
             {
-                string scriptBlank = @"
-            setTimeout(function() {
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        title: 'OOPS',
-                        text: 'Do not leave any blank spaces',
-                        icon: 'error',
-                        confirmButtonColor: '#FFC800'
-                    });
-                } else {
-                    alert('OOPS: Do not leave any blank spaces');
-                }
-            }, 50);";
+                string scriptBlank = AlertHelper.GetSafeAlertScript(this, "Alert_Login_OopsTitle", "Alert_Login_BlankSpaces", "error");
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "logBlank", scriptBlank, true);
                 return;
             }
@@ -206,19 +194,7 @@ namespace OFFSIDESHOP
                                 else
                                 {
                                     // Unknown role — deny access
-                                    string scriptDenied = @"
-                            setTimeout(function() {
-                                if (typeof Swal !== 'undefined') {
-                                    Swal.fire({
-                                        title: 'Access Denied',
-                                        text: 'Your account has an unknown role. Contact an administrator.',
-                                        icon: 'error',
-                                        confirmButtonColor: '#FFC800'
-                                    });
-                                } else {
-                                    alert('Access Denied: Your account has an unknown role. Contact an administrator.');
-                                }
-                            }, 50);";
+                                    string scriptDenied = AlertHelper.GetSafeAlertScript(this, "Alert_Login_DeniedTitle", "Alert_Login_UnknownRole", "error");
                                     ScriptManager.RegisterStartupScript(this, this.GetType(), "logDenied", scriptDenied, true);
                                     TxtContra.Text = "";
                                 }
@@ -227,19 +203,7 @@ namespace OFFSIDESHOP
 
                         if (!loginSuccess)
                         {
-                            string scriptWrong = @"
-                        setTimeout(function() {
-                            if (typeof Swal !== 'undefined') {
-                                Swal.fire({
-                                    title: 'Something went wrong',
-                                    text: 'User or password are incorrect',
-                                    icon: 'error',
-                                    confirmButtonColor: '#FFC800'
-                                });
-                            } else {
-                                alert('Something went wrong: User or password are incorrect');
-                            }
-                        }, 50);";
+                            string scriptWrong = AlertHelper.GetSafeAlertScript(this, "Alert_Login_WrongTitle", "Alert_Login_WrongCredentials", "error");
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "logWrong", scriptWrong, true);
                             TxtContra.Text = "";
                             TxtUsuario.Text = "";
@@ -249,20 +213,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                string errorMsg = HttpUtility.JavaScriptStringEncode(ex.Message);
-                string scriptError = $@"
-            setTimeout(function() {{
-                if (typeof Swal !== 'undefined') {{
-                    Swal.fire({{
-                        title: 'Error',
-                        text: '{errorMsg}',
-                        icon: 'error',
-                        confirmButtonColor: '#FFC800'
-                    }});
-                }} else {{
-                    alert('Error: ' + '{errorMsg}');
-                }}
-            }}, 50);";
+                string scriptError = AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", ex.Message, "error");
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "logError", scriptError, true);
             }
         }

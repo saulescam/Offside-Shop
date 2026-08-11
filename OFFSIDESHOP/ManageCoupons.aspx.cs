@@ -68,7 +68,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                TriggerSweetAlert("Error", $"Error loading coupons: {ex.Message}", "error");
+                TriggerSweetAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -104,19 +104,19 @@ namespace OFFSIDESHOP
             // Validaciones
             if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(discountStr) || string.IsNullOrEmpty(maxUsesStr))
             {
-                TriggerSweetAlert("Fields Required", "Please fill in all required fields.", "warning");
+                TriggerSweetAlert("Alert_Coupons_FieldsRequiredTitle", "Alert_Coupons_FieldsRequiredText", "warning");
                 return;
             }
 
             if (!int.TryParse(discountStr, out int discount) || discount < 1 || discount > 100)
             {
-                TriggerSweetAlert("Invalid Discount", "Discount percentage must be between 1 and 100.", "warning");
+                TriggerSweetAlert("Alert_Coupons_InvalidDiscountTitle", "Alert_Coupons_InvalidDiscountText", "warning");
                 return;
             }
 
             if (!int.TryParse(maxUsesStr, out int maxUses) || maxUses < 1)
             {
-                TriggerSweetAlert("Invalid Limit", "Maximum uses must be at least 1.", "warning");
+                TriggerSweetAlert("Alert_Coupons_InvalidLimitTitle", "Alert_Coupons_InvalidLimitText", "warning");
                 return;
             }
 
@@ -137,7 +137,7 @@ namespace OFFSIDESHOP
 
                     if (exists > 0)
                     {
-                        TriggerSweetAlert("Code Exists", "This coupon code already exists. Please choose a different one.", "error");
+                        TriggerSweetAlert("Alert_Coupons_CodeExistsTitle", "Alert_Coupons_CodeExistsText", "error");
                         return;
                     }
 
@@ -149,7 +149,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@MaxUses", maxUses);
                         cmd.Parameters.AddWithValue("@IsActive", isActive);
                         cmd.ExecuteNonQuery();
-                        TriggerSweetAlert("Created", "Coupon created successfully.", "success");
+                        TriggerSweetAlert("Alert_Coupons_CreatedTitle", "Alert_Coupons_CreatedText", "success");
                         AuditLogger.LogActivity("CREATE", "ManageCoupons", $"Created coupon ID #{editId}");
 
                     }
@@ -162,7 +162,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@IsActive", isActive);
                         cmd.Parameters.AddWithValue("@Id", editId);
                         cmd.ExecuteNonQuery();
-                        TriggerSweetAlert("Updated", "Coupon updated successfully.", "success");
+                        TriggerSweetAlert("Alert_Coupons_UpdatedTitle", "Alert_Coupons_UpdatedText", "success");
                         AuditLogger.LogActivity("UPDATE", "ManageCoupons", $"Updated coupon ID #{editId}");
                     }
                 }
@@ -172,7 +172,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                TriggerSweetAlert("Error", $"Database error: {ex.Message}", "error");
+                TriggerSweetAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -263,7 +263,7 @@ namespace OFFSIDESHOP
                             MySqlCommand cmd = new MySqlCommand("DELETE FROM coupons WHERE Id_Coupon = @Id", con);
                             cmd.Parameters.AddWithValue("@Id", couponId);
                             cmd.ExecuteNonQuery();
-                            TriggerSweetAlert("Deleted", "Coupon permanently removed.", "success");
+                            TriggerSweetAlert("Alert_DeletedTitle", "Alert_Coupons_DeletedText", "success");
                             AuditLogger.LogActivity("DELETE", "ManageCoupons", $"Deleted coupon ID #{couponId}");
 
                         }
@@ -273,7 +273,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                TriggerSweetAlert("Error", $"Operation failed: {ex.Message}", "error");
+                TriggerSweetAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -285,18 +285,9 @@ namespace OFFSIDESHOP
             return p > 100 ? 100 : (int)p;
         }
 
-        private void TriggerSweetAlert(string title, string text, string icon)
+        private void TriggerSweetAlert(string titleKey, string textKey, string icon)
         {
-            string cleanTitle = title.Replace("'", "\\'");
-            string cleanText = text.Replace("'", "\\'").Replace("\r\n", " ").Replace("\n", " ");
-
-            string script = $@"Swal.fire({{
-                title: '{cleanTitle}',
-                text: '{cleanText}',
-                icon: '{icon}',
-                confirmButtonColor: '#FFC800'
-            }});";
-
+            string script = AlertHelper.GetSafeAlertScript(this, titleKey, textKey, icon);
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), script, true);
         }
 

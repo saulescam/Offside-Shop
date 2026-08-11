@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using MySql.Data.MySqlClient;
 using System.Web.UI;
@@ -174,20 +174,20 @@ namespace OFFSIDESHOP
             // 1. VALIDACIÃ“N MAESTRA DE SESIÃ“N COACTIVA
             if (Session["Id_User"] == null)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Login Required', 'You must be logged into your account to submit a support request. Please Log In or Sign Up first.', 'warning');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_LoginRequiredTitle", "Alert_Contact_LoginRequiredText", "warning"), true);
                 return;
             }
 
             if (string.IsNullOrEmpty(ddlReason.SelectedValue))
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Error', 'Please select a reason for your request.', 'warning');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_SelectReason", "warning"), true);
                 return;
             }
 
             // 2. VALIDACIONES GENERALES DE TEXTO (Anti-Espacios en blanco y Sanidad)
             if (string.IsNullOrWhiteSpace(txtSubject.Text) || string.IsNullOrWhiteSpace(txtMessage.Text))
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Validation Error', 'Subject and Description fields cannot consist of empty spaces.', 'error');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_ValidationErrorTitle", "Alert_Contact_EmptySubjectDesc", "error"), true);
                 return;
             }
 
@@ -211,7 +211,7 @@ namespace OFFSIDESHOP
                 // CORREGIDO: parsedOrderId reemplaza a breweryId
                 if (string.IsNullOrEmpty(txtOrderId.Text) || !int.TryParse(txtOrderId.Text, out int parsedOrderId) || parsedOrderId <= 0)
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Error', 'Please provide a valid, positive numeric Order ID.', 'warning');", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_InvalidOrderId", "warning"), true);
                     return;
                 }
                 idOrder = parsedOrderId;
@@ -222,21 +222,21 @@ namespace OFFSIDESHOP
                 // A) ValidaciÃ³n de Presencia de Campos Obligatorios
                 if (string.IsNullOrEmpty(txtCondition.Text) || string.IsNullOrEmpty(txtPrice.Text) || string.IsNullOrEmpty(ddlSize.SelectedValue))
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Error', 'Condition, Jersey Size, and Proposed Price are strictly required fields.', 'warning');", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_FieldsRequired", "warning"), true);
                     return;
                 }
 
                 // B) ValidaciÃ³n Estricta de Precio (CORREGIDO: parsedPrice reemplaza a priceVal)
                 if (!decimal.TryParse(txtPrice.Text, out decimal parsedPrice) || parsedPrice <= 0)
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Invalid Price', 'Proposed price must be a positive number greater than zero.', 'error');", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_InvalidPriceTitle", "Alert_Contact_InvalidPriceText", "error"), true);
                     return;
                 }
 
                 // C) ValidaciÃ³n Estricta de Escala NumÃ©rica de CondiciÃ³n (CORREGIDO: parsedCondition reemplaza a conditionVal)
                 if (!int.TryParse(txtCondition.Text, out int parsedCondition) || parsedCondition < 1 || parsedCondition > 10)
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Invalid Condition', 'Condition grade must be a strict integer scale between 1 and 10.', 'error');", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_InvalidConditionTitle", "Alert_Contact_InvalidConditionText", "error"), true);
                     return;
                 }
 
@@ -248,7 +248,7 @@ namespace OFFSIDESHOP
                 // E) ValidaciÃ³n de ImÃ¡genes Corporativa
                 if (!fileImages.HasFiles)
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", "Swal.fire('Error', 'At least one image is required to evaluate your jersey.', 'warning');", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_ImageRequired", "warning"), true);
                     return;
                 }
 
@@ -263,13 +263,15 @@ namespace OFFSIDESHOP
                         string ext = Path.GetExtension(file.FileName).ToLower();
                         if (Array.IndexOf(allowedExtensions, ext) == -1)
                         {
-                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", $"Swal.fire('Invalid Format', 'El archivo {file.FileName} no estÃ¡ permitido. Solo se aceptan JPG, JPEG, PNG y WEBP.', 'error');", true);
+                            string invalidFormatMsg = string.Format(AlertHelper.GetResourceString(this, "Alert_Contact_InvalidFormatText"), file.FileName);
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_InvalidFormatTitle", invalidFormatMsg, "error"), true);
                             return;
                         }
 
                         if (file.ContentLength > maxFileSizeBytes)
                         {
-                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", $"Swal.fire('File too large', 'La imagen {file.FileName} supera los 2MB permitidos.', 'error');", true);
+                            string fileTooLargeMsg = string.Format(AlertHelper.GetResourceString(this, "Alert_Contact_FileTooLargeText"), file.FileName);
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_FileTooLargeTitle", fileTooLargeMsg, "error"), true);
                             return;
                         }
                     }
@@ -321,11 +323,11 @@ namespace OFFSIDESHOP
                         pnlOrderIssue.Visible = false;
                         pnlSellJersey.Visible = false;
 
-                        ScriptManager.RegisterStartupScript(this, GetType(), "success", "Swal.fire('Request Submitted', 'Your request has been successfully submitted to our support team.', 'success');", true);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "success", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_SuccessTitle", "Alert_Contact_SuccessText", "success"), true);
                     }
                     catch (Exception ex)
                     {
-                        ScriptManager.RegisterStartupScript(this, GetType(), "alert", $"Swal.fire('Error', 'Could not submit your request. Error: {ex.Message.Replace("'", "")}', 'error');", true);
+                        ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", ex.Message, "error"), true);
                     }
                 }
             }

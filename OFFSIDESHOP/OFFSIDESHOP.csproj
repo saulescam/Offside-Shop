@@ -353,6 +353,7 @@
       <DependentUpon>Strings.es.resx</DependentUpon>
     </Compile>
     <Compile Include="AuditLogger.cs" />
+    <Compile Include="AlertHelper.cs" />
     <Compile Include="AdminBanners.aspx.cs">
       <DependentUpon>AdminBanners.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

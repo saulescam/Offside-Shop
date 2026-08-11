@@ -414,7 +414,7 @@ namespace OFFSIDESHOP
                         }
                         catch (Exception) { }
 
-                        ShowAlert("Request Denied", "The support ticket has been marked as Denied.", "info");
+                        ShowAlert("Alert_Seller_RequestDeniedTitle", "Alert_Seller_RequestDeniedText", "info");
                         phDetailModal.Visible = false;
                         LoadTickets();
                         AuditLogger.LogActivity("DENY", "ManageSellerRequests", $"Denied ticket ID #{ticketId}");
@@ -564,7 +564,7 @@ namespace OFFSIDESHOP
                             }
                             catch (Exception) { }
 
-                            ShowAlert("Approved & Published", "The request was successfully approved and the jersey added to the catalog.", "success");
+                            ShowAlert("Alert_Seller_ApprovedTitle", "Alert_Seller_ApprovedText", "success");
                             phDetailModal.Visible = false;
                             LoadTickets();
                             AuditLogger.LogActivity("APPROVE", "ManageSellerRequests", $"Approved ticket ID #{ticketId}");
@@ -604,7 +604,7 @@ namespace OFFSIDESHOP
                             }
                             catch (Exception) { }
 
-                            ShowAlert("Resolved", "The ticket has been marked as Resolved.", "success");
+                            ShowAlert("Alert_Seller_ResolvedTitle", "Alert_Seller_ResolvedText", "success");
                             AuditLogger.LogActivity("RESOLVE", "ManageSellerRequests", $"Resolved ticket ID #{ticketId}");
 
                             phDetailModal.Visible = false;
@@ -620,15 +620,16 @@ namespace OFFSIDESHOP
             }
         }
 
-        private void ShowAlert(string title, string text, string icon)
+        private void ShowAlert(string titleKey, string textKey, string icon)
         {
-            string script = $"Swal.fire('{title.Replace("'", "\\'")}', '{text.Replace("'", "\\'")}', '{icon}');";
+            string script = AlertHelper.GetSafeAlertScript(this, titleKey, textKey, icon);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
         }
 
-        private void ShowAlert(string text, string icon)
+        private void ShowAlert(string textKey, string icon)
         {
-            ShowAlert("Alert", text, icon);
+            string titleKey = icon == "error" ? "Alert_ErrorTitle" : "Alert_WarningTitle";
+            ShowAlert(titleKey, textKey, icon);
         }
 
         // Sidebar Redirections
@@ -751,7 +752,7 @@ namespace OFFSIDESHOP
                         {
                             conn.Open();
                             cmd.ExecuteNonQuery();
-                            ShowAlert("Deleted", "The review has been deleted.", "success");
+                            ShowAlert("Alert_DeletedTitle", "Alert_Seller_ReviewDeletedText", "success");
                             AuditLogger.LogActivity("DELETE", "ManageSellerRequests", $"Deleted review ID #{reviewId}");
 
                             LoadReviews();
@@ -828,7 +829,7 @@ namespace OFFSIDESHOP
                     {
                         conn.Open();
                         cmd.ExecuteNonQuery();
-                        ShowAlert("Success", "Your reply has been saved.", "success");
+                        ShowAlert("Alert_SuccessTitle", "Alert_Seller_ReplySavedText", "success");
                         AuditLogger.LogActivity("REPLY", "ManageSellerRequests", $"Replied to review ID #{reviewId}");
 
                         phReplyModal.Visible = false;

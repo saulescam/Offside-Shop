@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System;
 using System.Web;
 using System.Web.UI;
@@ -50,7 +50,7 @@ namespace OFFSIDESHOP
         {
             if (Session["Id_User"] == null)
             {
-                ShowSweetAlert("Error", "Session Id_User is empty.", "error");
+                ShowSweetAlert("Alert_ErrorTitle", "Alert_Account_SessionEmpty", "error");
                 return;
             }
 
@@ -91,13 +91,14 @@ namespace OFFSIDESHOP
                             }
                             else
                             {
-                                ShowSweetAlert("Data Error", "User ID " + userId + " not found in database.", "warning");
+                                string userNotFoundMsg = string.Format(AlertHelper.GetResourceString(this, "Alert_Account_UserNotFound"), userId);
+                                ShowSweetAlert("Alert_DataErrorTitle", userNotFoundMsg, "warning");
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        ShowSweetAlert("Database Error", ex.Message, "error");
+                        ShowSweetAlert("Alert_DatabaseErrorTitle", ex.Message, "error");
                     }
                 }
             }
@@ -147,13 +148,13 @@ namespace OFFSIDESHOP
                         int affected = cmd.ExecuteNonQuery();
                         if (affected > 0)
                         {
-                            ShowSweetAlert("Success", "Profile and Default Location updated successfully.", "success");
+                            ShowSweetAlert("Alert_SuccessTitle", "Alert_Account_ProfileUpdated", "success");
                             LoadUserData();
                         }
                     }
                     catch (Exception ex)
                     {
-                        ShowSweetAlert("Error", ex.Message, "error");
+                        ShowSweetAlert("Alert_ErrorTitle", ex.Message, "error");
                     }
                 }
             }
@@ -194,19 +195,19 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@ID", userId);
                         conn.Open();
                         cmd.ExecuteNonQuery();
-                        ShowSweetAlert("Success", "Password updated.", "success");
+                        ShowSweetAlert("Alert_SuccessTitle", "Alert_Account_PasswordUpdated", "success");
                     }
                 }
             }
             else
             {
-                ShowSweetAlert("Error", "Invalid current password.", "error");
+                ShowSweetAlert("Alert_ErrorTitle", "Alert_Account_InvalidCurrentPassword", "error");
             }
         }
 
-        private void ShowSweetAlert(string title, string text, string iconType)
+        private void ShowSweetAlert(string titleKey, string textKey, string iconType)
         {
-            string script = $@"Swal.fire({{title: '{title}', text: '{text}', icon: '{iconType}', confirmButtonColor: '#FFC800'}});";
+            string script = AlertHelper.GetSafeAlertScript(this, titleKey, textKey, iconType);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
         }
 

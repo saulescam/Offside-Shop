@@ -210,7 +210,7 @@ namespace OFFSIDESHOP
                         else
                         {
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "orderTaken",
-                                "Swal.fire('Too late!', 'Another driver just accepted this order.', 'info');", true);
+                                AlertHelper.GetSafeAlertScript(this, "Alert_Driver_TooLateTitle", "Alert_Driver_TooLateText", "info"), true);
                             LoadRadar();
                         }
                     }
@@ -368,7 +368,8 @@ namespace OFFSIDESHOP
                 }
             }
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "success", "Swal.fire('Great Job!', 'Order delivered successfully.', 'success');", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "success",
+                AlertHelper.GetSafeAlertScript(this, "Alert_Driver_SuccessTitle", "Alert_Driver_SuccessText", "success"), true);
             mvDriver.ActiveViewIndex = 0;
             LoadRadar();
         }

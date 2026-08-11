@@ -127,7 +127,7 @@ namespace OFFSIDESHOP
                             }
                             else
                             {
-                                TriggerSweetAlert("Not Found", "The requested order document reference does not exist.", "warning");
+                                TriggerSweetAlert("Alert_Orders_NotFoundTitle", "Alert_Orders_NotFoundText", "warning");
                                 return;
                             }
                         }
@@ -150,7 +150,8 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                TriggerSweetAlert("Error", $"Could not load order details breakdown: {ex.Message}", "error");
+                string msg = string.Format(AlertHelper.GetResourceString(this, "Alert_Orders_LoadDetailsError"), HttpUtility.HtmlEncode(ex.Message));
+                TriggerSweetAlert("Alert_ErrorTitle", msg, "error");
             }
         }
 
@@ -327,7 +328,8 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                TriggerSweetAlert("Error", $"Error loading systems telemetry orders: {ex.Message}", "error");
+                string msg = string.Format(AlertHelper.GetResourceString(this, "Alert_Orders_LoadTelemetryError"), HttpUtility.HtmlEncode(ex.Message));
+                TriggerSweetAlert("Alert_ErrorTitle", msg, "error");
             }
         }
 
@@ -420,13 +422,17 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                TriggerSweetAlert("Success", "Order status operational scope updated successfully!", "success");
+                TriggerSweetAlert("Alert_SuccessTitle", "Alert_Orders_StatusUpdatedText", "success");
                 AuditLogger.LogActivity("UPDATE", "ManageOrders", $"Updated order ID #{orderId} to status ID #{newStatusId}");
 
                 LoadOrders();
                 UpdateRefundBadgeCount();
             }
-            catch (Exception ex) { TriggerSweetAlert("Error", $"Error updating administrative order status: {ex.Message}", "error"); }
+            catch (Exception ex)
+            {
+                string msg = string.Format(AlertHelper.GetResourceString(this, "Alert_Orders_StatusUpdateError"), HttpUtility.HtmlEncode(ex.Message));
+                TriggerSweetAlert("Alert_ErrorTitle", msg, "error");
+            }
         }
         #endregion
 
@@ -455,7 +461,11 @@ namespace OFFSIDESHOP
                     gvRefunds.DataBind();
                 }
             }
-            catch (Exception ex) { TriggerSweetAlert("Error", $"Error loading outstanding refund request queues: {ex.Message}", "error"); }
+            catch (Exception ex)
+            {
+                string msg = string.Format(AlertHelper.GetResourceString(this, "Alert_Orders_LoadRefundQueueError"), HttpUtility.HtmlEncode(ex.Message));
+                TriggerSweetAlert("Alert_ErrorTitle", msg, "error");
+            }
         }
 
         protected void lnkEvaluateRefund_Click(object sender, EventArgs e)
@@ -514,7 +524,11 @@ namespace OFFSIDESHOP
                     }
                 }
             }
-            catch (Exception ex) { TriggerSweetAlert("Error", $"Critical database verification exception: {ex.Message}", "error"); }
+            catch (Exception ex)
+            {
+                string msg = string.Format(AlertHelper.GetResourceString(this, "Alert_Orders_VerificationError"), HttpUtility.HtmlEncode(ex.Message));
+                TriggerSweetAlert("Alert_ErrorTitle", msg, "error");
+            }
         }
 
         protected void btnCloseModal_Click(object sender, EventArgs e)
@@ -621,7 +635,7 @@ namespace OFFSIDESHOP
                         UnlockBackgroundScroll();
 
                         EmailService.SendRefundApprovedNotification(customerEmail, customerName, orderId.ToString(), refundAmount, resolutionNotes);
-                        TriggerSweetAlert("Approved", "Sandbox refund authorization cleared successfully.", "success");
+                        TriggerSweetAlert("Alert_Orders_RefundApprovedTitle", "Alert_Orders_RefundApprovedText", "success");
                         AuditLogger.LogActivity("APPROVE", "ManageOrders", $"Approved refund for order ID #{orderId}");
 
                         LoadRefundTickets();
@@ -736,7 +750,7 @@ namespace OFFSIDESHOP
                         UnlockBackgroundScroll();
 
                         EmailService.SendRefundDeniedNotification(customerEmail, customerName, orderId.ToString(), resolutionNotes);
-                        TriggerSweetAlert("Ticket Denied", "The request has been officially closed and rejected.", "info");
+                        TriggerSweetAlert("Alert_Orders_RefundDeniedTitle", "Alert_Orders_RefundDeniedText", "info");
                         AuditLogger.LogActivity("DENY", "ManageOrders", $"Denied refund for order ID #{orderId}");
 
                         LoadRefundTickets();
@@ -754,8 +768,11 @@ namespace OFFSIDESHOP
         #endregion
 
         #region UTILITY HELPER METHOD WITH SCALED CUSTOM SWEETALERT
-        private void TriggerSweetAlert(string title, string text, string icon)
+        private void TriggerSweetAlert(string titleKey, string textKey, string icon)
         {
+            string title = AlertHelper.GetResourceString(this, titleKey);
+            string text = AlertHelper.GetResourceString(this, textKey);
+
             string cleanTitle = title.Replace("'", "\\'");
             string cleanText = text.Replace("'", "\\'").Replace("\r\n", " ").Replace("\n", " ");
             string script = $@"Swal.fire({{ title: '{cleanTitle}', text: '{cleanText}', icon: '{icon}', confirmButtonColor: '#FFC800', customClass: 'custom-swal-popup' }});";

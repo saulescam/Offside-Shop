@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContactSupport.aspx.cs" Inherits="OFFSIDESHOP.ContactSupport" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContactSupport.aspx.cs" Inherits="OFFSIDESHOP.ContactSupport" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
 <!DOCTYPE html>
@@ -212,7 +212,7 @@
 
             // Validate file limit count
             if (fileList.length > 3) {
-                Swal.fire('Limit Reached', 'You can only upload a maximum of 3 images.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_LimitReachedTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Contact_LimitReachedText") %>', 'warning');
                 return;
             }
 
@@ -222,11 +222,13 @@
             for (let file of fileList) {
                 let ext = '.' + file.name.split('.').pop().toLowerCase();
                 if (!allowedExtensions.includes(ext)) {
-                    Swal.fire('Format Error', `The file "${file.name}" is not supported. Only JPG, JPEG, PNG, and WEBP formats are accepted.`, 'error');
+                    let msg = '<%= GetGlobalResourceObject("Strings", "Alert_Contact_FormatErrorText") %>'.replace('{0}', file.name);
+                    Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_FormatErrorTitle") %>', msg, 'error');
                     return;
                 }
                 if (file.size > maxSizeBytes) {
-                    Swal.fire('File Too Large', `The image "${file.name}" exceeds the 2MB size limit.`, 'error');
+                    let msg = '<%= GetGlobalResourceObject("Strings", "Alert_Contact_TooLargeText") %>'.replace('{0}', file.name);
+                    Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_TooLargeTitle") %>', msg, 'error');
                     return;
                 }
             }

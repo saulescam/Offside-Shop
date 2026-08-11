@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2141,5 +2141,665 @@
   </data>
   <data name="Auth_AlreadyAccount" xml:space="preserve">
     <value>¿Ya tienes una cuenta?</value>
+  </data>
+  <data name="Alert_ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Alert_SuccessTitle" xml:space="preserve">
+    <value>¡Éxito!</value>
+  </data>
+  <data name="Alert_WarningTitle" xml:space="preserve">
+    <value>Advertencia</value>
+  </data>
+  <data name="Alert_InfoTitle" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="Alert_DeletedTitle" xml:space="preserve">
+    <value>Eliminado</value>
+  </data>
+  <data name="Alert_Brand_Empty" xml:space="preserve">
+    <value>Por favor, ingrese el nombre de la marca.</value>
+  </data>
+  <data name="Alert_Brand_Saved" xml:space="preserve">
+    <value>¡La marca se guardó correctamente!</value>
+  </data>
+  <data name="Alert_Brand_Deleted" xml:space="preserve">
+    <value>La marca fue eliminada correctamente.</value>
+  </data>
+  <data name="Alert_Login_OopsTitle" xml:space="preserve">
+    <value>¡Vaya!</value>
+  </data>
+  <data name="Alert_Login_BlankSpaces" xml:space="preserve">
+    <value>Por favor, no deje ningún espacio en blanco.</value>
+  </data>
+  <data name="Alert_Login_DeniedTitle" xml:space="preserve">
+    <value>Acceso Denegado</value>
+  </data>
+  <data name="Alert_Login_UnknownRole" xml:space="preserve">
+    <value>Su cuenta tiene un rol desconocido. Póngase en contacto con un administrador.</value>
+  </data>
+  <data name="Alert_Login_WrongTitle" xml:space="preserve">
+    <value>Algo salió mal</value>
+  </data>
+  <data name="Alert_Login_WrongCredentials" xml:space="preserve">
+    <value>El usuario o la contraseña son incorrectos.</value>
+  </data>
+  <data name="Alert_ChangePass_Success" xml:space="preserve">
+    <value>¡Contraseña actualizada con éxito!</value>
+  </data>
+  <data name="Alert_ChangePass_MismatchTitle" xml:space="preserve">
+    <value>¡Contraseñas diferentes!</value>
+  </data>
+  <data name="Alert_ChangePass_MismatchText" xml:space="preserve">
+    <value>Las contraseñas no coinciden.</value>
+  </data>
+  <data name="Alert_ChangePass_EmptyFields" xml:space="preserve">
+    <value>No deje espacios en blanco.</value>
+  </data>
+  <data name="Alert_Recover_UserNotFound" xml:space="preserve">
+    <value>El usuario o correo electrónico no fue encontrado.</value>
+  </data>
+  <data name="Alert_Recover_EmailSent" xml:space="preserve">
+    <value>El token de verificación fue enviado con éxito.</value>
+  </data>
+  <data name="Alert_Recover_ErrorProcessing" xml:space="preserve">
+    <value>Ocurrió un error al procesar su solicitud.</value>
+  </data>
+  <data name="Alert_Recover_SentTitle" xml:space="preserve">
+    <value>Le hemos enviado un correo electrónico</value>
+  </data>
+  <data name="Alert_Token_SuccessTitle" xml:space="preserve">
+    <value>¡Código de verificación correcto!</value>
+  </data>
+  <data name="Alert_Token_SuccessText" xml:space="preserve">
+    <value>Procediendo a restablecer su contraseña...</value>
+  </data>
+  <data name="Alert_Token_IncorrectTitle" xml:space="preserve">
+    <value>¡Código Incorrecto!</value>
+  </data>
+  <data name="Alert_Token_IncorrectText" xml:space="preserve">
+    <value>El código no coincide, por favor revise su correo electrónico nuevamente.</value>
+  </data>
+  <data name="Alert_DatabaseErrorTitle" xml:space="preserve">
+    <value>Error de Base de Datos</value>
+  </data>
+  <data name="Alert_SignUp_UserExists" xml:space="preserve">
+    <value>El nombre de usuario o correo electrónico ya está registrado.</value>
+  </data>
+  <data name="Alert_SignUp_UserExistsTitle" xml:space="preserve">
+    <value>El usuario ya existe</value>
+  </data>
+  <data name="Alert_SignUp_MailError" xml:space="preserve">
+    <value>No se pudo enviar el correo de verificación. Asegúrese de que su configuración SMTP sea correcta.</value>
+  </data>
+  <data name="Alert_SignUp_PassMismatch" xml:space="preserve">
+    <value>Por favor, repita su contraseña correctamente.</value>
+  </data>
+  <data name="Alert_SignUp_PassMismatchTitle" xml:space="preserve">
+    <value>Contraseña Incorrecta</value>
+  </data>
+  <data name="Alert_SignUp_BlankFields" xml:space="preserve">
+    <value>Por favor, no deje ningún campo en blanco.</value>
+  </data>
+  <data name="Alert_SignUp_VerifiedTitle" xml:space="preserve">
+    <value>¡Verificado y Registrado!</value>
+  </data>
+  <data name="Alert_SignUp_VerifiedText" xml:space="preserve">
+    <value>Su cuenta ha sido creada exitosamente.</value>
+  </data>
+  <data name="Alert_SignUp_InvalidToken" xml:space="preserve">
+    <value>El código de verificación que ingresó es incorrecto.</value>
+  </data>
+  <data name="Alert_SignUp_InvalidTokenTitle" xml:space="preserve">
+    <value>Código Inválido</value>
+  </data>
+  <data name="Alert_SignUp_SendingTokenTitle" xml:space="preserve">
+    <value>Enviando código de verificación...</value>
+  </data>
+  <data name="Alert_SignUp_SendingTokenText" xml:space="preserve">
+    <value>Por favor, espere un momento mientras configuramos su cuenta.</value>
+  </data>
+  <data name="Alert_SignUp_VerifyingTokenTitle" xml:space="preserve">
+    <value>Verificando código...</value>
+  </data>
+  <data name="Alert_Contact_LoginRequiredTitle" xml:space="preserve">
+    <value>Inicio de Sesión Requerido</value>
+  </data>
+  <data name="Alert_Contact_LoginRequiredText" xml:space="preserve">
+    <value>Debe iniciar sesión en su cuenta para enviar una solicitud de soporte. Por favor, inicie sesión o regístrese primero.</value>
+  </data>
+  <data name="Alert_Contact_SelectReason" xml:space="preserve">
+    <value>Por favor, seleccione un motivo para su solicitud.</value>
+  </data>
+  <data name="Alert_Contact_ValidationErrorTitle" xml:space="preserve">
+    <value>Error de Validación</value>
+  </data>
+  <data name="Alert_Contact_EmptySubjectDesc" xml:space="preserve">
+    <value>Los campos de Asunto y Descripción no pueden consistir en espacios vacíos.</value>
+  </data>
+  <data name="Alert_Contact_InvalidOrderId" xml:space="preserve">
+    <value>Por favor, proporcione un ID de Pedido numérico, positivo y válido.</value>
+  </data>
+  <data name="Alert_Contact_FieldsRequired" xml:space="preserve">
+    <value>La condición, la talla de la camiseta y el precio propuesto son campos estrictamente requeridos.</value>
+  </data>
+  <data name="Alert_Contact_InvalidPriceTitle" xml:space="preserve">
+    <value>Precio Inválido</value>
+  </data>
+  <data name="Alert_Contact_InvalidPriceText" xml:space="preserve">
+    <value>El precio propuesto debe ser un número positivo mayor que cero.</value>
+  </data>
+  <data name="Alert_Contact_InvalidConditionTitle" xml:space="preserve">
+    <value>Condición Inválida</value>
+  </data>
+  <data name="Alert_Contact_InvalidConditionText" xml:space="preserve">
+    <value>El grado de condición debe ser una escala de enteros estricta entre 1 y 10.</value>
+  </data>
+  <data name="Alert_Contact_ImageRequired" xml:space="preserve">
+    <value>Se requiere al menos una imagen para evaluar su camiseta.</value>
+  </data>
+  <data name="Alert_Contact_InvalidFormatTitle" xml:space="preserve">
+    <value>Formato Inválido</value>
+  </data>
+  <data name="Alert_Contact_InvalidFormatText" xml:space="preserve">
+    <value>El archivo {0} no está permitido. Solo se aceptan JPG, JPEG, PNG y WEBP.</value>
+  </data>
+  <data name="Alert_Contact_FileTooLargeTitle" xml:space="preserve">
+    <value>Archivo demasiado grande</value>
+  </data>
+  <data name="Alert_Contact_FileTooLargeText" xml:space="preserve">
+    <value>La imagen {0} supera los 2MB permitidos.</value>
+  </data>
+  <data name="Alert_Contact_SuccessTitle" xml:space="preserve">
+    <value>Solicitud Enviada</value>
+  </data>
+  <data name="Alert_Contact_SuccessText" xml:space="preserve">
+    <value>Su solicitud ha sido enviada con éxito a nuestro equipo de soporte.</value>
+  </data>
+  <data name="Alert_Account_SessionEmpty" xml:space="preserve">
+    <value>El ID de usuario de la sesión está vacío.</value>
+  </data>
+  <data name="Alert_DataErrorTitle" xml:space="preserve">
+    <value>Error de Datos</value>
+  </data>
+  <data name="Alert_Account_UserNotFound" xml:space="preserve">
+    <value>ID de usuario {0} no encontrado en la base de datos.</value>
+  </data>
+  <data name="Alert_Account_ProfileUpdated" xml:space="preserve">
+    <value>Perfil y ubicación predeterminada actualizados con éxito.</value>
+  </data>
+  <data name="Alert_Account_PasswordUpdated" xml:space="preserve">
+    <value>Contraseña actualizada.</value>
+  </data>
+  <data name="Alert_Account_InvalidCurrentPassword" xml:space="preserve">
+    <value>Contraseña actual inválida.</value>
+  </data>
+  <data name="Alert_Smtp_LoadError" xml:space="preserve">
+    <value>No se pudo cargar la configuración SMTP: {0}</value>
+  </data>
+  <data name="Alert_Smtp_RequiredFields" xml:space="preserve">
+    <value>Todos los campos con un asterisco (*) son requeridos.</value>
+  </data>
+  <data name="Alert_Smtp_UpdatedSuccess" xml:space="preserve">
+    <value>Configuración SMTP actualizada con éxito.</value>
+  </data>
+  <data name="Alert_Smtp_LoadChatbotError" xml:space="preserve">
+    <value>No se pudo cargar la configuración del Chatbot: {0}</value>
+  </data>
+  <data name="Alert_Smtp_ChatbotUpdatedSuccess" xml:space="preserve">
+    <value>Estado del Chatbot actualizado con éxito.</value>
+  </data>
+  <data name="Alert_Users_OwnerProtectTitle" xml:space="preserve">
+    <value>Acceso Denegado</value>
+  </data>
+  <data name="Alert_Users_OwnerProtectText" xml:space="preserve">
+    <value>El rol de Propietario principal no puede ser modificado ni eliminado.</value>
+  </data>
+  <data name="Alert_Users_DeletedText" xml:space="preserve">
+    <value>El usuario ha sido eliminado permanentemente.</value>
+  </data>
+  <data name="Alert_Users_FieldsRequired" xml:space="preserve">
+    <value>Por favor, complete todos los campos requeridos.</value>
+  </data>
+  <data name="Alert_Users_CreatedText" xml:space="preserve">
+    <value>Usuario creado. Si es un Administrador, haga clic en 'Permisos' en la cuadrícula para otorgar acceso.</value>
+  </data>
+  <data name="Alert_Users_FieldsEmpty" xml:space="preserve">
+    <value>El nombre de usuario y el correo electrónico no pueden estar vacíos.</value>
+  </data>
+  <data name="Alert_Users_UpdatedText" xml:space="preserve">
+    <value>Información del usuario actualizada con éxito.</value>
+  </data>
+  <data name="Alert_Users_PermissionsSavedText" xml:space="preserve">
+    <value>Los permisos han sido configurados con éxito.</value>
+  </data>
+  <data name="Alert_Seller_RequestDeniedTitle" xml:space="preserve">
+    <value>Solicitud Denegada</value>
+  </data>
+  <data name="Alert_Seller_RequestDeniedText" xml:space="preserve">
+    <value>El ticket de soporte ha sido marcado como Denegado.</value>
+  </data>
+  <data name="Alert_Seller_ApprovedTitle" xml:space="preserve">
+    <value>Aprobado y Publicado</value>
+  </data>
+  <data name="Alert_Seller_ApprovedText" xml:space="preserve">
+    <value>La solicitud fue aprobada con éxito y la camiseta fue añadida al catálogo.</value>
+  </data>
+  <data name="Alert_Seller_ResolvedTitle" xml:space="preserve">
+    <value>Resuelto</value>
+  </data>
+  <data name="Alert_Seller_ResolvedText" xml:space="preserve">
+    <value>El ticket ha sido marcado como Resuelto.</value>
+  </data>
+  <data name="Alert_Seller_ReviewDeletedText" xml:space="preserve">
+    <value>La reseña ha sido eliminada.</value>
+  </data>
+  <data name="Alert_Seller_ReplySavedText" xml:space="preserve">
+    <value>Su respuesta ha sido guardada.</value>
+  </data>
+  <data name="Alert_Orders_NotFoundTitle" xml:space="preserve">
+    <value>No Encontrado</value>
+  </data>
+  <data name="Alert_Orders_NotFoundText" xml:space="preserve">
+    <value>La referencia del documento de pedido solicitada no existe.</value>
+  </data>
+  <data name="Alert_Orders_LoadDetailsError" xml:space="preserve">
+    <value>No se pudo cargar el desglose de detalles del pedido: {0}</value>
+  </data>
+  <data name="Alert_Orders_LoadTelemetryError" xml:space="preserve">
+    <value>Error al cargar las órdenes de telemetría de sistemas: {0}</value>
+  </data>
+  <data name="Alert_Orders_StatusUpdatedText" xml:space="preserve">
+    <value>¡El alcance operativo del estado del pedido se actualizó con éxito!</value>
+  </data>
+  <data name="Alert_Orders_StatusUpdateError" xml:space="preserve">
+    <value>Error al actualizar el estado del pedido administrativo: {0}</value>
+  </data>
+  <data name="Alert_Orders_LoadRefundQueueError" xml:space="preserve">
+    <value>Error al cargar las colas de solicitudes de reembolso pendientes: {0}</value>
+  </data>
+  <data name="Alert_Orders_VerificationError" xml:space="preserve">
+    <value>Excepción crítica de verificación de base de datos: {0}</value>
+  </data>
+  <data name="Alert_Orders_RefundApprovedTitle" xml:space="preserve">
+    <value>Aprobado</value>
+  </data>
+  <data name="Alert_Orders_RefundApprovedText" xml:space="preserve">
+    <value>La autorización de reembolso de Sandbox se liquidó con éxito.</value>
+  </data>
+  <data name="Alert_Orders_RefundDeniedTitle" xml:space="preserve">
+    <value>Ticket Denegado</value>
+  </data>
+  <data name="Alert_Orders_RefundDeniedText" xml:space="preserve">
+    <value>La solicitud ha sido cerrada y rechazada oficialmente.</value>
+  </data>
+  <data name="Alert_Coupons_FieldsRequiredTitle" xml:space="preserve">
+    <value>Campos Requeridos</value>
+  </data>
+  <data name="Alert_Coupons_FieldsRequiredText" xml:space="preserve">
+    <value>Por favor, complete todos los campos requeridos.</value>
+  </data>
+  <data name="Alert_Coupons_InvalidDiscountTitle" xml:space="preserve">
+    <value>Descuento Inválido</value>
+  </data>
+  <data name="Alert_Coupons_InvalidDiscountText" xml:space="preserve">
+    <value>El porcentaje de descuento debe estar entre 1 y 100.</value>
+  </data>
+  <data name="Alert_Coupons_InvalidLimitTitle" xml:space="preserve">
+    <value>Límite Inválido</value>
+  </data>
+  <data name="Alert_Coupons_InvalidLimitText" xml:space="preserve">
+    <value>Los usos máximos deben ser al menos 1.</value>
+  </data>
+  <data name="Alert_Coupons_CodeExistsTitle" xml:space="preserve">
+    <value>El Código ya Existe</value>
+  </data>
+  <data name="Alert_Coupons_CodeExistsText" xml:space="preserve">
+    <value>Este código de cupón ya existe. Por favor elija uno diferente.</value>
+  </data>
+  <data name="Alert_Coupons_CreatedTitle" xml:space="preserve">
+    <value>Creado</value>
+  </data>
+  <data name="Alert_Coupons_CreatedText" xml:space="preserve">
+    <value>Cupón creado con éxito.</value>
+  </data>
+  <data name="Alert_Coupons_UpdatedTitle" xml:space="preserve">
+    <value>Actualizado</value>
+  </data>
+  <data name="Alert_Coupons_UpdatedText" xml:space="preserve">
+    <value>Cupón actualizado con éxito.</value>
+  </data>
+  <data name="Alert_Coupons_DeletedText" xml:space="preserve">
+    <value>Cupón eliminado permanentemente.</value>
+  </data>
+  <data name="Alert_DatabaseErrorTitle" xml:space="preserve">
+    <value>Error de Base de Datos</value>
+  </data>
+  <data name="Alert_Products_StatusToggled" xml:space="preserve">
+    <value>Estado cambiado</value>
+  </data>
+  <data name="Alert_Products_DescriptionGenerated" xml:space="preserve">
+    <value>¡Descripción generada con IA!</value>
+  </data>
+  <data name="Alert_Products_DeletedText" xml:space="preserve">
+    <value>La camiseta ha sido eliminada permanentemente.</value>
+  </data>
+  <data name="Alert_ValidationErrorTitle" xml:space="preserve">
+    <value>Error de Validación</value>
+  </data>
+  <data name="Alert_Products_NameEnRequired" xml:space="preserve">
+    <value>El Nombre de la Camiseta en Inglés es requerido.</value>
+  </data>
+  <data name="Alert_Products_NameEsRequired" xml:space="preserve">
+    <value>El Nombre en Español es requerido.</value>
+  </data>
+  <data name="Alert_Products_PriceRequired" xml:space="preserve">
+    <value>El precio debe ser un número positivo.</value>
+  </data>
+  <data name="Alert_Products_YearRequired" xml:space="preserve">
+    <value>El año debe ser un número válido de 4 dígitos.</value>
+  </data>
+  <data name="Alert_Products_DropdownsRequired" xml:space="preserve">
+    <value>Por favor seleccione Marca, Liga, Equipo y Tipo de Kit.</value>
+  </data>
+  <data name="Alert_Products_StockRequired" xml:space="preserve">
+    <value>Los valores de stock deben ser números enteros no negativos.</value>
+  </data>
+  <data name="Alert_FileErrorTitle" xml:space="preserve">
+    <value>Error de Archivo</value>
+  </data>
+  <data name="Alert_Products_MainImageError" xml:space="preserve">
+    <value>La imagen principal debe ser .jpg, .jpeg, .png o .webp de menos de 2MB.</value>
+  </data>
+  <data name="Alert_Products_GalleryImageError" xml:space="preserve">
+    <value>La imagen de la galería {0} no es válida o supera los 2MB.</value>
+  </data>
+  <data name="Alert_Products_SavedSuccess" xml:space="preserve">
+    <value>¡Producto guardado con éxito con traducciones!</value>
+  </data>
+  <data name="Alert_MissingInfoTitle" xml:space="preserve">
+    <value>Información Faltante</value>
+  </data>
+  <data name="Alert_Products_MissingInfoText" xml:space="preserve">
+    <value>Por favor seleccione un Equipo, Marca y Nombre primero.</value>
+  </data>
+  <data name="Alert_AiErrorTitle" xml:space="preserve">
+    <value>Error de IA</value>
+  </data>
+  <data name="Alert_Products_BrandRequired" xml:space="preserve">
+    <value>Por favor seleccione una Marca.</value>
+  </data>
+  <data name="Alert_Products_LeagueRequired" xml:space="preserve">
+    <value>Por favor seleccione una Liga.</value>
+  </data>
+  <data name="Alert_Products_TeamRequired" xml:space="preserve">
+    <value>Por favor seleccione un Equipo.</value>
+  </data>
+  <data name="Alert_Products_KitTypeRequired" xml:space="preserve">
+    <value>Por favor seleccione un Tipo de Kit.</value>
+  </data>
+  <data name="Alert_Checkout_InvalidPhoneText" xml:space="preserve">
+    <value>Por favor ingrese un número de teléfono válido de 8 dígitos.</value>
+  </data>
+  <data name="Alert_Checkout_FieldsRequiredText" xml:space="preserve">
+    <value>Por favor complete todos los campos.</value>
+  </data>
+  <data name="Alert_Checkout_LocationRequiredTitle" xml:space="preserve">
+    <value>Ubicación Requerida</value>
+  </data>
+  <data name="Alert_Checkout_LocationRequiredText" xml:space="preserve">
+    <value>Por favor seleccione su ubicación de entrega exacta en el mapa.</value>
+  </data>
+  <data name="Alert_Checkout_PaymentRequiredText" xml:space="preserve">
+    <value>Por favor seleccione un método de pago.</value>
+  </data>
+  <data name="Alert_Checkout_TermsRequiredText" xml:space="preserve">
+    <value>Debe aceptar los términos y condiciones.</value>
+  </data>
+  <data name="Alert_Checkout_CancelledTitle" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="Alert_Checkout_CancelledText" xml:space="preserve">
+    <value>El proceso de pago fue cancelado.</value>
+  </data>
+  <data name="Alert_Checkout_ProcessingErrorText" xml:space="preserve">
+    <value>Ocurrió un error durante el procesamiento del pago.</value>
+  </data>
+  <data name="Alert_Contact_LimitReachedTitle" xml:space="preserve">
+    <value>Límite Alcanzado</value>
+  </data>
+  <data name="Alert_Contact_LimitReachedText" xml:space="preserve">
+    <value>Solo puede subir un máximo de 3 imágenes.</value>
+  </data>
+  <data name="Alert_Contact_FormatErrorTitle" xml:space="preserve">
+    <value>Error de Formato</value>
+  </data>
+  <data name="Alert_Contact_FormatErrorText" xml:space="preserve">
+    <value>El archivo "{0}" no es compatible. Solo se aceptan formatos JPG, JPEG, PNG y WEBP.</value>
+  </data>
+  <data name="Alert_Contact_TooLargeTitle" xml:space="preserve">
+    <value>Archivo Demasiado Grande</value>
+  </data>
+  <data name="Alert_Contact_TooLargeText" xml:space="preserve">
+    <value>La imagen "{0}" supera el límite de tamaño de 2MB.</value>
+  </data>
+  <data name="Alert_Offers_LoadCatalogError" xml:space="preserve">
+    <value>Error al Cargar Catálogo</value>
+  </data>
+  <data name="Alert_Offers_NameRequired" xml:space="preserve">
+    <value>El campo de identidad de la campaña es obligatorio.</value>
+  </data>
+  <data name="Alert_Offers_DiscountInvalid" xml:space="preserve">
+    <value>Los valores de descuento deben representar rangos entre 1% y 99%.</value>
+  </data>
+  <data name="Alert_Offers_DatesRequired" xml:space="preserve">
+    <value>Configure cronogramas precisos de inicio y conclusión.</value>
+  </data>
+  <data name="Alert_Offers_DatesInvalid" xml:space="preserve">
+    <value>Los límites de expiración deben extenderse más allá de las ventanas de inicio.</value>
+  </data>
+  <data name="Alert_Offers_ShirtsRequired" xml:space="preserve">
+    <value>Adjunte al menos una estructura de artículo del catálogo a este grupo promocional.</value>
+  </data>
+  <data name="Alert_Offers_SavedSuccess" xml:space="preserve">
+    <value>Espacio de parámetros de campaña promocional desplegado con éxito.</value>
+  </data>
+  <data name="Alert_Offers_TransactionError" xml:space="preserve">
+    <value>Fallo por Excepción de Transacción</value>
+  </data>
+  <data name="Alert_Offers_DataRetrievalError" xml:space="preserve">
+    <value>Fallo de Recuperación de Datos</value>
+  </data>
+  <data name="Alert_Offers_StatusToggled" xml:space="preserve">
+    <value>Visibilidad de la campaña modificada.</value>
+  </data>
+  <data name="Alert_Offers_DeletedText" xml:space="preserve">
+    <value>Configuraciones promocionales eliminadas de los registros relacionales.</value>
+  </data>
+  <data name="Alert_Offers_SelectionError" xml:space="preserve">
+    <value>Error de Selección</value>
+  </data>
+  <data name="Alert_Delete_EnterId" xml:space="preserve">
+    <value>Ingrese el ID del producto.</value>
+  </data>
+  <data name="Alert_Delete_IdNumeric" xml:space="preserve">
+    <value>El ID debe ser un número.</value>
+  </data>
+  <data name="Alert_Delete_NotFound" xml:space="preserve">
+    <value>El ID del producto no fue encontrado.</value>
+  </data>
+  <data name="Alert_Delete_LoadedTitle" xml:space="preserve">
+    <value>Producto cargado</value>
+  </data>
+  <data name="Alert_Delete_LoadedText" xml:space="preserve">
+    <value>Revise los detalles cuidadosamente antes de eliminar.</value>
+  </data>
+  <data name="Alert_Delete_FirstLoad" xml:space="preserve">
+    <value>Primero cargue un producto usando su ID.</value>
+  </data>
+  <data name="Alert_Delete_InvalidId" xml:space="preserve">
+    <value>ID no válido.</value>
+  </data>
+  <data name="Alert_Delete_Success" xml:space="preserve">
+    <value>El producto y todas sus variantes de talla han sido eliminados.</value>
+  </data>
+  <data name="Alert_Edit_LoadedText" xml:space="preserve">
+    <value>Producto cargado.</value>
+  </data>
+  <data name="Alert_Edit_FillRequired" xml:space="preserve">
+    <value>Por favor complete todos los campos obligatorios.</value>
+  </data>
+  <data name="Alert_Edit_YearTitle" xml:space="preserve">
+    <value>Año no válido</value>
+  </data>
+  <data name="Alert_Edit_YearText" xml:space="preserve">
+    <value>El año debe tener exactamente 4 dígitos.</value>
+  </data>
+  <data name="Alert_Edit_PriceTitle" xml:space="preserve">
+    <value>Precio no válido</value>
+  </data>
+  <data name="Alert_Edit_PriceText" xml:space="preserve">
+    <value>El precio debe ser mayor que cero.</value>
+  </data>
+  <data name="Alert_Edit_InvalidSelections" xml:space="preserve">
+    <value>Por favor seleccione una marca, equipo y tipo válidos.</value>
+  </data>
+  <data name="Alert_Edit_InvalidFileTitle" xml:space="preserve">
+    <value>Archivo no válido</value>
+  </data>
+  <data name="Alert_Edit_InvalidFileText" xml:space="preserve">
+    <value>Solo se permiten imágenes .jpg y .png.</value>
+  </data>
+  <data name="Alert_Edit_FileTooLargeTitle" xml:space="preserve">
+    <value>Archivo Demasiado Grande</value>
+  </data>
+  <data name="Alert_Edit_FileTooLargeText" xml:space="preserve">
+    <value>El tamaño máximo de la imagen es 2 MB.</value>
+  </data>
+  <data name="Alert_Edit_SuccessText" xml:space="preserve">
+    <value>Producto actualizado con éxito.</value>
+  </data>
+  <data name="Alert_Add_FillRequired" xml:space="preserve">
+    <value>Por favor complete todos los campos requeridos (*).</value>
+  </data>
+  <data name="Alert_Add_YearText" xml:space="preserve">
+    <value>El año debe tener exactamente 4 dígitos (ej. 2024).</value>
+  </data>
+  <data name="Alert_Add_InvalidKitType" xml:space="preserve">
+    <value>Por favor seleccione un tipo de equipación válido.</value>
+  </data>
+  <data name="Alert_Add_InvalidBrandTeam" xml:space="preserve">
+    <value>Por favor seleccione una marca y equipo válidos.</value>
+  </data>
+  <data name="Alert_Add_SuccessText" xml:space="preserve">
+    <value>¡Producto agregado con éxito!</value>
+  </data>
+  <data name="Alert_Driver_TooLateTitle" xml:space="preserve">
+    <value>¡Demasiado tarde!</value>
+  </data>
+  <data name="Alert_Driver_TooLateText" xml:space="preserve">
+    <value>Otro repartidor acaba de aceptar este pedido.</value>
+  </data>
+  <data name="Alert_Driver_SuccessTitle" xml:space="preserve">
+    <value>¡Excelente trabajo!</value>
+  </data>
+  <data name="Alert_Driver_SuccessText" xml:space="preserve">
+    <value>Pedido entregado con éxito.</value>
+  </data>
+  <data name="Alert_Driver_NoGeolocation" xml:space="preserve">
+    <value>Su navegador no es compatible con la geolocalización.</value>
+  </data>
+  <data name="Driver_Gps_PermissionDenied" xml:space="preserve">
+    <value>Permiso de GPS denegado. Active la ubicación en la configuración.</value>
+  </data>
+  <data name="Driver_Gps_Unavailable" xml:space="preserve">
+    <value>Ubicación no disponible. Compruebe la señal de GPS.</value>
+  </data>
+  <data name="Driver_Gps_Timeout" xml:space="preserve">
+    <value>Tiempo de espera de GPS agotado. Reintentando...</value>
+  </data>
+  <data name="Driver_Gps_Error" xml:space="preserve">
+    <value>Error de GPS: </value>
+  </data>
+  <data name="Driver_Gps_Active" xml:space="preserve">
+    <value>GPS activo &mdash; Precisión: ~</value>
+  </data>
+  <data name="Alert_Details_LoadErrorText" xml:space="preserve">
+    <value>No se pudieron cargar los detalles de la camiseta.</value>
+  </data>
+  <data name="Alert_Details_AuthRequiredTitle" xml:space="preserve">
+    <value>Autenticación Requerida</value>
+  </data>
+  <data name="Alert_Details_AuthRequiredText" xml:space="preserve">
+    <value>Inicie sesión para agregar artículos al carrito.</value>
+  </data>
+  <data name="Alert_Details_GoToLogin" xml:space="preserve">
+    <value>Ir a Iniciar Sesión</value>
+  </data>
+  <data name="Alert_Details_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Alert_Details_NoSizeTitle" xml:space="preserve">
+    <value>Sin Selección</value>
+  </data>
+  <data name="Alert_Details_NoSizeText" xml:space="preserve">
+    <value>Por favor seleccione una talla primero.</value>
+  </data>
+  <data name="Alert_Details_OutOfStockTitle" xml:space="preserve">
+    <value>Agotado</value>
+  </data>
+  <data name="Alert_Details_OutOfStockText" xml:space="preserve">
+    <value>¡Lo sentimos, esta talla se acaba de agotar!</value>
+  </data>
+  <data name="Alert_Details_AttentionTitle" xml:space="preserve">
+    <value>Atención</value>
+  </data>
+  <data name="Alert_Details_ForbiddenNameText" xml:space="preserve">
+    <value>El nombre personalizado contiene términos restringidos o lenguaje inapropiado. Por favor elija otro nombre.</value>
+  </data>
+  <data name="Alert_Details_LimitReachedTitle" xml:space="preserve">
+    <value>Límite Alcanzado</value>
+  </data>
+  <data name="Alert_Details_LimitReachedText" xml:space="preserve">
+    <value>Ya tienes todo el stock disponible ({0} unidades) de esta talla en tu carrito, incluyendo variantes personalizadas.</value>
+  </data>
+  <data name="Alert_Details_StockLimitTitle" xml:space="preserve">
+    <value>Límite de Stock</value>
+  </data>
+  <data name="Alert_Details_StockLimitText" xml:space="preserve">
+    <value>Solo puedes agregar {0} artículo(s) más de esta talla. Ya tienes {1} artículos combinados en tu carrito.</value>
+  </data>
+  <data name="Alert_Details_AddedToCartText" xml:space="preserve">
+    <value>Producto agregado con éxito a tu carrito.</value>
+  </data>
+  <data name="Alert_Details_ErrorText" xml:space="preserve">
+    <value>Ocurrió un error: {0}</value>
+  </data>
+  <data name="Alert_Details_ReviewAuthText" xml:space="preserve">
+    <value>Por favor inicie sesión para enviar una opinión.</value>
+  </data>
+  <data name="Alert_Details_ReviewPurchaseText" xml:space="preserve">
+    <value>Solo puede opinar sobre camisetas que haya comprado.</value>
+  </data>
+  <data name="Alert_Details_ReviewEmptyText" xml:space="preserve">
+    <value>El comentario de la opinión no puede estar vacío.</value>
+  </data>
+  <data name="Alert_Details_ReviewSuccessText" xml:space="preserve">
+    <value>¡Su opinión ha sido publicada con éxito!</value>
+  </data>
+  <data name="Alert_Details_ReviewDeletedText" xml:space="preserve">
+    <value>La opinión ha sido eliminada con éxito.</value>
+  </data>
+  <data name="Alert_Details_DeleteDeniedText" xml:space="preserve">
+    <value>No tiene permiso para eliminar esta opinión.</value>
+  </data>
+  <data name="Alert_Details_ReplyEmptyText" xml:space="preserve">
+    <value>La respuesta no puede estar vacía.</value>
+  </data>
+  <data name="Alert_Details_RepliedTitle" xml:space="preserve">
+    <value>Respondido</value>
+  </data>
+  <data name="Alert_Details_ReplySuccessText" xml:space="preserve">
+    <value>Su respuesta oficial ha sido guardada.</value>
   </data>
 </root>

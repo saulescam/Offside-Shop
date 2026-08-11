@@ -69,7 +69,7 @@ namespace OFFSIDESHOP
                         int exists = Convert.ToInt32(cmd.ExecuteScalar());
                         if (exists > 0)
                         {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "regExists", "Swal.fire('User Already Exists', 'The username or email is already registered.', 'error');", true);
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "regExists", AlertHelper.GetSafeAlertScript(this, "Alert_SignUp_UserExistsTitle", "Alert_SignUp_UserExists", "error"), true);
                             return;
                         }
                     }
@@ -100,17 +100,17 @@ namespace OFFSIDESHOP
                     }
                     catch (Exception)
                     {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mailError", "Swal.fire('Error', 'Failed to send the verification email. Ensure your SMTP settings are correct.', 'error');", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mailError", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_SignUp_MailError", "error"), true);
                     }
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "regPassword", "Swal.fire('Incorrect Password', 'Please repeat your password correctly.', 'error');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "regPassword", AlertHelper.GetSafeAlertScript(this, "Alert_SignUp_PassMismatchTitle", "Alert_SignUp_PassMismatch", "error"), true);
                 }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "regBlank", "Swal.fire('OOPS...', 'Do not leave any blank fields.', 'warning');", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "regBlank", AlertHelper.GetSafeAlertScript(this, "Alert_Login_OopsTitle", "Alert_SignUp_BlankFields", "warning"), true);
             }
         }
 
@@ -139,28 +139,19 @@ namespace OFFSIDESHOP
                     Session.Remove("Reg_User"); Session.Remove("Reg_Email");
                     Session.Remove("Reg_Hash"); Session.Remove("Reg_Token");
 
-                    string scriptSuccess = @"
-                        Swal.fire({
-                            title: 'Verified & Registered!',
-                            text: 'Your account has been created successfully.',
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then(() => {
-                            window.location.href = 'Login.aspx';
-                        });";
+                    string scriptSuccess = AlertHelper.GetRedirectAlertScriptNoTags(this, "Alert_SignUp_VerifiedTitle", "Alert_SignUp_VerifiedText", "success", 2000, "Login.aspx");
 
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "regSuccess", scriptSuccess, true);
                 }
                 catch (Exception ex)
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "dbError", $"Swal.fire('Error', 'Failed to save user: {ex.Message}', 'error');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "dbError", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", ex.Message, "error"), true);
                 }
             }
             else
             {
                 // Código Inválido
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidToken", "Swal.fire('Invalid Code', 'The verification code you entered is incorrect.', 'error');", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidToken", AlertHelper.GetSafeAlertScript(this, "Alert_SignUp_InvalidTokenTitle", "Alert_SignUp_InvalidToken", "error"), true);
             }
         }
 

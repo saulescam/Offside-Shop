@@ -52,31 +52,29 @@ namespace OFFSIDESHOP
                     comando.Parameters.AddWithValue("@Password", contraEsencriptada);
                     comando.ExecuteNonQuery();
                     conexion.Close();
-                    alerta.Text = "<script>Swal.fire('Password successfully updated!', '', 'success'); </script>";
+                    alerta.Text = AlertHelper.GetRedirectAlertScript(this, "Alert_SuccessTitle", "Alert_ChangePass_Success", "success", 3000, "Login.aspx");
                     
                     // Limpiar estados de recuperación
                     Session["TokenVerified"] = null;
                     ForgetGlobalPassword.ValorGlobal = "";
 
-                    Response.AddHeader("REFRESH", "3;URL=Login.aspx");
                     txtpassword1.Text = "";
                     txtpassword2.Text = "";
                 }
                 else
                 {
-                    alerta.Text = "<script>Swal.fire('Different passwords!', 'Passwords do not match', 'error'); </script>";
+                    alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ChangePass_MismatchTitle", "Alert_ChangePass_MismatchText", "error");
                     txtpassword1.Text = "";
                     txtpassword2.Text = "";
                 }
             }
             else
             {
-                alerta.Text = "<script>Swal.fire('OOPS!', 'Do not leave empty spaces', 'warning') </script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_Login_OopsTitle", "Alert_ChangePass_EmptyFields", "warning");
                 txtpassword1.Text = "";
                 txtpassword2.Text = "";
             }
         }
-
         protected void btnLanguageToggle_Click(object sender, EventArgs e)
         {
             Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";

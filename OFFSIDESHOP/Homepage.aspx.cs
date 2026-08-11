@@ -208,21 +208,27 @@ namespace OFFSIDESHOP
 
                     // 2. Cargar Colecciones (Usando 'Title' en lugar de 'Name', que es el nombre real de tu columna)
                     string queryCols = @"
-                SELECT c.Id_Collection,
-                       c.Id_Category,
-                       c.Title,
-                       c.ImageURL,
-                       c.LinkURL,
-                       c.SortOrder,
-                       c.IsActive,
-                       CASE 
-                           WHEN @Lang = 'es' THEN COALESCE(cat.Name_Category_es, cat.Name_Category)
-                           ELSE cat.Name_Category 
-                       END AS Name_Category
-                FROM collections c 
-                INNER JOIN collection_categories cat ON c.Id_Category = cat.Id_Category 
-                WHERE c.IsActive = 1
-                ORDER BY c.SortOrder ASC;";
+    SELECT c.Id_Collection,
+           c.Id_Category,
+           
+           /* AQUÍ AGREGAMOS LA TRADUCCIÓN DEL TÍTULO DE LA COLECCIÓN */
+           CASE 
+               WHEN @Lang = 'es' THEN COALESCE(c.Title_es, c.Title)
+               ELSE c.Title 
+           END AS Title,
+           
+           c.ImageURL,
+           c.LinkURL,
+           c.SortOrder,
+           c.IsActive,
+           CASE 
+               WHEN @Lang = 'es' THEN COALESCE(cat.Name_Category_es, cat.Name_Category)
+               ELSE cat.Name_Category 
+           END AS Name_Category
+    FROM collections c 
+    INNER JOIN collection_categories cat ON c.Id_Category = cat.Id_Category 
+    WHERE c.IsActive = 1
+    ORDER BY c.SortOrder ASC;";
 
                     using (MySqlCommand cmdCols = new MySqlCommand(queryCols, con))
                     {

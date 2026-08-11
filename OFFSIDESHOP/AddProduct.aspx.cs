@@ -155,35 +155,35 @@ namespace OFFSIDESHOP
                 string.IsNullOrEmpty(ddlTipo.SelectedValue) ||
                 string.IsNullOrWhiteSpace(txtPrecio.Text))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please fill all required fields (*).', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Add_FillRequired", "error");
                 return;
             }
 
             // Year must be a valid 4-digit integer
             if (!int.TryParse(txtAnio.Text.Trim(), out int year) || txtAnio.Text.Trim().Length != 4)
             {
-                alerta.Text = "<script>Swal.fire('Invalid Year', 'Year must be exactly 4 digits (e.g. 2024).', 'error');</script>";
+                TriggerAlert("Alert_Edit_YearTitle", "Alert_Add_YearText", "error");
                 return;
             }
 
             if (!decimal.TryParse(txtPrecio.Text, System.Globalization.NumberStyles.Any,
                 System.Globalization.CultureInfo.InvariantCulture, out decimal precio) || precio <= 0)
             {
-                alerta.Text = "<script>Swal.fire('Invalid Price', 'Price must be greater than zero.', 'error');</script>";
+                TriggerAlert("Alert_Edit_PriceTitle", "Alert_Edit_PriceText", "error");
                 return;
             }
 
             // Kit type ID
             if (!int.TryParse(ddlTipo.SelectedValue, out int kitTypeId))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please select a valid kit type.', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Add_InvalidKitType", "error");
                 return;
             }
 
             if (!int.TryParse(ddlMarca.SelectedValue,  out int brandId) ||
                 !int.TryParse(ddlEquipo.SelectedValue, out int teamId))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please select a valid brand and team.', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Add_InvalidBrandTeam", "error");
                 return;
             }
 
@@ -194,12 +194,12 @@ namespace OFFSIDESHOP
                 string ext = Path.GetExtension(fileImagen.FileName).ToLower();
                 if (ext != ".jpg" && ext != ".png")
                 {
-                    alerta.Text = "<script>Swal.fire('Invalid File', 'Only .jpg and .png images are allowed.', 'error');</script>";
+                    TriggerAlert("Alert_Edit_InvalidFileTitle", "Alert_Edit_InvalidFileText", "error");
                     return;
                 }
                 if (fileImagen.PostedFile.ContentLength > 2 * 1024 * 1024)
                 {
-                    alerta.Text = "<script>Swal.fire('File Too Large', 'Maximum image size is 2 MB.', 'error');</script>";
+                    TriggerAlert("Alert_Edit_FileTooLargeTitle", "Alert_Edit_FileTooLargeText", "error");
                     return;
                 }
 
@@ -262,7 +262,7 @@ namespace OFFSIDESHOP
                     }
                 }
 
-                alerta.Text = "<script>Swal.fire('Success', 'Product added successfully!', 'success').then(() => { window.location.href = 'AddProduct.aspx'; });</script>";
+                alerta.Text = AlertHelper.GetRedirectAlertScript(this, "Alert_SuccessTitle", "Alert_Add_SuccessText", "success", 2000, "AddProduct.aspx");
 
                 // Clear form fields
                 txtNombre.Text = txtAnio.Text = txtPrecio.Text = txtDescripcion.Text = "";
@@ -273,8 +273,13 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
+        }
+
+        private void TriggerAlert(string titleKey, string messageKey, string iconType)
+        {
+            alerta.Text = AlertHelper.GetAlertScript(this, titleKey, messageKey, iconType);
         }
     }
 }

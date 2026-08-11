@@ -85,26 +85,24 @@ namespace OFFSIDESHOP
                             }
 
                             // Alerta de éxito con SweetAlert2
-                            alerta.Text = "<script>Swal.fire({ title: 'Verification code correct!', text: 'Proceeding to reset your password...', icon: 'success', confirmButtonColor: '#FFC800' });</script>";
+                            alerta.Text = AlertHelper.GetRedirectAlertScript(this, "Alert_Token_SuccessTitle", "Alert_Token_SuccessText", "success", 3000, "ChangePassword.aspx");
 
                             // Guardamos confirmación en sesión
                             Session["TokenVerified"] = true;
 
-                            // Redirección limpia
-                            Response.AddHeader("REFRESH", "3;URL=ChangePassword.aspx");
                             txttoken.Text = "";
                         }
                         else
                         {
                             // Alerta de código erróneo
-                            alerta.Text = "<script>Swal.fire({ title: 'Incorrect Code!', text: 'The code does not match, please check your email again.', icon: 'error', confirmButtonColor: '#FFC800' });</script>";
+                            alerta.Text = AlertHelper.GetAlertScript(this, "Alert_Token_IncorrectTitle", "Alert_Token_IncorrectText", "error");
                             txttoken.Text = "";
                         }
                     }
                     catch (Exception ex)
                     {
                         // Captura de errores de base de datos para prevenir pantallas blancas de caída
-                        alerta.Text = $"<script>Swal.fire({{ title: 'Database Error', text: '{HttpUtility.HtmlEncode(ex.Message)}', icon: 'error', confirmButtonColor: '#FFC800' }});</script>";
+                        alerta.Text = AlertHelper.GetAlertScript(this, "Alert_DatabaseErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
                     }
                     finally
                     {
@@ -118,7 +116,7 @@ namespace OFFSIDESHOP
             }
             else
             {
-                alerta.Text = "<script>Swal.fire({ title: 'OOPS!', text: 'Do not leave empty spaces.', icon: 'warning', confirmButtonColor: '#FFC800' });</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_Login_OopsTitle", "Alert_Login_BlankSpaces", "warning");
                 txttoken.Text = "";
             }
         }

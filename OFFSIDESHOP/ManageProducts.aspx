@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -739,37 +739,37 @@
             let kitType = document.getElementById('ddlFormKitType').value;
 
             if (!nameEn) {
-                Swal.fire('Missing Information', 'Please fill in the Shirt Name in English.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfoTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_NameEnRequired") %>', 'warning');
                 $('#prod-en-tab').tab('show');
                 return false;
             }
             if (!nameEs) {
-                Swal.fire('Información Faltante', 'Por favor ingresa el Nombre de la Camiseta en Español.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfoTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_NameEsRequired") %>', 'warning');
                 $('#prod-es-tab').tab('show');
                 return false;
             }
             if (!price || parseFloat(price) <= 0) {
-                Swal.fire('Validation Error', 'Please enter a valid price.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ValidationErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_PriceRequired") %>', 'warning');
                 return false;
             }
             if (!year || year.length !== 4) {
-                Swal.fire('Validation Error', 'Please enter a 4-digit year.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ValidationErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_YearRequired") %>', 'warning');
                 return false;
             }
             if (brand === "0" || !brand) {
-                Swal.fire('Validation Error', 'Please select a Brand.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ValidationErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_BrandRequired") %>', 'warning');
                 return false;
             }
             if (league === "0" || !league) {
-                Swal.fire('Validation Error', 'Please select a League.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ValidationErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_LeagueRequired") %>', 'warning');
                 return false;
             }
             if (team === "0" || !team) {
-                Swal.fire('Validation Error', 'Please select a Team.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ValidationErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_TeamRequired") %>', 'warning');
                 return false;
             }
             if (kitType === "0" || !kitType) {
-                Swal.fire('Validation Error', 'Please select a Kit Type.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ValidationErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_KitTypeRequired") %>', 'warning');
                 return false;
             }
 

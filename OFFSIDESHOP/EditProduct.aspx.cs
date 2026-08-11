@@ -129,7 +129,7 @@ namespace OFFSIDESHOP
         {
             if (!int.TryParse(rawId, out int id))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'ID must be a number.', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Delete_IdNumeric", "error");
                 LoadLeagues(); LoadBrands(); LoadTeamsByLeague("");
                 return;
             }
@@ -156,7 +156,7 @@ namespace OFFSIDESHOP
                 {
                     if (!reader.Read())
                     {
-                        alerta.Text = "<script>Swal.fire('Error', 'Product ID not found.', 'error');</script>";
+                        TriggerAlert("Alert_ErrorTitle", "Alert_Delete_NotFound", "error");
                         reader.Close();
                         LoadTeamsByLeague("");
                         return;
@@ -216,7 +216,7 @@ namespace OFFSIDESHOP
                 }
             }
 
-            alerta.Text = "<script>Swal.fire('Success', 'Product loaded.', 'success');</script>";
+            TriggerAlert("Alert_SuccessTitle", "Alert_Edit_LoadedText", "success");
         }
 
         // ──────────────────────────────────────────────────────────────
@@ -226,7 +226,7 @@ namespace OFFSIDESHOP
         {
             if (string.IsNullOrWhiteSpace(txtID.Text))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Enter a product ID.', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Delete_EnterId", "error");
                 return;
             }
             LoadProductById(txtID.Text.Trim());
@@ -241,13 +241,13 @@ namespace OFFSIDESHOP
             // ── Validation ────────────────────────────────────────────
             if (string.IsNullOrWhiteSpace(txtID.Text))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'First load a product by ID.', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Delete_FirstLoad", "error");
                 return;
             }
 
             if (!int.TryParse(txtID.Text.Trim(), out int productId))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Invalid product ID.', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Delete_InvalidId", "error");
                 return;
             }
 
@@ -258,20 +258,20 @@ namespace OFFSIDESHOP
                 string.IsNullOrEmpty(ddlTipo.SelectedValue) ||
                 string.IsNullOrWhiteSpace(txtPrecio.Text))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please fill all required fields.', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Edit_FillRequired", "error");
                 return;
             }
 
             if (!int.TryParse(txtAnio.Text.Trim(), out int year) || txtAnio.Text.Trim().Length != 4)
             {
-                alerta.Text = "<script>Swal.fire('Invalid Year', 'Year must be exactly 4 digits.', 'error');</script>";
+                TriggerAlert("Alert_Edit_YearTitle", "Alert_Edit_YearText", "error");
                 return;
             }
 
             if (!decimal.TryParse(txtPrecio.Text, System.Globalization.NumberStyles.Any,
                 System.Globalization.CultureInfo.InvariantCulture, out decimal precio) || precio <= 0)
             {
-                alerta.Text = "<script>Swal.fire('Invalid Price', 'Price must be greater than zero.', 'error');</script>";
+                TriggerAlert("Alert_Edit_PriceTitle", "Alert_Edit_PriceText", "error");
                 return;
             }
 
@@ -279,7 +279,7 @@ namespace OFFSIDESHOP
                 !int.TryParse(ddlMarca.SelectedValue,  out int brandId) ||
                 !int.TryParse(ddlEquipo.SelectedValue, out int teamId))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please select valid brand, team and type.', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", "Alert_Edit_InvalidSelections", "error");
                 return;
             }
 
@@ -290,12 +290,12 @@ namespace OFFSIDESHOP
                 string ext = Path.GetExtension(fileImagen.FileName).ToLower();
                 if (ext != ".jpg" && ext != ".png")
                 {
-                    alerta.Text = "<script>Swal.fire('Invalid File', 'Only .jpg and .png images are allowed.', 'error');</script>";
+                    TriggerAlert("Alert_Edit_InvalidFileTitle", "Alert_Edit_InvalidFileText", "error");
                     return;
                 }
                 if (fileImagen.PostedFile.ContentLength > 2 * 1024 * 1024)
                 {
-                    alerta.Text = "<script>Swal.fire('File Too Large', 'Maximum image size is 2 MB.', 'error');</script>";
+                    TriggerAlert("Alert_Edit_FileTooLargeTitle", "Alert_Edit_FileTooLargeText", "error");
                     return;
                 }
 
@@ -400,7 +400,7 @@ namespace OFFSIDESHOP
                     }
                 }
 
-                alerta.Text = "<script>Swal.fire('Success', 'Product updated successfully.', 'success');</script>";
+                TriggerAlert("Alert_SuccessTitle", "Alert_Edit_SuccessText", "success");
                 LoadProducts();
 
                 // Clear form
@@ -411,7 +411,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -485,6 +485,11 @@ namespace OFFSIDESHOP
         protected void btnAdminBanners_Click(object sender, EventArgs e)
         {
             Response.Redirect("AdminBanners.aspx");
+        }
+
+        private void TriggerAlert(string titleKey, string messageKey, string iconType)
+        {
+            alerta.Text = AlertHelper.GetAlertScript(this, titleKey, messageKey, iconType);
         }
     }
 }

@@ -412,7 +412,7 @@ namespace OFFSIDESHOP
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error loading shirt details: " + ex.Message);
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "loadError", "Swal.fire('Error', 'Unable to load shirt details.', 'error');", true);
+                TriggerAlert("Alert_ErrorTitle", "Alert_Details_LoadErrorText", "error");
             }
         }
 
@@ -691,17 +691,30 @@ namespace OFFSIDESHOP
                 Session["PendingCustomNumber"] = pendingNumber;
 
                 string loginUrl = ResolveUrl("~/Login.aspx");
+                string authTitle = AlertHelper.GetResourceString(this, "Alert_Details_AuthRequiredTitle").Replace("'", "\\'");
+                string authText = AlertHelper.GetResourceString(this, "Alert_Details_AuthRequiredText").Replace("'", "\\'");
+                string confirmBtn = AlertHelper.GetResourceString(this, "Alert_Details_GoToLogin").Replace("'", "\\'");
+                string cancelBtn = AlertHelper.GetResourceString(this, "Alert_Details_Cancel").Replace("'", "\\'");
                 string script = $@"
-        Swal.fire({{
-            title: 'Authentication Required',
-            text: 'Please log in to add items to your cart.',
-            icon: 'info',
-            showCancelButton: true,
-            confirmButtonColor: '#FFC800',
-            confirmButtonText: 'Go to Login'
-        }}).then((result) => {{
-            if (result.isConfirmed) {{ window.location.href = '{loginUrl}'; }}
-        }});";
+                    setTimeout(function() {{
+                        if (typeof Swal !== 'undefined') {{
+                            Swal.fire({{
+                                title: '{authTitle}',
+                                text: '{authText}',
+                                icon: 'info',
+                                showCancelButton: true,
+                                confirmButtonColor: '#FFC800',
+                                confirmButtonText: '{confirmBtn}',
+                                cancelButtonText: '{cancelBtn}'
+                            }}).then((result) => {{
+                                if (result.isConfirmed) {{ window.location.href = '{loginUrl}'; }}
+                            }});
+                        }} else {{
+                            if (confirm('{authTitle}\n\n{authText}')) {{
+                                window.location.href = '{loginUrl}';
+                            }}
+                        }}
+                    }}, 50);";
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "authReq", script, true);
                 return;
@@ -715,7 +728,7 @@ namespace OFFSIDESHOP
 
             if (Session["SelectedSizeId"] == null)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "noSize", "Swal.fire('No Selection', 'Please select a size first.', 'warning');", true);
+                TriggerAlert("Alert_Details_NoSizeTitle", "Alert_Details_NoSizeText", "warning");
                 return;
             }
             int sizeId = Convert.ToInt32(Session["SelectedSizeId"]);
@@ -734,7 +747,7 @@ namespace OFFSIDESHOP
                         object result = checkCmd.ExecuteScalar();
                         if (result == null || Convert.ToInt32(result) <= 0)
                         {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "outOfStock", "Swal.fire('Out of Stock', 'Sorry, this size just went out of stock!', 'error');", true);
+                            TriggerAlert("Alert_Details_OutOfStockTitle", "Alert_Details_OutOfStockText", "error");
                             LoadSizes(shirtId);
                             return;
                         }
@@ -796,8 +809,7 @@ namespace OFFSIDESHOP
                     {
                         if (!IsCustomNameAllowed(customName))
                         {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "forbiddenWord",
-                                "Swal.fire({ title: 'Attention', text: 'The customized name contains restricted terms or inappropriate language. Please choose another name.', icon: 'warning', confirmButtonColor: '#FFC800' });", true);
+                            TriggerAlert("Alert_Details_AttentionTitle", "Alert_Details_ForbiddenNameText", "warning");
                             return; // Detiene el proceso y no lo agrega al carrito
                         }
                     }
@@ -844,11 +856,17 @@ namespace OFFSIDESHOP
                         int allowedAddition = realStock - totalInCartForThisPhysicalSize;
                         if (allowedAddition <= 0)
                         {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "limitReached", $"Swal.fire('Limit Reached', 'You already have all available stock ({realStock} units) of this size in your cart, including customized variants.', 'warning');", true);
+                            string title = AlertHelper.GetResourceString(this, "Alert_Details_LimitReachedTitle");
+                            string rawMsg = AlertHelper.GetResourceString(this, "Alert_Details_LimitReachedText");
+                            string formattedMsg = string.Format(rawMsg, realStock);
+                            TriggerAlertWithText(title, formattedMsg, "warning");
                         }
                         else
                         {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "stockLimit", $"Swal.fire('Stock Limit', 'You can only add {allowedAddition} more item(s) of this size. You already have {totalInCartForThisPhysicalSize} combined items in your cart.', 'warning');", true);
+                            string title = AlertHelper.GetResourceString(this, "Alert_Details_StockLimitTitle");
+                            string rawMsg = AlertHelper.GetResourceString(this, "Alert_Details_StockLimitText");
+                            string formattedMsg = string.Format(rawMsg, allowedAddition, totalInCartForThisPhysicalSize);
+                            TriggerAlertWithText(title, formattedMsg, "warning");
                         }
                         return;
                     }
@@ -892,20 +910,32 @@ namespace OFFSIDESHOP
                     Session["Cart"] = dtCart;
                     ActualizarContadorCarrito();
 
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "successAdd",
-                        "Swal.fire({" +
-                        "  title: 'Success!'," +
-                        "  text: 'Product successfully added to your cart.'," +
-                        "  icon: 'success'," +
-                        "  confirmButtonColor: '#FFC800'" +
-                        "}).then(() => {" +
-                        "  window.location.reload();" +
-                        "});", true);
+                    string successTitle = AlertHelper.GetResourceString(this, "Alert_SuccessTitle").Replace("'", "\\'");
+                    string successText = AlertHelper.GetResourceString(this, "Alert_Details_AddedToCartText").Replace("'", "\\'");
+                    string script = $@"
+                        setTimeout(function() {{
+                            if (typeof Swal !== 'undefined') {{
+                                Swal.fire({{
+                                    title: '{successTitle}',
+                                    text: '{successText}',
+                                    icon: 'success',
+                                    confirmButtonColor: '#FFC800'
+                                }}).then(() => {{
+                                    window.location.reload();
+                                }});
+                            }} else {{
+                                alert('{successTitle}: {successText}');
+                                window.location.reload();
+                            }}
+                        }}, 50);";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "successAdd", script, true);
                 }
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "errorAdd", $"Swal.fire('Error', 'An error occurred: {HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');", true);
+                string rawMsg = AlertHelper.GetResourceString(this, "Alert_Details_ErrorText");
+                string formattedMsg = string.Format(rawMsg, ex.Message);
+                TriggerAlertWithText(AlertHelper.GetResourceString(this, "Alert_ErrorTitle"), formattedMsg, "error");
             }
         }
 
@@ -1030,7 +1060,7 @@ namespace OFFSIDESHOP
         {
             if (Session["Id_User"] == null)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "reviewAuth", "Swal.fire({ title: 'Attention', text: 'Please log in to submit a review.', icon: 'warning', confirmButtonColor: '#FFC800' });", true);
+                TriggerAlert("Alert_Details_AttentionTitle", "Alert_Details_ReviewAuthText", "warning");
                 return;
             }
 
@@ -1039,7 +1069,7 @@ namespace OFFSIDESHOP
 
             if (!HasUserPurchasedShirt(idUser, idTshirt))
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "reviewPurchase", "Swal.fire({ title: 'Attention', text: 'You can only review shirts you have purchased.', icon: 'warning', confirmButtonColor: '#FFC800' });", true);
+                TriggerAlert("Alert_Details_AttentionTitle", "Alert_Details_ReviewPurchaseText", "warning");
                 return;
             }
 
@@ -1053,7 +1083,7 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrEmpty(comment))
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "reviewEmpty", "Swal.fire({ title: 'Attention', text: 'Review comment cannot be empty.', icon: 'warning', confirmButtonColor: '#FFC800' });", true);
+                TriggerAlert("Alert_Details_AttentionTitle", "Alert_Details_ReviewEmptyText", "warning");
                 return;
             }
 
@@ -1076,12 +1106,14 @@ namespace OFFSIDESHOP
 
                 txtComment.Text = "";
                 hfRatingInput.Value = "5";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "reviewSuccess", "Swal.fire({ title: 'Success', text: 'Your review has been posted successfully!', icon: 'success', confirmButtonColor: '#FFC800' });", true);
+                TriggerAlert("Alert_SuccessTitle", "Alert_Details_ReviewSuccessText", "success");
                 CargarReviews();
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "reviewError", $"Swal.fire({{ title: 'Error', text: '{HttpUtility.JavaScriptStringEncode(ex.Message)}', icon: 'error', confirmButtonColor: '#FFC800' }});", true);
+                string rawMsg = AlertHelper.GetResourceString(this, "Alert_Details_ErrorText");
+                string formattedMsg = string.Format(rawMsg, ex.Message);
+                TriggerAlertWithText(AlertHelper.GetResourceString(this, "Alert_ErrorTitle"), formattedMsg, "error");
             }
         }
 
@@ -1112,11 +1144,11 @@ namespace OFFSIDESHOP
 
                             if (affectedRows > 0)
                             {
-                                ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteSuccess", "Swal.fire({ title: 'Deleted', text: 'The review has been deleted successfully.', icon: 'success', confirmButtonColor: '#FFC800' });", true);
+                                TriggerAlert("Alert_DeletedTitle", "Alert_Details_ReviewDeletedText", "success");
                             }
                             else
                             {
-                                ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteDenied", "Swal.fire({ title: 'Error', text: 'You do not have permission to delete this review.', icon: 'error', confirmButtonColor: '#FFC800' });", true);
+                                TriggerAlert("Alert_ErrorTitle", "Alert_Details_DeleteDeniedText", "error");
                             }
                         }
                     }
@@ -1124,7 +1156,9 @@ namespace OFFSIDESHOP
                 }
                 catch (Exception ex)
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "deleteError", $"Swal.fire({{ title: 'Error', text: '{HttpUtility.JavaScriptStringEncode(ex.Message)}', icon: 'error', confirmButtonColor: '#FFC800' }});", true);
+                    string rawMsg = AlertHelper.GetResourceString(this, "Alert_Details_ErrorText");
+                    string formattedMsg = string.Format(rawMsg, ex.Message);
+                    TriggerAlertWithText(AlertHelper.GetResourceString(this, "Alert_ErrorTitle"), formattedMsg, "error");
                 }
             }
             else if (e.CommandName == "SubmitReply")
@@ -1136,7 +1170,7 @@ namespace OFFSIDESHOP
 
                 if (string.IsNullOrEmpty(replyText))
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "replyEmpty", "Swal.fire({ title: 'Attention', text: 'The reply cannot be empty.', icon: 'warning', confirmButtonColor: '#FFC800' });", true);
+                    TriggerAlert("Alert_Details_AttentionTitle", "Alert_Details_ReplyEmptyText", "warning");
                     return;
                 }
 
@@ -1153,12 +1187,14 @@ namespace OFFSIDESHOP
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "replySuccess", "Swal.fire({ title: 'Replied', text: 'Your official reply has been saved.', icon: 'success', confirmButtonColor: '#FFC800' });", true);
+                    TriggerAlert("Alert_Details_RepliedTitle", "Alert_Details_ReplySuccessText", "success");
                     CargarReviews();
                 }
                 catch (Exception ex)
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "replyError", $"Swal.fire({{ title: 'Error', text: '{HttpUtility.JavaScriptStringEncode(ex.Message)}', icon: 'error', confirmButtonColor: '#FFC800' }});", true);
+                    string rawMsg = AlertHelper.GetResourceString(this, "Alert_Details_ErrorText");
+                    string formattedMsg = string.Format(rawMsg, ex.Message);
+                    TriggerAlertWithText(AlertHelper.GetResourceString(this, "Alert_ErrorTitle"), formattedMsg, "error");
                 }
             }
         }
@@ -1196,6 +1232,34 @@ namespace OFFSIDESHOP
         protected void btnGoToAccount_Click(object sender, EventArgs e)
         {
             Response.Redirect("MyAccount.aspx");
+        }
+
+        private void TriggerAlert(string titleKey, string messageKey, string iconType)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"),
+                AlertHelper.GetSafeAlertScript(this, titleKey, messageKey, iconType), true);
+        }
+
+        private void TriggerAlertWithText(string title, string message, string iconType)
+        {
+            title = title.Replace("'", "\\'");
+            message = message.Replace("'", "\\'").Replace("\r\n", " ").Replace("\n", " ");
+
+            string script = $@"
+                setTimeout(function() {{
+                    if (typeof Swal !== 'undefined') {{
+                        Swal.fire({{
+                            title: '{title}',
+                            text: '{message}',
+                            icon: '{iconType}',
+                            confirmButtonColor: '#FFC800'
+                        }});
+                    }} else {{
+                        alert('{title}: {message}');
+                    }}
+                }}, 50);";
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString("N"), script, true);
         }
     }
 }

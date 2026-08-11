@@ -50,7 +50,7 @@ namespace OFFSIDESHOP
 
                         if (string.IsNullOrEmpty(actualUsername))
                         {
-                            alertas.Text = "<script>Swal.fire('Something went wrong', 'User or email not found', 'error');</script>";
+                            alertas.Text = AlertHelper.GetAlertScript(this, "Alert_Login_WrongTitle", "Alert_Recover_UserNotFound", "error");
                             return;
                         }
 
@@ -107,18 +107,17 @@ namespace OFFSIDESHOP
                         EmailService.SendPasswordRecoveryToken(mail, nombrecliente, randomCode);
                     }
 
-                    alertas.Text = "<script>Swal.fire('We sent you an email', 'Verification token sent successfully.', 'success');</script>";
-                    Response.AddHeader("REFRESH", "3;URL=Token.aspx");
+                    alertas.Text = AlertHelper.GetRedirectAlertScript(this, "Alert_Recover_SentTitle", "Alert_Recover_EmailSent", "success", 3000, "Token.aspx");
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine("Error en recuperación: " + ex.Message);
-                    alertas.Text = "<script>Swal.fire('Something went wrong', 'An error occurred while processing your request.', 'error');</script>";
+                    alertas.Text = AlertHelper.GetAlertScript(this, "Alert_Login_WrongTitle", "Alert_Recover_ErrorProcessing", "error");
                 }
             }
             else
             {
-                alertas.Text = "<script>Swal.fire('Error', 'Do not leave any blank spaces.', 'error');</script>";
+                alertas.Text = AlertHelper.Error(this, "Alert_Login_BlankSpaces");
             }
         }
 

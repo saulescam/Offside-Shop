@@ -1258,7 +1258,9 @@
                 
                 <!-- PÃ­ldoras de CategorÃ­as -->
                 <div class="category-pills d-flex flex-wrap gap-2 mb-4">
-                    <button type="button" class="cat-pill active shadow-sm" data-filter="all">All</button>
+                    <button type="button" class="cat-pill active shadow-sm" data-filter="all">
+    <%= Session["Language"] != null && Session["Language"].ToString() == "es" ? "Todos" : "All" %>
+</button>
                     <asp:Repeater ID="rptCollectionCats" runat="server">
                         <ItemTemplate>
                             <button type="button" class="cat-pill shadow-sm" data-filter='<%# Eval("Id_Category") %>'><%# Eval("Name_Category") %></button>

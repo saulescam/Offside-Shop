@@ -330,7 +330,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Database Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_DatabaseErrorTitle", ex.Message, "error");
             }
         }
 
@@ -494,7 +494,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -509,13 +509,13 @@ namespace OFFSIDESHOP
                     cmd.Parameters.AddWithValue("@Id", productId);
                     cmd.ExecuteNonQuery();
                 }
-                alerta.Text = "<script>Swal.fire({toast:true,position:'top-end',icon:'success',title:'Status toggled',showConfirmButton:false,timer:1800});</script>";
+                TriggerToast("Alert_Products_StatusToggled");
                 AuditLogger.LogActivity("UPDATE", "ManageProducts", $"Toggled status for product ID #{productId}");
 
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -530,13 +530,13 @@ namespace OFFSIDESHOP
                     cmd.Parameters.AddWithValue("@Id", productId);
                     cmd.ExecuteNonQuery();
                 }
-                alerta.Text = "<script>Swal.fire('Deleted', 'The shirt has been permanently removed.', 'success');</script>";
+                TriggerAlert("Alert_DeletedTitle", "Alert_Products_DeletedText", "success");
                 AuditLogger.LogActivity("DELETE", "ManageProducts", $"Deleted product ID #{productId}");
 
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -548,24 +548,24 @@ namespace OFFSIDESHOP
             // Validaciones Backend
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                alerta.Text = "<script>Swal.fire('Validation Error', 'Shirt Name in English is required.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Products_NameEnRequired", "error");
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtName_ES.Text))
             {
-                alerta.Text = "<script>Swal.fire('Validation Error', 'El Nombre en Español es requerido.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Products_NameEsRequired", "error");
                 return;
             }
 
             if (!decimal.TryParse(txtPrice.Text.Trim(), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal price) || price <= 0)
             {
-                alerta.Text = "<script>Swal.fire('Validation Error', 'Price must be a positive number.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Products_PriceRequired", "error");
                 return;
             }
 
             if (!int.TryParse(txtYear.Text.Trim(), out int year) || txtYear.Text.Trim().Length != 4)
             {
-                alerta.Text = "<script>Swal.fire('Validation Error', 'Year must be a valid 4-digit number.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Products_YearRequired", "error");
                 return;
             }
 
@@ -574,7 +574,7 @@ namespace OFFSIDESHOP
                 !int.TryParse(ddlFormTeam.SelectedValue, out int teamId) || teamId == 0 ||
                 !int.TryParse(ddlFormKitType.SelectedValue, out int kitTypeId) || kitTypeId == 0)
             {
-                alerta.Text = "<script>Swal.fire('Validation Error', 'Please select Brand, League, Team, and Kit Type.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Products_DropdownsRequired", "error");
                 return;
             }
 
@@ -584,7 +584,7 @@ namespace OFFSIDESHOP
                 !int.TryParse(txtStockXL.Text.Trim(), out int stockXL) || stockXL < 0 ||
                 !int.TryParse(txtStockXXL.Text.Trim(), out int stockXXL) || stockXXL < 0)
             {
-                alerta.Text = "<script>Swal.fire('Validation Error', 'Stock values must be non-negative integers.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Products_StockRequired", "error");
                 return;
             }
 
@@ -603,7 +603,7 @@ namespace OFFSIDESHOP
                 string ext = Path.GetExtension(fileImagen.FileName).ToLower();
                 if (!allowedExtensions.Contains(ext) || fileImagen.PostedFile.ContentLength > 2 * 1024 * 1024)
                 {
-                    alerta.Text = "<script>Swal.fire('File Error', 'Main image must be .jpg, .jpeg, .png or .webp under 2MB.', 'error');</script>";
+                    TriggerAlert("Alert_FileErrorTitle", "Alert_Products_MainImageError", "error");
                     return;
                 }
 
@@ -627,7 +627,8 @@ namespace OFFSIDESHOP
                         string ext = Path.GetExtension(postedFile.FileName).ToLower();
                         if (!allowedExtensions.Contains(ext) || postedFile.ContentLength > 2 * 1024 * 1024)
                         {
-                            alerta.Text = $"<script>Swal.fire('File Error', 'Gallery image {HttpUtility.JavaScriptStringEncode(postedFile.FileName)} is invalid or over 2MB.', 'error');</script>";
+                            string msg = string.Format(AlertHelper.GetResourceString(this, "Alert_Products_GalleryImageError"), HttpUtility.HtmlEncode(postedFile.FileName));
+                            TriggerAlert("Alert_FileErrorTitle", msg, "error");
                             return;
                         }
                     }
@@ -749,7 +750,7 @@ namespace OFFSIDESHOP
                         }
 
                         tx.Commit();
-                        alerta.Text = "<script>Swal.fire('Success', 'Product saved successfully with translations!', 'success');</script>";
+                        TriggerAlert("Alert_SuccessTitle", "Alert_Products_SavedSuccess", "success");
                         AuditLogger.LogActivity("UPDATE", "ManageProducts", $"Updated product ID #{targetProductId}");
                     }
                 }
@@ -760,7 +761,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Database Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_DatabaseErrorTitle", ex.Message, "error");
             }
         }
 
@@ -768,7 +769,7 @@ namespace OFFSIDESHOP
         {
             if (string.IsNullOrWhiteSpace(txtName.Text) || ddlFormBrand.SelectedIndex <= 0 || ddlFormTeam.SelectedIndex <= 0)
             {
-                alerta.Text = "<script>Swal.fire('Missing Information', 'Please select a Team, Brand, and Name first.', 'warning');</script>";
+                TriggerAlert("Alert_MissingInfoTitle", "Alert_Products_MissingInfoText", "warning");
                 return;
             }
 
@@ -793,11 +794,11 @@ namespace OFFSIDESHOP
                 string generatedDescription = await gemini.CallGeminiAsync(prompt, "gemini-1.5-flash", systemInstruction);
 
                 txtDescription.Text = generatedDescription.Trim();
-                alerta.Text = "<script>Swal.fire({toast:true,position:'top-end',icon:'success',title:'Description generated with AI!',showConfirmButton:false,timer:2500});</script>";
+                TriggerToast("Alert_Products_DescriptionGenerated");
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('AI Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_AiErrorTitle", ex.Message, "error");
             }
         }
 
@@ -865,5 +866,17 @@ namespace OFFSIDESHOP
         protected void btnStats_Click(object sender, EventArgs e) { Response.Redirect("AdminStats.aspx"); }
         protected void btnManageCoupons_Click(object sender, EventArgs e) { Response.Redirect("ManageCoupons.aspx"); }
         protected void btnAuditLogs_Click(object sender, EventArgs e) { Response.Redirect("AdminAudit.aspx"); }
+
+        private void TriggerAlert(string titleKey, string messageKey, string iconType)
+        {
+            alerta.Text = AlertHelper.GetAlertScript(this, titleKey, messageKey, iconType);
+        }
+
+        private void TriggerToast(string titleKey)
+        {
+            string title = AlertHelper.GetResourceString(this, titleKey);
+            string script = $"<script>Swal.fire({{toast:true,position:'top-end',icon:'success',title:'{title.Replace("'", "\\'")}',showConfirmButton:false,timer:2500}});</script>";
+            alerta.Text = script;
+        }
     }
 }

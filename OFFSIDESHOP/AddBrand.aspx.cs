@@ -76,7 +76,7 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrWhiteSpace(brandName))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please enter a brand name.', 'error');</script>";
+                alerta.Text = AlertHelper.Error(this, "Alert_Brand_Empty");
                 return;
             }
 
@@ -94,14 +94,14 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                alerta.Text = "<script>Swal.fire('Success', 'Brand saved successfully!', 'success');</script>";
+                alerta.Text = AlertHelper.Success(this, "Alert_Brand_Saved");
                 AuditLogger.LogActivity("CREATE", "AddBrand", $"Created new brand '{safeBrandName}'");
                 txtBrandName.Text = "";
                 LoadBrands();
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
             }
         }
 
@@ -124,12 +124,12 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                alerta.Text = "<script>Swal.fire('Deleted', 'Brand deleted successfully.', 'success');</script>";
+                alerta.Text = AlertHelper.Success(this, "Alert_Brand_Deleted");
                 AuditLogger.LogActivity("DELETE", "AddBrand", $"Deleted brand ID #{idBrand}");
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
             }
             finally
             {

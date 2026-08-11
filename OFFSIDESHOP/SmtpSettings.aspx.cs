@@ -67,7 +67,8 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', 'Could not load SMTP settings: {HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                string loadErrorMsg = string.Format(AlertHelper.GetResourceString(this, "Alert_Smtp_LoadError"), HttpUtility.HtmlEncode(ex.Message));
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ErrorTitle", loadErrorMsg, "error");
             }
         }
 
@@ -90,7 +91,7 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                alerta.Text = "<script>Swal.fire('Validation Error', 'All fields with an asterisk (*) are required.', 'warning');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_Contact_ValidationErrorTitle", "Alert_Smtp_RequiredFields", "warning");
                 return;
             }
 
@@ -111,7 +112,7 @@ namespace OFFSIDESHOP
 
                         if (rowsAffected > 0)
                         {
-                            alerta.Text = "<script>Swal.fire('Success', 'SMTP configuration updated successfully.', 'success');</script>";
+                            alerta.Text = AlertHelper.GetAlertScript(this, "Alert_SuccessTitle", "Alert_Smtp_UpdatedSuccess", "success");
                             LoadCurrentSmtpSettings(); // Volvemos a leer para mantener refrescado el front
                         }
                     }
@@ -119,7 +120,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Database Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_DatabaseErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
             }
         }
 
@@ -219,7 +220,8 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', 'Could not load Chatbot settings: {HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                string loadChatbotErrorMsg = string.Format(AlertHelper.GetResourceString(this, "Alert_Smtp_LoadChatbotError"), HttpUtility.HtmlEncode(ex.Message));
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ErrorTitle", loadChatbotErrorMsg, "error");
             }
         }
 
@@ -271,12 +273,12 @@ namespace OFFSIDESHOP
                     }
 
                     UpdateChatbotUI(newValue == "1");
-                    alerta.Text = "<script>Swal.fire('Success', 'Chatbot status updated successfully.', 'success');</script>";
+                    alerta.Text = AlertHelper.GetAlertScript(this, "Alert_SuccessTitle", "Alert_Smtp_ChatbotUpdatedSuccess", "success");
                 }
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Database Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_DatabaseErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
             }
         }
         protected override void InitializeCulture()

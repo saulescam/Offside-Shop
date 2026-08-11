@@ -123,7 +123,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Database Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_DatabaseErrorTitle", ex.Message, "error");
             }
         }
 
@@ -192,7 +192,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error Loading Catalog', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_Offers_LoadCatalogError", ex.Message, "error");
             }
         }
 
@@ -321,29 +321,29 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrWhiteSpace(txtOfferName.Text))
             {
-                alerta.Text = "<script>Swal.fire('Validation Failure', 'Campaign identity context field is mandatory.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Offers_NameRequired", "error");
                 return;
             }
             if (!int.TryParse(txtDiscountPercentage.Text.Trim(), out int pct) || pct <= 0 || pct > 99)
             {
-                alerta.Text = "<script>Swal.fire('Validation Failure', 'Discount values must represent ranges between 1% and 99%.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Offers_DiscountInvalid", "error");
                 return;
             }
             if (!DateTime.TryParse(txtStartDate.Text, out DateTime start) || !DateTime.TryParse(txtEndDate.Text, out DateTime end))
             {
-                alerta.Text = "<script>Swal.fire('Validation Failure', 'Configure precise initialization and conclusion timetables.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Offers_DatesRequired", "error");
                 return;
             }
             if (end <= start)
             {
-                alerta.Text = "<script>Swal.fire('Validation Failure', 'Expiration boundaries must extend past commencement windows.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Offers_DatesInvalid", "error");
                 return;
             }
 
             HashSet<int> selectedShirtIds = Session["SelectedShirtIds"] as HashSet<int>;
             if (selectedShirtIds == null || selectedShirtIds.Count == 0)
             {
-                alerta.Text = "<script>Swal.fire('Target Mapping Missing', 'Attach at least one catalog item structure to this promotional group.', 'error');</script>";
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Offers_ShirtsRequired", "error");
                 return;
             }
 
@@ -398,7 +398,7 @@ namespace OFFSIDESHOP
                 }
 
                 trans.Commit();
-                alerta.Text = "<script>Swal.fire('Success', 'Promotional campaign parameter space deployed successfully.', 'success');</script>";
+                TriggerAlert("Alert_SuccessTitle", "Alert_Offers_SavedSuccess", "success");
                 ClearFormPanel();
                 pnlOfferForm.Visible = false;
                 LoadOffers();
@@ -408,7 +408,7 @@ namespace OFFSIDESHOP
             catch (Exception ex)
             {
                 if (trans != null) trans.Rollback();
-                alerta.Text = $"<script>Swal.fire('Transaction Exception Failure', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_Offers_TransactionError", ex.Message, "error");
             }
             finally
             {
@@ -479,7 +479,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Data Retrieval Failure', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_Offers_DataRetrievalError", ex.Message, "error");
             }
         }
 
@@ -496,11 +496,11 @@ namespace OFFSIDESHOP
                 }
                 AuditLogger.LogActivity("UPDATE", "ManageOffers", $"Toggled status for offer ID #{offerId   }");
 
-                alerta.Text = "<script>Swal.fire({toast:true,position:'top-end',icon:'success',title:'Campaign visibility altered.',showConfirmButton:false,timer:1800});</script>";
+                TriggerToast("Alert_Offers_StatusToggled");
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -516,11 +516,11 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
                 AuditLogger.LogActivity("DELETE", "ManageOffers", $"Deleted offer ID #{offerId}");
-                alerta.Text = "<script>Swal.fire('Purged', 'Promotional configurations stripped from relational records.', 'success');</script>";
+                TriggerAlert("Alert_DeletedTitle", "Alert_Offers_DeletedText", "success");
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_ErrorTitle", ex.Message, "error");
             }
         }
 
@@ -617,7 +617,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error de Selección', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');</script>";
+                TriggerAlert("Alert_Offers_SelectionError", ex.Message, "error");
             }
         }
 
@@ -718,6 +718,18 @@ namespace OFFSIDESHOP
         {
             Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
             Response.Redirect(Request.RawUrl);
+        }
+
+        private void TriggerAlert(string titleKey, string messageKey, string iconType)
+        {
+            alerta.Text = AlertHelper.GetAlertScript(this, titleKey, messageKey, iconType);
+        }
+
+        private void TriggerToast(string titleKey)
+        {
+            string title = AlertHelper.GetResourceString(this, titleKey);
+            string script = $"<script>Swal.fire({{toast:true,position:'top-end',icon:'success',title:'{title.Replace("'", "\\'")}',showConfirmButton:false,timer:2500}});</script>";
+            alerta.Text = script;
         }
     }
 }
