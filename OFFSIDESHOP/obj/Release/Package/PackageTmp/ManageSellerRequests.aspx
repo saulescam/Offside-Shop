@@ -579,7 +579,7 @@ body.dark-mode .nav-tabs-custom .nav-link.active * {
                                                 <div class="form-group mt-3">
                                                     <label for="txtAdminNotes" class="font-weight-bold text-uppercase small text-muted">
                                                         <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalAdminResponse %>" /></label>
-                                                    <asp:TextBox ID="txtAdminNotes" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="Specify approval verification results, shipment tracking numbers, or rejection details for user response..." />
+                                                    <asp:TextBox ID="txtAdminNotes" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="<%$ Resources:Strings, Placeholder_AdminNotes %>" />
                                                 </div>
 
                                                 <asp:Label ID="lblModalError" runat="server" CssClass="alert alert-danger d-block mt-3 font-weight-bold small" Visible="false" />
@@ -645,7 +645,7 @@ body.dark-mode .nav-tabs-custom .nav-link.active * {
                                                     <asp:LinkButton ID="btnDeleteReview" runat="server"
                                                         CommandName="DeleteReview"
                                                         CommandArgument='<%# Eval("Id_Review") %>'
-                                                        OnClientClick="return confirm('Are you sure you want to delete this review?');"
+                                                        OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteReview") + "\");" %>'
                                                         CssClass="btn btn-sm btn-danger font-weight-bold mb-1">
                                                         <i class="fas fa-trash-alt"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ReviewDeleteBtn %>" />
                                                     </asp:LinkButton>
@@ -678,7 +678,7 @@ body.dark-mode .nav-tabs-custom .nav-link.active * {
                                                 <div class="form-group mt-3">
                                                     <label for="txtReplyComment" class="font-weight-bold text-uppercase small text-muted">
                                                         <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ReviewModalOfficial %>" /></label>
-                                                    <asp:TextBox ID="txtReplyComment" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="Write your public reply here..." />
+                                                    <asp:TextBox ID="txtReplyComment" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="<%$ Resources:Strings, Placeholder_PublicReply %>" />
                                                 </div>
                                                 <asp:Label ID="lblReplyModalError" runat="server" CssClass="alert alert-danger d-block mt-3 font-weight-bold small" Visible="false" />
                                             </div>

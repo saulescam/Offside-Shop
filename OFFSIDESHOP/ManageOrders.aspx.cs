@@ -19,6 +19,19 @@ namespace OFFSIDESHOP
         private static readonly HttpClient httpClient = new HttpClient();
         private DataTable translatedStatusesCache = null;
 
+        private enum OrderStatus
+        {
+            Pending = 1,
+            Paid = 2,
+            Shipped = 3,
+            Delivered = 4,
+            Cancelled = 5,
+            RefundRequested = 6,
+            Refunded = 7,
+            RefundRejected = 8,
+            ReadyForPickup = 9
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.Buffer = true;
@@ -53,10 +66,10 @@ namespace OFFSIDESHOP
             if (!IsPostBack)
             {
                 ViewState["ActiveTab"] = "ORDERS";
-                
+
                 string tabOrdersName = GetGlobalResourceObject("Strings", "Admin_Orders_TabActive")?.ToString() ?? "Active Orders";
                 btnTabOrders.Text = $"<i class=\"fas fa-boxes mr-2\"></i>{tabOrdersName}";
-                
+
                 LoadFilterStatuses();
                 LoadOrders();
                 UpdateRefundBadgeCount();
@@ -145,7 +158,7 @@ namespace OFFSIDESHOP
                     }
 
                     phOrderDetailsModal.Visible = true;
-                    LockBackgroundScroll(); // Bloquea el scroll del fondo
+                    LockBackgroundScroll();
                 }
             }
             catch (Exception ex)
@@ -158,7 +171,7 @@ namespace OFFSIDESHOP
         protected void btnCloseOrderDetails_Click(object sender, EventArgs e)
         {
             phOrderDetailsModal.Visible = false;
-            UnlockBackgroundScroll(); // Libera el scroll del fondo
+            UnlockBackgroundScroll();
         }
         #endregion
 
@@ -208,7 +221,7 @@ namespace OFFSIDESHOP
             {
                 count = 0;
             }
-            
+
             string tabName = GetGlobalResourceObject("Strings", "Admin_Orders_TabRefunds")?.ToString() ?? "Refunds";
             btnTabRefunds.Text = $"<i class=\"fas fa-hand-holding-usd mr-2\"></i>{tabName} <span class=\"badge badge-danger badge-refund\">{count}</span>";
         }
@@ -224,7 +237,6 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    // Consulta con CASE WHEN para traer el estado en español si aplica
                     string query = @"
                 SELECT Id_Status, 
                        CASE 
@@ -247,8 +259,8 @@ namespace OFFSIDESHOP
                     foreach (DataRow row in dt.Rows)
                     {
                         string idStat = row["Id_Status"].ToString();
-                        // Ocultamos los estados de reembolso/completados según tu lógica original
-                        if (idStat != "6" && idStat != "7" && idStat != "8")
+                        // Ocultamos solo el estado 6 (Pendiente de Reembolso) porque está en su pestaña propia
+                        if (idStat != "6")
                         {
                             ddlFilterStatus.Items.Add(new ListItem(row["Status_Name"].ToString(), idStat));
                         }
@@ -265,7 +277,7 @@ namespace OFFSIDESHOP
 
         protected void btnApplyFilters_Click(object sender, EventArgs e)
         {
-            gvOrders.PageIndex = 0; // Regresa a la primera página al aplicar un nuevo filtro
+            gvOrders.PageIndex = 0;
             LoadOrders();
         }
 
@@ -278,7 +290,7 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    // Modificamos el campo s.Status_Name usando un CASE WHEN y conservamos el alias AS Status_Name
+                    // Excluimos únicamente el Estado 6 (Reembolsos Pendientes de Evaluación)
                     string query = @"SELECT o.Id_Order, o.OrderDate, o.Total, o.Id_Status,
                                     CONCAT(o.Name, ' ', o.LastName) AS CustomerName, o.Mail, 
                                     CASE 
@@ -289,27 +301,23 @@ namespace OFFSIDESHOP
                              FROM orders o
                              INNER JOIN order_statuses s ON o.Id_Status = s.Id_Status
                              LEFT JOIN cities c ON o.Id_City = c.id_city
-                             WHERE o.Id_Status NOT IN (6, 7, 8)";
+                             WHERE o.Id_Status != 6";
 
                     MySqlCommand cmd = new MySqlCommand();
-                    // Agregamos el parámetro del idioma
                     cmd.Parameters.AddWithValue("@Lang", currentLang);
 
-                    // Aplicar Filtro de Estado
                     if (ddlFilterStatus.SelectedValue != "0" && !string.IsNullOrEmpty(ddlFilterStatus.SelectedValue))
                     {
                         query += " AND o.Id_Status = @StatusId";
                         cmd.Parameters.AddWithValue("@StatusId", Convert.ToInt32(ddlFilterStatus.SelectedValue));
                     }
 
-                    // Aplicar Filtro de Fecha de Inicio
                     if (!string.IsNullOrEmpty(txtStartDate.Text))
                     {
                         query += " AND DATE(o.OrderDate) >= @StartDate";
                         cmd.Parameters.AddWithValue("@StartDate", Convert.ToDateTime(txtStartDate.Text).ToString("yyyy-MM-dd"));
                     }
 
-                    // Aplicar Filtro de Fecha Final
                     if (!string.IsNullOrEmpty(txtEndDate.Text))
                     {
                         query += " AND DATE(o.OrderDate) <= @EndDate";
@@ -336,8 +344,9 @@ namespace OFFSIDESHOP
         protected void gvOrders_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvOrders.PageIndex = e.NewPageIndex;
-            LoadOrders(); // Recarga la tabla de datos en la página seleccionada
+            LoadOrders();
         }
+
         private DataTable GetTranslatedStatuses()
         {
             DataTable dt = new DataTable();
@@ -352,7 +361,7 @@ namespace OFFSIDESHOP
                        ELSE Status_Name 
                    END AS Status_Name
             FROM order_statuses 
-            WHERE Id_Status NOT IN (6, 7, 8) 
+            WHERE Id_Status != 6 
             ORDER BY Id_Status ASC;";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
@@ -367,6 +376,7 @@ namespace OFFSIDESHOP
             }
             return dt;
         }
+
         protected void gvOrders_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -374,22 +384,18 @@ namespace OFFSIDESHOP
                 DropDownList ddlGridStatus = (DropDownList)e.Row.FindControl("ddlGridStatus");
                 if (ddlGridStatus != null)
                 {
-                    // 1. Cargamos los estados traducidos si aún no están en caché
                     if (translatedStatusesCache == null)
                     {
                         translatedStatusesCache = GetTranslatedStatuses();
                     }
 
-                    // 2. Limpiamos cualquier opción en inglés estática del HTML
                     ddlGridStatus.Items.Clear();
 
-                    // 3. Llenamos el DropDownList con las traducciones
                     foreach (DataRow row in translatedStatusesCache.Rows)
                     {
                         ddlGridStatus.Items.Add(new ListItem(row["Status_Name"].ToString(), row["Id_Status"].ToString()));
                     }
 
-                    // 4. Seleccionamos el estado actual de la orden
                     DataRowView rowView = (DataRowView)e.Row.DataItem;
                     int currentStatusId = Convert.ToInt32(rowView["Id_Status"]);
 
@@ -518,7 +524,7 @@ namespace OFFSIDESHOP
                                 txtAdminComment.Text = string.Empty;
                                 lblModalError.Visible = false;
                                 phRefundModal.Visible = true;
-                                LockBackgroundScroll(); // Bloquea el scroll
+                                LockBackgroundScroll();
                             }
                         }
                     }
@@ -534,7 +540,7 @@ namespace OFFSIDESHOP
         protected void btnCloseModal_Click(object sender, EventArgs e)
         {
             phRefundModal.Visible = false;
-            UnlockBackgroundScroll(); // Libera el scroll al cancelar o cerrar el ticket de reembolso
+            UnlockBackgroundScroll();
         }
 
         protected async void btnApproveRefund_Click(object sender, EventArgs e)
@@ -544,9 +550,9 @@ namespace OFFSIDESHOP
             int paymentMethodId = Convert.ToInt32(ViewState["EvaluationPaymentMethodId"]);
             string resolutionNotes = txtAdminComment.Text.Trim();
 
-            if (string.IsNullOrEmpty(resolutionNotes) || resolutionNotes.Length < 10)
+            if (string.IsNullOrEmpty(resolutionNotes) || resolutionNotes.Length < 5)
             {
-                lblModalError.Text = "Please type a detailed settlement note explaining the structural authorization grounds (minimum 10 characters).";
+                lblModalError.Text = "Please type a settlement note explaining the authorization grounds (minimum 5 characters).";
                 lblModalError.Visible = true;
                 return;
             }
@@ -573,23 +579,27 @@ namespace OFFSIDESHOP
                 }
             }
 
+            // SI ES PAYPAL (2), EJECUTAMOS Y VALIDAMOS LA API PRIMERO
             if (paymentMethodId == 2)
             {
                 if (string.IsNullOrEmpty(payPalCaptureId))
                 {
-                    lblModalError.Text = "Error: No valid TransactionID (PayPal Capture ID) found in the database.";
+                    lblModalError.Text = "Error: No valid TransactionID (PayPal Capture ID) found for this order.";
                     lblModalError.Visible = true;
                     return;
                 }
-                bool payPalSuccess = await ExecutePayPalSandboxRefundAPIAsync(payPalCaptureId, refundAmount);
+
+                var (payPalSuccess, apiErrorMessage) = await ExecutePayPalSandboxRefundAPIAsync(payPalCaptureId, refundAmount);
                 if (!payPalSuccess)
                 {
-                    lblModalError.Text = "Error: PayPal SANDBOX API rejected the refund claim.";
+                    // SI PAYPAL FALLA, SE DETIENE AQUÍ Y NO SE MODIFICA LA BASE DE DATOS
+                    lblModalError.Text = "PayPal Refund Error: " + apiErrorMessage;
                     lblModalError.Visible = true;
                     return;
                 }
             }
 
+            // SI LA API DE PAYPAL TUVO ÉXITO (O SI ERA PAGO EN EFECTIVO), PROCESAMOS LA BASE DE DATOS
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
@@ -597,11 +607,14 @@ namespace OFFSIDESHOP
                 {
                     try
                     {
+                        // 1. Cambiar a Estado 7 (Reembolsado)
                         using (MySqlCommand cmd = new MySqlCommand("UPDATE orders SET Id_Status = 7 WHERE Id_Order = @IdOrder;", con, transaction))
                         {
                             cmd.Parameters.AddWithValue("@IdOrder", orderId);
                             cmd.ExecuteNonQuery();
                         }
+
+                        // 2. Registrar comentario del administrador
                         using (MySqlCommand cmd = new MySqlCommand("UPDATE order_reasons SET Admin_Comment = @AdminComment, Resolved_At = NOW() WHERE Id_Order = @IdOrder;", con, transaction))
                         {
                             cmd.Parameters.AddWithValue("@AdminComment", resolutionNotes);
@@ -609,6 +622,7 @@ namespace OFFSIDESHOP
                             cmd.ExecuteNonQuery();
                         }
 
+                        // 3. Devolver stock
                         DataTable dtDetails = new DataTable();
                         using (MySqlCommand cmdDetails = new MySqlCommand("SELECT Id_Tshirt, Id_Size, Quantity FROM order_details WHERE Id_Order = @IdOrder;", con, transaction))
                         {
@@ -634,7 +648,9 @@ namespace OFFSIDESHOP
                         phRefundModal.Visible = false;
                         UnlockBackgroundScroll();
 
-                        EmailService.SendRefundApprovedNotification(customerEmail, customerName, orderId.ToString(), refundAmount, resolutionNotes);
+                        // Enviar correo y mostrar alerta
+                        try { EmailService.SendRefundApprovedNotification(customerEmail, customerName, orderId.ToString(), refundAmount, resolutionNotes); } catch { }
+
                         TriggerSweetAlert("Alert_Orders_RefundApprovedTitle", "Alert_Orders_RefundApprovedText", "success");
                         AuditLogger.LogActivity("APPROVE", "ManageOrders", $"Approved refund for order ID #{orderId}");
 
@@ -644,17 +660,23 @@ namespace OFFSIDESHOP
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        lblModalError.Text = "Exception inside transactional environment: " + ex.Message;
+                        lblModalError.Text = "Database transaction failed: " + ex.Message;
                         lblModalError.Visible = true;
                     }
                 }
             }
         }
 
-        private async Task<bool> ExecutePayPalSandboxRefundAPIAsync(string captureId, decimal amount)
+        private async Task<(bool Success, string Message)> ExecutePayPalSandboxRefundAPIAsync(string captureId, decimal amount)
         {
             string clientId = System.Configuration.ConfigurationManager.AppSettings["PayPal.ClientId"];
             string clientSecret = System.Configuration.ConfigurationManager.AppSettings["PayPal.ClientSecret"];
+
+            if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
+            {
+                return (false, "PayPal.ClientId or PayPal.ClientSecret is missing in Web.config AppSettings.");
+            }
+
             try
             {
                 var authBytes = Encoding.UTF8.GetBytes($"{clientId}:{clientSecret}");
@@ -665,11 +687,17 @@ namespace OFFSIDESHOP
                 tokenRequest.Content = new StringContent("grant_type=client_credentials", Encoding.UTF8, "application/x-www-form-urlencoded");
 
                 var tokenResponse = await httpClient.SendAsync(tokenRequest);
-                if (!tokenResponse.IsSuccessStatusCode) return false;
+                if (!tokenResponse.IsSuccessStatusCode)
+                {
+                    string errBody = await tokenResponse.Content.ReadAsStringAsync();
+                    return (false, $"Auth Failed (HTTP {tokenResponse.StatusCode}): {errBody}");
+                }
 
                 string tokenJson = await tokenResponse.Content.ReadAsStringAsync();
                 var serializer = new JavaScriptSerializer();
                 var tokenData = serializer.Deserialize<Dictionary<string, object>>(tokenJson);
+
+                if (!tokenData.ContainsKey("access_token")) return (false, "No access_token received from PayPal.");
                 string accessToken = tokenData["access_token"].ToString();
 
                 var refundRequest = new HttpRequestMessage(HttpMethod.Post, $"https://api-m.sandbox.paypal.com/v2/payments/captures/{captureId}/refund");
@@ -683,16 +711,27 @@ namespace OFFSIDESHOP
 
                 refundRequest.Content = new StringContent(serializer.Serialize(refundBody), Encoding.UTF8, "application/json");
                 var refundResponse = await httpClient.SendAsync(refundRequest);
+                string responseJson = await refundResponse.Content.ReadAsStringAsync();
+
                 if (refundResponse.IsSuccessStatusCode)
                 {
-                    string responseJson = await refundResponse.Content.ReadAsStringAsync();
                     var refundData = serializer.Deserialize<Dictionary<string, object>>(responseJson);
-                    string status = refundData["status"].ToString();
-                    return (status == "COMPLETED" || status == "PENDING");
+                    string status = refundData.ContainsKey("status") ? refundData["status"].ToString() : "";
+                    if (status == "COMPLETED" || status == "PENDING")
+                    {
+                        return (true, "OK");
+                    }
+                    return (false, $"Refund status '{status}'. Response: {responseJson}");
                 }
-                return false;
+                else
+                {
+                    return (false, $"API Error (HTTP {refundResponse.StatusCode}): {responseJson}");
+                }
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                return (false, "Exception: " + ex.Message);
+            }
         }
 
         protected void btnRejectRefund_Click(object sender, EventArgs e)
@@ -701,9 +740,9 @@ namespace OFFSIDESHOP
             int orderId = Convert.ToInt32(ViewState["TargetEvaluationOrderId"]);
             string resolutionNotes = txtAdminComment.Text.Trim();
 
-            if (string.IsNullOrEmpty(resolutionNotes) || resolutionNotes.Length < 10)
+            if (string.IsNullOrEmpty(resolutionNotes) || resolutionNotes.Length < 5)
             {
-                lblModalError.Text = "Please write clear justification notes clarifying why the consumer refund claim has been denied.";
+                lblModalError.Text = "Please write clear justification notes clarifying why the refund claim has been denied.";
                 lblModalError.Visible = true;
                 return;
             }
@@ -733,11 +772,13 @@ namespace OFFSIDESHOP
                 {
                     try
                     {
-                        using (MySqlCommand cmd = new MySqlCommand("UPDATE orders SET Id_Status = 2 WHERE Id_Order = @IdOrder;", con, transaction))
+                        // Se marca la orden como Estado 8 (Refund Rejected)
+                        using (MySqlCommand cmd = new MySqlCommand("UPDATE orders SET Id_Status = 8 WHERE Id_Order = @IdOrder;", con, transaction))
                         {
                             cmd.Parameters.AddWithValue("@IdOrder", orderId);
                             cmd.ExecuteNonQuery();
                         }
+
                         using (MySqlCommand cmd = new MySqlCommand("UPDATE order_reasons SET Admin_Comment = @AdminComment, Resolved_At = NOW() WHERE Id_Order = @IdOrder;", con, transaction))
                         {
                             cmd.Parameters.AddWithValue("@AdminComment", "[DENIED] " + resolutionNotes);
@@ -749,7 +790,8 @@ namespace OFFSIDESHOP
                         phRefundModal.Visible = false;
                         UnlockBackgroundScroll();
 
-                        EmailService.SendRefundDeniedNotification(customerEmail, customerName, orderId.ToString(), resolutionNotes);
+                        try { EmailService.SendRefundDeniedNotification(customerEmail, customerName, orderId.ToString(), resolutionNotes); } catch { }
+
                         TriggerSweetAlert("Alert_Orders_RefundDeniedTitle", "Alert_Orders_RefundDeniedText", "info");
                         AuditLogger.LogActivity("DENY", "ManageOrders", $"Denied refund for order ID #{orderId}");
 
@@ -759,7 +801,7 @@ namespace OFFSIDESHOP
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        lblModalError.Text = "Ledger modification rollback exception: " + ex.Message;
+                        lblModalError.Text = "Database exception: " + ex.Message;
                         lblModalError.Visible = true;
                     }
                 }
@@ -794,6 +836,7 @@ namespace OFFSIDESHOP
         protected void btnStats_Click(object sender, EventArgs e) { Response.Redirect("AdminStats.aspx"); }
         protected void btnManageCoupons_Click(object sender, EventArgs e) { Response.Redirect("ManageCoupons.aspx"); }
         protected void btnAuditLogs_Click(object sender, EventArgs e) { Response.Redirect("AdminAudit.aspx"); }
+
         protected override void InitializeCulture()
         {
             if (Session["Language"] != null)

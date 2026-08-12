@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOrders.aspx.cs" Inherits="OFFSIDESHOP.ManageOrders" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOrders.aspx.cs" Inherits="OFFSIDESHOP.ManageOrders" Async="true" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -101,6 +101,34 @@
             opacity: 0.8;
             color: #ffffff !important;
         }
+
+        /* Checkbox Dorado */
+        .gold-checkbox {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .gold-checkbox input[type="checkbox"] { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+        .checkmark {
+            height: 18px;
+            width: 18px;
+            background-color: transparent;
+            border: 2px solid #6c757d;
+            border-radius: 4px;
+            margin-right: 8px;
+            display: inline-block;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .gold-checkbox:hover input ~ .checkmark { border-color: #d4af37; }
+        .gold-checkbox input:checked ~ .checkmark { background-color: #d4af37; border-color: #d4af37; }
+        .checkmark:after {
+            content: ""; position: absolute; display: none; left: 5px; top: 1px;
+            width: 5px; height: 10px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg);
+        }
+        .gold-checkbox input:checked ~ .checkmark:after { display: block; }
     </style>
 </head>
 <body>
@@ -113,7 +141,6 @@
                 <a class="navbar-brand" href="Dashboard.aspx" style="margin-right: 0;">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
                 </a>
-                <!-- Botón de cambio de idioma en estilo texto blanco -->
                 <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
                     CssClass="lang-toggle-btn" CausesValidation="false">
                     EN / ES
@@ -273,12 +300,6 @@
                                                         <asp:DropDownList ID="ddlGridStatus" runat="server" AutoPostBack="true"
                                                             OnSelectedIndexChanged="ddlGridStatus_SelectedIndexChanged"
                                                             CssClass="form-control form-control-sm" style="max-width: 130px;">
-                                                            <asp:ListItem Value="1" Text="Pending"></asp:ListItem>
-                                                            <asp:ListItem Value="2" Text="Paid"></asp:ListItem>
-                                                            <asp:ListItem Value="3" Text="Shipped"></asp:ListItem>
-                                                            <asp:ListItem Value="4" Text="Delivered"></asp:ListItem>
-                                                            <asp:ListItem Value="5" Text="Cancelled"></asp:ListItem>
-                                                            <asp:ListItem Value="9" Text="Ready for Pickup"></asp:ListItem>
                                                         </asp:DropDownList>
                                                     </div>
                                                 </ItemTemplate>
@@ -413,12 +434,27 @@
                                                 <p class="mb-0 text-secondary" style="font-style: italic;"><asp:Literal ID="litModalReasonText" runat="server" /></p>
                                             </div>
 
-                                            <div class="form-group mb-0">
+                                            <div class="form-group mb-2">
                                                 <label for="txtAdminComment" class="font-weight-bold text-uppercase small text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_ModalAdminNotes %>" /></label>
                                                 <asp:TextBox ID="txtAdminComment" runat="server" TextMode="MultiLine" Rows="3"
                                                     CssClass="form-control text-dark" placeholder="Append transaction IDs, physical delivery return status checks, or grounds for denial here..." />
                                             </div>
-                                            <asp:Label ID="lblModalError" runat="server" CssClass="alert alert-danger d-block mt-3 font-weight-bold small" Visible="false" />
+
+                                            <!-- CASILLA DE FORZAR REEMBOLSO MANUAL -->
+                                            <asp:Panel ID="pnlForceManualOption" runat="server" CssClass="mb-2 text-left" Visible="false">
+                                                <div class="p-2 rounded border border-warning bg-light">
+                                                    <label class="gold-checkbox text-dark font-weight-bold m-0" style="font-size: 0.85rem;">
+                                                        <asp:CheckBox ID="chkForceManualRefund" runat="server" ClientIDMode="Static" />
+                                                        <span class="checkmark"></span>
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_ForceManualRefund %>" />
+                                                    </label>
+                                                    <small class="text-muted d-block mt-1" style="font-size: 0.78rem;">
+                                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_ForceManualNote %>" />
+                                                    </small>
+                                                </div>
+                                            </asp:Panel>
+
+                                            <asp:Label ID="lblModalError" runat="server" CssClass="alert alert-danger d-block mt-2 font-weight-bold small" Visible="false" />
                                         </div>
                                         <div class="modal-footer bg-light px-4 py-3 d-flex justify-content-between">
                                             <asp:Button ID="btnCancelRefund" runat="server" Text="<%$ Resources:Strings, Admin_Orders_ModalDismiss %>" CssClass="btn btn-secondary font-weight-bold" OnClick="btnCloseModal_Click" />

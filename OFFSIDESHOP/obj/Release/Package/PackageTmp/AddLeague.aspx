@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddLeague.aspx.cs" Inherits="OFFSIDESHOP.AddLeague" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddLeague.aspx.cs" Inherits="OFFSIDESHOP.AddLeague" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -210,7 +210,7 @@
                                                 <asp:LinkButton ID="lbDeleteLeague" runat="server"
                                                     CommandName="Delete"
                                                     CssClass="btn btn-sm btn-danger"
-                                                    OnClientClick="return confirm('Are you sure you want to delete this league? All associated teams will be deleted as well.');"
+                                                    OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteLeague") + "\");" %>'
                                                     Style="font-weight: 600; border-radius: 6px; padding: 4px 12px;">
                                                     <i class="fas fa-trash-alt mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_League_Delete %>" />
                                                 </asp:LinkButton>

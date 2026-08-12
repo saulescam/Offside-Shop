@@ -61,6 +61,114 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a From underground drops and high-end collabs to legendary retro grails. If it&apos;s unique, it&apos;s inside our locker room..
+        /// </summary>
+        internal static string About_Adv1Body {
+            get {
+                return ResourceManager.GetString("About_Adv1Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Premium &amp; Rare Kits.
+        /// </summary>
+        internal static string About_Adv1Title {
+            get {
+                return ResourceManager.GetString("About_Adv1Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Integrated with industry-standard secure payment processors. Your transactions and private details are fully encrypted..
+        /// </summary>
+        internal static string About_Adv2Body {
+            get {
+                return ResourceManager.GetString("About_Adv2Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Safe &amp; Secure Shopping.
+        /// </summary>
+        internal static string About_Adv2Title {
+            get {
+                return ResourceManager.GetString("About_Adv2Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No guessing games. Monitor your order history and dispatch phases in real-time from your personal dashboard..
+        /// </summary>
+        internal static string About_Adv3Body {
+            get {
+                return ResourceManager.GetString("About_Adv3Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Real-Time Logistics.
+        /// </summary>
+        internal static string About_Adv3Title {
+            get {
+                return ResourceManager.GetString("About_Adv3Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a We are more than a store. We are the home of football culture, retro collector&apos;s gems, and modern kits..
+        /// </summary>
+        internal static string About_HeaderSubtitle {
+            get {
+                return ResourceManager.GetString("About_HeaderSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a About OffsideShop.
+        /// </summary>
+        internal static string About_HeaderTitle {
+            get {
+                return ResourceManager.GetString("About_HeaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a OffsideShop - About Us.
+        /// </summary>
+        internal static string About_PageTitle {
+            get {
+                return ResourceManager.GetString("About_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a OFFSIDESHOP was born out of pure passion for football jerseys. We understand that a jersey isn&apos;t just sports apparel—it represents a historical moment, a legendary comeback, an unrepeatable collective emotion, or a timeless aesthetic masterpiece. Whether you are looking for the latest drop or an impossible-to-find retro classic, we curate the best kits around the globe so you can wear your passion with pride..
+        /// </summary>
+        internal static string About_StoryBody {
+            get {
+                return ResourceManager.GetString("About_StoryBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Our Story.
+        /// </summary>
+        internal static string About_StoryTitle {
+            get {
+                return ResourceManager.GetString("About_StoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Why Choose Us?.
+        /// </summary>
+        internal static string About_WhyUsTitle {
+            get {
+                return ResourceManager.GetString("About_WhyUsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Enter your full street address, apartment, city, and zip code....
         /// </summary>
         internal static string Account_AddressPlaceholder {
@@ -169,6 +277,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Loading....
+        /// </summary>
+        internal static string Account_Loading {
+            get {
+                return ResourceManager.GetString("Account_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a My Account.
         /// </summary>
         internal static string Account_MainTitle {
@@ -223,6 +340,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Account Role.
+        /// </summary>
+        internal static string Account_RoleLabel {
+            get {
+                return ResourceManager.GetString("Account_RoleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Save Changes.
         /// </summary>
         internal static string Account_SaveChanges {
@@ -273,6 +399,24 @@ namespace Resources {
         internal static string Admin_AI_CurrentStatus {
             get {
                 return ResourceManager.GetString("Admin_AI_CurrentStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Offline.
+        /// </summary>
+        internal static string Admin_AI_Offline {
+            get {
+                return ResourceManager.GetString("Admin_AI_Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Online.
+        /// </summary>
+        internal static string Admin_AI_Online {
+            get {
+                return ResourceManager.GetString("Admin_AI_Online", resourceCulture);
             }
         }
         
@@ -2311,6 +2455,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Check this box if PayPal API rejects the transaction or for offline/testing refunds..
+        /// </summary>
+        internal static string Admin_Orders_ForceManualNote {
+            get {
+                return ResourceManager.GetString("Admin_Orders_ForceManualNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Force manual refund (Bypass PayPal API).
+        /// </summary>
+        internal static string Admin_Orders_ForceManualRefund {
+            get {
+                return ResourceManager.GetString("Admin_Orders_ForceManualRefund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Administrative Settlement Resolution Notes.
         /// </summary>
         internal static string Admin_Orders_ModalAdminNotes {
@@ -3670,6 +3832,1932 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Invalid current password..
+        /// </summary>
+        internal static string Alert_Account_InvalidCurrentPassword {
+            get {
+                return ResourceManager.GetString("Alert_Account_InvalidCurrentPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Password updated..
+        /// </summary>
+        internal static string Alert_Account_PasswordUpdated {
+            get {
+                return ResourceManager.GetString("Alert_Account_PasswordUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile and Default Location updated successfully..
+        /// </summary>
+        internal static string Alert_Account_ProfileUpdated {
+            get {
+                return ResourceManager.GetString("Alert_Account_ProfileUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session user ID is empty..
+        /// </summary>
+        internal static string Alert_Account_SessionEmpty {
+            get {
+                return ResourceManager.GetString("Alert_Account_SessionEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User ID {0} not found in database..
+        /// </summary>
+        internal static string Alert_Account_UserNotFound {
+            get {
+                return ResourceManager.GetString("Alert_Account_UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill all required fields (*)..
+        /// </summary>
+        internal static string Alert_Add_FillRequired {
+            get {
+                return ResourceManager.GetString("Alert_Add_FillRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a valid brand and team..
+        /// </summary>
+        internal static string Alert_Add_InvalidBrandTeam {
+            get {
+                return ResourceManager.GetString("Alert_Add_InvalidBrandTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a valid kit type..
+        /// </summary>
+        internal static string Alert_Add_InvalidKitType {
+            get {
+                return ResourceManager.GetString("Alert_Add_InvalidKitType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product added successfully!.
+        /// </summary>
+        internal static string Alert_Add_SuccessText {
+            get {
+                return ResourceManager.GetString("Alert_Add_SuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Year must be exactly 4 digits (e.g. 2024)..
+        /// </summary>
+        internal static string Alert_Add_YearText {
+            get {
+                return ResourceManager.GetString("Alert_Add_YearText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a AI Error.
+        /// </summary>
+        internal static string Alert_AiErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_AiErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Brand deleted successfully..
+        /// </summary>
+        internal static string Alert_Brand_Deleted {
+            get {
+                return ResourceManager.GetString("Alert_Brand_Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please enter a brand name..
+        /// </summary>
+        internal static string Alert_Brand_Empty {
+            get {
+                return ResourceManager.GetString("Alert_Brand_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Brand saved successfully!.
+        /// </summary>
+        internal static string Alert_Brand_Saved {
+            get {
+                return ResourceManager.GetString("Alert_Brand_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do not leave empty spaces.
+        /// </summary>
+        internal static string Alert_ChangePass_EmptyFields {
+            get {
+                return ResourceManager.GetString("Alert_ChangePass_EmptyFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Passwords do not match.
+        /// </summary>
+        internal static string Alert_ChangePass_MismatchText {
+            get {
+                return ResourceManager.GetString("Alert_ChangePass_MismatchText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Different passwords!.
+        /// </summary>
+        internal static string Alert_ChangePass_MismatchTitle {
+            get {
+                return ResourceManager.GetString("Alert_ChangePass_MismatchTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Password successfully updated!.
+        /// </summary>
+        internal static string Alert_ChangePass_Success {
+            get {
+                return ResourceManager.GetString("Alert_ChangePass_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The payment process was cancelled..
+        /// </summary>
+        internal static string Alert_Checkout_CancelledText {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_CancelledText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cancelled.
+        /// </summary>
+        internal static string Alert_Checkout_CancelledTitle {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_CancelledTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill in all fields..
+        /// </summary>
+        internal static string Alert_Checkout_FieldsRequiredText {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_FieldsRequiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please enter a valid 8-digit phone number..
+        /// </summary>
+        internal static string Alert_Checkout_InvalidPhoneText {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_InvalidPhoneText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select your exact delivery location on the map..
+        /// </summary>
+        internal static string Alert_Checkout_LocationRequiredText {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_LocationRequiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Location Required.
+        /// </summary>
+        internal static string Alert_Checkout_LocationRequiredTitle {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_LocationRequiredTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a payment method..
+        /// </summary>
+        internal static string Alert_Checkout_PaymentRequiredText {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_PaymentRequiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred during payment processing..
+        /// </summary>
+        internal static string Alert_Checkout_ProcessingErrorText {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_ProcessingErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You must accept the terms &amp; conditions..
+        /// </summary>
+        internal static string Alert_Checkout_TermsRequiredText {
+            get {
+                return ResourceManager.GetString("Alert_Checkout_TermsRequiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Subject and Description fields cannot consist of empty spaces..
+        /// </summary>
+        internal static string Alert_Contact_EmptySubjectDesc {
+            get {
+                return ResourceManager.GetString("Alert_Contact_EmptySubjectDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Condition, Jersey Size, and Proposed Price are strictly required fields..
+        /// </summary>
+        internal static string Alert_Contact_FieldsRequired {
+            get {
+                return ResourceManager.GetString("Alert_Contact_FieldsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The image {0} exceeds the permitted 2MB..
+        /// </summary>
+        internal static string Alert_Contact_FileTooLargeText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_FileTooLargeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a File too large.
+        /// </summary>
+        internal static string Alert_Contact_FileTooLargeTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_FileTooLargeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The file &quot;{0}&quot; is not supported. Only JPG, JPEG, PNG, and WEBP formats are accepted..
+        /// </summary>
+        internal static string Alert_Contact_FormatErrorText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_FormatErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Format Error.
+        /// </summary>
+        internal static string Alert_Contact_FormatErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_FormatErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a At least one image is required to evaluate your jersey..
+        /// </summary>
+        internal static string Alert_Contact_ImageRequired {
+            get {
+                return ResourceManager.GetString("Alert_Contact_ImageRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Condition grade must be a strict integer scale between 1 and 10..
+        /// </summary>
+        internal static string Alert_Contact_InvalidConditionText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_InvalidConditionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid Condition.
+        /// </summary>
+        internal static string Alert_Contact_InvalidConditionTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_InvalidConditionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The file {0} is not allowed. Only JPG, JPEG, PNG, and WEBP are accepted..
+        /// </summary>
+        internal static string Alert_Contact_InvalidFormatText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_InvalidFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid Format.
+        /// </summary>
+        internal static string Alert_Contact_InvalidFormatTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_InvalidFormatTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please provide a valid, positive numeric Order ID..
+        /// </summary>
+        internal static string Alert_Contact_InvalidOrderId {
+            get {
+                return ResourceManager.GetString("Alert_Contact_InvalidOrderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Proposed price must be a positive number greater than zero..
+        /// </summary>
+        internal static string Alert_Contact_InvalidPriceText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_InvalidPriceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid Price.
+        /// </summary>
+        internal static string Alert_Contact_InvalidPriceTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_InvalidPriceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You can only upload a maximum of 3 images..
+        /// </summary>
+        internal static string Alert_Contact_LimitReachedText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_LimitReachedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Limit Reached.
+        /// </summary>
+        internal static string Alert_Contact_LimitReachedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_LimitReachedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You must be logged into your account to submit a support request. Please Log In or Sign Up first..
+        /// </summary>
+        internal static string Alert_Contact_LoginRequiredText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_LoginRequiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Login Required.
+        /// </summary>
+        internal static string Alert_Contact_LoginRequiredTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_LoginRequiredTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a reason for your request..
+        /// </summary>
+        internal static string Alert_Contact_SelectReason {
+            get {
+                return ResourceManager.GetString("Alert_Contact_SelectReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your request has been successfully submitted to our support team..
+        /// </summary>
+        internal static string Alert_Contact_SuccessText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_SuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Request Submitted.
+        /// </summary>
+        internal static string Alert_Contact_SuccessTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The image &quot;{0}&quot; exceeds the 2MB size limit..
+        /// </summary>
+        internal static string Alert_Contact_TooLargeText {
+            get {
+                return ResourceManager.GetString("Alert_Contact_TooLargeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a File Too Large.
+        /// </summary>
+        internal static string Alert_Contact_TooLargeTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_TooLargeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Validation Error.
+        /// </summary>
+        internal static string Alert_Contact_ValidationErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_Contact_ValidationErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This coupon code already exists. Please choose a different one..
+        /// </summary>
+        internal static string Alert_Coupons_CodeExistsText {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_CodeExistsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Code Exists.
+        /// </summary>
+        internal static string Alert_Coupons_CodeExistsTitle {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_CodeExistsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Coupon created successfully..
+        /// </summary>
+        internal static string Alert_Coupons_CreatedText {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_CreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Created.
+        /// </summary>
+        internal static string Alert_Coupons_CreatedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_CreatedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Coupon permanently removed..
+        /// </summary>
+        internal static string Alert_Coupons_DeletedText {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_DeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill in all required fields..
+        /// </summary>
+        internal static string Alert_Coupons_FieldsRequiredText {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_FieldsRequiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fields Required.
+        /// </summary>
+        internal static string Alert_Coupons_FieldsRequiredTitle {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_FieldsRequiredTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Discount percentage must be between 1 and 100..
+        /// </summary>
+        internal static string Alert_Coupons_InvalidDiscountText {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_InvalidDiscountText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid Discount.
+        /// </summary>
+        internal static string Alert_Coupons_InvalidDiscountTitle {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_InvalidDiscountTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Maximum uses must be at least 1..
+        /// </summary>
+        internal static string Alert_Coupons_InvalidLimitText {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_InvalidLimitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid Limit.
+        /// </summary>
+        internal static string Alert_Coupons_InvalidLimitTitle {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_InvalidLimitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Coupon updated successfully..
+        /// </summary>
+        internal static string Alert_Coupons_UpdatedText {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_UpdatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Updated.
+        /// </summary>
+        internal static string Alert_Coupons_UpdatedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Coupons_UpdatedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Database Error.
+        /// </summary>
+        internal static string Alert_DatabaseErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_DatabaseErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Data Error.
+        /// </summary>
+        internal static string Alert_DataErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_DataErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Deleted.
+        /// </summary>
+        internal static string Alert_DeletedTitle {
+            get {
+                return ResourceManager.GetString("Alert_DeletedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enter a product ID..
+        /// </summary>
+        internal static string Alert_Delete_EnterId {
+            get {
+                return ResourceManager.GetString("Alert_Delete_EnterId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a First load a product using its ID..
+        /// </summary>
+        internal static string Alert_Delete_FirstLoad {
+            get {
+                return ResourceManager.GetString("Alert_Delete_FirstLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ID must be a number..
+        /// </summary>
+        internal static string Alert_Delete_IdNumeric {
+            get {
+                return ResourceManager.GetString("Alert_Delete_IdNumeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid ID..
+        /// </summary>
+        internal static string Alert_Delete_InvalidId {
+            get {
+                return ResourceManager.GetString("Alert_Delete_InvalidId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Review the details carefully before deleting..
+        /// </summary>
+        internal static string Alert_Delete_LoadedText {
+            get {
+                return ResourceManager.GetString("Alert_Delete_LoadedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product loaded.
+        /// </summary>
+        internal static string Alert_Delete_LoadedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Delete_LoadedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product ID not found..
+        /// </summary>
+        internal static string Alert_Delete_NotFound {
+            get {
+                return ResourceManager.GetString("Alert_Delete_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product and all its size variants have been removed..
+        /// </summary>
+        internal static string Alert_Delete_Success {
+            get {
+                return ResourceManager.GetString("Alert_Delete_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product successfully added to your cart..
+        /// </summary>
+        internal static string Alert_Details_AddedToCartText {
+            get {
+                return ResourceManager.GetString("Alert_Details_AddedToCartText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Attention.
+        /// </summary>
+        internal static string Alert_Details_AttentionTitle {
+            get {
+                return ResourceManager.GetString("Alert_Details_AttentionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please log in to add items to your cart..
+        /// </summary>
+        internal static string Alert_Details_AuthRequiredText {
+            get {
+                return ResourceManager.GetString("Alert_Details_AuthRequiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Authentication Required.
+        /// </summary>
+        internal static string Alert_Details_AuthRequiredTitle {
+            get {
+                return ResourceManager.GetString("Alert_Details_AuthRequiredTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cancel.
+        /// </summary>
+        internal static string Alert_Details_Cancel {
+            get {
+                return ResourceManager.GetString("Alert_Details_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You do not have permission to delete this review..
+        /// </summary>
+        internal static string Alert_Details_DeleteDeniedText {
+            get {
+                return ResourceManager.GetString("Alert_Details_DeleteDeniedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred: {0}.
+        /// </summary>
+        internal static string Alert_Details_ErrorText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The customized name contains restricted terms or inappropriate language. Please choose another name..
+        /// </summary>
+        internal static string Alert_Details_ForbiddenNameText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ForbiddenNameText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Go to Login.
+        /// </summary>
+        internal static string Alert_Details_GoToLogin {
+            get {
+                return ResourceManager.GetString("Alert_Details_GoToLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You already have all available stock ({0} units) of this size in your cart, including customized variants..
+        /// </summary>
+        internal static string Alert_Details_LimitReachedText {
+            get {
+                return ResourceManager.GetString("Alert_Details_LimitReachedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Limit Reached.
+        /// </summary>
+        internal static string Alert_Details_LimitReachedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Details_LimitReachedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Unable to load shirt details..
+        /// </summary>
+        internal static string Alert_Details_LoadErrorText {
+            get {
+                return ResourceManager.GetString("Alert_Details_LoadErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a size first..
+        /// </summary>
+        internal static string Alert_Details_NoSizeText {
+            get {
+                return ResourceManager.GetString("Alert_Details_NoSizeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No Selection.
+        /// </summary>
+        internal static string Alert_Details_NoSizeTitle {
+            get {
+                return ResourceManager.GetString("Alert_Details_NoSizeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sorry, this size just went out of stock!.
+        /// </summary>
+        internal static string Alert_Details_OutOfStockText {
+            get {
+                return ResourceManager.GetString("Alert_Details_OutOfStockText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Out of Stock.
+        /// </summary>
+        internal static string Alert_Details_OutOfStockTitle {
+            get {
+                return ResourceManager.GetString("Alert_Details_OutOfStockTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Replied.
+        /// </summary>
+        internal static string Alert_Details_RepliedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Details_RepliedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The reply cannot be empty..
+        /// </summary>
+        internal static string Alert_Details_ReplyEmptyText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ReplyEmptyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your official reply has been saved..
+        /// </summary>
+        internal static string Alert_Details_ReplySuccessText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ReplySuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please log in to submit a review..
+        /// </summary>
+        internal static string Alert_Details_ReviewAuthText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ReviewAuthText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The review has been deleted successfully..
+        /// </summary>
+        internal static string Alert_Details_ReviewDeletedText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ReviewDeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Review comment cannot be empty..
+        /// </summary>
+        internal static string Alert_Details_ReviewEmptyText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ReviewEmptyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You can only review shirts you have purchased..
+        /// </summary>
+        internal static string Alert_Details_ReviewPurchaseText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ReviewPurchaseText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your review has been posted successfully!.
+        /// </summary>
+        internal static string Alert_Details_ReviewSuccessText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ReviewSuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You can only add {0} more item(s) of this size. You already have {1} combined items in your cart..
+        /// </summary>
+        internal static string Alert_Details_StockLimitText {
+            get {
+                return ResourceManager.GetString("Alert_Details_StockLimitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stock Limit.
+        /// </summary>
+        internal static string Alert_Details_StockLimitTitle {
+            get {
+                return ResourceManager.GetString("Alert_Details_StockLimitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your browser does not support geolocation..
+        /// </summary>
+        internal static string Alert_Driver_NoGeolocation {
+            get {
+                return ResourceManager.GetString("Alert_Driver_NoGeolocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order delivered successfully..
+        /// </summary>
+        internal static string Alert_Driver_SuccessText {
+            get {
+                return ResourceManager.GetString("Alert_Driver_SuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Great Job!.
+        /// </summary>
+        internal static string Alert_Driver_SuccessTitle {
+            get {
+                return ResourceManager.GetString("Alert_Driver_SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Another driver just accepted this order..
+        /// </summary>
+        internal static string Alert_Driver_TooLateText {
+            get {
+                return ResourceManager.GetString("Alert_Driver_TooLateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Too late!.
+        /// </summary>
+        internal static string Alert_Driver_TooLateTitle {
+            get {
+                return ResourceManager.GetString("Alert_Driver_TooLateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Maximum image size is 2 MB..
+        /// </summary>
+        internal static string Alert_Edit_FileTooLargeText {
+            get {
+                return ResourceManager.GetString("Alert_Edit_FileTooLargeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a File Too Large.
+        /// </summary>
+        internal static string Alert_Edit_FileTooLargeTitle {
+            get {
+                return ResourceManager.GetString("Alert_Edit_FileTooLargeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill all required fields..
+        /// </summary>
+        internal static string Alert_Edit_FillRequired {
+            get {
+                return ResourceManager.GetString("Alert_Edit_FillRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Only .jpg and .png images are allowed..
+        /// </summary>
+        internal static string Alert_Edit_InvalidFileText {
+            get {
+                return ResourceManager.GetString("Alert_Edit_InvalidFileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid File.
+        /// </summary>
+        internal static string Alert_Edit_InvalidFileTitle {
+            get {
+                return ResourceManager.GetString("Alert_Edit_InvalidFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select valid brand, team and type..
+        /// </summary>
+        internal static string Alert_Edit_InvalidSelections {
+            get {
+                return ResourceManager.GetString("Alert_Edit_InvalidSelections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product loaded..
+        /// </summary>
+        internal static string Alert_Edit_LoadedText {
+            get {
+                return ResourceManager.GetString("Alert_Edit_LoadedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Price must be greater than zero..
+        /// </summary>
+        internal static string Alert_Edit_PriceText {
+            get {
+                return ResourceManager.GetString("Alert_Edit_PriceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid Price.
+        /// </summary>
+        internal static string Alert_Edit_PriceTitle {
+            get {
+                return ResourceManager.GetString("Alert_Edit_PriceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product updated successfully..
+        /// </summary>
+        internal static string Alert_Edit_SuccessText {
+            get {
+                return ResourceManager.GetString("Alert_Edit_SuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Year must be exactly 4 digits..
+        /// </summary>
+        internal static string Alert_Edit_YearText {
+            get {
+                return ResourceManager.GetString("Alert_Edit_YearText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid Year.
+        /// </summary>
+        internal static string Alert_Edit_YearTitle {
+            get {
+                return ResourceManager.GetString("Alert_Edit_YearTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error.
+        /// </summary>
+        internal static string Alert_ErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a File Error.
+        /// </summary>
+        internal static string Alert_FileErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_FileErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Info.
+        /// </summary>
+        internal static string Alert_InfoTitle {
+            get {
+                return ResourceManager.GetString("Alert_InfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do not leave any blank spaces.
+        /// </summary>
+        internal static string Alert_Login_BlankSpaces {
+            get {
+                return ResourceManager.GetString("Alert_Login_BlankSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Access Denied.
+        /// </summary>
+        internal static string Alert_Login_DeniedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Login_DeniedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a OOPS.
+        /// </summary>
+        internal static string Alert_Login_OopsTitle {
+            get {
+                return ResourceManager.GetString("Alert_Login_OopsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your account has an unknown role. Contact an administrator..
+        /// </summary>
+        internal static string Alert_Login_UnknownRole {
+            get {
+                return ResourceManager.GetString("Alert_Login_UnknownRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User or password are incorrect.
+        /// </summary>
+        internal static string Alert_Login_WrongCredentials {
+            get {
+                return ResourceManager.GetString("Alert_Login_WrongCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Something went wrong.
+        /// </summary>
+        internal static string Alert_Login_WrongTitle {
+            get {
+                return ResourceManager.GetString("Alert_Login_WrongTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Missing Information.
+        /// </summary>
+        internal static string Alert_MissingInfoTitle {
+            get {
+                return ResourceManager.GetString("Alert_MissingInfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Data Retrieval Failure.
+        /// </summary>
+        internal static string Alert_Offers_DataRetrievalError {
+            get {
+                return ResourceManager.GetString("Alert_Offers_DataRetrievalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Expiration boundaries must extend past commencement windows..
+        /// </summary>
+        internal static string Alert_Offers_DatesInvalid {
+            get {
+                return ResourceManager.GetString("Alert_Offers_DatesInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Configure precise initialization and conclusion timetables..
+        /// </summary>
+        internal static string Alert_Offers_DatesRequired {
+            get {
+                return ResourceManager.GetString("Alert_Offers_DatesRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Promotional configurations stripped from relational records..
+        /// </summary>
+        internal static string Alert_Offers_DeletedText {
+            get {
+                return ResourceManager.GetString("Alert_Offers_DeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Discount values must represent ranges between 1% and 99%..
+        /// </summary>
+        internal static string Alert_Offers_DiscountInvalid {
+            get {
+                return ResourceManager.GetString("Alert_Offers_DiscountInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error Loading Catalog.
+        /// </summary>
+        internal static string Alert_Offers_LoadCatalogError {
+            get {
+                return ResourceManager.GetString("Alert_Offers_LoadCatalogError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Campaign identity context field is mandatory..
+        /// </summary>
+        internal static string Alert_Offers_NameRequired {
+            get {
+                return ResourceManager.GetString("Alert_Offers_NameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Promotional campaign parameter space deployed successfully..
+        /// </summary>
+        internal static string Alert_Offers_SavedSuccess {
+            get {
+                return ResourceManager.GetString("Alert_Offers_SavedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Selection Error.
+        /// </summary>
+        internal static string Alert_Offers_SelectionError {
+            get {
+                return ResourceManager.GetString("Alert_Offers_SelectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Attach at least one catalog item structure to this promotional group..
+        /// </summary>
+        internal static string Alert_Offers_ShirtsRequired {
+            get {
+                return ResourceManager.GetString("Alert_Offers_ShirtsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Campaign visibility altered..
+        /// </summary>
+        internal static string Alert_Offers_StatusToggled {
+            get {
+                return ResourceManager.GetString("Alert_Offers_StatusToggled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Transaction Exception Failure.
+        /// </summary>
+        internal static string Alert_Offers_TransactionError {
+            get {
+                return ResourceManager.GetString("Alert_Offers_TransactionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Could not load order details breakdown: {0}.
+        /// </summary>
+        internal static string Alert_Orders_LoadDetailsError {
+            get {
+                return ResourceManager.GetString("Alert_Orders_LoadDetailsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error loading outstanding refund request queues: {0}.
+        /// </summary>
+        internal static string Alert_Orders_LoadRefundQueueError {
+            get {
+                return ResourceManager.GetString("Alert_Orders_LoadRefundQueueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error loading systems telemetry orders: {0}.
+        /// </summary>
+        internal static string Alert_Orders_LoadTelemetryError {
+            get {
+                return ResourceManager.GetString("Alert_Orders_LoadTelemetryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The requested order document reference does not exist..
+        /// </summary>
+        internal static string Alert_Orders_NotFoundText {
+            get {
+                return ResourceManager.GetString("Alert_Orders_NotFoundText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Not Found.
+        /// </summary>
+        internal static string Alert_Orders_NotFoundTitle {
+            get {
+                return ResourceManager.GetString("Alert_Orders_NotFoundTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sandbox refund authorization cleared successfully..
+        /// </summary>
+        internal static string Alert_Orders_RefundApprovedText {
+            get {
+                return ResourceManager.GetString("Alert_Orders_RefundApprovedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Approved.
+        /// </summary>
+        internal static string Alert_Orders_RefundApprovedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Orders_RefundApprovedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The request has been officially closed and rejected..
+        /// </summary>
+        internal static string Alert_Orders_RefundDeniedText {
+            get {
+                return ResourceManager.GetString("Alert_Orders_RefundDeniedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ticket Denied.
+        /// </summary>
+        internal static string Alert_Orders_RefundDeniedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Orders_RefundDeniedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order status operational scope updated successfully!.
+        /// </summary>
+        internal static string Alert_Orders_StatusUpdatedText {
+            get {
+                return ResourceManager.GetString("Alert_Orders_StatusUpdatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error updating administrative order status: {0}.
+        /// </summary>
+        internal static string Alert_Orders_StatusUpdateError {
+            get {
+                return ResourceManager.GetString("Alert_Orders_StatusUpdateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Critical database verification exception: {0}.
+        /// </summary>
+        internal static string Alert_Orders_VerificationError {
+            get {
+                return ResourceManager.GetString("Alert_Orders_VerificationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a Brand..
+        /// </summary>
+        internal static string Alert_Products_BrandRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_BrandRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The shirt has been permanently removed..
+        /// </summary>
+        internal static string Alert_Products_DeletedText {
+            get {
+                return ResourceManager.GetString("Alert_Products_DeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Description generated with AI!.
+        /// </summary>
+        internal static string Alert_Products_DescriptionGenerated {
+            get {
+                return ResourceManager.GetString("Alert_Products_DescriptionGenerated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select Brand, League, Team, and Kit Type..
+        /// </summary>
+        internal static string Alert_Products_DropdownsRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_DropdownsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Gallery image {0} is invalid or over 2MB..
+        /// </summary>
+        internal static string Alert_Products_GalleryImageError {
+            get {
+                return ResourceManager.GetString("Alert_Products_GalleryImageError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a Kit Type..
+        /// </summary>
+        internal static string Alert_Products_KitTypeRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_KitTypeRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a League..
+        /// </summary>
+        internal static string Alert_Products_LeagueRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_LeagueRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Main image must be .jpg, .jpeg, .png or .webp under 2MB..
+        /// </summary>
+        internal static string Alert_Products_MainImageError {
+            get {
+                return ResourceManager.GetString("Alert_Products_MainImageError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a Team, Brand, and Name first..
+        /// </summary>
+        internal static string Alert_Products_MissingInfoText {
+            get {
+                return ResourceManager.GetString("Alert_Products_MissingInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shirt Name in English is required..
+        /// </summary>
+        internal static string Alert_Products_NameEnRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_NameEnRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El Nombre en Español es requerido..
+        /// </summary>
+        internal static string Alert_Products_NameEsRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_NameEsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Price must be a positive number..
+        /// </summary>
+        internal static string Alert_Products_PriceRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_PriceRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product saved successfully with translations!.
+        /// </summary>
+        internal static string Alert_Products_SavedSuccess {
+            get {
+                return ResourceManager.GetString("Alert_Products_SavedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Status toggled.
+        /// </summary>
+        internal static string Alert_Products_StatusToggled {
+            get {
+                return ResourceManager.GetString("Alert_Products_StatusToggled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stock values must be non-negative integers..
+        /// </summary>
+        internal static string Alert_Products_StockRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_StockRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a Team..
+        /// </summary>
+        internal static string Alert_Products_TeamRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_TeamRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Year must be a valid 4-digit number..
+        /// </summary>
+        internal static string Alert_Products_YearRequired {
+            get {
+                return ResourceManager.GetString("Alert_Products_YearRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Verification token sent successfully..
+        /// </summary>
+        internal static string Alert_Recover_EmailSent {
+            get {
+                return ResourceManager.GetString("Alert_Recover_EmailSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a An error occurred while processing your request..
+        /// </summary>
+        internal static string Alert_Recover_ErrorProcessing {
+            get {
+                return ResourceManager.GetString("Alert_Recover_ErrorProcessing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a We sent you an email.
+        /// </summary>
+        internal static string Alert_Recover_SentTitle {
+            get {
+                return ResourceManager.GetString("Alert_Recover_SentTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User or email not found.
+        /// </summary>
+        internal static string Alert_Recover_UserNotFound {
+            get {
+                return ResourceManager.GetString("Alert_Recover_UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The request was successfully approved and the jersey added to the catalog..
+        /// </summary>
+        internal static string Alert_Seller_ApprovedText {
+            get {
+                return ResourceManager.GetString("Alert_Seller_ApprovedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Approved &amp; Published.
+        /// </summary>
+        internal static string Alert_Seller_ApprovedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Seller_ApprovedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your reply has been saved..
+        /// </summary>
+        internal static string Alert_Seller_ReplySavedText {
+            get {
+                return ResourceManager.GetString("Alert_Seller_ReplySavedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The support ticket has been marked as Denied..
+        /// </summary>
+        internal static string Alert_Seller_RequestDeniedText {
+            get {
+                return ResourceManager.GetString("Alert_Seller_RequestDeniedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Request Denied.
+        /// </summary>
+        internal static string Alert_Seller_RequestDeniedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Seller_RequestDeniedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The ticket has been marked as Resolved..
+        /// </summary>
+        internal static string Alert_Seller_ResolvedText {
+            get {
+                return ResourceManager.GetString("Alert_Seller_ResolvedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Resolved.
+        /// </summary>
+        internal static string Alert_Seller_ResolvedTitle {
+            get {
+                return ResourceManager.GetString("Alert_Seller_ResolvedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The review has been deleted..
+        /// </summary>
+        internal static string Alert_Seller_ReviewDeletedText {
+            get {
+                return ResourceManager.GetString("Alert_Seller_ReviewDeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do not leave any blank fields..
+        /// </summary>
+        internal static string Alert_SignUp_BlankFields {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_BlankFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The verification code you entered is incorrect..
+        /// </summary>
+        internal static string Alert_SignUp_InvalidToken {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_InvalidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid Code.
+        /// </summary>
+        internal static string Alert_SignUp_InvalidTokenTitle {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_InvalidTokenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Failed to send the verification email. Ensure your SMTP settings are correct..
+        /// </summary>
+        internal static string Alert_SignUp_MailError {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_MailError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please repeat your password correctly..
+        /// </summary>
+        internal static string Alert_SignUp_PassMismatch {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_PassMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Incorrect Password.
+        /// </summary>
+        internal static string Alert_SignUp_PassMismatchTitle {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_PassMismatchTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please wait a moment while we set up your account..
+        /// </summary>
+        internal static string Alert_SignUp_SendingTokenText {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_SendingTokenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sending Verification Code....
+        /// </summary>
+        internal static string Alert_SignUp_SendingTokenTitle {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_SendingTokenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The username or email is already registered..
+        /// </summary>
+        internal static string Alert_SignUp_UserExists {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_UserExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User Already Exists.
+        /// </summary>
+        internal static string Alert_SignUp_UserExistsTitle {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_UserExistsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your account has been created successfully..
+        /// </summary>
+        internal static string Alert_SignUp_VerifiedText {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_VerifiedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Verified &amp; Registered!.
+        /// </summary>
+        internal static string Alert_SignUp_VerifiedTitle {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_VerifiedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Verifying code....
+        /// </summary>
+        internal static string Alert_SignUp_VerifyingTokenTitle {
+            get {
+                return ResourceManager.GetString("Alert_SignUp_VerifyingTokenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Chatbot status updated successfully..
+        /// </summary>
+        internal static string Alert_Smtp_ChatbotUpdatedSuccess {
+            get {
+                return ResourceManager.GetString("Alert_Smtp_ChatbotUpdatedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Could not load Chatbot settings: {0}.
+        /// </summary>
+        internal static string Alert_Smtp_LoadChatbotError {
+            get {
+                return ResourceManager.GetString("Alert_Smtp_LoadChatbotError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Could not load SMTP settings: {0}.
+        /// </summary>
+        internal static string Alert_Smtp_LoadError {
+            get {
+                return ResourceManager.GetString("Alert_Smtp_LoadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a All fields with an asterisk (*) are required..
+        /// </summary>
+        internal static string Alert_Smtp_RequiredFields {
+            get {
+                return ResourceManager.GetString("Alert_Smtp_RequiredFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SMTP configuration updated successfully..
+        /// </summary>
+        internal static string Alert_Smtp_UpdatedSuccess {
+            get {
+                return ResourceManager.GetString("Alert_Smtp_UpdatedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Success.
+        /// </summary>
+        internal static string Alert_SuccessTitle {
+            get {
+                return ResourceManager.GetString("Alert_SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The code does not match, please check your email again..
+        /// </summary>
+        internal static string Alert_Token_IncorrectText {
+            get {
+                return ResourceManager.GetString("Alert_Token_IncorrectText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Incorrect Code!.
+        /// </summary>
+        internal static string Alert_Token_IncorrectTitle {
+            get {
+                return ResourceManager.GetString("Alert_Token_IncorrectTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Proceeding to reset your password....
+        /// </summary>
+        internal static string Alert_Token_SuccessText {
+            get {
+                return ResourceManager.GetString("Alert_Token_SuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Verification code correct!.
+        /// </summary>
+        internal static string Alert_Token_SuccessTitle {
+            get {
+                return ResourceManager.GetString("Alert_Token_SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User created. If it is an Admin, click &apos;Permissions&apos; in the grid to grant access..
+        /// </summary>
+        internal static string Alert_Users_CreatedText {
+            get {
+                return ResourceManager.GetString("Alert_Users_CreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User has been permanently deleted..
+        /// </summary>
+        internal static string Alert_Users_DeletedText {
+            get {
+                return ResourceManager.GetString("Alert_Users_DeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Username and Email cannot be empty..
+        /// </summary>
+        internal static string Alert_Users_FieldsEmpty {
+            get {
+                return ResourceManager.GetString("Alert_Users_FieldsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill all required fields..
+        /// </summary>
+        internal static string Alert_Users_FieldsRequired {
+            get {
+                return ResourceManager.GetString("Alert_Users_FieldsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The main Owner role cannot be modified or deleted..
+        /// </summary>
+        internal static string Alert_Users_OwnerProtectText {
+            get {
+                return ResourceManager.GetString("Alert_Users_OwnerProtectText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Access Denied.
+        /// </summary>
+        internal static string Alert_Users_OwnerProtectTitle {
+            get {
+                return ResourceManager.GetString("Alert_Users_OwnerProtectTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Permissions have been configured successfully..
+        /// </summary>
+        internal static string Alert_Users_PermissionsSavedText {
+            get {
+                return ResourceManager.GetString("Alert_Users_PermissionsSavedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User information updated successfully..
+        /// </summary>
+        internal static string Alert_Users_UpdatedText {
+            get {
+                return ResourceManager.GetString("Alert_Users_UpdatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Validation Error.
+        /// </summary>
+        internal static string Alert_ValidationErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_ValidationErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Warning.
+        /// </summary>
+        internal static string Alert_WarningTitle {
+            get {
+                return ResourceManager.GetString("Alert_WarningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Already have an account?.
         /// </summary>
         internal static string Auth_AlreadyAccount {
@@ -4156,6 +6244,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Next.
+        /// </summary>
+        internal static string Carousel_Next {
+            get {
+                return ResourceManager.GetString("Carousel_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Previous.
+        /// </summary>
+        internal static string Carousel_Previous {
+            get {
+                return ResourceManager.GetString("Carousel_Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Proceed to Checkout.
         /// </summary>
         internal static string Cart_BtnCheckout {
@@ -4381,6 +6487,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a 256-bit SSL Secured Connection.
+        /// </summary>
+        internal static string Checkout_LoaderSecurity {
+            get {
+                return ResourceManager.GetString("Checkout_LoaderSecurity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Processing your order... Please do not close this tab or refresh the page..
+        /// </summary>
+        internal static string Checkout_LoaderText {
+            get {
+                return ResourceManager.GetString("Checkout_LoaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Secure Payment Processing.
+        /// </summary>
+        internal static string Checkout_LoaderTitle {
+            get {
+                return ResourceManager.GetString("Checkout_LoaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Loading interactive map....
         /// </summary>
         internal static string Checkout_LoadingMap {
@@ -4530,6 +6663,105 @@ namespace Resources {
         internal static string Checkout_YourOrderTitle {
             get {
                 return ResourceManager.GetString("Checkout_YourOrderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete banner?.
+        /// </summary>
+        internal static string Confirm_DeleteBanner {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to delete this brand?.
+        /// </summary>
+        internal static string Confirm_DeleteBrand {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteBrand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete collection?.
+        /// </summary>
+        internal static string Confirm_DeleteCollection {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to delete this coupon? Users won&apos;t be able to use it anymore..
+        /// </summary>
+        internal static string Confirm_DeleteCoupon {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteCoupon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to delete this league? All associated teams will be deleted as well..
+        /// </summary>
+        internal static string Confirm_DeleteLeague {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Purge this campaign and normalize affected products base pricing records?.
+        /// </summary>
+        internal static string Confirm_DeleteOffer {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to permanently delete this shirt?.
+        /// </summary>
+        internal static string Confirm_DeleteProduct {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to delete this review?.
+        /// </summary>
+        internal static string Confirm_DeleteReview {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete slide?.
+        /// </summary>
+        internal static string Confirm_DeleteSlide {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteSlide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to delete this team?.
+        /// </summary>
+        internal static string Confirm_DeleteTeam {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure you want to permanently delete this user?.
+        /// </summary>
+        internal static string Confirm_DeleteUser {
+            get {
+                return ResourceManager.GetString("Confirm_DeleteUser", resourceCulture);
             }
         }
         
@@ -4723,6 +6955,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Create New Coupon.
+        /// </summary>
+        internal static string Coupon_Title_Create {
+            get {
+                return ResourceManager.GetString("Coupon_Title_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Edit Coupon.
+        /// </summary>
+        internal static string Coupon_Title_Edit {
+            get {
+                return ResourceManager.GetString("Coupon_Title_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Add to Cart.
         /// </summary>
         internal static string Detail_AddToCart {
@@ -4773,6 +7023,24 @@ namespace Resources {
         internal static string Detail_CustomWarning {
             get {
                 return ResourceManager.GetString("Detail_CustomWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Out of Stock.
+        /// </summary>
+        internal static string Detail_OutOfStock {
+            get {
+                return ResourceManager.GetString("Detail_OutOfStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a OffsideShop - Shirt Details.
+        /// </summary>
+        internal static string Detail_PageTitle {
+            get {
+                return ResourceManager.GetString("Detail_PageTitle", resourceCulture);
             }
         }
         
@@ -4849,6 +7117,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Off Duty (Resting).
+        /// </summary>
+        internal static string Driver_Badge_OffDuty {
+            get {
+                return ResourceManager.GetString("Driver_Badge_OffDuty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a On Duty (Available).
+        /// </summary>
+        internal static string Driver_Badge_OnDuty {
+            get {
+                return ResourceManager.GetString("Driver_Badge_OnDuty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a On the Way (Order #{0}).
+        /// </summary>
+        internal static string Driver_Badge_OnTheWay {
+            get {
+                return ResourceManager.GetString("Driver_Badge_OnTheWay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Are you sure you want to drop this order? It will return to the radar..
         /// </summary>
         internal static string Driver_CancelConfirm {
@@ -4908,6 +7203,51 @@ namespace Resources {
         internal static string Driver_GoogleMaps {
             get {
                 return ResourceManager.GetString("Driver_GoogleMaps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a GPS active — Accuracy: ~.
+        /// </summary>
+        internal static string Driver_Gps_Active {
+            get {
+                return ResourceManager.GetString("Driver_Gps_Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a GPS error: .
+        /// </summary>
+        internal static string Driver_Gps_Error {
+            get {
+                return ResourceManager.GetString("Driver_Gps_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a GPS permission denied. Enable location in settings..
+        /// </summary>
+        internal static string Driver_Gps_PermissionDenied {
+            get {
+                return ResourceManager.GetString("Driver_Gps_PermissionDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a GPS timeout. Retrying....
+        /// </summary>
+        internal static string Driver_Gps_Timeout {
+            get {
+                return ResourceManager.GetString("Driver_Gps_Timeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Location unavailable. Check GPS signal..
+        /// </summary>
+        internal static string Driver_Gps_Unavailable {
+            get {
+                return ResourceManager.GetString("Driver_Gps_Unavailable", resourceCulture);
             }
         }
         
@@ -5092,6 +7432,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No size guide available for this brand..
+        /// </summary>
+        internal static string Modal_NoSizeGuide {
+            get {
+                return ResourceManager.GetString("Modal_NoSizeGuide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Measurements are shown in centimeters (cm). These are standard fan-version measurements. Please allow a slight variance due to manufacturing..
         /// </summary>
         internal static string Modal_SizeGuideDesc {
@@ -5218,6 +7567,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a About Us.
+        /// </summary>
+        internal static string Nav_AboutUs {
+            get {
+                return ResourceManager.GetString("Nav_AboutUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Administrator.
         /// </summary>
         internal static string Nav_AdminRole {
@@ -5236,11 +7594,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cart.
+        /// </summary>
+        internal static string Nav_Cart {
+            get {
+                return ResourceManager.GetString("Nav_Cart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Collections.
+        /// </summary>
+        internal static string Nav_Collections {
+            get {
+                return ResourceManager.GetString("Nav_Collections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Contact.
+        /// </summary>
+        internal static string Nav_Contact {
+            get {
+                return ResourceManager.GetString("Nav_Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Dashboard.
         /// </summary>
         internal static string Nav_Dashboard {
             get {
                 return ResourceManager.GetString("Nav_Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Home.
+        /// </summary>
+        internal static string Nav_Home {
+            get {
+                return ResourceManager.GetString("Nav_Home", resourceCulture);
             }
         }
         
@@ -5290,6 +7684,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Create New Promo Campaign Window.
+        /// </summary>
+        internal static string Offer_Title_Create {
+            get {
+                return ResourceManager.GetString("Offer_Title_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Address:.
         /// </summary>
         internal static string OrderDetail_Address {
@@ -5317,6 +7720,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Order cancelled successfully..
+        /// </summary>
+        internal static string OrderDetail_CancelSuccessText {
+            get {
+                return ResourceManager.GetString("OrderDetail_CancelSuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order Cancelled.
+        /// </summary>
+        internal static string OrderDetail_CancelSuccessTitle {
+            get {
+                return ResourceManager.GetString("OrderDetail_CancelSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Connecting to delivery driver....
         /// </summary>
         internal static string OrderDetail_ConnectingDriver {
@@ -5331,6 +7752,33 @@ namespace Resources {
         internal static string OrderDetail_Customer {
             get {
                 return ResourceManager.GetString("OrderDetail_Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This action is no longer valid for the current state of the order..
+        /// </summary>
+        internal static string OrderDetail_ErrorInvalidAction {
+            get {
+                return ResourceManager.GetString("OrderDetail_ErrorInvalidAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Since you selected &apos;Other&apos;, please provide more details in the comments field (minimum 10 characters)..
+        /// </summary>
+        internal static string OrderDetail_ErrorOtherReason {
+            get {
+                return ResourceManager.GetString("OrderDetail_ErrorOtherReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a valid reason from the list..
+        /// </summary>
+        internal static string OrderDetail_ErrorSelectReason {
+            get {
+                return ResourceManager.GetString("OrderDetail_ErrorSelectReason", resourceCulture);
             }
         }
         
@@ -5506,11 +7954,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Your refund request has been submitted to the administrator for review..
+        /// </summary>
+        internal static string OrderDetail_RefundSuccessText {
+            get {
+                return ResourceManager.GetString("OrderDetail_RefundSuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Refund Requested.
+        /// </summary>
+        internal static string OrderDetail_RefundSuccessTitle {
+            get {
+                return ResourceManager.GetString("OrderDetail_RefundSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Request Refund.
         /// </summary>
         internal static string OrderDetail_RequestRefund {
             get {
                 return ResourceManager.GetString("OrderDetail_RequestRefund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- Select a Reason --.
+        /// </summary>
+        internal static string OrderDetail_SelectReason {
+            get {
+                return ResourceManager.GetString("OrderDetail_SelectReason", resourceCulture);
             }
         }
         
@@ -5542,6 +8017,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Submit Request.
+        /// </summary>
+        internal static string OrderDetail_SubmitRequest {
+            get {
+                return ResourceManager.GetString("OrderDetail_SubmitRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Subtotal.
         /// </summary>
         internal static string OrderDetail_Subtotal {
@@ -5565,6 +8049,168 @@ namespace Resources {
         internal static string OrderDetail_TransactionId {
             get {
                 return ResourceManager.GetString("OrderDetail_TransactionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This order has been cancelled. If you believe this is an error, please contact support..
+        /// </summary>
+        internal static string OrderStatus_Cancelled_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_Cancelled_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order Cancelled.
+        /// </summary>
+        internal static string OrderStatus_Cancelled_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_Cancelled_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This order has been successfully delivered. We hope you enjoy your new gear!.
+        /// </summary>
+        internal static string OrderStatus_Delivered_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_Delivered_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delivered.
+        /// </summary>
+        internal static string OrderStatus_Delivered_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_Delivered_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your items have been carefully packaged and are currently waiting for a delivery driver to pick them up from our store..
+        /// </summary>
+        internal static string OrderStatus_Packaged_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_Packaged_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order Packaged.
+        /// </summary>
+        internal static string OrderStatus_Packaged_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_Packaged_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Payment successful! We are currently preparing your jerseys. A delivery driver will be assigned shortly..
+        /// </summary>
+        internal static string OrderStatus_Paid_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_Paid_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Payment Confirmed.
+        /// </summary>
+        internal static string OrderStatus_Paid_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_Paid_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your order has been placed successfully. If you chose Cash on Delivery, please have the exact amount ready for the driver..
+        /// </summary>
+        internal static string OrderStatus_Pending_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_Pending_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Awaiting Payment.
+        /// </summary>
+        internal static string OrderStatus_Pending_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_Pending_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your refund request was reviewed and declined. The order remains valid and paid..
+        /// </summary>
+        internal static string OrderStatus_RefundDeclined_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_RefundDeclined_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Refund Declined.
+        /// </summary>
+        internal static string OrderStatus_RefundDeclined_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_RefundDeclined_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your refund request was approved and the funds have been returned to your account..
+        /// </summary>
+        internal static string OrderStatus_Refunded_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_Refunded_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Refund Processed.
+        /// </summary>
+        internal static string OrderStatus_Refunded_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_Refunded_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You have requested a refund. Our administrative team is currently reviewing your ticket..
+        /// </summary>
+        internal static string OrderStatus_RefundReq_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_RefundReq_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Refund Under Review.
+        /// </summary>
+        internal static string OrderStatus_RefundReq_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_RefundReq_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your order has left our store! Our delivery driver is currently heading to your location..
+        /// </summary>
+        internal static string OrderStatus_Shipped_Desc {
+            get {
+                return ResourceManager.GetString("OrderStatus_Shipped_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order on the Way!.
+        /// </summary>
+        internal static string OrderStatus_Shipped_Title {
+            get {
+                return ResourceManager.GetString("OrderStatus_Shipped_Title", resourceCulture);
             }
         }
         
@@ -5605,11 +8251,101 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Specify approval verification results, shipment tracking numbers, or grounds for denial here....
+        /// </summary>
+        internal static string Placeholder_AdminNotes {
+            get {
+                return ResourceManager.GetString("Placeholder_AdminNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Write your public reply here....
+        /// </summary>
+        internal static string Placeholder_PublicReply {
+            get {
+                return ResourceManager.GetString("Placeholder_PublicReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Search shirt name....
+        /// </summary>
+        internal static string Placeholder_SearchShirt {
+            get {
+                return ResourceManager.GetString("Placeholder_SearchShirt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Search by username or email....
+        /// </summary>
+        internal static string Placeholder_SearchUser {
+            get {
+                return ResourceManager.GetString("Placeholder_SearchUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select expiration date....
+        /// </summary>
+        internal static string Placeholder_SelectEndDate {
+            get {
+                return ResourceManager.GetString("Placeholder_SelectEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select start date....
+        /// </summary>
+        internal static string Placeholder_SelectStartDate {
+            get {
+                return ResourceManager.GetString("Placeholder_SelectStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Save Changes.
         /// </summary>
         internal static string Profile_BtnSaveChanges {
             get {
                 return ResourceManager.GetString("Profile_BtnSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order Status / Shipping Inquiry.
+        /// </summary>
+        internal static string Reason_1 {
+            get {
+                return ResourceManager.GetString("Reason_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Consign / Sell a Retro Shirt.
+        /// </summary>
+        internal static string Reason_2 {
+            get {
+                return ResourceManager.GetString("Reason_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Returns &amp; Exchanges.
+        /// </summary>
+        internal static string Reason_3 {
+            get {
+                return ResourceManager.GetString("Reason_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a General Question.
+        /// </summary>
+        internal static string Reason_4 {
+            get {
+                return ResourceManager.GetString("Reason_4", resourceCulture);
             }
         }
         
@@ -5848,6 +8584,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a All Brands.
+        /// </summary>
+        internal static string Search_AllBrands {
+            get {
+                return ResourceManager.GetString("Search_AllBrands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a All Leagues.
+        /// </summary>
+        internal static string Search_AllLeagues {
+            get {
+                return ResourceManager.GetString("Search_AllLeagues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Brand.
         /// </summary>
         internal static string Search_BrandLabel {
@@ -5862,6 +8616,15 @@ namespace Resources {
         internal static string Search_Btn {
             get {
                 return ResourceManager.GetString("Search_Btn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Clear Filters.
+        /// </summary>
+        internal static string Search_ClearFilters {
+            get {
+                return ResourceManager.GetString("Search_ClearFilters", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminBanners.aspx.cs" Inherits="OFFSIDESHOP.AdminBanners" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminBanners.aspx.cs" Inherits="OFFSIDESHOP.AdminBanners" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -367,7 +367,7 @@
                                                                 <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
                                                                     <asp:LinkButton ID="btnEdit" runat="server" CssClass="action-icon edit-icon" CommandName="EditBanner" CommandArgument='<%# Eval("ID") %>'><i class="fas fa-pen"></i></asp:LinkButton>
                                                                     <asp:LinkButton ID="btnToggle" runat="server" CommandName="ToggleBanner" CommandArgument='<%# Eval("ID") %>'></asp:LinkButton>
-                                                                    <asp:LinkButton ID="btnDelete" runat="server" CssClass="action-icon delete-icon" CommandName="DeleteBanner" CommandArgument='<%# Eval("ID") %>' OnClientClick="return confirm('Delete banner?');"><i class="fas fa-trash"></i></asp:LinkButton>
+                                                                    <asp:LinkButton ID="btnDelete" runat="server" CssClass="action-icon delete-icon" CommandName="DeleteBanner" CommandArgument='<%# Eval("ID") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteBanner") + "\");" %>'><i class="fas fa-trash"></i></asp:LinkButton>
                                                                 </div>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
@@ -528,7 +528,7 @@
                                                                 <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
                                                                     <asp:LinkButton ID="btnEditCol" runat="server" CssClass="action-icon edit-icon" CommandName="EditCol" CommandArgument='<%# Eval("Id_Collection") %>'><i class="fas fa-pen"></i></asp:LinkButton>
                                                                     <asp:LinkButton ID="btnToggleCol" runat="server" CommandName="ToggleCol" CommandArgument='<%# Eval("Id_Collection") %>'></asp:LinkButton>
-                                                                    <asp:LinkButton ID="btnDelCol" runat="server" CssClass="action-icon delete-icon" CommandName="DeleteCol" CommandArgument='<%# Eval("Id_Collection") %>' OnClientClick="return confirm('Delete collection?');"><i class="fas fa-trash"></i></asp:LinkButton>
+                                                                    <asp:LinkButton ID="btnDelCol" runat="server" CssClass="action-icon delete-icon" CommandName="DeleteCol" CommandArgument='<%# Eval("Id_Collection") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteCollection") + "\");" %>'><i class="fas fa-trash"></i></asp:LinkButton>
                                                                 </div>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
@@ -690,7 +690,7 @@
                                                                 <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
                                                                     <asp:LinkButton ID="btnEditAuth" runat="server" CssClass="action-icon edit-icon" CommandName="EditAuth" CommandArgument='<%# Eval("Id_Slide") %>'><i class="fas fa-pen"></i></asp:LinkButton>
                                                                     <asp:LinkButton ID="btnToggleAuth" runat="server" CommandName="ToggleAuth" CommandArgument='<%# Eval("Id_Slide") %>'></asp:LinkButton>
-                                                                    <asp:LinkButton ID="btnDeleteAuth" runat="server" CssClass="action-icon delete-icon" CommandName="DeleteAuth" CommandArgument='<%# Eval("Id_Slide") %>' OnClientClick="return confirm('Delete slide?');"><i class="fas fa-trash"></i></asp:LinkButton>
+                                                                    <asp:LinkButton ID="btnDeleteAuth" runat="server" CssClass="action-icon delete-icon" CommandName="DeleteAuth" CommandArgument='<%# Eval("Id_Slide") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteSlide") + "\");" %>'><i class="fas fa-trash"></i></asp:LinkButton>
                                                                 </div>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>

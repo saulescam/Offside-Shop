@@ -3063,4 +3063,10 @@
   <data name="Reason_4" xml:space="preserve">
     <value>General Question</value>
   </data>
+	<data name="Admin_Orders_ForceManualRefund" xml:space="preserve">
+    <value>Force manual refund (Bypass PayPal API)</value>
+  </data>
+	<data name="Admin_Orders_ForceManualNote" xml:space="preserve">
+    <value>Check this box if PayPal API rejects the transaction or for offline/testing refunds.</value>
+  </data>
 </root>

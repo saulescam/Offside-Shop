@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -311,6 +311,7 @@
 </head>
 <body>
     <form id="form1" runat="server" enctype="multipart/form-data">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
         <!-- TOP NAVBAR -->
         <nav class="top-navbar">
@@ -450,11 +451,12 @@
                                 <div class="form-group mb-0">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
                                         <label class="mb-0">Description (EN) <small class="text-muted">(optional)</small></label>
-                                        <asp:LinkButton ID="btnGenerateDescription" runat="server" CssClass="btn btn-sm"
-                                            Style="background: linear-gradient(135deg, #FFC800, #d97706); color: #fff; font-weight: 700; border: none; border-radius: 6px; padding: 2px 10px; font-size: 0.78rem;"
-                                            OnClick="btnGenerateDescription_Click" CausesValidation="false">
+                                        <!-- BOTÓN DE IA CLIENTE (SIN POSTBACK) -->
+                                        <button type="button" id="btnAiGen" class="btn btn-sm"
+                                            style="background: linear-gradient(135deg, #FFC800, #d97706); color: #fff; font-weight: 700; border: none; border-radius: 6px; padding: 2px 10px; font-size: 0.78rem;"
+                                            onclick="generateAiDescription(); return false;">
                                             <i class="fas fa-magic mr-1"></i> Generate with AI
-                                        </asp:LinkButton>
+                                        </button>
                                     </div>
                                     <asp:TextBox ID="txtDescription" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Short product description in English..."></asp:TextBox>
                                 </div>
@@ -498,33 +500,37 @@
                             </div>
                         </div>
 
-                        <!-- Row 2: Brand / League / Team / Kit Type -->
-                        <div class="row">
-                            <div class="col-md-3 col-sm-6">
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_BrandLabel %>" /> <span class="text-danger">*</span></label>
-                                    <asp:DropDownList ID="ddlFormBrand" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                        <!-- Row 2: Brand / League / Team / Kit Type (EN UPDATEPANEL SEPARADO PARA EVITAR POSTBACK GLOBAL) -->
+                        <asp:UpdatePanel ID="upLeagueTeam" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="form-group">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_BrandLabel %>" /> <span class="text-danger">*</span></label>
+                                            <asp:DropDownList ID="ddlFormBrand" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="form-group">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_LeagueLabel %>" /> <span class="text-danger">*</span></label>
+                                            <asp:DropDownList ID="ddlFormLeague" ClientIDMode="Static" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlFormLeague_SelectedIndexChanged"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="form-group">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Sidebar_Team %>" /> <span class="text-danger">*</span></label>
+                                            <asp:DropDownList ID="ddlFormTeam" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="form-group">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_KitLabel %>" /> <span class="text-danger">*</span></label>
+                                            <asp:DropDownList ID="ddlFormKitType" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_LeagueLabel %>" /> <span class="text-danger">*</span></label>
-                                    <asp:DropDownList ID="ddlFormLeague" ClientIDMode="Static" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlFormLeague_SelectedIndexChanged"></asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Sidebar_Team %>" /> <span class="text-danger">*</span></label>
-                                    <asp:DropDownList ID="ddlFormTeam" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_KitLabel %>" /> <span class="text-danger">*</span></label>
-                                    <asp:DropDownList ID="ddlFormKitType" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                            </div>
-                        </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
 
                         <!-- Row 3: Stock per Size -->
                         <div class="row">
@@ -538,7 +544,7 @@
                             <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">XXL</label><asp:TextBox ID="txtStockXXL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
                         </div>
 
-                        <!-- Row 4: Image Upload (DRAG & DROP) -->
+                        <!-- Row 4: Image Upload (DRAG & DROP) CON PREVISUALIZACIÓN MÚLTIPLE -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -549,7 +555,7 @@
                                         <asp:FileUpload ID="fileImagen" ClientIDMode="Static" runat="server" accept="image/png, image/jpeg, image/jpg, image/webp" />
                                     </div>
                                     <asp:Label ID="lblCurrentImage" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
-                                    <img id="imgPreview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 200px; margin-top: 10px; border-radius: 8px; object-fit: contain;" />
+                                    <img id="imgPreview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 180px; margin-top: 10px; border-radius: 8px; object-fit: contain;" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -562,6 +568,9 @@
                                     </div>
                                     <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 4px;">Optional: Upload up to 4 extra gallery images.</span>
                                     <asp:Label ID="lblCurrentExtraImages" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
+
+                                    <!-- CONTENEDOR PARA PREVISUALIZAR IMÁGENES DE GALERÍA -->
+                                    <div id="extraImagesPreview" class="d-flex flex-wrap justify-content-center gap-2 mt-2"></div>
                                 </div>
                             </div>
                         </div>
@@ -692,7 +701,7 @@
             });
         });
 
-        // ================= AUTOMATIC GOOGLE TRANSLATE API =================
+        // ================= TRADUCCIÓN AUTOMÁTICA =================
         function autoTranslate(sourceLang, targetLang, sourceInputIds, targetInputIds) {
             for (let i = 0; i < sourceInputIds.length; i++) {
                 let srcElem = document.getElementById(sourceInputIds[i]);
@@ -725,6 +734,64 @@
                         console.error('Translation error:', err);
                     });
             }
+        }
+
+        // ================= GENERACIÓN DE DESCRIPCIÓN CON IA (AJAX SIN POSTBACK) =================
+        function generateAiDescription() {
+            let name = document.getElementById('txtName').value.trim();
+            let brandElem = document.getElementById('ddlFormBrand');
+            let teamElem = document.getElementById('ddlFormTeam');
+            let year = document.getElementById('txtYear').value.trim();
+            let kitElem = document.getElementById('ddlFormKitType');
+
+            let brand = (brandElem && brandElem.selectedIndex > 0) ? brandElem.options[brandElem.selectedIndex].text : '';
+            let team = (teamElem && teamElem.selectedIndex > 0) ? teamElem.options[teamElem.selectedIndex].text : '';
+            let kitType = (kitElem && kitElem.selectedIndex > 0) ? kitElem.options[kitElem.selectedIndex].text : 'Jersey';
+
+            if (!name || brandElem.value === "0" || teamElem.value === "0") {
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfoTitle") %>', 'Please enter at least Name, Brand, and Team before generating the description.', 'warning');
+                return;
+            }
+
+            Swal.fire({
+                title: 'Generating Description...',
+                text: 'AI is crafting a compelling product description. Please wait...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "ManageProducts.aspx/GenerateAiDescription",
+                data: JSON.stringify({
+                    productName: name,
+                    brand: brand,
+                    team: team,
+                    year: year,
+                    kitType: kitType
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    Swal.close();
+                    if (response.d && response.d.indexOf("ERROR:") === 0) {
+                        Swal.fire('AI Error', response.d, 'error');
+                    } else if (response.d) {
+                        document.getElementById('txtDescription').value = response.d;
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        Toast.fire({ icon: 'success', title: 'Description generated successfully!' });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.close();
+                    Swal.fire('Error', 'Failed to communicate with AI service.', 'error');
+                }
+            });
         }
 
         // ================= VALIDACIÓN BILINGÜE Y DE CAMPOS =================
@@ -818,7 +885,7 @@
             }
         }
 
-        // ================= DRAG AND DROP =================
+        // ================= DRAG AND DROP & GALLERY PREVIEWS =================
         function setupDropZone(dropZoneId, inputId, textLabelId, isMultiple) {
             const dropZone = document.getElementById(dropZoneId);
             const inputElement = document.getElementById(inputId);
@@ -856,8 +923,23 @@
 
                 if (isMultiple) {
                     const limit = Math.min(files.length, 4);
+                    const previewContainer = document.getElementById('extraImagesPreview');
+                    if (previewContainer) previewContainer.innerHTML = ''; // Limpiar previas anteriores
+
                     for (let i = 0; i < limit; i++) {
                         dataTransfer.items.add(files[i]);
+
+                        // Crear vista previa para cada imagen de galería
+                        if (previewContainer) {
+                            let reader = new FileReader();
+                            reader.onload = function (e) {
+                                let img = document.createElement('img');
+                                img.src = e.target.result;
+                                img.style.cssText = "width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color); margin: 3px;";
+                                previewContainer.appendChild(img);
+                            };
+                            reader.readAsDataURL(files[i]);
+                        }
                     }
                     textLabel.innerText = `${limit} image(s) attached ready for upload`;
                     textLabel.style.color = "#1a7a4a";
@@ -898,6 +980,14 @@
                 });
             }
         });
+
+        // Re-vincular eventos de Drag & Drop tras llamadas de UpdatePanel
+        if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                setupDropZone('dzMainImage', 'fileImagen', 'lblMainImageText', false);
+                setupDropZone('dzGalleryImages', 'fuExtraImages', 'lblGalleryImagesText', true);
+            });
+        }
     </script>
 </body>
 </html>

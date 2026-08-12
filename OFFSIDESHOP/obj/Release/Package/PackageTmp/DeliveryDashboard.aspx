@@ -535,6 +535,13 @@
         var strYourLocation = '<%= GetGlobalResourceObject("Strings", "Driver_YourLocation") %>';
         var strLiveGps = '<%= GetGlobalResourceObject("Strings", "Driver_LiveGps") %>';
         var strGettingGps = '<%= GetGlobalResourceObject("Strings", "Driver_GettingGps") %>';
+        var strGpsPermissionDenied = '<%= GetGlobalResourceObject("Strings", "Driver_Gps_PermissionDenied") %>';
+        var strGpsUnavailable = '<%= GetGlobalResourceObject("Strings", "Driver_Gps_Unavailable") %>';
+        var strGpsTimeout = '<%= GetGlobalResourceObject("Strings", "Driver_Gps_Timeout") %>';
+        var strGpsError = '<%= GetGlobalResourceObject("Strings", "Driver_Gps_Error") %>';
+        var strGpsActive = '<%= GetGlobalResourceObject("Strings", "Driver_Gps_Active") %>';
+        var strErrorTitle = '<%= GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>';
+        var strNoGeolocation = '<%= GetGlobalResourceObject("Strings", "Alert_Driver_NoGeolocation") %>';
 
         // 1. Inicializa el mapa y el destino
         function initMissionMap() {
@@ -603,7 +610,7 @@
                     timeout: 15000
                 });
             } else {
-                Swal.fire('Error', 'Your browser does not support geolocation.', 'error');
+                Swal.fire(strErrorTitle, strNoGeolocation, 'error');
             }
         }
 
@@ -613,7 +620,7 @@
             var lng = position.coords.longitude;
             var accuracy = position.coords.accuracy;
 
-            setMapStatus('<i class="fas fa-circle me-1" style="color:#10b981"></i> GPS active &mdash; Accuracy: ~' + Math.round(accuracy) + ' m', '#333');
+            setMapStatus('<i class="fas fa-circle me-1" style="color:#10b981"></i> ' + strGpsActive + Math.round(accuracy) + ' m', '#333');
 
             if (driverMap !== null) {
                 var isFirstTime = (driverCurrentMarker === null);
@@ -697,16 +704,16 @@
             var msg = '';
             switch (error.code) {
                 case error.PERMISSION_DENIED:
-                    msg = 'GPS permission denied. Enable location in settings.';
+                    msg = strGpsPermissionDenied;
                     break;
                 case error.POSITION_UNAVAILABLE:
-                    msg = 'Location unavailable. Check GPS signal.';
+                    msg = strGpsUnavailable;
                     break;
                 case error.TIMEOUT:
-                    msg = 'GPS timeout. Retrying...';
+                    msg = strGpsTimeout;
                     break;
                 default:
-                    msg = 'GPS error: ' + error.message;
+                    msg = strGpsError + error.message;
             }
             setMapStatus('<i class="fas fa-exclamation-triangle me-1" style="color:#e53e3e"></i> ' + msg, '#e53e3e');
         }

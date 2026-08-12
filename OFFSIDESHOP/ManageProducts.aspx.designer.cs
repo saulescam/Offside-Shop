@@ -24,6 +24,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Control ScriptManager1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+
+        /// <summary>
         /// Control btnLanguageToggle.
         /// </summary>
         /// <remarks>
@@ -204,15 +213,6 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.TextBox txtName;
 
         /// <summary>
-        /// Control btnGenerateDescription.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnGenerateDescription;
-
-        /// <summary>
         /// Control txtDescription.
         /// </summary>
         /// <remarks>
@@ -256,6 +256,15 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtYear;
+
+        /// <summary>
+        /// Control upLeagueTeam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upLeagueTeam;
 
         /// <summary>
         /// Control ddlFormBrand.
@@ -391,6 +400,7 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnSaveProduct;
+
         /// <summary>
         /// Control btnCancelForm.
         /// </summary>
@@ -399,6 +409,7 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnCancelForm;
+
         /// <summary>
         /// Control ddlFilterBrand.
         /// </summary>

@@ -286,7 +286,7 @@
                             </button>
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="dropdown-content">                                    <a href="Login.aspx" class="dropdown-item">
-                                        <i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_LogIn %>
+                                        <i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_Login %>
                                     </a>
                                     <a href="SignUp.aspx" class="dropdown-item">
                                         <i class="fas fa-user-plus"></i><%= Resources.Strings.Nav_SignUp %>
@@ -356,7 +356,7 @@
                     <a href="Homepage.aspx" class="btn btn-secondary-custom">
                         <i class="fas fa-arrow-left"></i> <%= Resources.Strings.Nav_BackToShop %>
                     </a>
-                </div>div>
+                </div>
 
                 <div class="row mb-5 text-center mt-5">
                     <div class="col-12">

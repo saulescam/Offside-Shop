@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="OFFSIDESHOP.SignUp" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="OFFSIDESHOP.SignUp" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -212,15 +212,15 @@
 
             if (pass !== confirm) {
                 Swal.fire({
-                    icon: 'error', title: 'Error', text: 'Passwords do not match', confirmButtonColor: '#FFC800'
+                    icon: 'error', title: '<%= GetGlobalResourceObject("Strings", "Alert_SignUp_PassMismatchTitle") %>', text: '<%= GetGlobalResourceObject("Strings", "Alert_SignUp_PassMismatch") %>', confirmButtonColor: '#FFC800'
                 });
                 return false;
             }
 
             // Mostramos una alerta de carga para que el usuario sepa que el sistema estÃ¡ trabajando
             Swal.fire({
-                title: 'Sending Verification Code...',
-                text: 'Please wait a moment while we set up your account.',
+                title: '<%= GetGlobalResourceObject("Strings", "Alert_SignUp_SendingTokenTitle") %>',
+                text: '<%= GetGlobalResourceObject("Strings", "Alert_SignUp_SendingTokenText") %>',
                 allowOutsideClick: false,
                 didOpen: () => { Swal.showLoading(); }
             });
@@ -228,8 +228,12 @@
         }
 
         function showSpinner(msg) {
+            var localizedMsg = msg;
+            if (msg === 'Verifying code...') {
+                localizedMsg = '<%= GetGlobalResourceObject("Strings", "Alert_SignUp_VerifyingTokenTitle") %>';
+            }
             Swal.fire({
-                title: msg,
+                title: localizedMsg,
                 allowOutsideClick: false,
                 didOpen: () => { Swal.showLoading(); }
             });

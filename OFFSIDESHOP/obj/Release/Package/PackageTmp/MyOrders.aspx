@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MyOrders.aspx.cs" Inherits="OFFSIDESHOP.MyOrders" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MyOrders.aspx.cs" Inherits="OFFSIDESHOP.MyOrders" %>
 
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
@@ -285,14 +285,13 @@
                                 </svg>
                             </button>
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
-                                <div class="dropdown-content">
-                                    <a href="Login.aspx" class="dropdown-item">
-                                        <i class="fas fa-sign-in-alt"></i>Log in
+                                <div class="dropdown-content">                                    <a href="Login.aspx" class="dropdown-item">
+                                        <i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_LogIn %>
                                     </a>
                                     <a href="SignUp.aspx" class="dropdown-item">
-                                        <i class="fas fa-user-plus"></i>Sign up
+                                        <i class="fas fa-user-plus"></i><%= Resources.Strings.Nav_SignUp %>
                                     </a>
-                                    <asp:Button ID="Button1" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
+                                    <asp:Button ID="Button1" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
                                 </div>
                             </div>
                         </div>
@@ -302,7 +301,7 @@
                                    <asp:PlaceHolder ID="phNavbarUser" runat="server">
                      <div class="navbar-icons-container">
 
-                         <!-- Ãcono del carrito -->
+                         <!-- Ícono del carrito -->
                          <asp:LinkButton ID="btnNavCart" runat="server" CssClass="cart-icon-btn" OnClick="btnNavCart_Click">
                              <i class="fas fa-shopping-cart"></i>
                              <span class="badge">
@@ -331,10 +330,10 @@
                                          </div>
                                          <div class="dropdown-content">
                                                <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click">
-      <i class="fas fa-user-cog"></i> My Account
+      <i class="fas fa-user-cog"></i> <%= Resources.Strings.Nav_MyAccount %>
   </asp:LinkButton>
-                                             <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="Back to Shop" OnClick="btnbackshop_Click" />
-                                             <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" />
+                                             <asp:Button ID="btnbackshop" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_BackToShop %>" OnClick="btnbackshop_Click" />
+                                             <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" />
                                          </div>
                                      </div>
 
@@ -342,7 +341,7 @@
                              </asp:UpdatePanel>
                          </div>
                      </div>
-                 </asp:PlaceHolder>
+                  </asp:PlaceHolder>
 
                 </div>
             </div>
@@ -355,9 +354,9 @@
 
                 <div class="mb-4">
                     <a href="Homepage.aspx" class="btn btn-secondary-custom">
-                        <i class="fas fa-arrow-left"></i> Back to Homepage
+                        <i class="fas fa-arrow-left"></i> <%= Resources.Strings.Nav_BackToShop %>
                     </a>
-                </div>
+                </div>div>
 
                 <div class="row mb-5 text-center mt-5">
                     <div class="col-12">
@@ -417,7 +416,7 @@
                                                     <ItemTemplate>
                                                         <div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #f5f5f5; padding: 6px 0;">
                                                             <span style="color: #444444 !important; font-size: 13px;"><i class="fa-solid fa-shirt text-muted me-2"></i><%# FormatJerseyName(Eval("Product")) %>
-                                                                <span style="color: #777777; font-size: 12px; margin-left: 4px;">(Size: <%# Eval("Size") %>)</span>
+                                                                <span style="color: #777777; font-size: 12px; margin-left: 4px;">(<%# GetGlobalResourceObject("Strings", "Card_Sizes") %>: <%# Eval("Size") %>)</span>
                                                                 <strong style="color: #1a1a1a; margin-left: 6px;">x<%# Eval("Quantity") %></strong>
                                                             </span>
                                                             <span style="color: #1a1a1a !important; font-weight: 600; font-size: 13px;">$<%# Convert.ToDouble(Eval("Price")) * Convert.ToInt32(Eval("Quantity")) %>

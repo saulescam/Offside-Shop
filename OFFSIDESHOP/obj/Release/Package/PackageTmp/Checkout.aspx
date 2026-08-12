@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Checkout.aspx.cs" Inherits="OFFSIDESHOP.Checkout" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Checkout.aspx.cs" Inherits="OFFSIDESHOP.Checkout" %>
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
 <!DOCTYPE html>
@@ -233,10 +233,10 @@
                 <i class="fas fa-circle-notch fa-spin loader-spinner"></i>
                 <i class="fas fa-lock loader-lock"></i>
             </div>
-            <h4 class="loader-title">Secure Payment Processing</h4>
-            <p class="loader-text">Processing your order... Please do not close this tab or refresh the page.</p>
+            <h4 class="loader-title"><%= Resources.Strings.Checkout_LoaderTitle %></h4>
+            <p class="loader-text"><%= Resources.Strings.Checkout_LoaderText %></p>
             <div class="loader-security-badge">
-                <i class="fas fa-shield-alt"></i> 256-bit SSL Secured Connection
+                <i class="fas fa-shield-alt"></i> <%= Resources.Strings.Checkout_LoaderSecurity %>
             </div>
         </div>
     </div>
@@ -265,29 +265,29 @@
             var telRegex = /^[0-9]{8}$/;
 
             if (tel === '' || !telRegex.test(tel)) {
-                Swal.fire('Error', 'Please enter a valid 8-digit phone number.', 'error');
+                Swal.fire('<% =GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Checkout_InvalidPhoneText") %>', 'error');
                 return false;
             }
 
             if (nombre === '' || apellido === '' || email === '' || address === '' || tel === '' || city === '') {
-                Swal.fire('Error', 'Please fill in all fields.', 'error');
+                Swal.fire('<% =GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Checkout_FieldsRequiredText") %>', 'error');
                 return false;
             }
 
             if (!lat || !lng || lat === "" || lng === "") {
-                Swal.fire('Location Required', 'Please select your exact delivery location on the map.', 'warning');
+                Swal.fire('<% =GetGlobalResourceObject("Strings", "Alert_Checkout_LocationRequiredTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Checkout_LocationRequiredText") %>', 'warning');
                 return false;
             }
 
             var payment = document.querySelector('input[name="payment"]:checked');
             if (!payment) {
-                Swal.fire('Error', 'Please select a payment method.', 'error');
+                Swal.fire('<% =GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Checkout_PaymentRequiredText") %>', 'error');
                 return false;
             }
 
             var terms = document.getElementById('terms').checked;
             if (!terms) {
-                Swal.fire('Error', 'You must accept the terms & conditions.', 'error');
+                Swal.fire('<% =GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Checkout_TermsRequiredText") %>', 'error');
                 return false;
             }
 
@@ -732,10 +732,10 @@
                         });
                     },
                     onCancel: function (data) {
-                        Swal.fire('Cancelled', 'The payment process was cancelled.', 'warning');
+                        Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Checkout_CancelledTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Checkout_CancelledText") %>', 'warning');
                     },
                     onError: function (err) {
-                        Swal.fire('Error', 'An error occurred during payment processing.', 'error');
+                        Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Checkout_ProcessingErrorText") %>', 'error');
                     }
                 }).render('#paypal-button-container');
 

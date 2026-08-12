@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageCoupons.aspx.cs" Inherits="OFFSIDESHOP.ManageCoupons" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageCoupons.aspx.cs" Inherits="OFFSIDESHOP.ManageCoupons" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -233,7 +233,7 @@
                             <!-- FORMULARIO -->
                             <asp:Panel ID="pnlCouponForm" runat="server" Visible="false" CssClass="form-panel">
                                 <asp:HiddenField ID="hfEditId" runat="server" Value="0" />
-                                <h4><i class="fas fa-ticket-alt mr-2"></i><asp:Label ID="lblFormTitle" runat="server" Text="Create New Coupon"></asp:Label></h4>
+                                <h4><i class="fas fa-ticket-alt mr-2"></i><asp:Label ID="lblFormTitle" runat="server" Text="<%$ Resources:Strings, Coupon_Title_Create %>"></asp:Label></h4>
 
                                 <div class="row mt-4">
                                     <div class="col-md-6">
@@ -330,7 +330,7 @@
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnEdit" runat="server" CssClass="btn-action btn-edit" CommandName="EditCoupon" CommandArgument='<%# Eval("Id_Coupon") %>' ToolTip="Edit"><i class="fas fa-pen"></i></asp:LinkButton>
                                                 <asp:LinkButton ID="btnToggle" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleCoupon" CommandArgument='<%# Eval("Id_Coupon") %>'><i class="fas fa-power-off"></i></asp:LinkButton>
-                                                <asp:LinkButton ID="btnDelete" runat="server" CssClass="btn-action btn-delete" CommandName="DeleteCoupon" CommandArgument='<%# Eval("Id_Coupon") %>' OnClientClick="return confirm('Are you sure you want to delete this coupon? Users won\'t be able to use it anymore.');" ToolTip="Delete"><i class="fas fa-trash"></i></asp:LinkButton>
+                                                <asp:LinkButton ID="btnDelete" runat="server" CssClass="btn-action btn-delete" CommandName="DeleteCoupon" CommandArgument='<%# Eval("Id_Coupon") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteCoupon") + "\");" %>' ToolTip="Delete"><i class="fas fa-trash"></i></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

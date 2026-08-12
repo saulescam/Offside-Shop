@@ -3063,4 +3063,10 @@
   <data name="Reason_4" xml:space="preserve">
     <value>Consulta General</value>
   </data>
+	<data name="Admin_Orders_ForceManualRefund" xml:space="preserve">
+    <value>Forzar reembolso manual (Omitir API de PayPal)</value>
+  </data>
+	<data name="Admin_Orders_ForceManualNote" xml:space="preserve">
+    <value>Marca esta casilla si la API de PayPal rechaza la transacción o para reembolsos de prueba/manuales.</value>
+  </data>
 </root>

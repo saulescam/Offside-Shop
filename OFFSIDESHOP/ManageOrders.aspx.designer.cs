@@ -204,15 +204,6 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.LinkButton btnTabRefunds;
 
         /// <summary>
-        /// Control litRefundBadgeCount.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litRefundBadgeCount;
-
-        /// <summary>
         /// Control phOrdersView.
         /// </summary>
         /// <remarks>
@@ -472,6 +463,24 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdminComment;
+
+        /// <summary>
+        /// Control pnlForceManualOption.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlForceManualOption;
+
+        /// <summary>
+        /// Control chkForceManualRefund.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkForceManualRefund;
 
         /// <summary>
         /// Control lblModalError.

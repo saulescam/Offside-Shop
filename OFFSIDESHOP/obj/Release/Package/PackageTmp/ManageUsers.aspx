@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageUsers.aspx.cs" Inherits="OFFSIDESHOP.ManageUsers" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageUsers.aspx.cs" Inherits="OFFSIDESHOP.ManageUsers" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -321,7 +321,7 @@
                                     </div>
                                     <div class="col-md-4 col-sm-8 mb-2 mb-md-0">
                                         <label>Search User</label>
-                                        <asp:TextBox ID="txtSearchUser" runat="server" CssClass="form-control" placeholder="Search by username or email..." AutoPostBack="true" OnTextChanged="Filter_Changed"></asp:TextBox>
+                                        <asp:TextBox ID="txtSearchUser" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Placeholder_SearchUser %>" AutoPostBack="true" OnTextChanged="Filter_Changed"></asp:TextBox>
                                     </div>
                                     <div class="col-md-2 col-sm-4 text-right">
                                         <asp:LinkButton ID="btnClearFilters" runat="server" CssClass="btn btn-outline-secondary font-weight-bold w-100" OnClick="btnClearFilters_Click">
@@ -362,7 +362,7 @@
                                                     <i class="fas fa-key"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_BtnPermissions %>" />
                                                 </asp:LinkButton>
                                                 
-                                                <asp:LinkButton ID="btnDelete" runat="server" CssClass="action-btn btn-delete" CommandName="DeleteUser" CommandArgument='<%# Eval("Id_User") %>' OnClientClick="return confirm('Are you sure you want to permanently delete this user?');" ToolTip="Delete User">
+                                                <asp:LinkButton ID="btnDelete" runat="server" CssClass="action-btn btn-delete" CommandName="DeleteUser" CommandArgument='<%# Eval("Id_User") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteUser") + "\");" %>' ToolTip="Delete User">
                                                     <i class="fas fa-trash"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_BtnDelete %>" />
                                                 </asp:LinkButton>
                                             </ItemTemplate>

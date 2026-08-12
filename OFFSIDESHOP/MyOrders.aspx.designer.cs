@@ -15,6 +15,15 @@ namespace OFFSIDESHOP
     {
 
         /// <summary>
+        /// Control btnLanguageToggle.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
+
+        /// <summary>
         /// Control ScriptManager1.
         /// </summary>
         /// <remarks>
@@ -148,9 +157,5 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::OFFSIDESHOP.FooterControl ControlFooter;
-        /// <summary>
-        /// Control btnLanguageToggle.
-        /// </summary>
-        protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OrderDetail.aspx.cs" Inherits="OFFSIDESHOP.OrderDetail" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OrderDetail.aspx.cs" Inherits="OFFSIDESHOP.OrderDetail" %>
 
 <%@ Register Src="~/FooterControl.ascx" TagPrefix="uc" TagName="Footer" %>
 
@@ -202,10 +202,10 @@
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="dropdown-content">
                                     <a href="Login.aspx" class="dropdown-item">
-                                        <i class="fas fa-sign-in-alt"></i>Log in
+                                        <i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_LogIn %>
                                     </a>
                                     <a href="SignUp.aspx" class="dropdown-item">
-                                        <i class="fas fa-user-plus"></i>Sign up
+                                        <i class="fas fa-user-plus"></i><%= Resources.Strings.Nav_SignUp %>
                                     </a>
                                 </div>
                             </div>
@@ -234,21 +234,21 @@
                                         </div>
                                         <div class="dropdown-content">
                                             <asp:LinkButton ID="btnGoToAccount" runat="server" CssClass="dropdown-item" OnClick="btnGoToAccount_Click" CausesValidation="false">
-                                                <i class="fas fa-user-cog"></i> My Account
+                                                <i class="fas fa-user-cog"></i> <%= Resources.Strings.Nav_MyAccount %>
                                             </asp:LinkButton>
 
                                             <asp:LinkButton ID="btnMyOrders" runat="server" CssClass="dropdown-item" OnClick="btnMyOrders_Click" CausesValidation="false">
-                                                <i class="fas fa-clipboard-list"></i> My Orders
+                                                <i class="fas fa-clipboard-list"></i> <%= Resources.Strings.Nav_MyOrders %>
                                             </asp:LinkButton>
 
                                             <asp:LinkButton ID="btnNavCart" runat="server" CssClass="dropdown-item" OnClick="btnNavCart_Click" CausesValidation="false">
-                                                <i class="fas fa-shopping-cart"></i>Cart 
+                                                <i class="fas fa-shopping-cart"></i><%= Resources.Strings.Nav_Cart %> 
                                                 <span class="badge">
                                                     <asp:Label ID="lblCartCount" runat="server" Text="0"></asp:Label>
                                                 </span>
                                             </asp:LinkButton>
 
-                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" CausesValidation="false" />
+                                            <asp:Button ID="btncerrar" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" CausesValidation="false" />
                                         </div>
                                     </div>
                                 </ContentTemplate>
@@ -273,12 +273,12 @@
                                 </div>
                                 <div class="dropdown-content">
                                     <a href="MyAccount.aspx" class="dropdown-item">
-                                        <i class="fas fa-user-cog"></i>My Account
+                                        <i class="fas fa-user-cog"></i><%= Resources.Strings.Nav_MyAccount %>
                                     </a>
                                     <a href="Dashboard.aspx" class="dropdown-item">
-                                        <i class="fas fa-chart-line"></i>Dashboard
+                                        <i class="fas fa-chart-line"></i><%= Resources.Strings.Nav_Dashboard %>
                                     </a>
-                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="Log out" OnClick="btncerrar_Click" CausesValidation="false" />
+                                    <asp:Button ID="btnlogout" runat="server" CssClass="dropdown-item btn-logout" Text="<%$ Resources:Strings, Nav_LogOut %>" OnClick="btncerrar_Click" CausesValidation="false" />
                                 </div>
                             </div>
                         </div>
@@ -496,7 +496,7 @@
                         </div>
                         <div class="modal-footer" style="background-color: #f8f9fa;">
                             <asp:Button ID="btnCancelModal" runat="server" Text="<%$ Resources:Strings, OrderDetail_ModalGoBack %>" CssClass="btn btn-secondary btn-sm rounded-pill px-4" OnClick="btnCloseModal_Click" CausesValidation="false" />
-                            <asp:Button ID="btnSubmitAction" runat="server" Text="Submit Request" CssClass="btn btn-dark btn-sm rounded-pill px-4 text-warning fw-bold"
+                            <asp:Button ID="btnSubmitAction" runat="server" Text="<%$ Resources:Strings, OrderDetail_SubmitRequest %>" CssClass="btn btn-dark btn-sm rounded-pill px-4 text-warning fw-bold"
                                 OnClick="btnSubmitAction_Click" />
                         </div>
                     </div>

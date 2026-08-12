@@ -1,42 +1,50 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\",
+  "WorkspaceRootPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\skale\\onedrive\\desktop\\offside-shop\\offsideshop\\homepage.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\homepage.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\manageorders.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\manageorders.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\offsideshop\\homepage.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\homepage.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\app_globalresources\\strings.es.resx||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\app_globalresources\\strings.es.resx||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\offsideshop\\manageoffers.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\manageoffers.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\app_globalresources\\strings.resx||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\app_globalresources\\strings.resx||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\offsideshop\\managecoupons.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\managecoupons.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\offsideshop\\manageproducts.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\manageproducts.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\offsideshop\\manageorders.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\manageorders.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\manageorders.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\offsideshop\\adminbanners.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\adminbanners.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\orderdetail.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\orderdetail.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\offsideshop\\managesellerrequests.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\managesellerrequests.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\myorders.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\myorders.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\offsideshop\\auditlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\auditlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\css\\font-awesome.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\css\\font-awesome.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\manageproducts.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\manageproducts.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\manageproducts.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\manageproducts.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\geminiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\geminiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|c:\\users\\diego\\onedrive\\escritorio\\offside-shop\\offsideshop\\chathandler.ashx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F94B6E0E-C60D-40A5-8A21-4B5654114E6C}|OFFSIDESHOP\\OFFSIDESHOP.csproj|solutionrelative:offsideshop\\chathandler.ashx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,111 +59,145 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Homepage.aspx",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\Homepage.aspx",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\Homepage.aspx",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\Homepage.aspx",
-              "RelativeToolTip": "OFFSIDESHOP\\Homepage.aspx",
+              "Title": "ManageOrders.aspx",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ManageOrders.aspx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageOrders.aspx",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ManageOrders.aspx",
+              "RelativeToolTip": "OFFSIDESHOP\\ManageOrders.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-08-11T02:55:29.272Z",
+              "WhenOpened": "2026-08-12T02:08:42.432Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Homepage.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\Homepage.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\Homepage.aspx.cs",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\Homepage.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\Homepage.aspx.cs",
-              "ViewState": "AgIAAPwAAAAAAAAAAAAmwOYAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001384|",
-              "WhenOpened": "2026-08-11T02:51:09.414Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AdminBanners.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\AdminBanners.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\AdminBanners.aspx.cs",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\AdminBanners.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\AdminBanners.aspx.cs",
-              "ViewState": "AgIAAHgCAAAAAAAAAAAAACMCAACFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-09T20:14:46.54Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ManageSellerRequests.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageSellerRequests.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageSellerRequests.aspx.cs",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageSellerRequests.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\ManageSellerRequests.aspx.cs",
-              "ViewState": "AgIAAEYDAAAAAAAAAAAQwD8DAAByAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-09T20:12:20.003Z"
+              "Title": "Strings.es.resx",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\App_GlobalResources\\Strings.es.resx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\App_GlobalResources\\Strings.es.resx",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\App_GlobalResources\\Strings.es.resx",
+              "RelativeToolTip": "OFFSIDESHOP\\App_GlobalResources\\Strings.es.resx",
+              "ViewState": "AgIAAN4LAAAAAAAAAAAAAP4LAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2026-08-12T02:07:33.211Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ManageCoupons.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageCoupons.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageCoupons.aspx.cs",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageCoupons.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\ManageCoupons.aspx.cs",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAqwAoBAABtAAAAAAAAAA==",
+              "Title": "ManageOrders.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ManageOrders.aspx.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageOrders.aspx.cs",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ManageOrders.aspx.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\ManageOrders.aspx.cs",
+              "ViewState": "AgIAADgDAAAAAAAAAAAgwFsDAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-09T20:11:21.262Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ManageOffers.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageOffers.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageOffers.aspx.cs",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageOffers.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\ManageOffers.aspx.cs",
-              "ViewState": "AgIAAM4BAAAAAAAAAAAkwNcBAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001384|",
-              "WhenOpened": "2026-08-09T20:09:11.793Z"
+              "WhenOpened": "2026-08-12T02:03:38.583Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ManageProducts.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageProducts.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageProducts.aspx.cs",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageProducts.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\ManageProducts.aspx.cs",
-              "ViewState": "AgIAAGgBAAAAAAAAAADwvwQCAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-09T20:06:24.965Z"
+              "Title": "OrderDetail.aspx",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\OrderDetail.aspx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\OrderDetail.aspx",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\OrderDetail.aspx",
+              "RelativeToolTip": "OFFSIDESHOP\\OrderDetail.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-08-12T01:50:37.142Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "ManageOrders.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageOrders.aspx.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageOrders.aspx.cs",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\ManageOrders.aspx.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\ManageOrders.aspx.cs",
-              "ViewState": "AgIAAOsCAAAAAAAAAAAowPsCAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-09T17:28:00.988Z"
+              "Title": "MyOrders.aspx",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\MyOrders.aspx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\MyOrders.aspx",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\MyOrders.aspx",
+              "RelativeToolTip": "OFFSIDESHOP\\MyOrders.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-08-12T01:46:53.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ManageProducts.aspx",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ManageProducts.aspx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageProducts.aspx",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ManageProducts.aspx",
+              "RelativeToolTip": "OFFSIDESHOP\\ManageProducts.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-08-12T00:40:04.354Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "AuditLogger.cs",
-              "DocumentMoniker": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\AuditLogger.cs",
-              "RelativeDocumentMoniker": "OFFSIDESHOP\\AuditLogger.cs",
-              "ToolTip": "C:\\Users\\skale\\OneDrive\\Desktop\\Offside-Shop\\OFFSIDESHOP\\AuditLogger.cs",
-              "RelativeToolTip": "OFFSIDESHOP\\AuditLogger.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAzwDAAAAAAAAAAAAAAAA==",
+              "Title": "ManageProducts.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ManageProducts.aspx.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\ManageProducts.aspx.cs",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ManageProducts.aspx.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\ManageProducts.aspx.cs",
+              "ViewState": "AgIAAO0CAAAAAAAAAAAgwA0DAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-09T20:05:41.681Z"
+              "WhenOpened": "2026-08-12T00:31:34.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GeminiService.cs",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\GeminiService.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\GeminiService.cs",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\GeminiService.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\GeminiService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAABhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-12T00:31:00.817Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "font-awesome.min.css",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\css\\font-awesome.min.css",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\css\\font-awesome.min.css",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\css\\font-awesome.min.css",
+              "RelativeToolTip": "OFFSIDESHOP\\css\\font-awesome.min.css",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-08-12T00:30:57.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ChatHandler.ashx.cs",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ChatHandler.ashx.cs",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\ChatHandler.ashx.cs",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\ChatHandler.ashx.cs",
+              "RelativeToolTip": "OFFSIDESHOP\\ChatHandler.ashx.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAqwJcAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-12T00:30:17.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Strings.resx",
+              "DocumentMoniker": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\App_GlobalResources\\Strings.resx",
+              "RelativeDocumentMoniker": "OFFSIDESHOP\\App_GlobalResources\\Strings.resx",
+              "ToolTip": "C:\\Users\\diego\\OneDrive\\Escritorio\\Offside-Shop\\OFFSIDESHOP\\App_GlobalResources\\Strings.resx",
+              "RelativeToolTip": "OFFSIDESHOP\\App_GlobalResources\\Strings.resx",
+              "ViewState": "AgIAAO0LAAAAAAAAAAD4v/4LAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2026-08-12T00:09:40.506Z",
+              "EditorCaption": ""
             }
           ]
         }

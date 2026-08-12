@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -765,22 +767,19 @@ namespace OFFSIDESHOP
             }
         }
 
-        protected async void btnGenerateDescription_Click(object sender, EventArgs e)
+        // ══════════════════════════════════════════════════════════════════════
+        //  WebMethod Asíncrono de IA para Generar Descripción Sin PostBack
+        // ══════════════════════════════════════════════════════════════════════
+        [WebMethod(EnableSession = true)]
+        public static async Task<string> GenerateAiDescription(string productName, string brand, string team, string year, string kitType)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text) || ddlFormBrand.SelectedIndex <= 0 || ddlFormTeam.SelectedIndex <= 0)
+            if (string.IsNullOrWhiteSpace(productName) || string.IsNullOrWhiteSpace(brand) || string.IsNullOrWhiteSpace(team))
             {
-                TriggerAlert("Alert_MissingInfoTitle", "Alert_Products_MissingInfoText", "warning");
-                return;
+                return "ERROR: Missing required fields.";
             }
 
             try
             {
-                string productName = txtName.Text.Trim();
-                string brand = ddlFormBrand.SelectedItem.Text;
-                string team = ddlFormTeam.SelectedItem.Text;
-                string year = txtYear.Text.Trim();
-                string kitType = ddlFormKitType.SelectedIndex > 0 ? ddlFormKitType.SelectedItem.Text : "Jersey";
-
                 string prompt = $@"Write a highly engaging, historical e-commerce product description for the following football jersey.
                            - Product Name: {productName}
                            - Team: {team}
@@ -791,14 +790,13 @@ namespace OFFSIDESHOP
                 string systemInstruction = "You are an expert copywriter for OFFSIDESHOP. Keep it under 100 words. YOU MUST ANSWER STRICTLY IN ENGLISH.";
 
                 GeminiService gemini = new GeminiService();
-                string generatedDescription = await gemini.CallGeminiAsync(prompt, "gemini-1.5-flash", systemInstruction);
+                string generatedDescription = await gemini.CallGeminiAsync(prompt, "gemini-3.5-flash", systemInstruction);
 
-                txtDescription.Text = generatedDescription.Trim();
-                TriggerToast("Alert_Products_DescriptionGenerated");
+                return generatedDescription.Trim();
             }
             catch (Exception ex)
             {
-                TriggerAlert("Alert_AiErrorTitle", ex.Message, "error");
+                return "ERROR: " + ex.Message;
             }
         }
 
@@ -834,6 +832,7 @@ namespace OFFSIDESHOP
             lblCurrentExtraImages.Text = "";
             chkIsCustomizable.Checked = false;
         }
+
         // Método para forzar la cultura en esta página según la Sesión
         protected override void InitializeCulture()
         {
@@ -852,6 +851,7 @@ namespace OFFSIDESHOP
             Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
             Response.Redirect(Request.RawUrl);
         }
+
         // Navegación
         protected void btnManageProducts_Click(object sender, EventArgs e) { Response.Redirect("ManageProducts.aspx"); }
         protected void btnManageOrders_Click(object sender, EventArgs e) { Response.Redirect("ManageOrders.aspx"); }
