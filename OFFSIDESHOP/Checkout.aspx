@@ -261,7 +261,7 @@
             var lat = document.getElementById('<%= hfLatitude.ClientID %>').value;
             var lng = document.getElementById('<%= hfLongitude.ClientID %>').value;
             var tel = document.getElementById('<%= txtTel.ClientID %>').value.trim();
-            // ExpresiÃ³n regular: Valida que sean exactamente 8 dÃ­gitos numÃ©ricos (Formato El Salvador)
+            // Expresión regular: Valida que sean exactamente 8 dígitos numéricos (Formato El Salvador)
             var telRegex = /^[0-9]{8}$/;
 
             if (tel === '' || !telRegex.test(tel)) {
@@ -318,7 +318,7 @@
     <form runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
-        <!-- COORDENADAS DE LOGÃSTICA EN SEGUNDO PLANO -->
+        <!-- COORDENADAS DE LOGÍSTICA EN SEGUNDO PLANO -->
         <asp:HiddenField ID="hfLatitude" runat="server" />
         <asp:HiddenField ID="hfLongitude" runat="server" />
         <asp:HiddenField ID="hfUserDefaultLat" runat="server" />
@@ -558,7 +558,7 @@
                                         <!-- Contenedor del Checkout de la Billetera (Sin display:none fijo) -->
                                         <div id="virtual-wallet-checkout" style="text-align: center; margin-top: 15px;">
 
-                                            <!-- EL SCRIPT DEBE IR AQUÃ para que el botÃ³n se dibuje dentro de este panel -->
+                                            <!-- EL SCRIPT DEBE IR AQUÍ para que el botón se dibuje dentro de este panel -->
                                             <script
                                                 src="http://192.168.3.27:8000/api/v1/widget/checkout.js"
                                                 data-vw-widget="true"
@@ -580,7 +580,7 @@
                                 <asp:HiddenField ID="hfTransactionID" runat="server" />
                                 <asp:Button ID="btnConfirmPayPalPayment" runat="server" Style="display: none;" OnClick="btnConfirmPayPalPayment_Click" />
 
-                                <!-- BOTÃ“N DE CONFIRMACIÃ“N DE LA BILLETERA VIRTUAL PARA EL BACKEND (C#) -->
+                                <!-- BOTÓN DE CONFIRMACIÓN DE LA BILLETERA VIRTUAL PARA EL BACKEND (C#) -->
                                 <asp:Button ID="btnConfirmWalletPayment" runat="server" Style="display: none;" OnClick="btnConfirmWalletPayment_Click" />
                                 <div class="mt-4">
                                     <asp:Button ID="btnPlaceOrder" runat="server" Text="<%$ Resources:Strings, Checkout_PlaceOrder %>" CssClass="primary-btn order-submit w-100" Style="display: none !important;" OnClick="btnPlaceOrder_Click" OnClientClick="return validarCheckout();" />

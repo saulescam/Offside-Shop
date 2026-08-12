@@ -387,9 +387,9 @@
 
                                             <div class="text-end">
                                                 <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px; margin-bottom: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_Status %>" /></span>
-                                                <span class="badge" style="background-color: #1a1a1a !important; color: #ffc800 !important; border: 1px solid #ffc800; font-size: 12px; padding: 6px 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: 20px;">
-                                                    <%# Eval("order_status") %>
-                                                </span>
+                                                 <span class="badge" style="background-color: #1a1a1a !important; color: #ffc800 !important; border: 1px solid #ffc800; font-size: 12px; padding: 6px 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: 20px;">
+                                                     <%# Eval("order_status") %>
+                                                 </span>
                                             </div>
                                         </div>
 

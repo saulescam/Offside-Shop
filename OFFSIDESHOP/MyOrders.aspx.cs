@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Web;
@@ -104,15 +104,18 @@ namespace OFFSIDESHOP
         private void LoadOrderHistory()
         {
             string activeUser = Session["Customer"].ToString();
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+            string statusColumn = isSpanish ? "s.Status_Name_es" : "s.Status_Name";
 
             // Consulta ajustada EXACTAMENTE a tus tablas 'orders', 'users', 'cities' y 'order_statuses'
-            string queryOrders = @"
+            string queryOrders = $@"
                 SELECT o.Id_Order AS id_order, 
                        o.OrderDate AS order_date, 
                        o.Address AS shipping_address, 
                        c.city_name AS city, 
                        o.Total AS total_amount,
-                       s.Status_Name AS order_status
+                       o.Id_Status AS id_status,
+                       {statusColumn} AS order_status
                 FROM orders o
                 INNER JOIN users u ON o.Id_User = u.Id_User
                 INNER JOIN cities c ON o.Id_City = c.id_city
@@ -147,7 +150,7 @@ namespace OFFSIDESHOP
                             }
                             else
                             {
-                                lblNoOrders.Text = "You haven't placed any orders yet!";
+                                lblNoOrders.Text = GetGlobalResourceObject("Strings", "MyOrders_NoOrders")?.ToString() ?? "You haven't placed any orders yet!";
                                 lblNoOrders.Visible = true;
                                 rptOrders.Visible = false;
                             }
@@ -229,13 +232,77 @@ namespace OFFSIDESHOP
         {
             Response.Redirect("MyAccount.aspx");
         }
+        protected string GetLocalizedStatusName(object idStatusObj, object statusNameObj)
+        {
+            int idStatus = 0;
+            if (idStatusObj != null && idStatusObj != DBNull.Value)
+            {
+                int.TryParse(idStatusObj.ToString(), out idStatus);
+            }
+            
+            switch (idStatus)
+            {
+                case 1: return GetGlobalResourceObject("Strings", "OrderStatus_Pending_Title")?.ToString() ?? "Pending";
+                case 2: return GetGlobalResourceObject("Strings", "OrderStatus_Paid_Title")?.ToString() ?? "Paid";
+                case 3: return GetGlobalResourceObject("Strings", "OrderStatus_Shipped_Title")?.ToString() ?? "Shipped";
+                case 4: return GetGlobalResourceObject("Strings", "OrderStatus_Delivered_Title")?.ToString() ?? "Delivered";
+                case 5: return GetGlobalResourceObject("Strings", "OrderStatus_Cancelled_Title")?.ToString() ?? "Cancelled";
+                case 6: return GetGlobalResourceObject("Strings", "OrderStatus_RefundReq_Title")?.ToString() ?? "Refund Requested";
+                case 7: return GetGlobalResourceObject("Strings", "OrderStatus_Refunded_Title")?.ToString() ?? "Refunded";
+                case 8: return GetGlobalResourceObject("Strings", "OrderStatus_RefundDeclined_Title")?.ToString() ?? "Refund Rejected";
+                case 9: return GetGlobalResourceObject("Strings", "OrderStatus_Packaged_Title")?.ToString() ?? "Ready for Pickup";
+                default:
+                    return statusNameObj?.ToString() ?? "";
+            }
+        }
+
         protected string FormatJerseyName(object nameObj)
         {
             if (nameObj == null || nameObj == DBNull.Value) return "";
             
-            string name = nameObj.ToString().ToLower().Trim();
-            System.Globalization.TextInfo textInfo = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
-            return textInfo.ToTitleCase(name);
+            string name = nameObj.ToString().Trim();
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+
+            int customIndex = name.IndexOf(" (customized:", StringComparison.OrdinalIgnoreCase);
+            if (customIndex < 0)
+            {
+                customIndex = name.IndexOf(" (personalizado:", StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (customIndex >= 0)
+            {
+                string baseName = name.Substring(0, customIndex).ToLower().Trim();
+                string customPart = name.Substring(customIndex).Trim();
+                
+                System.Globalization.TextInfo textInfo = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
+                string formattedBase = textInfo.ToTitleCase(baseName);
+                
+                int colonIndex = customPart.IndexOf(':');
+                if (colonIndex >= 0 && customPart.EndsWith(")"))
+                {
+                    string customValue = customPart.Substring(colonIndex + 1, customPart.Length - colonIndex - 2).Trim();
+                    string label = isSpanish ? "Personalizado" : "Customized";
+                    return $"{formattedBase} ({label}: {customValue})";
+                }
+                else
+                {
+                    string label = isSpanish ? "Personalizado" : "Customized";
+                    if (customPart.IndexOf("customized", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        customPart = System.Text.RegularExpressions.Regex.Replace(customPart, "customized", label, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                    }
+                    else if (customPart.IndexOf("personalizado", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        customPart = System.Text.RegularExpressions.Regex.Replace(customPart, "personalizado", label, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                    }
+                    return $"{formattedBase} {customPart}";
+                }
+            }
+            else
+            {
+                System.Globalization.TextInfo textInfo = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
+                return textInfo.ToTitleCase(name.ToLower());
+            }
         }
     }
 }

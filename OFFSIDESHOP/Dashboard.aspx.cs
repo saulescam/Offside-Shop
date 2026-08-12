@@ -287,11 +287,14 @@ namespace OFFSIDESHOP
         {
             try
             {
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                string statusColumn = isSpanish ? "s.Status_Name_es" : "s.Status_Name";
+
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    string query = @"
-                        SELECT o.Id_Order, o.Name, o.LastName, c.city_name AS City, o.Total, s.Status_Name
+                    string query = $@"
+                        SELECT o.Id_Order, o.Name, o.LastName, c.city_name AS City, o.Total, {statusColumn} AS Status_Name
                         FROM orders o
                         LEFT JOIN cities c ON o.Id_City = c.id_city
                         INNER JOIN order_statuses s ON o.Id_Status = s.Id_Status

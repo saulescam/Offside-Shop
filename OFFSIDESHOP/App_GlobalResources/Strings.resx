@@ -3069,4 +3069,22 @@
 	<data name="Admin_Orders_ForceManualNote" xml:space="preserve">
     <value>Check this box if PayPal API rejects the transaction or for offline/testing refunds.</value>
   </data>
+  <data name="Checkout_SuccessTitle" xml:space="preserve">
+    <value>Order Placed!</value>
+  </data>
+  <data name="Checkout_SuccessText" xml:space="preserve">
+    <value>Your order has been placed successfully.</value>
+  </data>
+  <data name="Checkout_SuccessPaypalTitle" xml:space="preserve">
+    <value>Payment &amp; Order Completed!</value>
+  </data>
+  <data name="Checkout_SuccessPaypalText" xml:space="preserve">
+    <value>Your order has been verified successfully via PayPal.</value>
+  </data>
+  <data name="Checkout_SuccessWalletTitle" xml:space="preserve">
+    <value>Payment &amp; Order Completed!</value>
+  </data>
+  <data name="Checkout_SuccessWalletText" xml:space="preserve">
+    <value>Your order has been verified successfully via Virtual Wallet.</value>
+  </data>
 </root>

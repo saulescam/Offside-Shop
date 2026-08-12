@@ -202,7 +202,7 @@
                             <div class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                 <div class="dropdown-content">
                                     <a href="Login.aspx" class="dropdown-item">
-                                        <i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_LogIn %>
+                                        <i class="fas fa-sign-in-alt"></i><%= Resources.Strings.Nav_Login %>
                                     </a>
                                     <a href="SignUp.aspx" class="dropdown-item">
                                         <i class="fas fa-user-plus"></i><%= Resources.Strings.Nav_SignUp %>
@@ -310,7 +310,7 @@
                 </div>
             </div>
 
-            <!-- PANEL DINÃƒÂMICO DE ESTADO Y RASTREO -->
+            <!-- PANEL DINÁMICO DE ESTADO Y RASTREO -->
             <div class="row mb-4">
                 <div class="col-12">
                     <div id="statusAlertBox" runat="server" class="alert d-flex align-items-center mb-0" role="alert" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 20px;">
@@ -320,7 +320,7 @@
                             <p id="statusDescription" runat="server" class="mb-0" style="font-size: 14px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_LoadingStatus %>" /></p>
                         </div>
 
-                        <!-- BOTÃƒâ€œN DE TRACKING (Se muestra solo si el estado es Shipped) -->
+                        <!-- BOTÓN DE TRACKING (Se muestra solo si el estado es Shipped) -->
                         <div class="ms-auto" id="trackerButtonContainer" runat="server" visible="false">
                             <asp:LinkButton ID="btnTrackOrder" runat="server" CssClass="btn btn-dark fw-bold text-warning rounded-pill px-4 shadow-sm" OnClientClick="openTrackingModal(); return false;">
         <i class="fas fa-map-marked-alt me-2"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, OrderDetail_TrackDelivery %>" />
@@ -333,7 +333,7 @@
                     </div>
                 </div>
             </div>
-            <!-- FIN PANEL DINÃƒÂMICO -->
+            <!-- FIN PANEL DINÁMICO -->
 
             <div class="row g-4 mb-5">
                 <div class="col-12 col-md-6 d-flex">

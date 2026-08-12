@@ -189,9 +189,12 @@ namespace OFFSIDESHOP
             return isValidOwner;
         }
 
-        private void LoadOrderDetails(int idOrder)
+         private void LoadOrderDetails(int idOrder)
         {
-            string queryMaster = @"
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+            string statusColumn = isSpanish ? "s.Status_Name_es" : "s.Status_Name";
+
+            string queryMaster = $@"
     SELECT o.OrderDate AS order_date, 
            o.Address AS shipping_address, 
            o.Total AS total_amount, 
@@ -206,7 +209,7 @@ namespace OFFSIDESHOP
            c.city_name AS city, 
            m.Municipality_Name AS municipality, 
            d.District_Name AS district,
-           s.Status_Name AS order_status, 
+           {statusColumn} AS order_status, 
            p.Method_Name AS payment_method
     FROM orders o
     LEFT JOIN cities c ON o.Id_City = c.id_city
@@ -257,7 +260,7 @@ namespace OFFSIDESHOP
                                 UpdateStatusUI(idStatus);
 
                                 lblOrderDate.Text = Convert.ToDateTime(reader["order_date"]).ToString("dd/MM/yyyy");
-                                lblStatusBadge.Text = reader["order_status"] != DBNull.Value ? reader["order_status"].ToString() : "Pending";
+                                lblStatusBadge.Text = GetLocalizedStatusName(idStatus, reader["order_status"] != DBNull.Value ? reader["order_status"].ToString() : "Pending");
 
                                 lblCustomerName.Text = reader["customer_name"].ToString();
                                 lblPhone.Text = (reader["customer_phone"] != DBNull.Value && reader["customer_phone"].ToString() != "") ? reader["customer_phone"].ToString() : "N/A";
@@ -267,7 +270,23 @@ namespace OFFSIDESHOP
                                 lblMunicipality.Text = reader["municipality"] != DBNull.Value ? reader["municipality"].ToString() : "N/A";
                                 lblDistrict.Text = reader["district"] != DBNull.Value ? reader["district"].ToString() : "N/A";
 
-                                lblPaymentMethod.Text = reader["payment_method"] != DBNull.Value ? reader["payment_method"].ToString() : "Not Specified";
+                                bool issSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                                if (idPaymentMethod == 1)
+                                {
+                                    lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayCash")?.ToString() ?? "Cash on Delivery";
+                                }
+                                else if (idPaymentMethod == 2)
+                                {
+                                    lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayPaypal")?.ToString() ?? "PayPal";
+                                }
+                                else if (idPaymentMethod == 3)
+                                {
+                                    lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayWallet")?.ToString() ?? "Virtual Wallet";
+                                }
+                                else
+                                {
+                                    lblPaymentMethod.Text = reader["payment_method"] != DBNull.Value ? reader["payment_method"].ToString() : "Not Specified";
+                                }
 
                                 if (idPaymentMethod == 2) // PayPal
                                 {
@@ -280,12 +299,12 @@ namespace OFFSIDESHOP
                                 }
 
                                 string notes = reader["order_notes"] != DBNull.Value ? reader["order_notes"].ToString().Trim() : "";
-                                lblNotes.Text = notes != "" ? notes : "No notes provided.";
+                                lblNotes.Text = notes != "" ? notes : (GetGlobalResourceObject("Strings", "OrderDetail_NoNotes")?.ToString() ?? "No notes provided.");
 
                                 decimal orderTotal = Convert.ToDecimal(reader["total_amount"]);
                                 decimal shippingCost = Convert.ToDecimal(reader["shipping_cost"]);
 
-                                lblShippingCost.Text = shippingCost == 0 ? "FREE" : "$" + shippingCost.ToString("F2");
+                                lblShippingCost.Text = shippingCost == 0 ? (issSpanish ? "GRATIS" : "FREE") : "$" + shippingCost.ToString("F2");
                                 lblItemsSubtotal.Text = (orderTotal - shippingCost).ToString("F2");
                                 lblOrderTotal.Text = orderTotal.ToString("F2");
                             }
@@ -433,7 +452,10 @@ namespace OFFSIDESHOP
             string actionType = btn.CommandArgument;
 
             ViewState["CurrentActionType"] = actionType;
-            litActionType.Text = actionType == "CANCEL" ? "Cancellation" : "Refund";
+            bool isSpanishAction = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+            litActionType.Text = actionType == "CANCEL" 
+                ? (isSpanishAction ? "la Cancelación" : "Cancellation") 
+                : (isSpanishAction ? "el Reembolso" : "Refund");
 
             txtReason.Text = string.Empty;
             lblModalError.Visible = false;
@@ -668,13 +690,77 @@ namespace OFFSIDESHOP
             Session.Abandon();
             Response.Redirect("Login.aspx");
         }
+        protected string GetLocalizedStatusName(object idStatusObj, object statusNameObj)
+        {
+            int idStatus = 0;
+            if (idStatusObj != null && idStatusObj != DBNull.Value)
+            {
+                int.TryParse(idStatusObj.ToString(), out idStatus);
+            }
+            
+            switch (idStatus)
+            {
+                case 1: return GetGlobalResourceObject("Strings", "OrderStatus_Pending_Title")?.ToString() ?? "Pending";
+                case 2: return GetGlobalResourceObject("Strings", "OrderStatus_Paid_Title")?.ToString() ?? "Paid";
+                case 3: return GetGlobalResourceObject("Strings", "OrderStatus_Shipped_Title")?.ToString() ?? "Shipped";
+                case 4: return GetGlobalResourceObject("Strings", "OrderStatus_Delivered_Title")?.ToString() ?? "Delivered";
+                case 5: return GetGlobalResourceObject("Strings", "OrderStatus_Cancelled_Title")?.ToString() ?? "Cancelled";
+                case 6: return GetGlobalResourceObject("Strings", "OrderStatus_RefundReq_Title")?.ToString() ?? "Refund Requested";
+                case 7: return GetGlobalResourceObject("Strings", "OrderStatus_Refunded_Title")?.ToString() ?? "Refunded";
+                case 8: return GetGlobalResourceObject("Strings", "OrderStatus_RefundDeclined_Title")?.ToString() ?? "Refund Rejected";
+                case 9: return GetGlobalResourceObject("Strings", "OrderStatus_Packaged_Title")?.ToString() ?? "Ready for Pickup";
+                default:
+                    return statusNameObj?.ToString() ?? "";
+            }
+        }
+
         protected string FormatJerseyName(object nameObj)
         {
             if (nameObj == null || nameObj == DBNull.Value) return "";
             
-            string name = nameObj.ToString().ToLower().Trim();
-            System.Globalization.TextInfo textInfo = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
-            return textInfo.ToTitleCase(name);
+            string name = nameObj.ToString().Trim();
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+
+            int customIndex = name.IndexOf(" (customized:", StringComparison.OrdinalIgnoreCase);
+            if (customIndex < 0)
+            {
+                customIndex = name.IndexOf(" (personalizado:", StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (customIndex >= 0)
+            {
+                string baseName = name.Substring(0, customIndex).ToLower().Trim();
+                string customPart = name.Substring(customIndex).Trim();
+                
+                System.Globalization.TextInfo textInfo = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
+                string formattedBase = textInfo.ToTitleCase(baseName);
+                
+                int colonIndex = customPart.IndexOf(':');
+                if (colonIndex >= 0 && customPart.EndsWith(")"))
+                {
+                    string customValue = customPart.Substring(colonIndex + 1, customPart.Length - colonIndex - 2).Trim();
+                    string label = isSpanish ? "Personalizado" : "Customized";
+                    return $"{formattedBase} ({label}: {customValue})";
+                }
+                else
+                {
+                    string label = isSpanish ? "Personalizado" : "Customized";
+                    if (customPart.IndexOf("customized", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        customPart = System.Text.RegularExpressions.Regex.Replace(customPart, "customized", label, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                    }
+                    else if (customPart.IndexOf("personalizado", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        customPart = System.Text.RegularExpressions.Regex.Replace(customPart, "personalizado", label, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                    }
+                    return $"{formattedBase} {customPart}";
+                }
+            }
+            else
+            {
+                System.Globalization.TextInfo textInfo = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
+                return textInfo.ToTitleCase(name.ToLower());
+            }
         }
     }
 }

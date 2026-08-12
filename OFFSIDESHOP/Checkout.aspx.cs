@@ -245,7 +245,8 @@ namespace OFFSIDESHOP
 
                 if (dtCart.Columns.Contains("IsCustomized") && Convert.ToBoolean(row["IsCustomized"]))
                 {
-                    name += $" <br><small class='text-warning'>(Customized: {row["CustomName"]} #{row["CustomNumber"]})</small>";
+                    string customLabel = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es") ? "Personalizado" : "Customized";
+                    name += $" <br><small class='text-warning'>({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})</small>";
                 }
 
                 html += $@"<div class='order-col'>
@@ -488,7 +489,8 @@ namespace OFFSIDESHOP
                             string dbProductName = row["Name"].ToString();
                             if (dtCart.Columns.Contains("IsCustomized") && Convert.ToBoolean(row["IsCustomized"]))
                             {
-                                dbProductName += $" (Customized: {row["CustomName"]} #{row["CustomNumber"]})";
+                                string customLabel = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es") ? "Personalizado" : "Customized";
+                                dbProductName += $" ({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})";
                             }
                             detailCmd.Parameters.AddWithValue("@IdOrder", orderId);
                             detailCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
@@ -524,7 +526,10 @@ namespace OFFSIDESHOP
             ShowMap = false;
             ShowPaymentLoader = true;
             Session.Remove("Cart");
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "exito", "Swal.fire({ title: 'Order Placed!', text: 'Your order has been placed successfully.', icon: 'success', confirmButtonColor: '#FFC800' }).then(() => { window.location.href = 'MyOrders.aspx'; });", true);
+            string successTitle = GetGlobalResourceObject("Strings", "Checkout_SuccessTitle")?.ToString() ?? "Order Placed!";
+            string successText = GetGlobalResourceObject("Strings", "Checkout_SuccessText")?.ToString() ?? "Your order has been placed successfully.";
+            string script = $"Swal.fire({{ title: '{successTitle.Replace("'", "\\'")}', text: '{successText.Replace("'", "\\'")}', icon: 'success', confirmButtonColor: '#FFC800' }}).then(() => {{ window.location.href = 'MyOrders.aspx'; }});";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "exito", script, true);
         }
 
         protected void btnConfirmPayPalPayment_Click(object sender, EventArgs e)
@@ -617,7 +622,8 @@ namespace OFFSIDESHOP
                             string dbProductName = row["Name"].ToString();
                             if (dtCart.Columns.Contains("IsCustomized") && Convert.ToBoolean(row["IsCustomized"]))
                             {
-                                dbProductName += $" (Customized: {row["CustomName"]} #{row["CustomNumber"]})";
+                                string customLabel = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es") ? "Personalizado" : "Customized";
+                                dbProductName += $" ({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})";
                             }
                             detailCmd.Parameters.AddWithValue("@IdOrder", orderId);
                             detailCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
@@ -653,7 +659,10 @@ namespace OFFSIDESHOP
             ShowMap = false;
             ShowPaymentLoader = true;
             Session.Remove("Cart");
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoPayPal", "Swal.fire({ title: 'Payment & Order Completed!', text: 'Your order has been verified successfully via PayPal.', icon: 'success', confirmButtonColor: '#FFC800' }).then(() => { window.location.href = 'MyOrders.aspx'; });", true);
+            string successTitle = GetGlobalResourceObject("Strings", "Checkout_SuccessPaypalTitle")?.ToString() ?? "Payment & Order Completed!";
+            string successText = GetGlobalResourceObject("Strings", "Checkout_SuccessPaypalText")?.ToString() ?? "Your order has been verified successfully via PayPal.";
+            string script = $"Swal.fire({{ title: '{successTitle.Replace("'", "\\'")}', text: '{successText.Replace("'", "\\'")}', icon: 'success', confirmButtonColor: '#FFC800' }}).then(() => {{ window.location.href = 'MyOrders.aspx'; }});";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoPayPal", script, true);
         }
 
         private void UpdateUserProfileOnCheckout()
@@ -874,7 +883,8 @@ namespace OFFSIDESHOP
                             string dbProductName = row["Name"].ToString();
                             if (dtCart.Columns.Contains("IsCustomized") && Convert.ToBoolean(row["IsCustomized"]))
                             {
-                                dbProductName += $" (Customized: {row["CustomName"]} #{row["CustomNumber"]})";
+                                string customLabel = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es") ? "Personalizado" : "Customized";
+                                dbProductName += $" ({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})";
                             }
                             detailCmd.Parameters.AddWithValue("@IdOrder", orderId);
                             detailCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
@@ -910,7 +920,10 @@ namespace OFFSIDESHOP
             ShowMap = false;
             ShowPaymentLoader = true;
             Session.Remove("Cart");
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoWallet", "Swal.fire({ title: 'Payment & Order Completed!', text: 'Your order has been verified successfully via Virtual Wallet.', icon: 'success', confirmButtonColor: '#FFC800' }).then(() => { window.location.href = 'MyOrders.aspx'; });", true);
+            string successTitle = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletTitle")?.ToString() ?? "Payment & Order Completed!";
+            string successText = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletText")?.ToString() ?? "Your order has been verified successfully via Virtual Wallet.";
+            string script = $"Swal.fire({{ title: '{successTitle.Replace("'", "\\'")}', text: '{successText.Replace("'", "\\'")}', icon: 'success', confirmButtonColor: '#FFC800' }}).then(() => {{ window.location.href = 'MyOrders.aspx'; }});";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoWallet", script, true);
         }
     }
 }
