@@ -238,6 +238,7 @@
     <Content Include="assets\img\logos\ibm.svg" />
     <Content Include="assets\img\logos\microsoft.svg" />
     <Content Include="assets\img\navbar-logo.svg" />
+    <Content Include="assets\img\newlogo_nosv.png" />
     <Content Include="assets\img\offsidelogo.png" />
     <Content Include="assets\img\offsideshop_logo_white_letras.png" />
     <Content Include="assets\img\portfolio\1.jpg" />

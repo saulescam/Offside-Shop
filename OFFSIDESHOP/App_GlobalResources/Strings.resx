@@ -2017,7 +2017,7 @@
     <value>Title (EN)</value>
   </data>
   <data name="Admin_Banners_ColTitleES" xml:space="preserve">
-    <value>TÃ­tulo (ES)</value>
+    <value>Title(ES)</value>
   </data>
   <data name="Admin_Banners_ColStatus" xml:space="preserve">
     <value>Status</value>
@@ -2080,7 +2080,7 @@
     <value>Cita / Testimonio (ES)</value>
   </data>
   <data name="Admin_Banners_AuthorRoleES" xml:space="preserve">
-    <value>Rol del Autor (ES)</value>
+    <value>Author role (ES)</value>
   </data>
   <data name="Admin_Banners_AuthorName" xml:space="preserve">
     <value>Author Name</value>
@@ -2116,13 +2116,13 @@
     <value>-- All Delivery Statuses --</value>
   </data>
   <data name="Admin_Users_StatusAvailable" xml:space="preserve">
-    <value>ðŸŸ¢ On Duty (Available)</value>
+    <value>On Duty (Available)</value>
   </data>
   <data name="Admin_Users_StatusDelivering" xml:space="preserve">
-    <value>ðŸ”µ On the Way (Delivering Order)</value>
+    <value>On the Way (Delivering Order)</value>
   </data>
   <data name="Admin_Users_StatusOffDuty" xml:space="preserve">
-    <value>âšª Off Duty (Resting)</value>
+    <value>Off Duty (Resting)</value>
   </data>
   <data name="Admin_Users_SearchLabel" xml:space="preserve">
     <value>Search User</value>
@@ -2532,9 +2532,6 @@
   <data name="Alert_Coupons_DeletedText" xml:space="preserve">
     <value>Coupon permanently removed.</value>
   </data>
-  <data name="Alert_DatabaseErrorTitle" xml:space="preserve">
-    <value>Database Error</value>
-  </data>
   <data name="Alert_Products_StatusToggled" xml:space="preserve">
     <value>Status toggled</value>
   </data>
@@ -2801,9 +2798,6 @@
   </data>
   <data name="OrderDetail_SubmitRequest" xml:space="preserve">
     <value>Submit Request</value>
-  </data>
-  <data name="Nav_Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
   </data>
   <data name="Driver_Badge_OnTheWay" xml:space="preserve">
     <value>On the Way (Order #{0})</value>
@@ -3123,10 +3117,10 @@
   <data name="Reason_4" xml:space="preserve">
     <value>General Question</value>
   </data>
-	<data name="Admin_Orders_ForceManualRefund" xml:space="preserve">
+  <data name="Admin_Orders_ForceManualRefund" xml:space="preserve">
     <value>Force manual refund (Bypass PayPal API)</value>
   </data>
-	<data name="Admin_Orders_ForceManualNote" xml:space="preserve">
+  <data name="Admin_Orders_ForceManualNote" xml:space="preserve">
     <value>Check this box if PayPal API rejects the transaction or for offline/testing refunds.</value>
   </data>
   <data name="Checkout_SuccessTitle" xml:space="preserve">
@@ -3281,9 +3275,6 @@
   </data>
   <data name="Admin_Products_Title" xml:space="preserve">
     <value>Manage Products</value>
-  </data>
-  <data name="Admin_Products_AddNew" xml:space="preserve">
-    <value>Add New Shirt</value>
   </data>
   <data name="Admin_Products_ShirtNameEn" xml:space="preserve">
     <value>Shirt Name (EN)</value>

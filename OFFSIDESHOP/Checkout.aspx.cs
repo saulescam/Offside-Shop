@@ -809,6 +809,7 @@ namespace OFFSIDESHOP
             DataTable dtCart = Session["Cart"] as DataTable;
             if (dtCart == null || dtCart.Rows.Count == 0) return;
 
+            // 1. Validación del teléfono
             if (!IsPhoneValid(txtTel.Text))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidPhoneWallet", "Swal.fire('Invalid Phone', 'The phone number must contain exactly 8 digits.', 'error');", true);
@@ -838,11 +839,12 @@ namespace OFFSIDESHOP
                 {
                     try
                     {
+                        // 2. Crear la orden con Id_Status = 1 (PENDIENTE DE PAGO HASTA QUE EL WEBHOOK CONFIRME)
                         string orderQuery = @"INSERT INTO orders 
-                     (Id_User, Name, LastName, Mail, Address, Latitude, Longitude, id_City, Id_Municipality, Id_District, Phone, OrderNotes, Total, Id_Coupon, DiscountApplied, Id_PaymentMethod, shipping_cost, Id_Status) 
-                     VALUES 
-                     (@IdUser, @Name, @LastName, @Mail, @Address, @Lat, @Lng, @IdCity, @IdMunicipality, @IdDistrict, @Phone, @Notes, @Total, @IdCoupon, @DiscountApplied, @IdPaymentMethod, @ShippingCost, @IdStatus); 
-                     SELECT LAST_INSERT_ID();";
+             (Id_User, Name, LastName, Mail, Address, Latitude, Longitude, id_City, Id_Municipality, Id_District, Phone, OrderNotes, Total, Id_Coupon, DiscountApplied, Id_PaymentMethod, shipping_cost, Id_Status) 
+             VALUES 
+             (@IdUser, @Name, @LastName, @Mail, @Address, @Lat, @Lng, @IdCity, @IdMunicipality, @IdDistrict, @Phone, @Notes, @Total, @IdCoupon, @DiscountApplied, @IdPaymentMethod, @ShippingCost, @IdStatus); 
+             SELECT LAST_INSERT_ID();";
 
                         MySqlCommand cmd = new MySqlCommand(orderQuery, conn, trans);
                         cmd.Parameters.AddWithValue("@IdUser", userId);
@@ -860,25 +862,17 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@Total", total);
                         cmd.Parameters.AddWithValue("@IdCoupon", idCoupon);
                         cmd.Parameters.AddWithValue("@DiscountApplied", discountApplied);
-
-                        // AQUÍ ESTÁ LA CLAVE: Asignar el ID correspondiente a la Billetera Virtual
-                        cmd.Parameters.AddWithValue("@IdPaymentMethod", 3); // Ajusta este número según tu base de datos
+                        cmd.Parameters.AddWithValue("@IdPaymentMethod", 3); // Billetera Virtual
                         cmd.Parameters.AddWithValue("@ShippingCost", shippingCost);
-                        cmd.Parameters.AddWithValue("@IdStatus", 2); // Paid
+                        cmd.Parameters.AddWithValue("@IdStatus", 1); // <--- CAMBIADO A 1 (Pending). El Webhook lo pasará a 2 (Paid)
 
                         int orderId = Convert.ToInt32(cmd.ExecuteScalar());
 
+                        // 3. Insertar el detalle de la orden (SIN DESCONTAR STOCK AÚN)
                         foreach (DataRow row in dtCart.Rows)
                         {
                             string detailQuery = @"INSERT INTO order_details (Id_Order, Id_Tshirt, ProductName, Size, Price, Quantity, Subtotal) VALUES (@IdOrder, @IdTshirt, @Name, @Size, @Price, @Qty, @Subtotal)";
                             MySqlCommand detailCmd = new MySqlCommand(detailQuery, conn, trans);
-
-                            string updateStock = @"UPDATE tshirt_variants SET Stock = Stock - @Qty WHERE Id_Tshirt = @IdTshirt AND Id_Size = (SELECT Id_Size FROM sizes WHERE Size_Code = @Size)";
-                            MySqlCommand stockCmd = new MySqlCommand(updateStock, conn, trans);
-                            stockCmd.Parameters.AddWithValue("@Qty", row["Quantity"]);
-                            stockCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
-                            stockCmd.Parameters.AddWithValue("@Size", row["Size"]);
-                            stockCmd.ExecuteNonQuery();
 
                             string dbProductName = row["Name"].ToString();
                             if (dtCart.Columns.Contains("IsCustomized") && Convert.ToBoolean(row["IsCustomized"]))
@@ -886,6 +880,7 @@ namespace OFFSIDESHOP
                                 string customLabel = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es") ? "Personalizado" : "Customized";
                                 dbProductName += $" ({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})";
                             }
+
                             detailCmd.Parameters.AddWithValue("@IdOrder", orderId);
                             detailCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
                             detailCmd.Parameters.AddWithValue("@Name", dbProductName);
@@ -896,6 +891,7 @@ namespace OFFSIDESHOP
                             detailCmd.ExecuteNonQuery();
                         }
 
+                        // 4. Registrar uso del cupón si aplica
                         if (idCoupon != DBNull.Value)
                         {
                             string updateCoupon = "UPDATE coupons SET UsedCount = UsedCount + 1 WHERE Id_Coupon = @IdCoupon;";
@@ -915,15 +911,17 @@ namespace OFFSIDESHOP
                         return;
                     }
                 }
-            }
 
-            ShowMap = false;
-            ShowPaymentLoader = true;
-            Session.Remove("Cart");
-            string successTitle = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletTitle")?.ToString() ?? "Payment & Order Completed!";
-            string successText = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletText")?.ToString() ?? "Your order has been verified successfully via Virtual Wallet.";
-            string script = $"Swal.fire({{ title: '{successTitle.Replace("'", "\\'")}', text: '{successText.Replace("'", "\\'")}', icon: 'success', confirmButtonColor: '#FFC800' }}).then(() => {{ window.location.href = 'MyOrders.aspx'; }});";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoWallet", script, true);
+                ShowMap = false;
+                ShowPaymentLoader = true;
+                Session.Remove("Cart");
+
+                // Redirigir al usuario o mostrar confirmación de que su orden está pendiente de procesamiento por la billetera
+                string successTitle = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletTitle")?.ToString() ?? "Order Placed!";
+                string successText = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletText")?.ToString() ?? "Your order has been created. Awaiting payment confirmation from Virtual Wallet.";
+                string script = $"Swal.fire({{ title: '{successTitle.Replace("'", "\\'")}', text: '{successText.Replace("'", "\\'")}', icon: 'info', confirmButtonColor: '#FFC800' }}).then(() => {{ window.location.href = 'MyOrders.aspx'; }});";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoWallet", script, true);
+            }
         }
     }
 }

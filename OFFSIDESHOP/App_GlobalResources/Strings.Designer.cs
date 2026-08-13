@@ -646,7 +646,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Rol del Autor (ES).
+        ///   Busca una cadena traducida similar a Author role (ES).
         /// </summary>
         internal static string Admin_Banners_AuthorRoleES {
             get {
@@ -826,7 +826,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a TÃ­tulo (ES).
+        ///   Busca una cadena traducida similar a Title(ES).
         /// </summary>
         internal static string Admin_Banners_ColTitleES {
             get {
@@ -1330,6 +1330,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Generate Random 12-char Code.
+        /// </summary>
+        internal static string Admin_Coupons_GenCodeTooltip {
+            get {
+                return ResourceManager.GetString("Admin_Coupons_GenCodeTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Generate.
         /// </summary>
         internal static string Admin_Coupons_GenerateBtn {
@@ -1384,6 +1393,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Depleted.
+        /// </summary>
+        internal static string Admin_Coupons_StatusDepleted {
+            get {
+                return ResourceManager.GetString("Admin_Coupons_StatusDepleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Inactive.
         /// </summary>
         internal static string Admin_Coupons_StatusInactive {
@@ -1434,6 +1452,105 @@ namespace Resources {
         internal static string Admin_Dash_BannerPreview {
             get {
                 return ResourceManager.GetString("Admin_Dash_BannerPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a DATE/TIME.
+        /// </summary>
+        internal static string Admin_Dash_HeaderDateTime {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a DESCRIPTION.
+        /// </summary>
+        internal static string Admin_Dash_HeaderDescription {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a MODULE.
+        /// </summary>
+        internal static string Admin_Dash_HeaderModule {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a OPERATOR.
+        /// </summary>
+        internal static string Admin_Dash_HeaderOperator {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a REASON.
+        /// </summary>
+        internal static string Admin_Dash_HeaderReason {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a JERSEY NAME.
+        /// </summary>
+        internal static string Admin_Dash_HeaderShirtName {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderShirtName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SIZE.
+        /// </summary>
+        internal static string Admin_Dash_HeaderSize {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a STOCK STATUS.
+        /// </summary>
+        internal static string Admin_Dash_HeaderStockStatus {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderStockStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SUBJECT.
+        /// </summary>
+        internal static string Admin_Dash_HeaderSubject {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a TICKET ID.
+        /// </summary>
+        internal static string Admin_Dash_HeaderTicketId {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderTicketId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a USER EMAIL.
+        /// </summary>
+        internal static string Admin_Dash_HeaderUserEmail {
+            get {
+                return ResourceManager.GetString("Admin_Dash_HeaderUserEmail", resourceCulture);
             }
         }
         
@@ -1614,6 +1731,24 @@ namespace Resources {
         internal static string Admin_Dash_TeamsAddedSub {
             get {
                 return ResourceManager.GetString("Admin_Dash_TeamsAddedSub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Admin Dashboard.
+        /// </summary>
+        internal static string Admin_Dash_Title {
+            get {
+                return ResourceManager.GetString("Admin_Dash_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Toggle Light/Dark Theme.
+        /// </summary>
+        internal static string Admin_Dash_ToggleTheme {
+            get {
+                return ResourceManager.GetString("Admin_Dash_ToggleTheme", resourceCulture);
             }
         }
         
@@ -2095,6 +2230,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Edit Offer #{0}.
+        /// </summary>
+        internal static string Admin_Offers_EditBlockTitle {
+            get {
+                return ResourceManager.GetString("Admin_Offers_EditBlockTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Edit Promotional Campaign.
         /// </summary>
         internal static string Admin_Offers_EditTitle {
@@ -2185,6 +2329,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a On offer in: {0}.
+        /// </summary>
+        internal static string Admin_Offers_OfferTooltip {
+            get {
+                return ResourceManager.GetString("Admin_Offers_OfferTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Save Campaign.
         /// </summary>
         internal static string Admin_Offers_SaveCampaign {
@@ -2217,6 +2370,15 @@ namespace Resources {
         internal static string Admin_Offers_SelectTshirts {
             get {
                 return ResourceManager.GetString("Admin_Offers_SelectTshirts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This shirt is already included in an active offer ({0})..
+        /// </summary>
+        internal static string Admin_Offers_ShirtInOfferTooltip {
+            get {
+                return ResourceManager.GetString("Admin_Offers_ShirtInOfferTooltip", resourceCulture);
             }
         }
         
@@ -2473,6 +2635,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a CITY.
+        /// </summary>
+        internal static string Admin_Orders_HeaderCity {
+            get {
+                return ResourceManager.GetString("Admin_Orders_HeaderCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a FIRST NAME.
+        /// </summary>
+        internal static string Admin_Orders_HeaderFirstName {
+            get {
+                return ResourceManager.GetString("Admin_Orders_HeaderFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a LAST NAME.
+        /// </summary>
+        internal static string Admin_Orders_HeaderLastName {
+            get {
+                return ResourceManager.GetString("Admin_Orders_HeaderLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ORDER ID.
+        /// </summary>
+        internal static string Admin_Orders_HeaderOrderId {
+            get {
+                return ResourceManager.GetString("Admin_Orders_HeaderOrderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a STATUS.
+        /// </summary>
+        internal static string Admin_Orders_HeaderStatus {
+            get {
+                return ResourceManager.GetString("Admin_Orders_HeaderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a TOTAL.
+        /// </summary>
+        internal static string Admin_Orders_HeaderTotal {
+            get {
+                return ResourceManager.GetString("Admin_Orders_HeaderTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Administrative Settlement Resolution Notes.
         /// </summary>
         internal static string Admin_Orders_ModalAdminNotes {
@@ -2617,6 +2833,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Activate (set Active).
+        /// </summary>
+        internal static string Admin_Products_ActivateTooltip {
+            get {
+                return ResourceManager.GetString("Admin_Products_ActivateTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Add New Shirt.
         /// </summary>
         internal static string Admin_Products_AddNew {
@@ -2626,11 +2851,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a AI is crafting a compelling product description. Please wait....
+        /// </summary>
+        internal static string Admin_Products_AiGenText {
+            get {
+                return ResourceManager.GetString("Admin_Products_AiGenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Generating Description....
+        /// </summary>
+        internal static string Admin_Products_AiGenTitle {
+            get {
+                return ResourceManager.GetString("Admin_Products_AiGenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Description generated successfully!.
+        /// </summary>
+        internal static string Admin_Products_AiSuccess {
+            get {
+                return ResourceManager.GetString("Admin_Products_AiSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Allow personalization (Name &amp; Number printing).
         /// </summary>
         internal static string Admin_Products_AllowCustom {
             get {
                 return ResourceManager.GetString("Admin_Products_AllowCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a All Shirts.
+        /// </summary>
+        internal static string Admin_Products_AllShirtsHeader {
+            get {
+                return ResourceManager.GetString("Admin_Products_AllShirtsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a {0} image(s) attached ready for upload.
+        /// </summary>
+        internal static string Admin_Products_AttachedReady {
+            get {
+                return ResourceManager.GetString("Admin_Products_AttachedReady", resourceCulture);
             }
         }
         
@@ -2653,11 +2923,344 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Clear.
+        /// </summary>
+        internal static string Admin_Products_Clear {
+            get {
+                return ResourceManager.GetString("Admin_Products_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Current gallery: {0}.
+        /// </summary>
+        internal static string Admin_Products_CurrentGallery {
+            get {
+                return ResourceManager.GetString("Admin_Products_CurrentGallery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Current image: {0}.
+        /// </summary>
+        internal static string Admin_Products_CurrentImage {
+            get {
+                return ResourceManager.GetString("Admin_Products_CurrentImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Deactivate (set Inactive).
+        /// </summary>
+        internal static string Admin_Products_DeactivateTooltip {
+            get {
+                return ResourceManager.GetString("Admin_Products_DeactivateTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Description (EN).
+        /// </summary>
+        internal static string Admin_Products_DescEn {
+            get {
+                return ResourceManager.GetString("Admin_Products_DescEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Description (ES).
+        /// </summary>
+        internal static string Admin_Products_DescEs {
+            get {
+                return ResourceManager.GetString("Admin_Products_DescEs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No shirts found matching the current filters..
+        /// </summary>
+        internal static string Admin_Products_EmptyGrid {
+            get {
+                return ResourceManager.GetString("Admin_Products_EmptyGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a English (Default).
+        /// </summary>
+        internal static string Admin_Products_EnglishTab {
+            get {
+                return ResourceManager.GetString("Admin_Products_EnglishTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Drag &amp; Drop up to 4 images here or click to browse.
+        /// </summary>
+        internal static string Admin_Products_GalleryImageDrag {
+            get {
+                return ResourceManager.GetString("Admin_Products_GalleryImageDrag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Optional: Upload up to 4 extra gallery images..
+        /// </summary>
+        internal static string Admin_Products_GalleryImageHelp {
+            get {
+                return ResourceManager.GetString("Admin_Products_GalleryImageHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Gallery Images.
+        /// </summary>
+        internal static string Admin_Products_GalleryImagesLabel {
+            get {
+                return ResourceManager.GetString("Admin_Products_GalleryImagesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Generate with AI.
+        /// </summary>
+        internal static string Admin_Products_GenerateWithAi {
+            get {
+                return ResourceManager.GetString("Admin_Products_GenerateWithAi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Actions.
+        /// </summary>
+        internal static string Admin_Products_HeaderActions {
+            get {
+                return ResourceManager.GetString("Admin_Products_HeaderActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ID.
+        /// </summary>
+        internal static string Admin_Products_HeaderId {
+            get {
+                return ResourceManager.GetString("Admin_Products_HeaderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Price.
+        /// </summary>
+        internal static string Admin_Products_HeaderPrice {
+            get {
+                return ResourceManager.GetString("Admin_Products_HeaderPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shirt Name (EN).
+        /// </summary>
+        internal static string Admin_Products_HeaderShirtNameEn {
+            get {
+                return ResourceManager.GetString("Admin_Products_HeaderShirtNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shirt Name (ES).
+        /// </summary>
+        internal static string Admin_Products_HeaderShirtNameEs {
+            get {
+                return ResourceManager.GetString("Admin_Products_HeaderShirtNameEs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Status.
+        /// </summary>
+        internal static string Admin_Products_HeaderStatus {
+            get {
+                return ResourceManager.GetString("Admin_Products_HeaderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a LOW STOCK.
+        /// </summary>
+        internal static string Admin_Products_LowStockBadge {
+            get {
+                return ResourceManager.GetString("Admin_Products_LowStockBadge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Drag &amp; Drop main image here or click to browse.
+        /// </summary>
+        internal static string Admin_Products_MainImageDrag {
+            get {
+                return ResourceManager.GetString("Admin_Products_MainImageDrag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No gallery images uploaded..
+        /// </summary>
+        internal static string Admin_Products_NoGallery {
+            get {
+                return ResourceManager.GetString("Admin_Products_NoGallery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a optional.
+        /// </summary>
+        internal static string Admin_Products_Optional {
+            get {
+                return ResourceManager.GetString("Admin_Products_Optional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Price (USD).
+        /// </summary>
+        internal static string Admin_Products_PriceUsd {
+            get {
+                return ResourceManager.GetString("Admin_Products_PriceUsd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Primary English Information.
+        /// </summary>
+        internal static string Admin_Products_PrimaryEnglishInfo {
+            get {
+                return ResourceManager.GetString("Admin_Products_PrimaryEnglishInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Product Image.
+        /// </summary>
+        internal static string Admin_Products_ProductImageLabel {
+            get {
+                return ResourceManager.GetString("Admin_Products_ProductImageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Save Product.
         /// </summary>
         internal static string Admin_Products_Save {
             get {
                 return ResourceManager.GetString("Admin_Products_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Search by Name.
+        /// </summary>
+        internal static string Admin_Products_SearchByName {
+            get {
+                return ResourceManager.GetString("Admin_Products_SearchByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shirt Name (EN).
+        /// </summary>
+        internal static string Admin_Products_ShirtNameEn {
+            get {
+                return ResourceManager.GetString("Admin_Products_ShirtNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shirt Name (ES).
+        /// </summary>
+        internal static string Admin_Products_ShirtNameEs {
+            get {
+                return ResourceManager.GetString("Admin_Products_ShirtNameEs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Spanish Information.
+        /// </summary>
+        internal static string Admin_Products_SpanishInfo {
+            get {
+                return ResourceManager.GetString("Admin_Products_SpanishInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Spanish (Español).
+        /// </summary>
+        internal static string Admin_Products_SpanishTab {
+            get {
+                return ResourceManager.GetString("Admin_Products_SpanishTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stock Level.
+        /// </summary>
+        internal static string Admin_Products_StockLevel {
+            get {
+                return ResourceManager.GetString("Admin_Products_StockLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stock per Size.
+        /// </summary>
+        internal static string Admin_Products_StockPerSize {
+            get {
+                return ResourceManager.GetString("Admin_Products_StockPerSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Set available inventory units for each jersey size..
+        /// </summary>
+        internal static string Admin_Products_StockPerSizeHelp {
+            get {
+                return ResourceManager.GetString("Admin_Products_StockPerSizeHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage jersey catalog, variants stock, and multi-language translations.
+        /// </summary>
+        internal static string Admin_Products_SubTitle {
+            get {
+                return ResourceManager.GetString("Admin_Products_SubTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage Products.
+        /// </summary>
+        internal static string Admin_Products_Title {
+            get {
+                return ResourceManager.GetString("Admin_Products_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Translated successfully!.
+        /// </summary>
+        internal static string Admin_Products_TranslateSuccess {
+            get {
+                return ResourceManager.GetString("Admin_Products_TranslateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Universal Product Specifications.
+        /// </summary>
+        internal static string Admin_Products_UniversalSpecs {
+            get {
+                return ResourceManager.GetString("Admin_Products_UniversalSpecs", resourceCulture);
             }
         }
         
@@ -3778,7 +4381,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a ðŸŸ¢ On Duty (Available).
+        ///   Busca una cadena traducida similar a On Duty (Available).
         /// </summary>
         internal static string Admin_Users_StatusAvailable {
             get {
@@ -3787,7 +4390,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a ðŸ”µ On the Way (Delivering Order).
+        ///   Busca una cadena traducida similar a On the Way (Delivering Order).
         /// </summary>
         internal static string Admin_Users_StatusDelivering {
             get {
@@ -3796,7 +4399,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a âšª Off Duty (Resting).
+        ///   Busca una cadena traducida similar a Off Duty (Resting).
         /// </summary>
         internal static string Admin_Users_StatusOffDuty {
             get {
@@ -4579,6 +5182,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The review comment contains restricted terms or inappropriate language. Please modify your comment..
+        /// </summary>
+        internal static string Alert_Details_ForbiddenReviewText {
+            get {
+                return ResourceManager.GetString("Alert_Details_ForbiddenReviewText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Go to Login.
         /// </summary>
         internal static string Alert_Details_GoToLogin {
@@ -5196,6 +5808,33 @@ namespace Resources {
         internal static string Alert_Orders_VerificationError {
             get {
                 return ResourceManager.GetString("Alert_Orders_VerificationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Failed to communicate with AI service..
+        /// </summary>
+        internal static string Alert_Products_AiConnectError {
+            get {
+                return ResourceManager.GetString("Alert_Products_AiConnectError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a AI Error.
+        /// </summary>
+        internal static string Alert_Products_AiErrorTitle {
+            get {
+                return ResourceManager.GetString("Alert_Products_AiErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please enter at least Name, Brand, and Team before generating the description..
+        /// </summary>
+        internal static string Alert_Products_AiMissingInfo {
+            get {
+                return ResourceManager.GetString("Alert_Products_AiMissingInfo", resourceCulture);
             }
         }
         
@@ -6640,6 +7279,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Your order has been verified successfully via PayPal..
+        /// </summary>
+        internal static string Checkout_SuccessPaypalText {
+            get {
+                return ResourceManager.GetString("Checkout_SuccessPaypalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Payment &amp; Order Completed!.
+        /// </summary>
+        internal static string Checkout_SuccessPaypalTitle {
+            get {
+                return ResourceManager.GetString("Checkout_SuccessPaypalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your order has been placed successfully..
+        /// </summary>
+        internal static string Checkout_SuccessText {
+            get {
+                return ResourceManager.GetString("Checkout_SuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order Placed!.
+        /// </summary>
+        internal static string Checkout_SuccessTitle {
+            get {
+                return ResourceManager.GetString("Checkout_SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Your order has been verified successfully via Virtual Wallet..
+        /// </summary>
+        internal static string Checkout_SuccessWalletText {
+            get {
+                return ResourceManager.GetString("Checkout_SuccessWalletText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Payment &amp; Order Completed!.
+        /// </summary>
+        internal static string Checkout_SuccessWalletTitle {
+            get {
+                return ResourceManager.GetString("Checkout_SuccessWalletTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a I&apos;ve read and accept the .
         /// </summary>
         internal static string Checkout_TermsText1 {
@@ -7144,6 +7837,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Call Customer.
+        /// </summary>
+        internal static string Driver_CallTooltip {
+            get {
+                return ResourceManager.GetString("Driver_CallTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Are you sure you want to drop this order? It will return to the radar..
         /// </summary>
         internal static string Driver_CancelConfirm {
@@ -7176,6 +7878,15 @@ namespace Resources {
         internal static string Driver_CustomerAddress {
             get {
                 return ResourceManager.GetString("Driver_CustomerAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Driver.
+        /// </summary>
+        internal static string Driver_DefaultName {
+            get {
+                return ResourceManager.GetString("Driver_DefaultName", resourceCulture);
             }
         }
         
@@ -7423,11 +8134,119 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Hello {0}, I am your OffsideShop driver with your order #{1}..
+        /// </summary>
+        internal static string Driver_WhatsappGreeting {
+            get {
+                return ResourceManager.GetString("Driver_WhatsappGreeting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a WhatsApp Customer.
+        /// </summary>
+        internal static string Driver_WhatsappTooltip {
+            get {
+                return ResourceManager.GetString("Driver_WhatsappTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Your Location.
         /// </summary>
         internal static string Driver_YourLocation {
             get {
                 return ResourceManager.GetString("Driver_YourLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- All Brands --.
+        /// </summary>
+        internal static string Dropdown_AllBrands {
+            get {
+                return ResourceManager.GetString("Dropdown_AllBrands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- All Kit Types --.
+        /// </summary>
+        internal static string Dropdown_AllKitTypes {
+            get {
+                return ResourceManager.GetString("Dropdown_AllKitTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- All Leagues --.
+        /// </summary>
+        internal static string Dropdown_AllLeagues {
+            get {
+                return ResourceManager.GetString("Dropdown_AllLeagues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- All Stock Levels --.
+        /// </summary>
+        internal static string Dropdown_AllStockLevels {
+            get {
+                return ResourceManager.GetString("Dropdown_AllStockLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- All Teams --.
+        /// </summary>
+        internal static string Dropdown_AllTeams {
+            get {
+                return ResourceManager.GetString("Dropdown_AllTeams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Low Stock Only (&lt; {0}).
+        /// </summary>
+        internal static string Dropdown_LowStockOnly {
+            get {
+                return ResourceManager.GetString("Dropdown_LowStockOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- Select Brand --.
+        /// </summary>
+        internal static string Dropdown_SelectBrand {
+            get {
+                return ResourceManager.GetString("Dropdown_SelectBrand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- Select Kit Type --.
+        /// </summary>
+        internal static string Dropdown_SelectKitType {
+            get {
+                return ResourceManager.GetString("Dropdown_SelectKitType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- Select League --.
+        /// </summary>
+        internal static string Dropdown_SelectLeague {
+            get {
+                return ResourceManager.GetString("Dropdown_SelectLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- Select Team --.
+        /// </summary>
+        internal static string Dropdown_SelectTeam {
+            get {
+                return ResourceManager.GetString("Dropdown_SelectTeam", resourceCulture);
             }
         }
         
@@ -8877,6 +9696,78 @@ namespace Resources {
         internal static string Sidebar_Title {
             get {
                 return ResourceManager.GetString("Sidebar_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Active.
+        /// </summary>
+        internal static string Status_Active {
+            get {
+                return ResourceManager.GetString("Status_Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Available.
+        /// </summary>
+        internal static string Status_Available {
+            get {
+                return ResourceManager.GetString("Status_Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Depleted.
+        /// </summary>
+        internal static string Status_Depleted {
+            get {
+                return ResourceManager.GetString("Status_Depleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Expired.
+        /// </summary>
+        internal static string Status_Expired {
+            get {
+                return ResourceManager.GetString("Status_Expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Inactive.
+        /// </summary>
+        internal static string Status_Inactive {
+            get {
+                return ResourceManager.GetString("Status_Inactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a LOW STOCK.
+        /// </summary>
+        internal static string Status_LowStock {
+            get {
+                return ResourceManager.GetString("Status_LowStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a On Offer.
+        /// </summary>
+        internal static string Status_OnOffer {
+            get {
+                return ResourceManager.GetString("Status_OnOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Suspended.
+        /// </summary>
+        internal static string Status_Suspended {
+            get {
+                return ResourceManager.GetString("Status_Suspended", resourceCulture);
             }
         }
         

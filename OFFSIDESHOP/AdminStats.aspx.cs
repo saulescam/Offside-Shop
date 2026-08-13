@@ -180,7 +180,7 @@ namespace OFFSIDESHOP
                 ITextTable headerTable = new ITextTable(new float[] { 1, 3 }).UseAllAvailableWidth().SetMarginBottom(20);
 
                 ITextCell logoCell = new ITextCell().SetBorder(Border.NO_BORDER).SetPadding(10).SetTextAlignment(TextAlignment.CENTER);
-                string logoPath = Server.MapPath("~/assets/img/offsidelogo.png");
+                string logoPath = Server.MapPath("~/assets/img/newlogo_nosv.png");
                 if (File.Exists(logoPath))
                 {
                     ITextImage logo = new ITextImage(ImageDataFactory.Create(logoPath)).SetAutoScale(true);
