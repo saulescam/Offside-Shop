@@ -130,8 +130,10 @@ namespace OFFSIDESHOP
                                 litDetCustomer.Text = reader["CustomerName"].ToString();
                                 litDetEmail.Text = reader["Mail"].ToString();
                                 litDetPhone.Text = reader["Phone"].ToString();
-                                litDetAddress.Text = reader["Address"].ToString();
-                                litDetNotes.Text = string.IsNullOrEmpty(reader["OrderNotes"].ToString()) ? "No delivery instructions provided." : reader["OrderNotes"].ToString();
+                                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                                litDetNotes.Text = string.IsNullOrEmpty(reader["OrderNotes"].ToString()) 
+                                    ? (isSpanish ? "Sin instrucciones de entrega proporcionadas." : "No delivery instructions provided.") 
+                                    : reader["OrderNotes"].ToString();
 
                                 litDetShipping.Text = Convert.ToDecimal(reader["shipping_cost"]).ToString("C");
                                 litDetTotal.Text = Convert.ToDecimal(reader["Total"]).ToString("C");
@@ -510,14 +512,19 @@ namespace OFFSIDESHOP
                                 int paymentMethodId = Convert.ToInt32(reader["Id_PaymentMethod"]);
                                 ViewState["EvaluationPaymentMethodId"] = paymentMethodId;
 
+                                bool isSpanishModal = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
                                 if (paymentMethodId == 2)
                                 {
-                                    btnApproveRefund.Text = "<i class='fab fa-paypal mr-1'></i> Execute PayPal Sandbox Refund";
+                                    btnApproveRefund.Text = isSpanishModal 
+                                        ? "<i class='fab fa-paypal mr-1'></i> Ejecutar Reembolso en PayPal Sandbox" 
+                                        : "<i class='fab fa-paypal mr-1'></i> Execute PayPal Sandbox Refund";
                                     btnApproveRefund.CssClass = "btn btn-primary font-weight-bold px-3";
                                 }
                                 else
                                 {
-                                    btnApproveRefund.Text = "<i class='fas fa-check-circle mr-1'></i> Approve Manual Cash Refund";
+                                    btnApproveRefund.Text = isSpanishModal 
+                                        ? "<i class='fas fa-check-circle mr-1'></i> Aprobar Reembolso Manual en Efectivo" 
+                                        : "<i class='fas fa-check-circle mr-1'></i> Approve Manual Cash Refund";
                                     btnApproveRefund.CssClass = "btn btn-success font-weight-bold px-3";
                                 }
 
@@ -552,7 +559,10 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrEmpty(resolutionNotes) || resolutionNotes.Length < 5)
             {
-                lblModalError.Text = "Please type a settlement note explaining the authorization grounds (minimum 5 characters).";
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                lblModalError.Text = isSpanish 
+                    ? "Por favor, escriba una nota de resolución explicando los motivos de la autorización (mínimo 5 caracteres)." 
+                    : "Please type a settlement note explaining the authorization grounds (minimum 5 characters).";
                 lblModalError.Visible = true;
                 return;
             }
@@ -742,7 +752,10 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrEmpty(resolutionNotes) || resolutionNotes.Length < 5)
             {
-                lblModalError.Text = "Please write clear justification notes clarifying why the refund claim has been denied.";
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                lblModalError.Text = isSpanish 
+                    ? "Por favor, escriba una nota de justificación explicando por qué se deniega la solicitud de reembolso." 
+                    : "Please write clear justification notes clarifying why the refund claim has been denied.";
                 lblModalError.Visible = true;
                 return;
             }

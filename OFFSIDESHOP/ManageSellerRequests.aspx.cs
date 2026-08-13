@@ -85,6 +85,11 @@ namespace OFFSIDESHOP
                 {
                     conn.Open();
 
+                    bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                    string selectBrandText = isSpanish ? "-- Seleccionar Marca --" : "-- Select Brand --";
+                    string selectLeagueText = isSpanish ? "-- Seleccionar Liga --" : "-- Select League --";
+                    string selectTeamText = isSpanish ? "-- Seleccionar Equipo --" : "-- Select Team --";
+
                     // Brands
                     MySqlDataAdapter daBrand = new MySqlDataAdapter("SELECT Id_Brand, Name_Brand FROM brands ORDER BY Name_Brand ASC", conn);
                     DataTable dtBrand = new DataTable();
@@ -93,7 +98,7 @@ namespace OFFSIDESHOP
                     ddlBrand.DataTextField = "Name_Brand";
                     ddlBrand.DataValueField = "Id_Brand";
                     ddlBrand.DataBind();
-                    ddlBrand.Items.Insert(0, new ListItem("-- Select Brand --", ""));
+                    ddlBrand.Items.Insert(0, new ListItem(selectBrandText, ""));
 
                     // Leagues
                     MySqlDataAdapter daLeague = new MySqlDataAdapter("SELECT Id_League, Name_League FROM leagues ORDER BY Name_League ASC", conn);
@@ -103,11 +108,11 @@ namespace OFFSIDESHOP
                     ddlLeague.DataTextField = "Name_League";
                     ddlLeague.DataValueField = "Id_League";
                     ddlLeague.DataBind();
-                    ddlLeague.Items.Insert(0, new ListItem("-- Select League --", ""));
+                    ddlLeague.Items.Insert(0, new ListItem(selectLeagueText, ""));
 
                     // Teams (Initialized empty until league is chosen)
                     ddlTeam.Items.Clear();
-                    ddlTeam.Items.Insert(0, new ListItem("-- Select Team --", ""));
+                    ddlTeam.Items.Insert(0, new ListItem(selectTeamText, ""));
                 }
                 catch (Exception ex)
                 {
@@ -121,9 +126,12 @@ namespace OFFSIDESHOP
             int status = ViewState["ActiveStatus"] != null ? Convert.ToInt32(ViewState["ActiveStatus"]) : 1;
             string typeFilter = ddlFilterType.SelectedValue;
 
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+            string reasonCol = isSpanish ? "r.Reason_Name_es" : "r.Reason_Name";
+
             using (MySqlConnection conn = data.ObtenerConexion())
             {
-                string query = @"SELECT t.Id_Ticket, t.Created_At, t.User_Email, t.Status, r.Reason_Name, t.Subject 
+                string query = $@"SELECT t.Id_Ticket, t.Created_At, t.User_Email, t.Status, {reasonCol} AS Reason_Name, t.Subject 
                                  FROM contact_tickets t
                                  INNER JOIN contact_reasons r ON t.Id_ContactReason = r.Id_ContactReason
                                  WHERE t.Status = @Status";
@@ -240,9 +248,12 @@ namespace OFFSIDESHOP
 
         private void LoadTicketDetails(int ticketId)
         {
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+            string reasonCol = isSpanish ? "r.Reason_Name_es" : "r.Reason_Name";
+
             using (MySqlConnection conn = data.ObtenerConexion())
             {
-                string query = @"SELECT t.*, r.Requires_Order, r.Requires_Images, r.Reason_Name 
+                string query = $@"SELECT t.*, r.Requires_Order, r.Requires_Images, {reasonCol} AS Reason_Name 
                                  FROM contact_tickets t
                                  INNER JOIN contact_reasons r ON t.Id_ContactReason = r.Id_ContactReason
                                  WHERE t.Id_Ticket = @Id";
@@ -355,10 +366,12 @@ namespace OFFSIDESHOP
                                     }
                                     else
                                     {
-                                        btnApprove.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalApprove")?.ToString() ?? "Save Resolution";
+                                        btnApprove.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalSaveResolution")?.ToString() ?? "Save Resolution";
                                     }
+                                    btnReject.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalReject")?.ToString() ?? "Reject & Deny Request";
                                 }
 
+                                btnCancel.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalClose")?.ToString() ?? "Close Details";
                                 phDetailModal.Visible = true;
                             }
                         }
@@ -384,7 +397,8 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrEmpty(notes))
             {
-                lblModalError.Text = "You must provide a rejection reason in the response field to explain the rejection to the user.";
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                lblModalError.Text = isSpanish ? "Debe proporcionar un motivo de rechazo en el campo de respuesta para explicárselo al usuario." : "You must provide a rejection reason in the response field to explain the rejection to the user.";
                 lblModalError.Visible = true;
                 return;
             }
@@ -436,37 +450,38 @@ namespace OFFSIDESHOP
             if (isSeller)
             {
                 // Seller Request Approval - Catalog Publication
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
                 if (string.IsNullOrEmpty(txtNewProductName.Text.Trim()))
                 {
-                    lblModalError.Text = "Product Name is required to register this jersey in the catalog.";
+                    lblModalError.Text = isSpanish ? "El nombre del producto es obligatorio para registrar esta camiseta en el catálogo." : "Product Name is required to register this jersey in the catalog.";
                     lblModalError.Visible = true;
                     return;
                 }
 
                 if (string.IsNullOrEmpty(ddlBrand.SelectedValue))
                 {
-                    lblModalError.Text = "Please select a Brand mapping.";
+                    lblModalError.Text = isSpanish ? "Por favor seleccione una Marca." : "Please select a Brand mapping.";
                     lblModalError.Visible = true;
                     return;
                 }
 
                 if (string.IsNullOrEmpty(ddlTeam.SelectedValue))
                 {
-                    lblModalError.Text = "Please select a Team mapping.";
+                    lblModalError.Text = isSpanish ? "Por favor seleccione un Equipo." : "Please select a Team mapping.";
                     lblModalError.Visible = true;
                     return;
                 }
 
                 if (string.IsNullOrEmpty(txtYear.Text.Trim()) || txtYear.Text.Trim().Length != 4 || !int.TryParse(txtYear.Text.Trim(), out _))
                 {
-                    lblModalError.Text = "Please enter a valid 4-digit Year.";
+                    lblModalError.Text = isSpanish ? "Por favor ingrese un año válido de 4 dígitos." : "Please enter a valid 4-digit Year.";
                     lblModalError.Visible = true;
                     return;
                 }
 
                 if (string.IsNullOrEmpty(notes))
                 {
-                    lblModalError.Text = "Please provide some notes in the response field to notify the seller.";
+                    lblModalError.Text = isSpanish ? "Por favor proporcione notas en el campo de respuesta para notificar al vendedor." : "Please provide some notes in the response field to notify the seller.";
                     lblModalError.Visible = true;
                     return;
                 }
@@ -650,8 +665,10 @@ namespace OFFSIDESHOP
 
         private void LoadTeamsByLeague(string leagueId)
         {
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+            string selectTeamText = isSpanish ? "-- Seleccionar Equipo --" : "-- Select Team --";
             ddlTeam.Items.Clear();
-            ddlTeam.Items.Add(new ListItem("-- Select Team --", ""));
+            ddlTeam.Items.Add(new ListItem(selectTeamText, ""));
 
             if (string.IsNullOrEmpty(leagueId)) return;
 
@@ -810,7 +827,8 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrEmpty(reply))
             {
-                lblReplyModalError.Text = "Please write a reply.";
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                lblReplyModalError.Text = isSpanish ? "Por favor escriba una respuesta." : "Please write a reply.";
                 lblReplyModalError.Visible = true;
                 return;
             }

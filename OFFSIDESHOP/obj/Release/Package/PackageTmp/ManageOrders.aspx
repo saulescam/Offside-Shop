@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOrders.aspx.cs" Inherits="OFFSIDESHOP.ManageOrders" Async="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageOrders.aspx.cs" Inherits="OFFSIDESHOP.ManageOrders" Async="true" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -57,6 +57,7 @@
         .modal-dialog-custom {
             position: relative !important;
             background: var(--card-bg, #ffffff);
+            color: var(--text-main, #111111);
             border: 1px solid var(--border-color, #e0e0e0);
             border-radius: 12px;
             width: 95% !important;
@@ -79,6 +80,136 @@
         @keyframes modalPop {
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ESTILOS Y TEMA DE MODALES (MODO CLARO Y OSCURO) */
+        .modal-section-bg {
+            background-color: var(--bg-input-disabled, #f8f9fa);
+            border: 1px solid var(--border-color, #e0e0e0);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .modal-dialog-custom .modal-header {
+            border-bottom: 1px solid var(--border-color, #e0e0e0);
+        }
+
+        .modal-dialog-custom .modal-footer {
+            background-color: var(--bg-input-disabled, #f8f9fa);
+            border-top: 1px solid var(--border-color, #e0e0e0);
+        }
+
+        body.dark-mode .modal-dialog-custom {
+            background: var(--bg-card, #1a1a1a) !important;
+            color: var(--text-main, #ffffff) !important;
+            border-color: var(--border-color, #2c2c2c) !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .modal-header {
+            background-color: #0d0d0d !important;
+            border-bottom-color: var(--border-color, #2c2c2c) !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .modal-footer {
+            background-color: #161616 !important;
+            border-top-color: var(--border-color, #2c2c2c) !important;
+        }
+
+        body.dark-mode .modal-section-bg {
+            background-color: #222222 !important;
+            border-color: #333333 !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .bg-light {
+            background-color: #222222 !important;
+            border-color: #333333 !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .text-dark {
+            color: var(--text-main, #ffffff) !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .text-secondary {
+            color: #aaaaaa !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .text-muted {
+            color: #888888 !important;
+        }
+
+        /* Modal GridView Table Dark Mode */
+        .modal-dialog-custom .table {
+            color: var(--text-main);
+            background-color: var(--bg-card);
+        }
+
+        .modal-dialog-custom .table th {
+            background-color: var(--table-header-bg, #000000) !important;
+            color: var(--table-header-text, #FFC800) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        .modal-dialog-custom .table td {
+            color: var(--text-main) !important;
+            border-color: var(--border-color) !important;
+            background-color: transparent !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .table-striped tbody tr:nth-of-type(even) {
+            background-color: transparent !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .table-bordered {
+            border: 1px solid var(--border-color, #2c2c2c) !important;
+        }
+
+        body.dark-mode .modal-dialog-custom .table-bordered td,
+        body.dark-mode .modal-dialog-custom .table-bordered th {
+            border: 1px solid var(--border-color, #2c2c2c) !important;
+        }
+
+        /* Botón de Detalles anti-encogimiento */
+        .btn-details-action {
+            background-color: #17a2b8 !important;
+            border: 1px solid #17a2b8 !important;
+            color: #ffffff !important;
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+            padding: 6px 14px !important;
+            border-radius: 6px !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease-in-out !important;
+            height: 34px !important;
+            line-height: 1 !important;
+            box-sizing: border-box !important;
+        }
+
+        .btn-details-action:hover {
+            background-color: #138496 !important;
+            border-color: #117a8b !important;
+            color: #ffffff !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 10px rgba(23, 162, 184, 0.3) !important;
+            text-decoration: none !important;
+        }
+
+        .btn-details-action:active,
+        .btn-details-action:focus {
+            background-color: #117a8b !important;
+            border-color: #10707f !important;
+            color: #ffffff !important;
+            transform: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+            text-decoration: none !important;
         }
 
         /* Estilos Paginación del GridView */
@@ -292,14 +423,14 @@
                                             <asp:BoundField DataField="Status_Name" HeaderText="<%$ Resources:Strings, Admin_Orders_ColStatus %>" />
                                             <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Orders_ColActions %>" ItemStyle-Width="260px">
                                                 <ItemTemplate>
-                                                    <div class="d-flex align-items-center justify-content-center gap-2">
-                                                        <asp:LinkButton ID="lnkViewDetails" runat="server" CssClass="btn btn-sm btn-info text-white font-weight-bold mr-2"
+                                                    <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
+                                                        <asp:LinkButton ID="lnkViewDetails" runat="server" CssClass="btn-details-action"
                                                             OnClick="lnkViewDetails_Click" CommandArgument='<%# Eval("Id_Order") %>'>
                                                             <i class="fas fa-eye"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_BtnDetails %>" />
                                                         </asp:LinkButton>
                                                         <asp:DropDownList ID="ddlGridStatus" runat="server" AutoPostBack="true"
                                                             OnSelectedIndexChanged="ddlGridStatus_SelectedIndexChanged"
-                                                            CssClass="form-control form-control-sm" style="max-width: 130px;">
+                                                            CssClass="form-control form-control-sm" style="max-width: 140px; height: 34px; flex-shrink: 0;">
                                                         </asp:DropDownList>
                                                     </div>
                                                 </ItemTemplate>
@@ -326,7 +457,7 @@
                                             <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Orders_ColEvaluation %>">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="lnkEvaluateRefund" runat="server"
-                                                        CssClass="btn btn-sm btn-warning font-weight-bold px-3"
+                                                        CssClass="btn btn-sm btn-warning font-weight-bold px-3" Style="white-space: nowrap; flex-shrink: 0;"
                                                         OnClick="lnkEvaluateRefund_Click" CommandArgument='<%# Eval("Id_Order") %>'>
                                                         <i class="fas fa-search-dollar mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_BtnEvaluate %>" />
                                                     </asp:LinkButton>
@@ -356,7 +487,7 @@
                                                 </div>
                                                 <div class="col-md-6 text-md-right">
                                                     <small class="text-muted d-block text-uppercase font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_ModalLogisticsAddr %>" /></small>
-                                                    <span class="d-block font-weight-bold text-dark" style="font-size: 0.9rem;"><asp:Literal ID="litDetAddress" runat="server" /></span>
+                                                    <span class="d-block font-weight-bold" style="font-size: 0.9rem;"><asp:Literal ID="litDetAddress" runat="server" /></span>
                                                     <small class="text-muted"><asp:Literal ID="litDetLocation" runat="server" /></small>
                                                 </div>
                                             </div>
@@ -381,7 +512,7 @@
                                                 </asp:GridView>
                                             </div>
 
-                                            <div class="row align-items-center bg-light p-3 rounded border">
+                                            <div class="row align-items-center modal-section-bg p-3 rounded">
                                                 <div class="col-md-7">
                                                     <small class="text-muted d-block text-uppercase font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_ModalNotes %>" /></small>
                                                     <p class="mb-0 small text-secondary italic" style="font-style: italic;"><asp:Literal ID="litDetNotes" runat="server" /></p>
@@ -393,7 +524,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer bg-light px-4 py-3 text-right">
+                                        <div class="modal-footer px-4 py-3 text-right">
                                             <asp:Button ID="btnCloseDetailsBottom" runat="server" Text="<%$ Resources:Strings, Admin_Orders_ModalDismiss %>" CssClass="btn btn-dark font-weight-bold" OnClick="btnCloseOrderDetails_Click" />
                                         </div>
                                     </div>
@@ -427,9 +558,9 @@
                                                 <span class="font-weight-bold"><asp:Literal ID="litModalCustomer" runat="server" /></span>
                                             </div>
 
-                                            <div class="mb-3 p-3 bg-light rounded border">
+                                            <div class="mb-3 p-3 modal-section-bg rounded">
                                                 <small class="text-muted d-block text-uppercase font-weight-bold mb-1">Customer Selection Reason Concept</small>
-                                                <h6 class="font-weight-bold mb-2 text-dark"><asp:Literal ID="litModalReasonTitle" runat="server" /></h6>
+                                                <h6 class="font-weight-bold mb-2"><asp:Literal ID="litModalReasonTitle" runat="server" /></h6>
                                                 <small class="text-muted d-block font-weight-bold text-uppercase">Customer Additional Notes</small>
                                                 <p class="mb-0 text-secondary" style="font-style: italic;"><asp:Literal ID="litModalReasonText" runat="server" /></p>
                                             </div>
@@ -437,13 +568,13 @@
                                             <div class="form-group mb-2">
                                                 <label for="txtAdminComment" class="font-weight-bold text-uppercase small text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_ModalAdminNotes %>" /></label>
                                                 <asp:TextBox ID="txtAdminComment" runat="server" TextMode="MultiLine" Rows="3"
-                                                    CssClass="form-control text-dark" placeholder="Append transaction IDs, physical delivery return status checks, or grounds for denial here..." />
+                                                    CssClass="form-control" placeholder="Append transaction IDs, physical delivery return status checks, or grounds for denial here..." />
                                             </div>
 
                                             <!-- CASILLA DE FORZAR REEMBOLSO MANUAL -->
                                             <asp:Panel ID="pnlForceManualOption" runat="server" CssClass="mb-2 text-left" Visible="false">
-                                                <div class="p-2 rounded border border-warning bg-light">
-                                                    <label class="gold-checkbox text-dark font-weight-bold m-0" style="font-size: 0.85rem;">
+                                                <div class="p-2 rounded border border-warning modal-section-bg">
+                                                    <label class="gold-checkbox font-weight-bold m-0" style="font-size: 0.85rem;">
                                                         <asp:CheckBox ID="chkForceManualRefund" runat="server" ClientIDMode="Static" />
                                                         <span class="checkmark"></span>
                                                         <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Orders_ForceManualRefund %>" />
@@ -456,7 +587,7 @@
 
                                             <asp:Label ID="lblModalError" runat="server" CssClass="alert alert-danger d-block mt-2 font-weight-bold small" Visible="false" />
                                         </div>
-                                        <div class="modal-footer bg-light px-4 py-3 d-flex justify-content-between">
+                                        <div class="modal-footer px-4 py-3 d-flex justify-content-between">
                                             <asp:Button ID="btnCancelRefund" runat="server" Text="<%$ Resources:Strings, Admin_Orders_ModalDismiss %>" CssClass="btn btn-secondary font-weight-bold" OnClick="btnCloseModal_Click" />
                                             <div>
                                                 <asp:LinkButton ID="btnRejectRefund" runat="server" CssClass="btn btn-danger font-weight-bold mr-2 px-3" OnClick="btnRejectRefund_Click">

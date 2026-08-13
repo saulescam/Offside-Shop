@@ -46,6 +46,7 @@ namespace OFFSIDESHOP
 
             if (!IsPostBack)
             {
+                EnsureColumnsExist();
                 LoadCoupons();
             }
         }
@@ -57,7 +58,7 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    string query = "SELECT Id_Coupon, Code, DiscountPercentage, MaxUses, UsedCount, IsActive FROM coupons ORDER BY CreatedAt DESC;";
+                    string query = "SELECT Id_Coupon, Code, Name_Coupon, Name_Coupon_ES, DiscountPercentage, MaxUses, UsedCount, IsActive FROM coupons ORDER BY CreatedAt DESC;";
                     MySqlCommand cmd = new MySqlCommand(query, con);
                     DataTable dt = new DataTable();
                     new MySqlDataAdapter(cmd).Fill(dt);
@@ -88,6 +89,8 @@ namespace OFFSIDESHOP
             hfEditId.Value = "0";
             lblFormTitle.Text = AlertHelper.GetResourceString(this, "Coupon_Title_Create");
             txtCouponCode.Text = "";
+            txtCouponName.Text = "";
+            txtCouponName_ES.Text = "";
             txtDiscount.Text = "";
             txtMaxUses.Text = "10";
             ddlStatus.SelectedValue = "1";
@@ -98,11 +101,13 @@ namespace OFFSIDESHOP
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string code = txtCouponCode.Text.Trim().ToUpper();
+            string name = txtCouponName.Text.Trim();
+            string nameEs = txtCouponName_ES.Text.Trim();
             string discountStr = txtDiscount.Text.Trim();
             string maxUsesStr = txtMaxUses.Text.Trim();
 
             // Validaciones
-            if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(discountStr) || string.IsNullOrEmpty(maxUsesStr))
+            if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(nameEs) || string.IsNullOrEmpty(discountStr) || string.IsNullOrEmpty(maxUsesStr))
             {
                 TriggerSweetAlert("Alert_Coupons_FieldsRequiredTitle", "Alert_Coupons_FieldsRequiredText", "warning");
                 return;
@@ -143,8 +148,10 @@ namespace OFFSIDESHOP
 
                     if (editId == 0) // INSERT
                     {
-                        MySqlCommand cmd = new MySqlCommand("INSERT INTO coupons (Code, DiscountPercentage, MaxUses, IsActive) VALUES (@Code, @Discount, @MaxUses, @IsActive);", con);
+                        MySqlCommand cmd = new MySqlCommand("INSERT INTO coupons (Code, Name_Coupon, Name_Coupon_ES, DiscountPercentage, MaxUses, IsActive) VALUES (@Code, @Name, @NameEs, @Discount, @MaxUses, @IsActive);", con);
                         cmd.Parameters.AddWithValue("@Code", code);
+                        cmd.Parameters.AddWithValue("@Name", name);
+                        cmd.Parameters.AddWithValue("@NameEs", nameEs);
                         cmd.Parameters.AddWithValue("@Discount", discount);
                         cmd.Parameters.AddWithValue("@MaxUses", maxUses);
                         cmd.Parameters.AddWithValue("@IsActive", isActive);
@@ -156,7 +163,9 @@ namespace OFFSIDESHOP
                     else // UPDATE
                     {
                         // Nota de Diseño: Al editar, normalmente se prohíbe cambiar el código si ya se ha usado, pero permitiremos actualizar usos y estado.
-                        MySqlCommand cmd = new MySqlCommand("UPDATE coupons SET DiscountPercentage = @Discount, MaxUses = @MaxUses, IsActive = @IsActive WHERE Id_Coupon = @Id;", con);
+                        MySqlCommand cmd = new MySqlCommand("UPDATE coupons SET Name_Coupon = @Name, Name_Coupon_ES = @NameEs, DiscountPercentage = @Discount, MaxUses = @MaxUses, IsActive = @IsActive WHERE Id_Coupon = @Id;", con);
+                        cmd.Parameters.AddWithValue("@Name", name);
+                        cmd.Parameters.AddWithValue("@NameEs", nameEs);
                         cmd.Parameters.AddWithValue("@Discount", discount);
                         cmd.Parameters.AddWithValue("@MaxUses", maxUses);
                         cmd.Parameters.AddWithValue("@IsActive", isActive);
@@ -226,6 +235,8 @@ namespace OFFSIDESHOP
                                     hfEditId.Value = reader["Id_Coupon"].ToString();
                                     txtCouponCode.Text = reader["Code"].ToString();
                                     txtCouponCode.Enabled = false; // Prevent code change on edit to maintain data integrity
+                                    txtCouponName.Text = reader["Name_Coupon"].ToString();
+                                    txtCouponName_ES.Text = reader["Name_Coupon_ES"].ToString();
                                     txtDiscount.Text = reader["DiscountPercentage"].ToString();
                                     txtMaxUses.Text = reader["MaxUses"].ToString();
 
@@ -292,6 +303,35 @@ namespace OFFSIDESHOP
         {
             string script = AlertHelper.GetSafeAlertScript(this, titleKey, textKey, icon);
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), script, true);
+        }
+
+        private void EnsureColumnsExist()
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+                    try
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand("ALTER TABLE coupons ADD COLUMN Name_Coupon VARCHAR(100) NULL;", con))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch { }
+
+                    try
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand("ALTER TABLE coupons ADD COLUMN Name_Coupon_ES VARCHAR(100) NULL;", con))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch { }
+                }
+            }
+            catch { }
         }
 
         // Redirecciones del menú lateral

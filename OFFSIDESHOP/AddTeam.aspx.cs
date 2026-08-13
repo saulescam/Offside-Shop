@@ -66,8 +66,10 @@ namespace OFFSIDESHOP
                 DataTable dt = new DataTable();
                 new MySqlDataAdapter(cmd).Fill(dt);
 
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                string selectLeagueText = isSpanish ? "-- Seleccionar Liga --" : "-- Select League --";
                 ddlLeagues.Items.Clear();
-                ddlLeagues.Items.Add(new ListItem("-- Select League --", ""));
+                ddlLeagues.Items.Add(new ListItem(selectLeagueText, ""));
                 foreach (DataRow row in dt.Rows)
                     ddlLeagues.Items.Add(new ListItem(row["Name_League"].ToString(), row["Id_League"].ToString()));
             }
@@ -102,19 +104,19 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrWhiteSpace(teamName))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please enter a team name.', 'error');</script>";
+                alerta.Text = AlertHelper.Error(this, "Alert_Team_Empty");
                 return;
             }
 
             if (string.IsNullOrEmpty(ddlLeagues.SelectedValue))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please select a league.', 'error');</script>";
+                alerta.Text = AlertHelper.Error(this, "Alert_Team_SelectLeague");
                 return;
             }
 
             if (!int.TryParse(ddlLeagues.SelectedValue, out int leagueId))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Invalid league selection.', 'error');</script>";
+                alerta.Text = AlertHelper.Error(this, "Alert_Team_InvalidLeague");
                 return;
             }
 
@@ -133,14 +135,14 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                alerta.Text = "<script>Swal.fire('Success', 'Team saved successfully!', 'success');</script>";
+                alerta.Text = AlertHelper.Success(this, "Alert_Team_Saved");
                 AuditLogger.LogActivity("CREATE", "AddTeam", $"Created new team '{safeTeamName}' in League ID #{leagueId}");
                 txtTeamName.Text = "";
                 LoadTeams();
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
             }
         }
 
@@ -163,12 +165,12 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                alerta.Text = "<script>Swal.fire('Deleted', 'Team deleted successfully.', 'success');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_DeletedTitle", "Alert_Team_Deleted", "success");
                 AuditLogger.LogActivity("DELETE", "AddTeam", $"Deleted team ID #{idTeam}");
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
             }
             finally
             {

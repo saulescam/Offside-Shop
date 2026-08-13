@@ -470,13 +470,19 @@
                         </h4>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Offers_NameLabel %>" /> <span class="text-danger">*</span></label>
+                                    <label>Nombre de la Oferta (EN) <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtOfferName" runat="server" CssClass="form-control" placeholder="e.g. Black Friday Special" MaxLength="100"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Nombre de la Oferta (ES) <span class="text-danger">*</span></label>
+                                    <asp:TextBox ID="txtOfferName_ES" runat="server" CssClass="form-control" placeholder="e.g. Especial de Black Friday" MaxLength="100"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Offers_DiscountLabel %>" /> <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtDiscountPercentage" runat="server" CssClass="form-control" placeholder="e.g. 20" MaxLength="3" onkeypress="return validarPorcentaje(event)"></asp:TextBox>
@@ -594,7 +600,8 @@
                             <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
                             <Columns>
                                 <asp:BoundField DataField="Id_Offer" HeaderText="<%$ Resources:Strings, Admin_Offers_ColID %>" ItemStyle-Width="60px" />
-                                <asp:BoundField DataField="Name_Offer" HeaderText="<%$ Resources:Strings, Admin_Offers_ColWindow %>" ItemStyle-HorizontalAlign="Left" ItemStyle-Font-Bold="true" ItemStyle-ForeColor="White" />
+                                <asp:BoundField DataField="Name_Offer" HeaderText="Nombre (EN)" ItemStyle-HorizontalAlign="Left" ItemStyle-Font-Bold="true" ItemStyle-ForeColor="White" />
+                                <asp:BoundField DataField="Name_Offer_ES" HeaderText="Nombre (ES)" ItemStyle-HorizontalAlign="Left" ItemStyle-Font-Bold="true" ItemStyle-ForeColor="White" />
                                 <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Offers_ColDiscount %>">
                                     <ItemTemplate>
                                         <span class="badge bg-warning text-dark font-weight-bold" style="font-size: 0.85rem;"><%# Eval("DiscountPercentage") %>% OFF</span>

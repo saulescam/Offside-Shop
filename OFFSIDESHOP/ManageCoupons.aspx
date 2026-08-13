@@ -258,6 +258,21 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nombre del Cupón (EN) <span class="text-danger">*</span></label>
+                                            <asp:TextBox ID="txtCouponName" runat="server" CssClass="form-control" placeholder="e.g. Summer Discount" MaxLength="100"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nombre del Cupón (ES) <span class="text-danger">*</span></label>
+                                            <asp:TextBox ID="txtCouponName_ES" runat="server" CssClass="form-control" placeholder="e.g. Descuento de Verano" MaxLength="100"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_MaxUsesLabel %>" /> <span class="text-danger">*</span></label>
@@ -306,6 +321,8 @@
                                                 <span class="font-weight-bold" style="color: #FFC800; font-size: 1.1rem; letter-spacing: 1px;"><%# Eval("Code") %></span>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:BoundField DataField="Name_Coupon" HeaderText="Nombre (EN)" ItemStyle-HorizontalAlign="Left" ItemStyle-Font-Bold="true" ItemStyle-ForeColor="White" />
+                                        <asp:BoundField DataField="Name_Coupon_ES" HeaderText="Nombre (ES)" ItemStyle-HorizontalAlign="Left" ItemStyle-Font-Bold="true" ItemStyle-ForeColor="White" />
                                         <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Coupons_ColDiscount %>">
                                             <ItemTemplate>
                                                 <span class="badge badge-info p-2" style="font-size: 0.9rem;"><%# Eval("DiscountPercentage") %>% OFF</span>

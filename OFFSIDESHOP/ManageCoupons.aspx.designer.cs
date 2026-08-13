@@ -222,6 +222,24 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.TextBox txtCouponCode;
 
         /// <summary>
+        /// Control txtCouponName.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCouponName;
+
+        /// <summary>
+        /// Control txtCouponName_ES.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCouponName_ES;
+
+        /// <summary>
         /// Control txtDiscount.
         /// </summary>
         /// <remarks>

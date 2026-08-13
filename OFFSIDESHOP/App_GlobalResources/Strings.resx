@@ -1782,6 +1782,24 @@
   <data name="Admin_Seller_ReviewSubmitReply" xml:space="preserve">
     <value>Submit Reply</value>
   </data>
+  <data name="Admin_Seller_ModalClose" xml:space="preserve">
+    <value>Close Details</value>
+  </data>
+  <data name="Admin_Seller_ModalFullscreen" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="Admin_Seller_ColUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Admin_Seller_ColProduct" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Admin_Seller_EmptyReviews" xml:space="preserve">
+    <value>No product reviews found.</value>
+  </data>
+  <data name="Admin_Seller_ModalSaveResolution" xml:space="preserve">
+    <value>Save Resolution</value>
+  </data>
   <data name="Admin_Smtp_Title" xml:space="preserve">
     <value>Email Server Configuration</value>
   </data>
@@ -2226,6 +2244,30 @@
   <data name="Alert_Brand_Deleted" xml:space="preserve">
     <value>Brand deleted successfully.</value>
   </data>
+  <data name="Alert_League_Empty" xml:space="preserve">
+    <value>Please enter a league name.</value>
+  </data>
+  <data name="Alert_League_Saved" xml:space="preserve">
+    <value>League saved successfully!</value>
+  </data>
+  <data name="Alert_League_Deleted" xml:space="preserve">
+    <value>League deleted successfully.</value>
+  </data>
+  <data name="Alert_Team_Empty" xml:space="preserve">
+    <value>Please enter a team name.</value>
+  </data>
+  <data name="Alert_Team_SelectLeague" xml:space="preserve">
+    <value>Please select a league.</value>
+  </data>
+  <data name="Alert_Team_InvalidLeague" xml:space="preserve">
+    <value>Invalid league selection.</value>
+  </data>
+  <data name="Alert_Team_Saved" xml:space="preserve">
+    <value>Team saved successfully!</value>
+  </data>
+  <data name="Alert_Team_Deleted" xml:space="preserve">
+    <value>Team deleted successfully.</value>
+  </data>
   <data name="Alert_Login_OopsTitle" xml:space="preserve">
     <value>OOPS</value>
   </data>
@@ -2645,6 +2687,9 @@
   </data>
   <data name="Alert_Offers_NameRequired" xml:space="preserve">
     <value>Campaign identity context field is mandatory.</value>
+  </data>
+  <data name="Alert_Offers_NameEsRequired" xml:space="preserve">
+    <value>The offer name in Spanish is required.</value>
   </data>
   <data name="Alert_Offers_DiscountInvalid" xml:space="preserve">
     <value>Discount values must represent ranges between 1% and 99%.</value>

@@ -124,7 +124,7 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                alerta.Text = AlertHelper.Success(this, "Alert_Brand_Deleted");
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_DeletedTitle", "Alert_Brand_Deleted", "success");
                 AuditLogger.LogActivity("DELETE", "AddBrand", $"Deleted brand ID #{idBrand}");
             }
             catch (Exception ex)

@@ -114,7 +114,7 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    MySqlCommand cmd = new MySqlCommand("SELECT Id_Offer, Name_Offer, DiscountPercentage, StartDate, EndDate, IsActive FROM offers ORDER BY Id_Offer DESC;", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT Id_Offer, Name_Offer, Name_Offer_ES, DiscountPercentage, StartDate, EndDate, IsActive FROM offers ORDER BY Id_Offer DESC;", con);
                     DataTable dt = new DataTable();
                     new MySqlDataAdapter(cmd).Fill(dt);
                     gvOffers.DataSource = dt;
@@ -330,6 +330,11 @@ namespace OFFSIDESHOP
                 TriggerAlert("Alert_ValidationErrorTitle", "Alert_Offers_NameRequired", "error");
                 return;
             }
+            if (string.IsNullOrWhiteSpace(txtOfferName_ES.Text))
+            {
+                TriggerAlert("Alert_ValidationErrorTitle", "Alert_Offers_NameEsRequired", "error");
+                return;
+            }
             if (!int.TryParse(txtDiscountPercentage.Text.Trim(), out int pct) || pct <= 0 || pct > 99)
             {
                 TriggerAlert("Alert_ValidationErrorTitle", "Alert_Offers_DiscountInvalid", "error");
@@ -367,10 +372,11 @@ namespace OFFSIDESHOP
                 if (!isUpdateMode)
                 {
                     MySqlCommand cmd = new MySqlCommand(
-                        @"INSERT INTO offers (Name_Offer, DiscountPercentage, StartDate, EndDate, IsActive) 
-                          VALUES (@Name, @Pct, @Start, @End, 1);
+                        @"INSERT INTO offers (Name_Offer, Name_Offer_ES, DiscountPercentage, StartDate, EndDate, IsActive) 
+                          VALUES (@Name, @Name_ES, @Pct, @Start, @End, 1);
                           SELECT LAST_INSERT_ID();", con, trans);
                     cmd.Parameters.AddWithValue("@Name", HttpUtility.HtmlEncode(txtOfferName.Text.Trim()));
+                    cmd.Parameters.AddWithValue("@Name_ES", HttpUtility.HtmlEncode(txtOfferName_ES.Text.Trim()));
                     cmd.Parameters.AddWithValue("@Pct", pct);
                     cmd.Parameters.AddWithValue("@Start", start);
                     cmd.Parameters.AddWithValue("@End", end);
@@ -380,9 +386,10 @@ namespace OFFSIDESHOP
                 else
                 {
                     MySqlCommand cmd = new MySqlCommand(
-                        @"UPDATE offers SET Name_Offer = @Name, DiscountPercentage = @Pct, StartDate = @Start, EndDate = @End 
+                        @"UPDATE offers SET Name_Offer = @Name, Name_Offer_ES = @Name_ES, DiscountPercentage = @Pct, StartDate = @Start, EndDate = @End 
                           WHERE Id_Offer = @Id;", con, trans);
                     cmd.Parameters.AddWithValue("@Name", HttpUtility.HtmlEncode(txtOfferName.Text.Trim()));
+                    cmd.Parameters.AddWithValue("@Name_ES", HttpUtility.HtmlEncode(txtOfferName_ES.Text.Trim()));
                     cmd.Parameters.AddWithValue("@Pct", pct);
                     cmd.Parameters.AddWithValue("@Start", start);
                     cmd.Parameters.AddWithValue("@End", end);
@@ -452,7 +459,7 @@ namespace OFFSIDESHOP
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    MySqlCommand cmd = new MySqlCommand("SELECT Id_Offer, Name_Offer, DiscountPercentage, StartDate, EndDate FROM offers WHERE Id_Offer = @Id;", con);
+                    MySqlCommand cmd = new MySqlCommand("SELECT Id_Offer, Name_Offer, Name_Offer_ES, DiscountPercentage, StartDate, EndDate FROM offers WHERE Id_Offer = @Id;", con);
                     cmd.Parameters.AddWithValue("@Id", offerId);
 
                     DataTable dt = new DataTable();
@@ -463,6 +470,7 @@ namespace OFFSIDESHOP
 
                     hfSelectedOfferId.Value = r["Id_Offer"].ToString();
                     txtOfferName.Text = HttpUtility.HtmlDecode(r["Name_Offer"].ToString());
+                    txtOfferName_ES.Text = HttpUtility.HtmlDecode(r["Name_Offer_ES"].ToString());
                     txtDiscountPercentage.Text = r["DiscountPercentage"].ToString();
                     txtStartDate.Text = Convert.ToDateTime(r["StartDate"]).ToString("yyyy-MM-ddTHH:mm");
                     txtEndDate.Text = Convert.ToDateTime(r["EndDate"]).ToString("yyyy-MM-ddTHH:mm");
@@ -642,6 +650,7 @@ namespace OFFSIDESHOP
         {
             hfSelectedOfferId.Value = "";
             txtOfferName.Text = "";
+            txtOfferName_ES.Text = "";
             txtDiscountPercentage.Text = "";
             txtStartDate.Text = "";
             txtEndDate.Text = "";

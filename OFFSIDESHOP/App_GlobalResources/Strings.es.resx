@@ -1782,6 +1782,24 @@
   <data name="Admin_Seller_ReviewSubmitReply" xml:space="preserve">
     <value>Enviar Respuesta</value>
   </data>
+  <data name="Admin_Seller_ModalClose" xml:space="preserve">
+    <value>Cerrar Detalles</value>
+  </data>
+  <data name="Admin_Seller_ModalFullscreen" xml:space="preserve">
+    <value>Pantalla completa</value>
+  </data>
+  <data name="Admin_Seller_ColUser" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="Admin_Seller_ColProduct" xml:space="preserve">
+    <value>Producto</value>
+  </data>
+  <data name="Admin_Seller_EmptyReviews" xml:space="preserve">
+    <value>No se encontraron reseñas de productos.</value>
+  </data>
+  <data name="Admin_Seller_ModalSaveResolution" xml:space="preserve">
+    <value>Guardar Resolución</value>
+  </data>
   <data name="Admin_Smtp_Title" xml:space="preserve">
     <value>Configuración del Servidor de Correo</value>
   </data>
@@ -2226,6 +2244,30 @@
   <data name="Alert_Brand_Deleted" xml:space="preserve">
     <value>La marca fue eliminada correctamente.</value>
   </data>
+  <data name="Alert_League_Empty" xml:space="preserve">
+    <value>Por favor, ingrese el nombre de la liga.</value>
+  </data>
+  <data name="Alert_League_Saved" xml:space="preserve">
+    <value>¡La liga se guardó correctamente!</value>
+  </data>
+  <data name="Alert_League_Deleted" xml:space="preserve">
+    <value>La liga fue eliminada correctamente.</value>
+  </data>
+  <data name="Alert_Team_Empty" xml:space="preserve">
+    <value>Por favor, ingrese el nombre del equipo.</value>
+  </data>
+  <data name="Alert_Team_SelectLeague" xml:space="preserve">
+    <value>Por favor, seleccione una liga.</value>
+  </data>
+  <data name="Alert_Team_InvalidLeague" xml:space="preserve">
+    <value>Selección de liga no válida.</value>
+  </data>
+  <data name="Alert_Team_Saved" xml:space="preserve">
+    <value>¡El equipo se guardó correctamente!</value>
+  </data>
+  <data name="Alert_Team_Deleted" xml:space="preserve">
+    <value>El equipo fue eliminado correctamente.</value>
+  </data>
   <data name="Alert_Login_OopsTitle" xml:space="preserve">
     <value>¡Vaya!</value>
   </data>
@@ -2645,6 +2687,9 @@
   </data>
   <data name="Alert_Offers_NameRequired" xml:space="preserve">
     <value>El campo de identidad de la campaña es obligatorio.</value>
+  </data>
+  <data name="Alert_Offers_NameEsRequired" xml:space="preserve">
+    <value>El nombre de la oferta en español es requerido.</value>
   </data>
   <data name="Alert_Offers_DiscountInvalid" xml:space="preserve">
     <value>Los valores de descuento deben representar rangos entre 1% y 99%.</value>

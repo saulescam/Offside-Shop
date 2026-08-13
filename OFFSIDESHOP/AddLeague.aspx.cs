@@ -76,7 +76,7 @@ namespace OFFSIDESHOP
 
             if (string.IsNullOrWhiteSpace(leagueName))
             {
-                alerta.Text = "<script>Swal.fire('Error', 'Please enter a league name.', 'error');</script>";
+                alerta.Text = AlertHelper.Error(this, "Alert_League_Empty");
                 return;
             }
 
@@ -94,14 +94,14 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                alerta.Text = "<script>Swal.fire('Success', 'League saved successfully!', 'success');</script>";
+                alerta.Text = AlertHelper.Success(this, "Alert_League_Saved");
                 AuditLogger.LogActivity("CREATE", "AddLeague", $"Created new league '{safeLeagueName}'");
                 txtLeagueName.Text = "";
                 LoadLeagues();
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
             }
         }
 
@@ -124,12 +124,12 @@ namespace OFFSIDESHOP
                     cmd.ExecuteNonQuery();
                 }
 
-                alerta.Text = "<script>Swal.fire('Deleted', 'League deleted successfully.', 'success');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_DeletedTitle", "Alert_League_Deleted", "success");
                 AuditLogger.LogActivity("DELETE", "AddLeague", $"Deleted league ID #{idLeague}");
             }
             catch (Exception ex)
             {
-                alerta.Text = $"<script>Swal.fire('Error', '{HttpUtility.HtmlEncode(ex.Message)}', 'error');</script>";
+                alerta.Text = AlertHelper.GetAlertScript(this, "Alert_ErrorTitle", HttpUtility.HtmlEncode(ex.Message), "error");
             }
             finally
             {
