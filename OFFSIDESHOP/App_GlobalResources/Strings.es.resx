@@ -3109,10 +3109,10 @@
     <value>Estado del Pedido / Consulta de Envío</value>
   </data>
   <data name="Reason_2" xml:space="preserve">
-    <value>Consignar / Vender una Camiseta Retro</value>
+    <value>Devoluciones y Cambios</value>
   </data>
   <data name="Reason_3" xml:space="preserve">
-    <value>Devoluciones y Cambios</value>
+    <value>Consignar / Vender una Camiseta Retro</value>
   </data>
   <data name="Reason_4" xml:space="preserve">
     <value>Consulta General</value>

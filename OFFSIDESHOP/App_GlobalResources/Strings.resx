@@ -3109,10 +3109,10 @@
     <value>Order Status / Shipping Inquiry</value>
   </data>
   <data name="Reason_2" xml:space="preserve">
-    <value>Consign / Sell a Retro Shirt</value>
+    <value>Returns &amp; Exchanges</value>
   </data>
   <data name="Reason_3" xml:space="preserve">
-    <value>Returns &amp; Exchanges</value>
+    <value>Consign / Sell a Retro Shirt</value>
   </data>
   <data name="Reason_4" xml:space="preserve">
     <value>General Question</value>

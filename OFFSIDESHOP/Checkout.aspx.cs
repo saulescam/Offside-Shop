@@ -114,7 +114,6 @@ namespace OFFSIDESHOP
                         if (reader["Phone"] != DBNull.Value) txtTel.Text = reader["Phone"].ToString();
                         if (reader["Address"] != DBNull.Value) txtAddress.Text = reader["Address"].ToString();
 
-                        // Hidratar coordenadas predeterminadas de perfil para el mapa de Leaflet
                         if (reader["Default_Latitude"] != DBNull.Value) hfUserDefaultLat.Value = reader["Default_Latitude"].ToString();
                         if (reader["Default_Longitude"] != DBNull.Value) hfUserDefaultLng.Value = reader["Default_Longitude"].ToString();
 
@@ -377,7 +376,6 @@ namespace OFFSIDESHOP
         {
             if (!IsFormValid()) return;
 
-            // Validación de Backend para Teléfono
             if (!IsPhoneValid(txtTel.Text))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidPhoneCOD", "Swal.fire('Invalid Phone', 'The phone number must contain exactly 8 digits.', 'error');", true);
@@ -400,7 +398,6 @@ namespace OFFSIDESHOP
             string distName = ddlDistrict.SelectedIndex > 0 ? ddlDistrict.SelectedItem.Text : "";
 
             decimal mapLat, mapLng;
-            // Intentamos obtener del HiddenField (si el usuario movió el pin) o del Geocoding (si solo eligió en menús)
             if (!decimal.TryParse(hfLatitude.Value, out mapLat))
             {
                 GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
@@ -409,6 +406,11 @@ namespace OFFSIDESHOP
             {
                 GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
             }
+
+            // Recorte de seguridad para notas (máximo 200 caracteres) y nombre/apellido (máximo 50 caracteres)
+            string safeNotes = txtNotes.Text.Length > 200 ? txtNotes.Text.Substring(0, 200) : txtNotes.Text;
+            string safeName = txtName.Text.Trim().Length > 50 ? txtName.Text.Trim().Substring(0, 50) : txtName.Text.Trim();
+            string safeLastName = txtLastName.Text.Trim().Length > 50 ? txtLastName.Text.Trim().Substring(0, 50) : txtLastName.Text.Trim();
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -454,8 +456,8 @@ namespace OFFSIDESHOP
 
                         MySqlCommand cmd = new MySqlCommand(orderQuery, conn, trans);
                         cmd.Parameters.AddWithValue("@IdUser", userId);
-                        cmd.Parameters.AddWithValue("@Name", txtName.Text);
-                        cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
+                        cmd.Parameters.AddWithValue("@Name", safeName);
+                        cmd.Parameters.AddWithValue("@LastName", safeLastName);
                         cmd.Parameters.AddWithValue("@Mail", txtEmail.Text);
                         cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
                         cmd.Parameters.AddWithValue("@Lat", mapLat);
@@ -464,7 +466,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@IdMunicipality", string.IsNullOrEmpty(ddlMunicipality.SelectedValue) ? (object)DBNull.Value : ddlMunicipality.SelectedValue);
                         cmd.Parameters.AddWithValue("@IdDistrict", string.IsNullOrEmpty(ddlDistrict.SelectedValue) ? (object)DBNull.Value : ddlDistrict.SelectedValue);
                         cmd.Parameters.AddWithValue("@Phone", txtTel.Text);
-                        cmd.Parameters.AddWithValue("@Notes", txtNotes.Text);
+                        cmd.Parameters.AddWithValue("@Notes", safeNotes);
                         cmd.Parameters.AddWithValue("@Total", total);
                         cmd.Parameters.AddWithValue("@IdCoupon", idCoupon);
                         cmd.Parameters.AddWithValue("@DiscountApplied", discountApplied);
@@ -537,7 +539,6 @@ namespace OFFSIDESHOP
             DataTable dtCart = Session["Cart"] as DataTable;
             if (dtCart == null || dtCart.Rows.Count == 0) return;
 
-            // Validación de Backend para Teléfono en transacción de PayPal
             if (!IsPhoneValid(txtTel.Text))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidPhonePP", "Swal.fire('Invalid Phone', 'The phone number must contain exactly 8 digits.', 'error');", true);
@@ -554,13 +555,11 @@ namespace OFFSIDESHOP
             object idCoupon = ViewState["CouponId"] ?? DBNull.Value;
             decimal discountApplied = ViewState["DiscountAmount"] != null ? Convert.ToDecimal(ViewState["DiscountAmount"]) : 0m;
 
-            // Captura de coordenadas espaciales con Geocoding Automático
             string cityName = ddlCity.SelectedIndex > 0 ? ddlCity.SelectedItem.Text : "";
             string munName = ddlMunicipality.SelectedIndex > 0 ? ddlMunicipality.SelectedItem.Text : "";
             string distName = ddlDistrict.SelectedIndex > 0 ? ddlDistrict.SelectedItem.Text : "";
 
             decimal mapLat, mapLng;
-            // Intentamos obtener del HiddenField (si el usuario movió el pin) o del Geocoding (si solo eligió en menús)
             if (!decimal.TryParse(hfLatitude.Value, out mapLat))
             {
                 GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
@@ -570,6 +569,11 @@ namespace OFFSIDESHOP
                 GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
             }
 
+            // Recorte de seguridad para notas (máximo 200 caracteres) y nombre/apellido (máximo 50 caracteres)
+            string safeNotes = txtNotes.Text.Length > 200 ? txtNotes.Text.Substring(0, 200) : txtNotes.Text;
+            string safeName = txtName.Text.Trim().Length > 50 ? txtName.Text.Trim().Substring(0, 50) : txtName.Text.Trim();
+            string safeLastName = txtLastName.Text.Trim().Length > 50 ? txtLastName.Text.Trim().Substring(0, 50) : txtLastName.Text.Trim();
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -577,7 +581,6 @@ namespace OFFSIDESHOP
                 {
                     try
                     {
-                        // Inyección de las coordenadas espaciales en la orden de PayPal
                         string orderQuery = @"INSERT INTO orders 
                              (Id_User, Name, LastName, Mail, Address, Latitude, Longitude, id_City, Id_Municipality, Id_District, Phone, OrderNotes, Total, Id_Coupon, DiscountApplied, Id_PaymentMethod, TransactionID, shipping_cost, Id_Status) 
                              VALUES 
@@ -586,8 +589,8 @@ namespace OFFSIDESHOP
 
                         MySqlCommand cmd = new MySqlCommand(orderQuery, conn, trans);
                         cmd.Parameters.AddWithValue("@IdUser", userId);
-                        cmd.Parameters.AddWithValue("@Name", txtName.Text);
-                        cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
+                        cmd.Parameters.AddWithValue("@Name", safeName);
+                        cmd.Parameters.AddWithValue("@LastName", safeLastName);
                         cmd.Parameters.AddWithValue("@Mail", txtEmail.Text);
                         cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
                         cmd.Parameters.AddWithValue("@Lat", mapLat);
@@ -596,7 +599,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@IdMunicipality", string.IsNullOrEmpty(ddlMunicipality.SelectedValue) ? (object)DBNull.Value : ddlMunicipality.SelectedValue);
                         cmd.Parameters.AddWithValue("@IdDistrict", string.IsNullOrEmpty(ddlDistrict.SelectedValue) ? (object)DBNull.Value : ddlDistrict.SelectedValue);
                         cmd.Parameters.AddWithValue("@Phone", txtTel.Text);
-                        cmd.Parameters.AddWithValue("@Notes", txtNotes.Text);
+                        cmd.Parameters.AddWithValue("@Notes", safeNotes);
                         cmd.Parameters.AddWithValue("@Total", total);
                         cmd.Parameters.AddWithValue("@IdCoupon", idCoupon);
                         cmd.Parameters.AddWithValue("@DiscountApplied", discountApplied);
@@ -665,17 +668,142 @@ namespace OFFSIDESHOP
             ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoPayPal", script, true);
         }
 
+        protected void btnConfirmWalletPayment_Click(object sender, EventArgs e)
+        {
+            DataTable dtCart = Session["Cart"] as DataTable;
+            if (dtCart == null || dtCart.Rows.Count == 0) return;
+
+            if (!IsPhoneValid(txtTel.Text))
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidPhoneWallet", "Swal.fire('Invalid Phone', 'The phone number must contain exactly 8 digits.', 'error');", true);
+                return;
+            }
+
+            UpdateUserProfileOnCheckout();
+
+            decimal total = Convert.ToDecimal(hfTotalAmount.Value, System.Globalization.CultureInfo.InvariantCulture);
+            decimal shippingCost = CalcularCostoEnvio();
+            int userId = Convert.ToInt32(Session["Id_User"]);
+            object idCoupon = ViewState["CouponId"] ?? DBNull.Value;
+            decimal discountApplied = ViewState["DiscountAmount"] != null ? Convert.ToDecimal(ViewState["DiscountAmount"]) : 0m;
+            string transactionId = hfTransactionID.Value;
+
+            string cityName = ddlCity.SelectedIndex > 0 ? ddlCity.SelectedItem.Text : "";
+            string munName = ddlMunicipality.SelectedIndex > 0 ? ddlMunicipality.SelectedItem.Text : "";
+            string distName = ddlDistrict.SelectedIndex > 0 ? ddlDistrict.SelectedItem.Text : "";
+
+            decimal mapLat, mapLng;
+            if (!decimal.TryParse(hfLatitude.Value, out mapLat)) GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
+            if (!decimal.TryParse(hfLongitude.Value, out mapLng)) GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
+
+            // Recorte de seguridad para notas (máximo 200 caracteres) y nombre/apellido (máximo 50 caracteres)
+            string safeNotes = txtNotes.Text.Length > 200 ? txtNotes.Text.Substring(0, 200) : txtNotes.Text;
+            string safeName = txtName.Text.Trim().Length > 50 ? txtName.Text.Trim().Substring(0, 50) : txtName.Text.Trim();
+            string safeLastName = txtLastName.Text.Trim().Length > 50 ? txtLastName.Text.Trim().Substring(0, 50) : txtLastName.Text.Trim();
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                using (MySqlTransaction trans = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        string orderQuery = @"INSERT INTO orders 
+                             (Id_User, Name, LastName, Mail, Address, Latitude, Longitude, id_City, Id_Municipality, Id_District, Phone, OrderNotes, Total, Id_Coupon, DiscountApplied, Id_PaymentMethod, TransactionID, shipping_cost, Id_Status) 
+                             VALUES 
+                             (@IdUser, @Name, @LastName, @Mail, @Address, @Lat, @Lng, @IdCity, @IdMunicipality, @IdDistrict, @Phone, @Notes, @Total, @IdCoupon, @DiscountApplied, @IdPaymentMethod, @TransactionID, @ShippingCost, @IdStatus); 
+                             SELECT LAST_INSERT_ID();";
+
+                        MySqlCommand cmd = new MySqlCommand(orderQuery, conn, trans);
+                        cmd.Parameters.AddWithValue("@IdUser", userId);
+                        cmd.Parameters.AddWithValue("@Name", safeName);
+                        cmd.Parameters.AddWithValue("@LastName", safeLastName);
+                        cmd.Parameters.AddWithValue("@Mail", txtEmail.Text);
+                        cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
+                        cmd.Parameters.AddWithValue("@Lat", mapLat);
+                        cmd.Parameters.AddWithValue("@Lng", mapLng);
+                        cmd.Parameters.AddWithValue("@IdCity", ddlCity.SelectedValue);
+                        cmd.Parameters.AddWithValue("@IdMunicipality", string.IsNullOrEmpty(ddlMunicipality.SelectedValue) ? (object)DBNull.Value : ddlMunicipality.SelectedValue);
+                        cmd.Parameters.AddWithValue("@IdDistrict", string.IsNullOrEmpty(ddlDistrict.SelectedValue) ? (object)DBNull.Value : ddlDistrict.SelectedValue);
+                        cmd.Parameters.AddWithValue("@Phone", txtTel.Text);
+                        cmd.Parameters.AddWithValue("@Notes", safeNotes);
+                        cmd.Parameters.AddWithValue("@Total", total);
+                        cmd.Parameters.AddWithValue("@IdCoupon", idCoupon);
+                        cmd.Parameters.AddWithValue("@DiscountApplied", discountApplied);
+                        cmd.Parameters.AddWithValue("@IdPaymentMethod", 3); // Billetera Virtual
+                        cmd.Parameters.AddWithValue("@TransactionID", string.IsNullOrEmpty(transactionId) ? (object)DBNull.Value : transactionId);
+                        cmd.Parameters.AddWithValue("@ShippingCost", shippingCost);
+                        cmd.Parameters.AddWithValue("@IdStatus", 1); // Pendiente
+
+                        int orderId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        foreach (DataRow row in dtCart.Rows)
+                        {
+                            string detailQuery = @"INSERT INTO order_details (Id_Order, Id_Tshirt, ProductName, Size, Price, Quantity, Subtotal) VALUES (@IdOrder, @IdTshirt, @Name, @Size, @Price, @Qty, @Subtotal)";
+                            MySqlCommand detailCmd = new MySqlCommand(detailQuery, conn, trans);
+
+                            string dbProductName = row["Name"].ToString();
+                            if (dtCart.Columns.Contains("IsCustomized") && Convert.ToBoolean(row["IsCustomized"]))
+                            {
+                                string customLabel = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es") ? "Personalizado" : "Customized";
+                                dbProductName += $" ({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})";
+                            }
+
+                            detailCmd.Parameters.AddWithValue("@IdOrder", orderId);
+                            detailCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
+                            detailCmd.Parameters.AddWithValue("@Name", dbProductName);
+                            detailCmd.Parameters.AddWithValue("@Size", row["Size"]);
+                            detailCmd.Parameters.AddWithValue("@Price", row["Price"]);
+                            detailCmd.Parameters.AddWithValue("@Qty", row["Quantity"]);
+                            detailCmd.Parameters.AddWithValue("@Subtotal", row["Subtotal"]);
+                            detailCmd.ExecuteNonQuery();
+                        }
+
+                        if (idCoupon != DBNull.Value)
+                        {
+                            string updateCoupon = "UPDATE coupons SET UsedCount = UsedCount + 1 WHERE Id_Coupon = @IdCoupon;";
+                            using (MySqlCommand cmdCoupon = new MySqlCommand(updateCoupon, conn, trans))
+                            {
+                                cmdCoupon.Parameters.AddWithValue("@IdCoupon", idCoupon);
+                                cmdCoupon.ExecuteNonQuery();
+                            }
+                        }
+
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "errorWalletTrans", $"Swal.fire('Database Error', '{ex.Message.Replace("'", "\\'")}', 'error');", true);
+                        return;
+                    }
+                }
+            }
+
+            ShowMap = false;
+            ShowPaymentLoader = true;
+            Session.Remove("Cart");
+
+            string successTitle = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletTitle")?.ToString() ?? "Order Placed!";
+            string successText = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletText")?.ToString() ?? "Your order has been placed successfully via Virtual Wallet.";
+            string script = $"Swal.fire({{ title: '{successTitle.Replace("'", "\\'")}', text: '{successText.Replace("'", "\\'")}', icon: 'success', confirmButtonColor: '#FFC800' }}).then(() => {{ window.location.href = 'MyOrders.aspx'; }});";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoWallet", script, true);
+        }
+
         private void UpdateUserProfileOnCheckout()
         {
             if (Session["Id_User"] == null) return;
             int userId = Convert.ToInt32(Session["Id_User"]);
 
+            string safeName = txtName.Text.Trim().Length > 50 ? txtName.Text.Trim().Substring(0, 50) : txtName.Text.Trim();
+            string safeLastName = txtLastName.Text.Trim().Length > 50 ? txtLastName.Text.Trim().Substring(0, 50) : txtLastName.Text.Trim();
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 string query = @"UPDATE users SET Name = @Name, LastName = @LastName, Phone = @Phone, Address = @Address, id_city = @IdCity, Id_Municipality = @IdMun, Id_District = @IdDist WHERE Id_User = @UserId";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Name", txtName.Text);
-                cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
+                cmd.Parameters.AddWithValue("@Name", safeName);
+                cmd.Parameters.AddWithValue("@LastName", safeLastName);
                 cmd.Parameters.AddWithValue("@Phone", txtTel.Text);
                 cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
                 cmd.Parameters.AddWithValue("@IdCity", ddlCity.SelectedValue);
@@ -700,7 +828,11 @@ namespace OFFSIDESHOP
                 return false;
             }
 
-            // Validar que el formato del teléfono sea estrictamente numérico de 8 dígitos
+            if (txtName.Text.Trim().Length > 50 || txtLastName.Text.Trim().Length > 50)
+            {
+                return false;
+            }
+
             if (!IsPhoneValid(txtTel.Text))
             {
                 return false;
@@ -716,28 +848,23 @@ namespace OFFSIDESHOP
         protected void btnMyOrders_Click(object sender, EventArgs e) { Response.Redirect("MyOrders.aspx"); }
         protected void btnbackshop_Click(object sender, EventArgs e) { Response.Redirect("Homepage.aspx"); }
 
-        // --- MOTOR DE GEOCODING (OPCIÓN 2) ---
         private void GetCoordinatesFromAddress(string address, string district, string municipality, string city, out decimal lat, out decimal lng)
         {
-            lat = 13.6929m; // Por defecto San Salvador si todo falla
+            lat = 13.6929m;
             lng = -89.2182m;
 
             try
             {
                 using (System.Net.WebClient client = new System.Net.WebClient())
                 {
-                    // OpenStreetMap exige un User-Agent para funcionar
                     client.Headers.Add("User-Agent", "OffsideShop Delivery System/1.0");
 
-                    // Intento 1: Dirección exacta (Ej. santa tecla, Ciudad Arce, La Libertad Centro, La Libertad, El Salvador)
                     string query1 = $"{address}, {district}, {municipality}, {city}, El Salvador";
                     if (TryGetCoordinates(client, query1, out lat, out lng)) return;
 
-                    // Intento 2 (Fallback): Solo Distrito y Municipio (Más seguro si la calle está mal escrita)
                     string query2 = $"{district}, {municipality}, {city}, El Salvador";
                     if (TryGetCoordinates(client, query2, out lat, out lng)) return;
 
-                    // Intento 3 (Fallback Seguro): Solo Municipio (A prueba de fallos)
                     string query3 = $"{municipality}, {city}, El Salvador";
                     if (TryGetCoordinates(client, query3, out lat, out lng)) return;
                 }
@@ -754,7 +881,6 @@ namespace OFFSIDESHOP
             string url = $"https://nominatim.openstreetmap.org/search?q={Uri.EscapeDataString(query)}&format=json&limit=1";
             string json = client.DownloadString(url);
 
-            // Buscamos las coordenadas en la respuesta de la API usando lógica de texto simple
             if (json.Length > 10 && json.Contains("\"lat\":\""))
             {
                 int latIndex = json.IndexOf("\"lat\":\"") + 7;
@@ -785,7 +911,6 @@ namespace OFFSIDESHOP
                 ResetDropdown(ddlDistrict, "- Select District -");
             }
 
-            // Ejecutar la actualización del total sin llamar a APIs externas síncronas.
             ActualizarResumenPrecios();
         }
 
@@ -801,127 +926,7 @@ namespace OFFSIDESHOP
         private bool IsPhoneValid(string phone)
         {
             if (string.IsNullOrWhiteSpace(phone)) return false;
-            // Expresión regular: Asegura que el string contenga exactamente 8 dígitos del 0 al 9
             return System.Text.RegularExpressions.Regex.IsMatch(phone.Trim(), @"^[0-9]{8}$");
-        }
-        protected void btnConfirmWalletPayment_Click(object sender, EventArgs e)
-        {
-            DataTable dtCart = Session["Cart"] as DataTable;
-            if (dtCart == null || dtCart.Rows.Count == 0) return;
-
-            // 1. Validación del teléfono
-            if (!IsPhoneValid(txtTel.Text))
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidPhoneWallet", "Swal.fire('Invalid Phone', 'The phone number must contain exactly 8 digits.', 'error');", true);
-                return;
-            }
-
-            UpdateUserProfileOnCheckout();
-
-            decimal total = Convert.ToDecimal(hfTotalAmount.Value, System.Globalization.CultureInfo.InvariantCulture);
-            decimal shippingCost = CalcularCostoEnvio();
-            int userId = Convert.ToInt32(Session["Id_User"]);
-            object idCoupon = ViewState["CouponId"] ?? DBNull.Value;
-            decimal discountApplied = ViewState["DiscountAmount"] != null ? Convert.ToDecimal(ViewState["DiscountAmount"]) : 0m;
-
-            string cityName = ddlCity.SelectedIndex > 0 ? ddlCity.SelectedItem.Text : "";
-            string munName = ddlMunicipality.SelectedIndex > 0 ? ddlMunicipality.SelectedItem.Text : "";
-            string distName = ddlDistrict.SelectedIndex > 0 ? ddlDistrict.SelectedItem.Text : "";
-
-            decimal mapLat, mapLng;
-            if (!decimal.TryParse(hfLatitude.Value, out mapLat)) GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
-            if (!decimal.TryParse(hfLongitude.Value, out mapLng)) GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-                using (MySqlTransaction trans = conn.BeginTransaction())
-                {
-                    try
-                    {
-                        // 2. Crear la orden con Id_Status = 1 (PENDIENTE DE PAGO HASTA QUE EL WEBHOOK CONFIRME)
-                        string orderQuery = @"INSERT INTO orders 
-             (Id_User, Name, LastName, Mail, Address, Latitude, Longitude, id_City, Id_Municipality, Id_District, Phone, OrderNotes, Total, Id_Coupon, DiscountApplied, Id_PaymentMethod, shipping_cost, Id_Status) 
-             VALUES 
-             (@IdUser, @Name, @LastName, @Mail, @Address, @Lat, @Lng, @IdCity, @IdMunicipality, @IdDistrict, @Phone, @Notes, @Total, @IdCoupon, @DiscountApplied, @IdPaymentMethod, @ShippingCost, @IdStatus); 
-             SELECT LAST_INSERT_ID();";
-
-                        MySqlCommand cmd = new MySqlCommand(orderQuery, conn, trans);
-                        cmd.Parameters.AddWithValue("@IdUser", userId);
-                        cmd.Parameters.AddWithValue("@Name", txtName.Text);
-                        cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
-                        cmd.Parameters.AddWithValue("@Mail", txtEmail.Text);
-                        cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
-                        cmd.Parameters.AddWithValue("@Lat", mapLat);
-                        cmd.Parameters.AddWithValue("@Lng", mapLng);
-                        cmd.Parameters.AddWithValue("@IdCity", ddlCity.SelectedValue);
-                        cmd.Parameters.AddWithValue("@IdMunicipality", string.IsNullOrEmpty(ddlMunicipality.SelectedValue) ? (object)DBNull.Value : ddlMunicipality.SelectedValue);
-                        cmd.Parameters.AddWithValue("@IdDistrict", string.IsNullOrEmpty(ddlDistrict.SelectedValue) ? (object)DBNull.Value : ddlDistrict.SelectedValue);
-                        cmd.Parameters.AddWithValue("@Phone", txtTel.Text);
-                        cmd.Parameters.AddWithValue("@Notes", txtNotes.Text);
-                        cmd.Parameters.AddWithValue("@Total", total);
-                        cmd.Parameters.AddWithValue("@IdCoupon", idCoupon);
-                        cmd.Parameters.AddWithValue("@DiscountApplied", discountApplied);
-                        cmd.Parameters.AddWithValue("@IdPaymentMethod", 3); // Billetera Virtual
-                        cmd.Parameters.AddWithValue("@ShippingCost", shippingCost);
-                        cmd.Parameters.AddWithValue("@IdStatus", 1); // <--- CAMBIADO A 1 (Pending). El Webhook lo pasará a 2 (Paid)
-
-                        int orderId = Convert.ToInt32(cmd.ExecuteScalar());
-
-                        // 3. Insertar el detalle de la orden (SIN DESCONTAR STOCK AÚN)
-                        foreach (DataRow row in dtCart.Rows)
-                        {
-                            string detailQuery = @"INSERT INTO order_details (Id_Order, Id_Tshirt, ProductName, Size, Price, Quantity, Subtotal) VALUES (@IdOrder, @IdTshirt, @Name, @Size, @Price, @Qty, @Subtotal)";
-                            MySqlCommand detailCmd = new MySqlCommand(detailQuery, conn, trans);
-
-                            string dbProductName = row["Name"].ToString();
-                            if (dtCart.Columns.Contains("IsCustomized") && Convert.ToBoolean(row["IsCustomized"]))
-                            {
-                                string customLabel = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es") ? "Personalizado" : "Customized";
-                                dbProductName += $" ({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})";
-                            }
-
-                            detailCmd.Parameters.AddWithValue("@IdOrder", orderId);
-                            detailCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
-                            detailCmd.Parameters.AddWithValue("@Name", dbProductName);
-                            detailCmd.Parameters.AddWithValue("@Size", row["Size"]);
-                            detailCmd.Parameters.AddWithValue("@Price", row["Price"]);
-                            detailCmd.Parameters.AddWithValue("@Qty", row["Quantity"]);
-                            detailCmd.Parameters.AddWithValue("@Subtotal", row["Subtotal"]);
-                            detailCmd.ExecuteNonQuery();
-                        }
-
-                        // 4. Registrar uso del cupón si aplica
-                        if (idCoupon != DBNull.Value)
-                        {
-                            string updateCoupon = "UPDATE coupons SET UsedCount = UsedCount + 1 WHERE Id_Coupon = @IdCoupon;";
-                            using (MySqlCommand cmdCoupon = new MySqlCommand(updateCoupon, conn, trans))
-                            {
-                                cmdCoupon.Parameters.AddWithValue("@IdCoupon", idCoupon);
-                                cmdCoupon.ExecuteNonQuery();
-                            }
-                        }
-
-                        trans.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        trans.Rollback();
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "errorWalletTrans", $"Swal.fire('Database Error', '{ex.Message.Replace("'", "\\'")}', 'error');", true);
-                        return;
-                    }
-                }
-
-                ShowMap = false;
-                ShowPaymentLoader = true;
-                Session.Remove("Cart");
-
-                // Redirigir al usuario o mostrar confirmación de que su orden está pendiente de procesamiento por la billetera
-                string successTitle = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletTitle")?.ToString() ?? "Order Placed!";
-                string successText = GetGlobalResourceObject("Strings", "Checkout_SuccessWalletText")?.ToString() ?? "Your order has been created. Awaiting payment confirmation from Virtual Wallet.";
-                string script = $"Swal.fire({{ title: '{successTitle.Replace("'", "\\'")}', text: '{successText.Replace("'", "\\'")}', icon: 'info', confirmButtonColor: '#FFC800' }}).then(() => {{ window.location.href = 'MyOrders.aspx'; }});";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "exitoWallet", script, true);
-            }
         }
     }
 }
