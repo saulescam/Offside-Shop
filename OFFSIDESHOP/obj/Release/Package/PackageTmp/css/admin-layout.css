@@ -644,3 +644,8 @@ body .stat-icon-dark.text-danger { background-color: rgba(220, 53, 69, 0.1) !imp
 .fade-in {
     animation: fadeIn 0.8s ease forwards;
 }
+
+/* SweetAlert global modal layer fix */
+.swal2-container {
+    z-index: 9999999 !important;
+}

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminAudit.aspx.cs" Inherits="OFFSIDESHOP.AdminAudit" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminAudit.aspx.cs" Inherits="OFFSIDESHOP.AdminAudit" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -239,7 +239,7 @@
                                         <label for="txtSearch"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterSearch %>" /></label>
                                         <asp:TextBox ID="txtSearch" runat="server"
                                             CssClass="form-control"
-                                            placeholder="Search description, admin or IP..."
+                                            placeholder="<%$ Resources:Strings, Admin_Audit_SearchPlaceholder %>"
                                             AutoPostBack="true"
                                             OnTextChanged="Filter_Changed">
                                         </asp:TextBox>
@@ -268,8 +268,12 @@
                                     <Columns>
                                         <asp:BoundField DataField="Id_Log" HeaderText="<%$ Resources:Strings, Admin_Audit_ColLogId %>" ItemStyle-Width="80px" />
                                         <asp:BoundField DataField="AdminName" HeaderText="<%$ Resources:Strings, Admin_Audit_ColAdmin %>" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:BoundField DataField="Action_Type" HeaderText="<%$ Resources:Strings, Admin_Audit_ColActionType %>" />
-                                        <asp:BoundField DataField="Module" HeaderText="<%$ Resources:Strings, Admin_Audit_ColModule %>" />
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Audit_ColActionType %>">
+                                            <ItemTemplate><%# GetLocalizedActionType(Eval("Action_Type")) %></ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Audit_ColModule %>">
+                                            <ItemTemplate><%# GetLocalizedModule(Eval("Module")) %></ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:BoundField DataField="Description" HeaderText="<%$ Resources:Strings, Admin_Audit_ColDescription %>" ItemStyle-HorizontalAlign="Left" />
                                         <asp:BoundField DataField="IP_Address" HeaderText="<%$ Resources:Strings, Admin_Audit_ColIp %>" ItemStyle-Width="130px" />
                                         <asp:BoundField DataField="Created_At" HeaderText="<%$ Resources:Strings, Admin_Audit_ColTimestamp %>" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}" ItemStyle-Width="160px" />

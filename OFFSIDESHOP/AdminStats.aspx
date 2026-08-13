@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminStats.aspx.cs" Inherits="OFFSIDESHOP.AdminStats" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminStats.aspx.cs" Inherits="OFFSIDESHOP.AdminStats" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Store Statistics | OffsideShop</title>
+    <title><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_PageTitle %>" /></title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,600,700&display=swap" rel="stylesheet" />
@@ -317,8 +317,8 @@
     <script type="text/javascript">
         function showPdfLoader() {
             Swal.fire({
-                title: 'Generating Report...',
-                text: 'Crunching sales data and drawing charts. This might take a few seconds.',
+                title: '<%= GetGlobalResourceObject("Strings", "Admin_Stats_GeneratingPdfTitle") ?? "Generating Report..." %>',
+                text: '<%= GetGlobalResourceObject("Strings", "Admin_Stats_GeneratingPdfText") ?? "Crunching sales data and drawing charts. This might take a few seconds." %>',
                 allowOutsideClick: false,
                 didOpen: () => {
                     Swal.showLoading()
@@ -379,7 +379,7 @@
                 data: {
                     labels: revDates,
                     datasets: [{
-                        label: 'Revenue ($)',
+                        label: '<%= GetGlobalResourceObject("Strings", "Admin_Stats_ChartRevenueLabel") ?? "Revenue ($)" %>',
                         data: revData,
                         borderColor: '#3b82f6',
                         backgroundColor: 'rgba(59, 130, 246, 0.2)',
@@ -424,7 +424,7 @@
                 data: {
                     labels: topLabels,
                     datasets: [{
-                        label: 'Units Sold',
+                        label: '<%= GetGlobalResourceObject("Strings", "Admin_Stats_ChartUnitsSoldLabel") ?? "Units Sold" %>',
                         data: topData,
                         backgroundColor: '#d4af37',
                         borderRadius: 6

@@ -45,8 +45,11 @@ namespace OFFSIDESHOP
                 return;
             }
 
-            // Nota: Asegúrate de que la clase Security esté implementada en tu proyecto
-            // Security.ConfigureAdminSidebar(this);
+            Security.ConfigureAdminSidebar(this);
+            if (phOwnerMenu != null)
+            {
+                phOwnerMenu.Visible = (Convert.ToInt32(Session["UserRole"]) == 1);
+            }
 
             if (!IsPostBack)
             {
@@ -92,6 +95,8 @@ namespace OFFSIDESHOP
         {
             try
             {
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
@@ -106,7 +111,15 @@ namespace OFFSIDESHOP
                         {
                             while (reader.Read())
                             {
-                                revDates.Add("\"" + reader["OrderDay"].ToString() + "\"");
+                                string dayLabel = reader["OrderDay"].ToString();
+                                if (currentLang == "es")
+                                {
+                                    dayLabel = dayLabel.Replace("Jan", "Ene")
+                                                       .Replace("Apr", "Abr")
+                                                       .Replace("Aug", "Ago")
+                                                       .Replace("Dec", "Dic");
+                                }
+                                revDates.Add("\"" + dayLabel + "\"");
                                 revData.Add(Convert.ToDecimal(reader["DailyRevenue"]));
                             }
                         }
@@ -114,12 +127,22 @@ namespace OFFSIDESHOP
                     hfRevenueDates.Value = "[" + string.Join(",", revDates) + "]";
                     hfRevenueData.Value = "[" + string.Join(",", revData.Select(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture))) + "]";
 
-                    string queryStatus = "SELECT os.Status_Name, COUNT(o.Id_Order) as Count FROM orders o JOIN order_statuses os ON o.Id_Status = os.Id_Status GROUP BY os.Status_Name;";
+                    string queryStatus = @"
+                        SELECT 
+                            CASE 
+                                WHEN @Lang = 'es' THEN COALESCE(os.Status_Name_es, os.Status_Name)
+                                ELSE os.Status_Name 
+                            END AS Status_Name, 
+                            COUNT(o.Id_Order) as Count 
+                        FROM orders o 
+                        JOIN order_statuses os ON o.Id_Status = os.Id_Status 
+                        GROUP BY os.Id_Status, os.Status_Name, os.Status_Name_es;";
                     List<string> statLabels = new List<string>();
                     List<int> statData = new List<int>();
 
                     using (MySqlCommand cmd = new MySqlCommand(queryStatus, con))
                     {
+                        cmd.Parameters.AddWithValue("@Lang", currentLang);
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -132,12 +155,24 @@ namespace OFFSIDESHOP
                     hfStatusLabels.Value = "[" + string.Join(",", statLabels) + "]";
                     hfStatusData.Value = "[" + string.Join(",", statData) + "]";
 
-                    string queryTop = "SELECT ProductName, SUM(Quantity) as Qty FROM order_details GROUP BY ProductName ORDER BY Qty DESC LIMIT 5;";
+                    string queryTop = @"
+                        SELECT 
+                            CASE 
+                                WHEN @Lang = 'es' THEN COALESCE(tt.Name, t.Name)
+                                ELSE t.Name 
+                            END AS ProductName, 
+                            SUM(od.Quantity) as Qty 
+                        FROM order_details od 
+                        INNER JOIN tshirts t ON od.Id_Tshirt = t.ID 
+                        LEFT JOIN tshirt_translations tt ON t.ID = tt.Id_Tshirt AND tt.LanguageCode = 'es' 
+                        GROUP BY t.ID, t.Name, tt.Name 
+                        ORDER BY Qty DESC LIMIT 5;";
                     List<string> topLabels = new List<string>();
                     List<int> topData = new List<int>();
 
                     using (MySqlCommand cmd = new MySqlCommand(queryTop, con))
                     {
+                        cmd.Parameters.AddWithValue("@Lang", currentLang);
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -162,9 +197,15 @@ namespace OFFSIDESHOP
 
         protected void btnExportPdf_Click(object sender, EventArgs e)
         {
+            string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+            bool isSpanish = (currentLang == "es");
+
             string period = ddlReportPeriod.SelectedValue;
             int intervalDays = (period == "MONTH") ? 30 : (period == "YEAR") ? 365 : 7;
-            string periodText = (period == "MONTH") ? "Monthly Report" : (period == "YEAR") ? "Annual Report" : "Weekly Report";
+
+            string periodText = isSpanish
+                ? ((period == "MONTH") ? "Reporte Mensual" : (period == "YEAR") ? "Reporte Anual" : "Reporte Semanal")
+                : ((period == "MONTH") ? "Monthly Report" : (period == "YEAR") ? "Annual Report" : "Weekly Report");
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -193,9 +234,9 @@ namespace OFFSIDESHOP
 
                 ITextCell textCell = new ITextCell().SetBorder(Border.NO_BORDER).SetTextAlignment(TextAlignment.RIGHT).SetVerticalAlignment(VerticalAlignment.MIDDLE);
                 textCell.Add(new ITextParagraph("OFFSIDE SHOP S.A DE C.V").SetFont(boldFont).SetFontSize(18));
-                textCell.Add(new ITextParagraph("SALES REPORT").SetFont(boldFont).SetFontSize(14));
-                textCell.Add(new ITextParagraph($"Manager: ADMINISTRATOR").SetFont(normalFont).SetFontSize(11));
-                textCell.Add(new ITextParagraph($"Period: {periodText} | Date: {DateTime.Now:MM/dd/yyyy}").SetFont(normalFont).SetFontSize(10));
+                textCell.Add(new ITextParagraph(isSpanish ? "REPORTE DE VENTAS" : "SALES REPORT").SetFont(boldFont).SetFontSize(14));
+                textCell.Add(new ITextParagraph(isSpanish ? "Gerente: ADMINISTRADOR" : "Manager: ADMINISTRATOR").SetFont(normalFont).SetFontSize(11));
+                textCell.Add(new ITextParagraph(isSpanish ? $"Período: {periodText} | Fecha: {DateTime.Now:dd/MM/yyyy}" : $"Period: {periodText} | Date: {DateTime.Now:MM/dd/yyyy}").SetFont(normalFont).SetFontSize(10));
 
                 headerTable.AddCell(logoCell);
                 headerTable.AddCell(textCell);
@@ -206,22 +247,32 @@ namespace OFFSIDESHOP
                     con.Open();
 
                     // --- 2. ALL PRODUCTS SOLD ---
-                    AddSectionTitle(doc, "1. Product Sales Performance", boldFont);
-                    string queryProducts = @"SELECT t.Name, SUM(od.Quantity) AS Qty 
+                    AddSectionTitle(doc, isSpanish ? "1. Rendimiento de Ventas de Productos" : "1. Product Sales Performance", boldFont);
+                    string queryProducts = @"SELECT 
+                                                 CASE 
+                                                     WHEN @Lang = 'es' THEN COALESCE(tt.Name, t.Name)
+                                                     ELSE t.Name 
+                                                 END AS Name, 
+                                                 SUM(od.Quantity) AS Qty 
                                              FROM order_details od 
                                              INNER JOIN orders o ON od.Id_Order = o.Id_Order 
                                              INNER JOIN tshirts t ON od.Id_Tshirt = t.ID 
+                                             LEFT JOIN tshirt_translations tt ON t.ID = tt.Id_Tshirt AND tt.LanguageCode = 'es' 
                                              WHERE o.Id_Status IN (2, 3, 4) AND o.OrderDate >= DATE_SUB(CURDATE(), INTERVAL @Days DAY) 
-                                             GROUP BY t.ID, t.Name ORDER BY Qty DESC;";
+                                             GROUP BY t.ID, t.Name, tt.Name ORDER BY Qty DESC;";
 
                     List<string> prodLabels = new List<string>();
                     List<decimal> prodData = new List<decimal>();
-                    ITextTable prodTable = CreateBaseTable(new string[] { "Rank", "Shirt Name", "Units Sold" }, boldFont);
+                    string[] prodHeaders = isSpanish 
+                        ? new string[] { "Posición", "Nombre de Camiseta", "Unidades Vendidas" }
+                        : new string[] { "Rank", "Shirt Name", "Units Sold" };
+                    ITextTable prodTable = CreateBaseTable(prodHeaders, boldFont);
 
                     int rank = 1;
                     using (MySqlCommand cmd = new MySqlCommand(queryProducts, con))
                     {
                         cmd.Parameters.AddWithValue("@Days", intervalDays);
+                        cmd.Parameters.AddWithValue("@Lang", currentLang);
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -242,7 +293,7 @@ namespace OFFSIDESHOP
 
 
                     // --- 3. LEAGUES PERFORMANCE ---
-                    AddSectionTitle(doc, "2. Top Leagues Performance", boldFont);
+                    AddSectionTitle(doc, isSpanish ? "2. Rendimiento por Ligas" : "2. Top Leagues Performance", boldFont);
                     string queryLeagues = @"SELECT l.Id_League, l.Name_League, SUM(od.Quantity) AS Qty 
                                             FROM order_details od 
                                             INNER JOIN orders o ON od.Id_Order = o.Id_Order 
@@ -255,7 +306,10 @@ namespace OFFSIDESHOP
                     List<string> legLabels = new List<string>();
                     List<decimal> legData = new List<decimal>();
                     List<int> leagueIds = new List<int>();
-                    ITextTable legTable = CreateBaseTable(new string[] { "League Name", "Units Sold" }, boldFont);
+                    string[] legHeaders = isSpanish 
+                        ? new string[] { "Nombre de Liga", "Unidades Vendidas" }
+                        : new string[] { "League Name", "Units Sold" };
+                    ITextTable legTable = CreateBaseTable(legHeaders, boldFont);
 
                     using (MySqlCommand cmd = new MySqlCommand(queryLeagues, con))
                     {
@@ -277,12 +331,12 @@ namespace OFFSIDESHOP
 
                     if (legLabels.Count > 0)
                     {
-                        ITextImage chart = GenerateChartImage("pie", legLabels, legData, "League Share");
+                        ITextImage chart = GenerateChartImage("pie", legLabels, legData, isSpanish ? "Participación por Ligas" : "League Share");
                         if (chart != null) doc.Add(chart);
                     }
 
                     // --- 4. TEAMS (Per League) ---
-                    AddSectionTitle(doc, "3. Team Sales Breakdown by League", boldFont);
+                    AddSectionTitle(doc, isSpanish ? "3. Desglose de Ventas por Equipos" : "3. Team Sales Breakdown by League", boldFont);
                     foreach (int idLeague in leagueIds)
                     {
                         string queryTeams = @"SELECT l.Name_League, tm.Name_Team, SUM(od.Quantity) AS Qty 
@@ -315,8 +369,11 @@ namespace OFFSIDESHOP
 
                         if (teamLabels.Count > 0)
                         {
-                            doc.Add(new ITextParagraph($"League: {currentLeagueName}").SetFont(boldFont).SetFontSize(12).SetMarginTop(10));
-                            ITextTable teamTable = CreateBaseTable(new string[] { "Team Name", "Units Sold" }, boldFont);
+                            doc.Add(new ITextParagraph(isSpanish ? $"Liga: {currentLeagueName}" : $"League: {currentLeagueName}").SetFont(boldFont).SetFontSize(12).SetMarginTop(10));
+                            string[] teamHeaders = isSpanish 
+                                ? new string[] { "Nombre de Equipo", "Unidades Vendidas" }
+                                : new string[] { "Team Name", "Units Sold" };
+                            ITextTable teamTable = CreateBaseTable(teamHeaders, boldFont);
                             for (int i = 0; i < teamLabels.Count; i++)
                             {
                                 teamTable.AddCell(CreateCell(teamLabels[i], normalFont, TextAlignment.LEFT));
@@ -324,13 +381,13 @@ namespace OFFSIDESHOP
                             }
                             doc.Add(teamTable);
 
-                            ITextImage chart = GenerateChartImage("bar", teamLabels, teamData, $"{currentLeagueName} - Top Teams");
+                            ITextImage chart = GenerateChartImage("bar", teamLabels, teamData, isSpanish ? $"{currentLeagueName} - Equipos Top" : $"{currentLeagueName} - Top Teams");
                             if (chart != null) doc.Add(chart);
                         }
                     }
 
                     // --- 5. BRANDS ---
-                    AddSectionTitle(doc, "4. Brand Market Share", boldFont);
+                    AddSectionTitle(doc, isSpanish ? "4. Cuota de Mercado de Marcas" : "4. Brand Market Share", boldFont);
                     string queryBrands = @"SELECT b.Name_Brand, SUM(od.Quantity) AS Qty 
                                            FROM order_details od 
                                            INNER JOIN orders o ON od.Id_Order = o.Id_Order 
@@ -341,7 +398,10 @@ namespace OFFSIDESHOP
 
                     List<string> brandLabels = new List<string>();
                     List<decimal> brandData = new List<decimal>();
-                    ITextTable brandTable = CreateBaseTable(new string[] { "Brand", "Units Sold" }, boldFont);
+                    string[] brandHeaders = isSpanish 
+                        ? new string[] { "Marca", "Unidades Vendidas" }
+                        : new string[] { "Brand", "Units Sold" };
+                    ITextTable brandTable = CreateBaseTable(brandHeaders, boldFont);
 
                     using (MySqlCommand cmd = new MySqlCommand(queryBrands, con))
                     {
@@ -361,14 +421,14 @@ namespace OFFSIDESHOP
 
                     if (brandLabels.Count > 0)
                     {
-                        ITextImage chart = GenerateChartImage("pie", brandLabels, brandData, "Brands Breakdown");
+                        ITextImage chart = GenerateChartImage("pie", brandLabels, brandData, isSpanish ? "Desglose por Marcas" : "Brands Breakdown");
                         if (chart != null) doc.Add(chart);
                     }
 
                     // --- 6. MONTHLY REVENUE (ONLY FOR YEAR) ---
                     if (period == "YEAR")
                     {
-                        AddSectionTitle(doc, "5. Annual Gross Revenue by Month", boldFont);
+                        AddSectionTitle(doc, isSpanish ? "5. Ingresos Brutos Anuales por Mes" : "5. Annual Gross Revenue by Month", boldFont);
                         string queryMonthly = @"SELECT DATE_FORMAT(o.OrderDate, '%Y-%m') AS MonthSort, DATE_FORMAT(o.OrderDate, '%b %Y') AS MonthName, SUM(o.Total) AS TotalRevenue 
                                                 FROM orders o 
                                                 WHERE o.Id_Status IN (2, 3, 4) AND o.OrderDate >= DATE_SUB(CURDATE(), INTERVAL 365 DAY) 
@@ -377,7 +437,10 @@ namespace OFFSIDESHOP
 
                         List<string> monthLabels = new List<string>();
                         List<decimal> monthData = new List<decimal>();
-                        ITextTable monthTable = CreateBaseTable(new string[] { "Month", "Gross Revenue" }, boldFont);
+                        string[] monthHeaders = isSpanish 
+                            ? new string[] { "Mes", "Ingresos Brutos" }
+                            : new string[] { "Month", "Gross Revenue" };
+                        ITextTable monthTable = CreateBaseTable(monthHeaders, boldFont);
 
                         using (MySqlCommand cmd = new MySqlCommand(queryMonthly, con))
                         {
@@ -385,10 +448,18 @@ namespace OFFSIDESHOP
                             {
                                 while (reader.Read())
                                 {
-                                    monthLabels.Add(reader["MonthName"].ToString());
+                                    string mName = reader["MonthName"].ToString();
+                                    if (isSpanish)
+                                    {
+                                        mName = mName.Replace("Jan", "Ene")
+                                                     .Replace("Apr", "Abr")
+                                                     .Replace("Aug", "Ago")
+                                                     .Replace("Dec", "Dic");
+                                    }
+                                    monthLabels.Add(mName);
                                     decimal monthlyRev = Convert.ToDecimal(reader["TotalRevenue"]);
                                     monthData.Add(monthlyRev);
-                                    monthTable.AddCell(CreateCell(reader["MonthName"].ToString(), normalFont, TextAlignment.LEFT));
+                                    monthTable.AddCell(CreateCell(mName, normalFont, TextAlignment.LEFT));
                                     monthTable.AddCell(CreateCell(monthlyRev.ToString("C"), normalFont, TextAlignment.RIGHT));
                                 }
                             }
@@ -397,7 +468,7 @@ namespace OFFSIDESHOP
 
                         if (monthLabels.Count > 0)
                         {
-                            ITextImage chart = GenerateChartImage("line", monthLabels, monthData, "Revenue History ($)");
+                            ITextImage chart = GenerateChartImage("line", monthLabels, monthData, isSpanish ? "Historial de Ingresos ($)" : "Revenue History ($)");
                             if (chart != null) doc.Add(chart);
                         }
                     }

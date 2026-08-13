@@ -426,13 +426,50 @@
                                                 <asp:HiddenField ID="hfColEditId" runat="server" Value="0" />
                                                 <h4 class="text-white mb-4" style="font-weight: 600;"><asp:Label ID="lblColFormTitle" runat="server"></asp:Label></h4>
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColTitle %>" /> <span class="text-danger">*</span></label>
-                                                            <asp:TextBox ID="txtColTitle" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                                                <!-- SUB-TABS IDIOMAS PARA COLECCIONES -->
+                                                <ul class="nav nav-tabs sub-nav-tabs" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="col-en-tab" data-toggle="tab" href="#col-en" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_EnglishTab %>" /></a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="col-es-tab" data-toggle="tab" href="#col-es" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishTab %>" /></a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tab-content border-bottom border-secondary pb-3 mb-3">
+                                                    <!-- ENGLISH FIELDS -->
+                                                    <div class="tab-pane active" id="col-en" role="tabpanel">
+                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                                            <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_PrimaryEn %>" /></small>
+                                                            <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtColTitle'], ['txtColTitle_ES'])">
+                                                                <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEs %>" />
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group mb-0">
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColTitle %>" /> (EN) <span class="text-danger">*</span></label>
+                                                            <asp:TextBox ID="txtColTitle" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
                                                         </div>
                                                     </div>
+
+                                                    <!-- SPANISH FIELDS -->
+                                                    <div class="tab-pane" id="col-es" role="tabpanel">
+                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                                            <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_PrimaryEs %>" /></small>
+                                                            <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtColTitle_ES'], ['txtColTitle'])">
+                                                                <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEn %>" />
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group mb-0">
+                                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColTitle %>" /> (ES) <span class="text-danger">*</span></label>
+                                                            <asp:TextBox ID="txtColTitle_ES" ClientIDMode="Static" runat="server" CssClass="form-control" MaxLength="255"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- UNIVERSAL FIELDS FOR COLLECTIONS -->
+                                                <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_UniversalSettings %>" /></h6>
+
+                                                <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_ColCategory %>" /> <span class="text-danger">*</span></label>
@@ -476,7 +513,7 @@
 
                                                 <div class="row mt-4">
                                                     <div class="col-12 d-flex gap-2">
-                                                        <asp:LinkButton ID="btnColSave" runat="server" CssClass="mybtn" OnClick="btnColSave_Click" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; text-decoration: none; display: inline-block;">
+                                                        <asp:LinkButton ID="btnColSave" runat="server" CssClass="mybtn" OnClick="btnColSave_Click" OnClientClick="return validateColForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; text-decoration: none; display: inline-block;">
                                                             &#xf0c7;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SaveCollection %>" />
                                                         </asp:LinkButton>
                                                         <asp:LinkButton ID="btnColCancel" runat="server" CssClass="mybtn" OnClick="btnColCancel_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600; background: #444 !important; text-decoration: none; display: inline-block;">
@@ -518,7 +555,8 @@
                                                                 <img src='<%# GetImageThumb(Eval("ImageURL").ToString(), "collections") %>' class="collection-preview-thumb" onerror="this.src='assets/img/default.jpg';" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:BoundField DataField="Title" HeaderText="<%$ Resources:Strings, Admin_Banners_ColTitle %>" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Title" HeaderText="<%$ Resources:Strings, Admin_Banners_ColTitle %> (EN)" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Title_es" HeaderText="<%$ Resources:Strings, Admin_Banners_ColTitle %> (ES)" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
                                                         <asp:BoundField DataField="Name_Category" HeaderText="<%$ Resources:Strings, Admin_Banners_ColCategory %>" />
                                                         <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Banners_ColStatus %>">
                                                             <ItemTemplate><asp:Label ID="lblColStatus" runat="server"></asp:Label></ItemTemplate>
@@ -774,6 +812,33 @@
             if (!titleEs || !subEs) {
                 Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfo") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Banners_MissingEs") %>', 'warning');
                 $('#banner-es-tab').tab('show');
+                return false;
+            }
+            return true;
+        }
+
+        function validateColForm() {
+            let titleEn = document.getElementById('txtColTitle').value.trim();
+            let titleEs = document.getElementById('txtColTitle_ES').value.trim();
+            let category = document.getElementById('<%= ddlColCategory.ClientID %>').value;
+            let link = document.getElementById('<%= txtColLink.ClientID %>').value.trim();
+
+            if (!titleEn) {
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfo") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Banners_MissingEn") %>', 'warning');
+                $('#col-en-tab').tab('show');
+                return false;
+            }
+            if (!titleEs) {
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfo") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Banners_MissingEs") %>', 'warning');
+                $('#col-es-tab').tab('show');
+                return false;
+            }
+            if (!category) {
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfo") %>', '<%= GetGlobalResourceObject("Strings", "Admin_Banners_SelectCategory") %>', 'warning');
+                return false;
+            }
+            if (!link) {
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfo") %>', 'Target Link is required', 'warning');
                 return false;
             }
             return true;

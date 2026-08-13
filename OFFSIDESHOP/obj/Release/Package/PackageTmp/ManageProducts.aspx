@@ -548,7 +548,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ProductImageLabel %>" /> <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ProductImageLabel %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SupportsImg %>" />)</small></label>
                                     <div class="drop-zone" id="dzMainImage">
                                         <i class="fas fa-cloud-upload-alt"></i>
                                         <p id="lblMainImageText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_MainImageDrag %>" /></p>
@@ -560,7 +560,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImagesLabel %>" /> <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImagesLabel %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SupportsImg %>" />)</small></label>
                                     <div class="drop-zone" id="dzGalleryImages">
                                         <i class="fas fa-images"></i>
                                         <p id="lblGalleryImagesText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageDrag %>" /></p>
