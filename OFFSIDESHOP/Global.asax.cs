@@ -1,4 +1,4 @@
-﻿using Nemiro.OAuth;
+using Nemiro.OAuth;
 using Nemiro.OAuth.Clients;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,9 @@ namespace OFFSIDESHOP
         protected void Session_Start(object sender, EventArgs e)
         {
             Session["InitOAuth"] = true;
-        
+
+            // Por defecto el idioma de la sesión será inglés
+            Session["Language"] = "en";
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

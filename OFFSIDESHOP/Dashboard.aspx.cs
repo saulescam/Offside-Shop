@@ -541,12 +541,18 @@ namespace OFFSIDESHOP
         // Método para forzar la cultura en esta página según la Sesión
         protected override void InitializeCulture()
         {
+            string lang = "en";
             if (Session["Language"] != null)
             {
-                string lang = Session["Language"].ToString();
-                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
+                lang = Session["Language"].ToString();
             }
+            else
+            {
+                Session["Language"] = lang;
+            }
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
             base.InitializeCulture();
         }
 
