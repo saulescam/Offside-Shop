@@ -3547,4 +3547,79 @@
 	<data name="Admin_Banners_PhTitleES" xml:space="preserve">
     <value>e.g. World Cup Heritage</value>
   </data>
+	<data name="ChatBot_HI" xml:space="preserve">
+    <value>Ask for jerseys, sizes...</value>
+  </data>
+	<data name="Admin_Products_ReplaceImgHint" xml:space="preserve">
+    <value>Supports JPG, WEBP, PNG (max 2MB — leave empty to keep current)</value>
+  </data>
+	<data name="Role_Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+	<data name="Role_Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+	<data name="Role_Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+	<data name="Role_Delivery" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+	<data name="Admin_Users_NewPassLabel" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+	<data name="Admin_Audit_AllActionTypes" xml:space="preserve">
+    <value>-- All Action Types --</value>
+  </data>
+	<data name="Admin_Audit_AllModules" xml:space="preserve">
+    <value>-- All Modules --</value>
+  </data>
+	<data name="Audit_Action_CREATE" xml:space="preserve">
+    <value>Create</value>
+  </data>
+	<data name="Audit_Action_UPDATE" xml:space="preserve">
+    <value>Update</value>
+  </data>
+	<data name="Audit_Action_DELETE" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+	<data name="Audit_Action_RESOLVE" xml:space="preserve">
+    <value>Resolve</value>
+  </data>
+	<data name="Audit_Action_APPROVE" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+	<data name="Audit_Action_REJECT" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+	<data name="Audit_Module_AddLeague" xml:space="preserve">
+    <value>Add League</value>
+  </data>
+	<data name="Audit_Module_AddTeam" xml:space="preserve">
+    <value>Add Team</value>
+  </data>
+	<data name="Audit_Module_AddBrand" xml:space="preserve">
+    <value>Add Brand</value>
+  </data>
+	<data name="Audit_Module_ManageOffers" xml:space="preserve">
+    <value>Manage Offers</value>
+  </data>
+	<data name="Audit_Module_ManageProducts" xml:space="preserve">
+    <value>Manage Products</value>
+  </data>
+	<data name="Audit_Module_ManageSellerRequests" xml:space="preserve">
+    <value>Seller Requests</value>
+  </data>
+	<data name="Audit_Module_ManageOrders" xml:space="preserve">
+    <value>Manage Orders</value>
+  </data>
+	<data name="Audit_Module_ManageUsers" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
+	<data name="Audit_Module_ManageCoupons" xml:space="preserve">
+    <value>Manage Coupons</value>
+  </data>
+	<data name="Audit_Module_AdminBanners" xml:space="preserve">
+    <value>Manage Banners</value>
+  </data>
 </root>

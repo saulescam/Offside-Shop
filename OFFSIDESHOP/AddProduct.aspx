@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddProduct.aspx.cs" Inherits="OFFSIDESHOP.AddProduct" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddProduct.aspx.cs" Inherits="OFFSIDESHOP.AddProduct" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -267,7 +267,7 @@
 
                                 <!-- Row 6: Image Upload -->
                                 <div class="form-group">
-                                    <label>Product Image <small class="text-muted">(.jpg / .png, max 2 MB)</small></label>
+                                    <label>Product Image <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SupportsImg %>" />)</small></label>
                                     <asp:FileUpload ID="fileImagen" runat="server" CssClass="form-control-file" />
                                 </div>
 

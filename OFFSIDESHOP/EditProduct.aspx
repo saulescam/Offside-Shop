@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditProduct.aspx.cs" Inherits="OFFSIDESHOP.EditProduct" ValidateRequest="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditProduct.aspx.cs" Inherits="OFFSIDESHOP.EditProduct" ValidateRequest="false" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -278,7 +278,7 @@
 
                                 <!-- Image Upload (optional replacement) -->
                                 <div class="form-group">
-                                    <label>Replace Image <small class="text-muted">(.jpg / .png, max 2 MB — leave empty to keep current)</small></label>
+                                    <label>Replace Image <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ReplaceImgHint %>" />)</small></label>
                                     <asp:FileUpload ID="fileImagen" runat="server" CssClass="form-control-file" />
                                     <asp:Label ID="lblCurrentImage" runat="server" CssClass="form-text text-muted" Text=""></asp:Label>
                                 </div>

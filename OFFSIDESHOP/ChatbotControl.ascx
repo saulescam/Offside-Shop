@@ -20,13 +20,12 @@
 
     <div class="chat-body" id="chat-body-messages">
         <div class="chat-message bot-message">
-            Hi! I am your OFFSIDESHOP sales assistant. How can I help you find your dream jersey today?
+            <asp:Literal runat="server" Text="<%$ Resources:Strings, ChatBot_HI %>" />
         </div>
     </div>
-
-    <div class="chat-footer">
+<div class="chat-footer">
         <div class="input-group">
-            <input type="text" id="chat-user-input" class="form-control" placeholder="Ask about jerseys, sizes..." onkeydown="return handleChatKeyPress(event);" />
+            <input type="text" id="chat-user-input" class="form-control" placeholder='<%= GetGlobalResourceObject("Strings", "ChatBot_Ask") %>' onkeydown="return handleChatKeyPress(event);" />
             <div class="input-group-append">
                 <button class="btn btn-warning" type="button" id="btn-send-chat" onclick="sendChatMessage()" style="font-weight: bold; background: #FFC800; border: none; color: #000;">
                     <i class="fas fa-paper-plane"></i>

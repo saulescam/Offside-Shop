@@ -285,9 +285,6 @@
                                     <div class="col-md-3 form-group">
                                         <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_Role %>" /> <span class="text-danger">*</span></label>
                                         <asp:DropDownList ID="ddlNewRole" runat="server" CssClass="form-control">
-                                            <asp:ListItem Value="3">Customer</asp:ListItem>
-                                            <asp:ListItem Value="2">Admin</asp:ListItem>
-                                            <asp:ListItem Value="4">Delivery</asp:ListItem>
                                         </asp:DropDownList>
                                         <small class="text-muted d-block mt-1"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_RoleNote %>" /></small>
                                     </div>
@@ -301,31 +298,22 @@
                             <div class="filter-card mb-4">
                                 <div class="row align-items-end">
                                     <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
-                                        <label>Filter by Role</label>
+                                        <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_FilterRole %>" /></label>
                                         <asp:DropDownList ID="ddlFilterRole" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filter_Changed">
-                                            <asp:ListItem Value="0" Text="-- All Roles --"></asp:ListItem>
-                                            <asp:ListItem Value="1" Text="Owner"></asp:ListItem>
-                                            <asp:ListItem Value="2" Text="Admin"></asp:ListItem>
-                                            <asp:ListItem Value="3" Text="Customer"></asp:ListItem>
-                                            <asp:ListItem Value="4" Text="Delivery Drivers"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
-                                        <label>Delivery Status</label>
+                                        <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_FilterDeliveryStatus %>" /></label>
                                         <asp:DropDownList ID="ddlFilterDeliveryStatus" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filter_Changed">
-                                            <asp:ListItem Value="ALL" Text="-- All Delivery Statuses --"></asp:ListItem>
-                                            <asp:ListItem Value="AVAILABLE" Text="🟢 On Duty (Available)"></asp:ListItem>
-                                            <asp:ListItem Value="DELIVERING" Text="🔵 On the Way (Delivering Order)"></asp:ListItem>
-                                            <asp:ListItem Value="OFFDUTY" Text="⚪ Off Duty (Resting)"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="col-md-4 col-sm-8 mb-2 mb-md-0">
-                                        <label>Search User</label>
+                                        <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_SearchLabel %>" /></label>
                                         <asp:TextBox ID="txtSearchUser" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Placeholder_SearchUser %>" AutoPostBack="true" OnTextChanged="Filter_Changed"></asp:TextBox>
                                     </div>
                                     <div class="col-md-2 col-sm-4 text-right">
                                         <asp:LinkButton ID="btnClearFilters" runat="server" CssClass="btn btn-outline-secondary font-weight-bold w-100" OnClick="btnClearFilters_Click">
-                                            <i class="fas fa-eraser mr-1"></i> Clear
+                                            <i class="fas fa-eraser mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_ClearFilters %>" />
                                         </asp:LinkButton>
                                     </div>
                                 </div>
@@ -340,11 +328,11 @@
                                         <asp:BoundField DataField="Mail" HeaderText="<%$ Resources:Strings, Admin_Users_Email %>" />
                                         <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Users_ColCurrentRole %>">
                                             <ItemTemplate>
-                                                <span class="badge badge-dark p-2" style="font-size: 0.85rem;"><%# Eval("Name_Role") %></span>
+                                                <span class="badge badge-dark p-2" style="font-size: 0.85rem;"><%# GetLocalizedRoleName(Eval("Id_Role"), Eval("Name_Role")) %></span>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         
-                                        <asp:TemplateField HeaderText="Delivery Activity Status">
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Users_ColDeliveryStatus %>">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblDeliveryStatusBadge" runat="server"></asp:Label>
                                             </ItemTemplate>
@@ -352,7 +340,7 @@
 
                                         <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Users_ColActions %>">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblOwnerProtect" runat="server" Text="<span class='text-muted'><i class='fas fa-crown'></i> Owner</span>" Visible="false"></asp:Label>
+                                                <asp:Label ID="lblOwnerProtect" runat="server" Visible="false"></asp:Label>
                                                 
                                                 <asp:LinkButton ID="btnEdit" runat="server" CssClass="action-btn btn-edit" CommandName="EditUser" CommandArgument='<%# Eval("Id_User") %>' ToolTip="Edit User Data">
                                                     <i class="fas fa-pen"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_BtnEdit %>" />
@@ -401,15 +389,12 @@
                                         <asp:TextBox ID="txtEditEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
                                     </div>
                                     <div class="form-group">
-                                        <label>New Password <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_NewPassNote %>" /></small></label>
+                                        <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_NewPassLabel %>" /> <small class="text-muted"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_NewPassNote %>" /></small></label>
                                         <asp:TextBox ID="txtEditPass" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
                                     </div>
                                     <div class="form-group">
                                         <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_Role %>" /></label>
                                         <asp:DropDownList ID="ddlEditRole" runat="server" CssClass="form-control">
-                                            <asp:ListItem Value="3">Customer</asp:ListItem>
-                                            <asp:ListItem Value="2">Admin</asp:ListItem>
-                                            <asp:ListItem Value="4">Delivery</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                 </div>
