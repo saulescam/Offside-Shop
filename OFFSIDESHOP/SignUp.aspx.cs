@@ -11,12 +11,9 @@ namespace OFFSIDESHOP
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
         protected override void InitializeCulture()
         {
-            if (Session["Language"] != null)
-            {
-                string lang = Session["Language"].ToString();
-                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
-            }
+            string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
             base.InitializeCulture();
         }
         protected void Page_Load(object sender, EventArgs e)

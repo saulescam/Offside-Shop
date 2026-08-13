@@ -274,6 +274,11 @@
                 return false;
             }
 
+            if (nombre.length > 50 || apellido.length > 50) {
+                Swal.fire('<% =GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>', 'El nombre y el apellido no pueden exceder los 50 caracteres.', 'error');
+                return false;
+            }
+
             if (!lat || !lng || lat === "" || lng === "") {
                 Swal.fire('<% =GetGlobalResourceObject("Strings", "Alert_Checkout_LocationRequiredTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Checkout_LocationRequiredText") %>', 'warning');
                 return false;
@@ -403,10 +408,10 @@
                                 <h3 class="title"><%= Resources.Strings.Checkout_BillingTitle %></h3>
                             </div>
                             <div class="form-group">
-                                <asp:TextBox ID="txtName" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_FirstName %>" />
+                                <asp:TextBox ID="txtName" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_FirstName %>" MaxLength="50" />
                             </div>
                             <div class="form-group">
-                                <asp:TextBox ID="txtLastName" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_LastName %>" />
+                                <asp:TextBox ID="txtLastName" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_LastName %>" MaxLength="50" />
                             </div>
                             <div class="form-group">
                                 <asp:TextBox ID="txtEmail" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_Email %>" />
@@ -463,14 +468,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="mapLocationLabel" class="map-location-label"><i class="fas fa-map-pin text-danger me-1"></i> <%= Resources.Strings.Checkout_MapInstructions %></div>
+                                <div id="mapLocationLabel" class="map-location-label"><i class="fas fa-map-pin text-danger me-1"></i><%= Resources.Strings.Checkout_MapInstructions %></div>
                             </div>
                             <% } %>
-
                         </div>
 
                         <div class="order-notes mt-3">
-                            <asp:TextBox ID="txtNotes" runat="server" CssClass="input" placeholder="<%$ Resources:Strings, Checkout_OrderNotes %>" TextMode="MultiLine" />
+                            <asp:TextBox ID="txtNotes" runat="server" CssClass="input"
+                                placeholder="<%$ Resources:Strings, Checkout_OrderNotes %>"
+                                TextMode="MultiLine" Rows="3"
+                                MaxLength="200"
+                                oninput="updateNotesCounter();" />
+                            <div class="text-end mt-1">
+                                <small id="notesCounter" class="text-muted" style="font-size: 0.8rem; font-weight: 600;">0/200</small>
+                            </div>
                         </div>
                     </div>
 
@@ -480,8 +491,8 @@
                                 <h3 class="title"><%= Resources.Strings.Checkout_YourOrderTitle %></h3>
                             </div>
 
-                            <div class="order-summary">
-                                <div class="order-col">
+                                <div class="order-summary">
+                                    <div class="order-col">
                                     <div><strong><%= Resources.Strings.Checkout_HeaderProduct %></strong></div>
                                     <div><strong><%= Resources.Strings.Checkout_HeaderTotal %></strong></div>
                                 </div>
@@ -594,7 +605,32 @@
             </div>
         </div>
 
+
         <script type="text/javascript">
+            function updateNotesCounter() {
+                var txt = document.getElementById('<%= txtNotes.ClientID %>');
+                var counter = document.getElementById('notesCounter');
+
+                if (txt && counter) {
+                    // En caso de que se pegue un texto mayor a 200 caracteres
+                    if (txt.value.length > 200) {
+                        txt.value = txt.value.substring(0, 200);
+                    }
+                    counter.innerText = txt.value.length + '/200';
+                }
+            }
+
+            // Inicializar el contador al cargar la página (por si ya tiene texto)
+            document.addEventListener('DOMContentLoaded', function () {
+                updateNotesCounter();
+            });
+
+            // Re-vincular si hay un PostBack parcial de UpdatePanel
+            if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                    updateNotesCounter();
+                });
+            }
             // SINCRONIZADOR MAESTRO DE MONTOS PARA LA BILLETERA
             function sincronizarMontosBilletera() {
                 var hfTotal = document.getElementById('<%= hfTotalAmount.ClientID %>');

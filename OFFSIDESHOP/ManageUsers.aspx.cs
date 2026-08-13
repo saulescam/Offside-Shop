@@ -426,15 +426,12 @@ namespace OFFSIDESHOP
         protected void btnAuditLogs_Click(object sender, EventArgs e) { Response.Redirect("AdminAudit.aspx"); }
         protected override void InitializeCulture()
         {
-            if (Session["Language"] != null)
-            {
-                string lang = Session["Language"].ToString();
-                string cultureName = (lang == "es") ? "es-SV" : "en-US";
-                System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
-                ci.NumberFormat.CurrencySymbol = "$";
-                System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-                System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
-            }
+            string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+            string cultureName = (lang == "es") ? "es-SV" : "en-US";
+            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
+            ci.NumberFormat.CurrencySymbol = "$";
+            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
             base.InitializeCulture();
         }
 
