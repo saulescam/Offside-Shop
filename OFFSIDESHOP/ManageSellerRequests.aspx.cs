@@ -818,6 +818,13 @@ namespace OFFSIDESHOP
                 return;
             }
 
+            if (!IsTextAllowed(reply))
+            {
+                lblReplyModalError.Text = GetGlobalResourceObject("Strings", "Alert_Details_ForbiddenReviewText")?.ToString() ?? "The reply contains restricted terms or inappropriate language.";
+                lblReplyModalError.Visible = true;
+                return;
+            }
+
             using (MySqlConnection conn = data.ObtenerConexion())
             {
                 string query = "UPDATE product_reviews SET ReplyComment = @Reply, ReplyDate = NOW() WHERE Id_Review = @Id";
@@ -840,6 +847,31 @@ namespace OFFSIDESHOP
                         lblReplyModalError.Text = "Error saving reply: " + ex.Message;
                         lblReplyModalError.Visible = true;
                     }
+                }
+            }
+        }
+
+        private bool IsTextAllowed(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return true;
+
+            string rawText = text.Trim().ToLower();
+            string cleanedName = rawText.Replace(" ", "").Replace("\r", "").Replace("\n", "");
+
+            using (MySqlConnection conn = data.ObtenerConexion())
+            {
+                conn.Open();
+                string query = @"SELECT COUNT(*) FROM censorship 
+                                 WHERE LOWER(@RawText) LIKE CONCAT('%', LOWER(pattern), '%')
+                                    OR LOWER(@CleanedName) LIKE CONCAT('%', LOWER(pattern), '%');";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@RawText", rawText);
+                    cmd.Parameters.AddWithValue("@CleanedName", cleanedName);
+                    long count = Convert.ToInt64(cmd.ExecuteScalar());
+
+                    return count == 0;
                 }
             }
         }

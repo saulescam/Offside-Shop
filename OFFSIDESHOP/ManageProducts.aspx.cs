@@ -85,7 +85,7 @@ namespace OFFSIDESHOP
                 new MySqlDataAdapter(cmdBrands).Fill(dtBrands);
 
                 ddlFilterBrand.Items.Clear();
-                ddlFilterBrand.Items.Add(new ListItem("-- All Brands --", "0"));
+                ddlFilterBrand.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_AllBrands"), "0"));
                 foreach (DataRow row in dtBrands.Rows)
                     ddlFilterBrand.Items.Add(new ListItem(row["Name_Brand"].ToString(), row["Id_Brand"].ToString()));
 
@@ -95,7 +95,7 @@ namespace OFFSIDESHOP
                 new MySqlDataAdapter(cmdLeagues).Fill(dtLeagues);
 
                 ddlFilterLeague.Items.Clear();
-                ddlFilterLeague.Items.Add(new ListItem("-- All Leagues --", "0"));
+                ddlFilterLeague.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_AllLeagues"), "0"));
                 foreach (DataRow row in dtLeagues.Rows)
                     ddlFilterLeague.Items.Add(new ListItem(row["Name_League"].ToString(), row["Id_League"].ToString()));
 
@@ -115,7 +115,7 @@ namespace OFFSIDESHOP
                 new MySqlDataAdapter(cmdKits).Fill(dtKits);
 
                 ddlFilterKitType.Items.Clear();
-                ddlFilterKitType.Items.Add(new ListItem(currentLang == "es" ? "-- Todos los Tipos --" : "-- All Kit Types --", "0"));
+                ddlFilterKitType.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_AllKitTypes"), "0"));
                 foreach (DataRow row in dtKits.Rows)
                 {
                     ddlFilterKitType.Items.Add(new ListItem(row["Name_KitType"].ToString(), row["Id_KitType"].ToString()));
@@ -123,8 +123,8 @@ namespace OFFSIDESHOP
 
                 // Nivel de Stock
                 ddlFilterStock.Items.Clear();
-                ddlFilterStock.Items.Add(new ListItem("-- All Stock Levels --", "0"));
-                ddlFilterStock.Items.Add(new ListItem($"Low Stock Only (< {LowStockThreshold})", "1"));
+                ddlFilterStock.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_AllStockLevels"), "0"));
+                ddlFilterStock.Items.Add(new ListItem(string.Format(AlertHelper.GetResourceString(this, "Dropdown_LowStockOnly"), LowStockThreshold), "1"));
             }
 
             LoadFilterTeamsByLeague(ddlFilterLeague.SelectedValue);
@@ -133,7 +133,7 @@ namespace OFFSIDESHOP
         private void LoadFilterTeamsByLeague(string leagueId)
         {
             ddlFilterTeam.Items.Clear();
-            ddlFilterTeam.Items.Add(new ListItem("-- All Teams --", "0"));
+            ddlFilterTeam.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_AllTeams"), "0"));
 
             if (string.IsNullOrEmpty(leagueId) || leagueId == "0") return;
             if (!int.TryParse(leagueId, out int idLeague)) return;
@@ -172,7 +172,7 @@ namespace OFFSIDESHOP
                 new MySqlDataAdapter(cmdBrands).Fill(dtBrands);
 
                 ddlFormBrand.Items.Clear();
-                ddlFormBrand.Items.Add(new ListItem("-- Select Brand --", "0"));
+                ddlFormBrand.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_SelectBrand"), "0"));
                 foreach (DataRow row in dtBrands.Rows)
                     ddlFormBrand.Items.Add(new ListItem(row["Name_Brand"].ToString(), row["Id_Brand"].ToString()));
 
@@ -182,7 +182,7 @@ namespace OFFSIDESHOP
                 new MySqlDataAdapter(cmdLeagues).Fill(dtLeagues);
 
                 ddlFormLeague.Items.Clear();
-                ddlFormLeague.Items.Add(new ListItem("-- Select League --", "0"));
+                ddlFormLeague.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_SelectLeague"), "0"));
                 foreach (DataRow row in dtLeagues.Rows)
                     ddlFormLeague.Items.Add(new ListItem(row["Name_League"].ToString(), row["Id_League"].ToString()));
 
@@ -202,7 +202,7 @@ namespace OFFSIDESHOP
                 new MySqlDataAdapter(cmdKits).Fill(dtKits);
 
                 ddlFormKitType.Items.Clear();
-                ddlFormKitType.Items.Add(new ListItem(currentLang == "es" ? "-- Seleccionar Tipo de Kit --" : "-- Select Kit Type --", "0"));
+                ddlFormKitType.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_SelectKitType"), "0"));
                 foreach (DataRow row in dtKits.Rows)
                 {
                     ddlFormKitType.Items.Add(new ListItem(row["Name_KitType"].ToString(), row["Id_KitType"].ToString()));
@@ -215,7 +215,7 @@ namespace OFFSIDESHOP
         private void LoadFormTeamsByLeague(string leagueId)
         {
             ddlFormTeam.Items.Clear();
-            ddlFormTeam.Items.Add(new ListItem("-- Select Team --", "0"));
+            ddlFormTeam.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_SelectTeam"), "0"));
 
             if (string.IsNullOrEmpty(leagueId) || leagueId == "0") return;
             if (!int.TryParse(leagueId, out int idLeague)) return;
@@ -346,14 +346,20 @@ namespace OFFSIDESHOP
             Label lblStatus = (Label)e.Row.FindControl("lblStatus");
             if (lblStatus != null)
             {
+                string activeText = AlertHelper.GetResourceString(this, "Status_Active");
+                string inactiveText = AlertHelper.GetResourceString(this, "Status_Inactive");
                 lblStatus.Text = isActive
-                    ? "<span class=\"status-badge status-active\">Active</span>"
-                    : "<span class=\"status-badge status-inactive\">Inactive</span>";
+                    ? $"<span class=\"status-badge status-active\">{HttpUtility.HtmlEncode(activeText)}</span>"
+                    : $"<span class=\"status-badge status-inactive\">{HttpUtility.HtmlEncode(inactiveText)}</span>";
             }
 
             Button btnToggle = (Button)e.Row.FindControl("btnToggle");
             if (btnToggle != null)
-                btnToggle.ToolTip = isActive ? "Deactivate (set Inactive)" : "Activate (set Active)";
+            {
+                string deactivateTooltip = AlertHelper.GetResourceString(this, "Admin_Products_DeactivateTooltip");
+                string activateTooltip = AlertHelper.GetResourceString(this, "Admin_Products_ActivateTooltip");
+                btnToggle.ToolTip = isActive ? deactivateTooltip : activateTooltip;
+            }
         }
 
         protected void gvProducts_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -399,7 +405,7 @@ namespace OFFSIDESHOP
         {
             PopulateFormDropDowns();
             ClearFormPanel();
-            lblFormTitle.Text = "Add New Shirt";
+            lblFormTitle.Text = AlertHelper.GetResourceString(this, "Admin_Products_AddNew");
             pnlProductForm.Visible = true;
             LoadProducts();
         }
@@ -446,7 +452,7 @@ namespace OFFSIDESHOP
                     txtPrice.Text = Convert.ToDecimal(r["Price"]).ToString("0.00");
                     txtYear.Text = Convert.ToInt32(r["Year"]).ToString();
                     chkIsCustomizable.Checked = r["IsCustomizable"] != DBNull.Value && Convert.ToBoolean(r["IsCustomizable"]);
-                    lblCurrentImage.Text = r["ImageURL"] == DBNull.Value ? "" : "Current image: " + r["ImageURL"].ToString();
+                    lblCurrentImage.Text = r["ImageURL"] == DBNull.Value ? "" : string.Format(AlertHelper.GetResourceString(this, "Admin_Products_CurrentImage"), r["ImageURL"].ToString());
 
                     List<string> currentExtras = new List<string>();
                     for (int i = 2; i <= 5; i++)
@@ -455,7 +461,9 @@ namespace OFFSIDESHOP
                         if (r[colName] != DBNull.Value && !string.IsNullOrEmpty(r[colName].ToString()))
                             currentExtras.Add(r[colName].ToString());
                     }
-                    lblCurrentExtraImages.Text = currentExtras.Count > 0 ? "Current gallery: " + string.Join(", ", currentExtras) : "No gallery images uploaded.";
+                    lblCurrentExtraImages.Text = currentExtras.Count > 0 
+                        ? string.Format(AlertHelper.GetResourceString(this, "Admin_Products_CurrentGallery"), string.Join(", ", currentExtras)) 
+                        : AlertHelper.GetResourceString(this, "Admin_Products_NoGallery");
 
                     // Cargar Stocks por Talla
                     txtStockS.Text = "0"; txtStockM.Text = "0"; txtStockL.Text = "0"; txtStockXL.Text = "0"; txtStockXXL.Text = "0";
@@ -488,7 +496,8 @@ namespace OFFSIDESHOP
                     if (ddlFormTeam.Items.FindByValue(teamId) != null) ddlFormTeam.SelectedValue = teamId;
                     if (ddlFormKitType.Items.FindByValue(kitTypeId) != null) ddlFormKitType.SelectedValue = kitTypeId;
 
-                    lblFormTitle.Text = $"Edit Product #{productId}";
+                    string editTitlePattern = AlertHelper.GetResourceString(this, "Admin_Offers_EditBlockTitle");
+                    lblFormTitle.Text = string.Format(editTitlePattern, productId);
                     pnlProductForm.Visible = true;
                 }
 
@@ -820,7 +829,7 @@ namespace OFFSIDESHOP
             ddlFormLeague.SelectedIndex = 0;
             ddlFormKitType.SelectedIndex = 0;
             LoadFormTeamsByLeague("0");
-            lblFormTitle.Text = "Add New Shirt";
+            lblFormTitle.Text = AlertHelper.GetResourceString(this, "Admin_Products_AddNew");
 
             txtStockS.Text = "0";
             txtStockM.Text = "0";

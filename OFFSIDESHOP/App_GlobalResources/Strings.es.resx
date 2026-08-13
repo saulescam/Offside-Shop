@@ -2078,6 +2078,120 @@
 
   </data>
 
+  <data name="Admin_Dash_Title" xml:space="preserve">
+
+    <value>Panel de Control Admin</value>
+
+  </data>
+
+  <data name="Admin_Dash_ToggleTheme" xml:space="preserve">
+
+    <value>Cambiar Tema Claro/Oscuro</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderShirtName" xml:space="preserve">
+
+    <value>NOMBRE DE CAMISETA</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderSize" xml:space="preserve">
+
+    <value>TALLA</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderStockStatus" xml:space="preserve">
+
+    <value>ESTADO DE STOCK</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderTicketId" xml:space="preserve">
+
+    <value>ID TICKET</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderReason" xml:space="preserve">
+
+    <value>MOTIVO</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderSubject" xml:space="preserve">
+
+    <value>ASUNTO</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderUserEmail" xml:space="preserve">
+
+    <value>CORREO USUARIO</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderDateTime" xml:space="preserve">
+
+    <value>FECHA/HORA</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderOperator" xml:space="preserve">
+
+    <value>OPERADOR</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderModule" xml:space="preserve">
+
+    <value>MÓDULO</value>
+
+  </data>
+
+  <data name="Admin_Dash_HeaderDescription" xml:space="preserve">
+
+    <value>DESCRIPCIÓN</value>
+
+  </data>
+
+  <data name="Admin_Orders_HeaderOrderId" xml:space="preserve">
+
+    <value>ID PEDIDO</value>
+
+  </data>
+
+  <data name="Admin_Orders_HeaderFirstName" xml:space="preserve">
+
+    <value>NOMBRE</value>
+
+  </data>
+
+  <data name="Admin_Orders_HeaderLastName" xml:space="preserve">
+
+    <value>APELLIDO</value>
+
+  </data>
+
+  <data name="Admin_Orders_HeaderCity" xml:space="preserve">
+
+    <value>CIUDAD</value>
+
+  </data>
+
+  <data name="Admin_Orders_HeaderTotal" xml:space="preserve">
+
+    <value>TOTAL</value>
+
+  </data>
+
+  <data name="Admin_Orders_HeaderStatus" xml:space="preserve">
+
+    <value>ESTADO</value>
+
+  </data>
+
   <data name="Admin_Users_Title" xml:space="preserve">
 
     <value>Gestión de Usuarios y Roles</value>
@@ -5546,6 +5660,12 @@
 
   </data>
 
+  <data name="Alert_Details_ForbiddenReviewText" xml:space="preserve">
+
+    <value>El comentario de la reseña contiene términos restringidos o lenguaje inapropiado. Por favor modifique su comentario.</value>
+
+  </data>
+
   <data name="Alert_Details_LimitReachedTitle" xml:space="preserve">
 
     <value>Límite Alcanzado</value>
@@ -6036,6 +6156,273 @@
 
     <value>Tu pedido ha sido verificado con éxito a través de Virtual Wallet.</value>
 
+  </data>
+
+  <data name="Dropdown_AllBrands" xml:space="preserve">
+    <value>-- Todas las Marcas --</value>
+  </data>
+
+  <data name="Dropdown_AllLeagues" xml:space="preserve">
+    <value>-- Todas las Ligas --</value>
+  </data>
+
+  <data name="Dropdown_AllTeams" xml:space="preserve">
+    <value>-- Todos los Equipos --</value>
+  </data>
+
+  <data name="Dropdown_AllKitTypes" xml:space="preserve">
+    <value>-- Todos los Tipos --</value>
+  </data>
+
+  <data name="Dropdown_AllStockLevels" xml:space="preserve">
+    <value>-- Todos los Niveles de Stock --</value>
+  </data>
+
+  <data name="Dropdown_LowStockOnly" xml:space="preserve">
+    <value>Solo Stock Bajo (&lt; {0})</value>
+  </data>
+
+  <data name="Dropdown_SelectBrand" xml:space="preserve">
+    <value>-- Seleccionar Marca --</value>
+  </data>
+
+  <data name="Dropdown_SelectLeague" xml:space="preserve">
+    <value>-- Seleccionar Liga --</value>
+  </data>
+
+  <data name="Dropdown_SelectTeam" xml:space="preserve">
+    <value>-- Seleccionar Equipo --</value>
+  </data>
+
+  <data name="Dropdown_SelectKitType" xml:space="preserve">
+    <value>-- Seleccionar Tipo de Kit --</value>
+  </data>
+
+  <data name="Status_Depleted" xml:space="preserve">
+    <value>Agotado</value>
+  </data>
+
+  <data name="Status_Active" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+
+  <data name="Status_Inactive" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
+
+  <data name="Status_Expired" xml:space="preserve">
+    <value>Expirado</value>
+  </data>
+
+  <data name="Status_Suspended" xml:space="preserve">
+    <value>Suspendido</value>
+  </data>
+
+  <data name="Status_Available" xml:space="preserve">
+    <value>Disponible</value>
+  </data>
+
+  <data name="Status_OnOffer" xml:space="preserve">
+    <value>En Oferta</value>
+  </data>
+
+  <data name="Status_LowStock" xml:space="preserve">
+    <value>STOCK BAJO</value>
+  </data>
+
+  <data name="Admin_Products_SubTitle" xml:space="preserve">
+    <value>Administrar catálogo de camisetas, inventario por talla y traducciones multilingües</value>
+  </data>
+
+  <data name="Admin_Products_EnglishTab" xml:space="preserve">
+    <value>Inglés (Predeterminado)</value>
+  </data>
+
+  <data name="Admin_Products_SpanishTab" xml:space="preserve">
+    <value>Español</value>
+  </data>
+
+  <data name="Admin_Products_PrimaryEnglishInfo" xml:space="preserve">
+    <value>Información Principal en Inglés</value>
+  </data>
+
+  <data name="Admin_Products_SpanishInfo" xml:space="preserve">
+    <value>Información en Español</value>
+  </data>
+
+  <data name="Admin_Products_UniversalSpecs" xml:space="preserve">
+    <value>Especificaciones Universales del Producto</value>
+  </data>
+
+  <data name="Admin_Products_StockPerSize" xml:space="preserve">
+    <value>Stock por Talla</value>
+  </data>
+
+  <data name="Admin_Products_StockPerSizeHelp" xml:space="preserve">
+    <value>Defina las unidades de inventario disponibles para cada talla.</value>
+  </data>
+
+  <data name="Admin_Products_MainImageDrag" xml:space="preserve">
+    <value>Arrastra y suelta la imagen principal aquí o haz clic para explorar</value>
+  </data>
+
+  <data name="Admin_Products_GalleryImageDrag" xml:space="preserve">
+    <value>Arrastra y suelta hasta 4 imágenes aquí o haz clic para explorar</value>
+  </data>
+
+  <data name="Admin_Products_GalleryImageHelp" xml:space="preserve">
+    <value>Opcional: Suba hasta 4 imágenes de galería adicionales.</value>
+  </data>
+
+  <data name="Admin_Products_AllShirtsHeader" xml:space="preserve">
+    <value>Todas las Camisetas</value>
+  </data>
+
+  <data name="Admin_Coupons_GenCodeTooltip" xml:space="preserve">
+    <value>Generar Código Aleatorio de 12 Caracteres</value>
+  </data>
+
+  <data name="Admin_Offers_EditBlockTitle" xml:space="preserve">
+    <value>Editar Oferta #{0}</value>
+  </data>
+
+  <data name="Driver_CallTooltip" xml:space="preserve">
+    <value>Llamar al Cliente</value>
+  </data>
+
+  <data name="Driver_WhatsappTooltip" xml:space="preserve">
+    <value>Enviar WhatsApp al Cliente</value>
+  </data>
+
+  <data name="Driver_DefaultName" xml:space="preserve">
+    <value>Repartidor</value>
+  </data>
+
+  <data name="Driver_WhatsappGreeting" xml:space="preserve">
+    <value>Hola {0}, soy tu repartidor de OffsideShop con tu pedido #{1}.</value>
+  </data>
+
+  <data name="Admin_Offers_OfferTooltip" xml:space="preserve">
+    <value>En oferta en: {0}</value>
+  </data>
+
+  <data name="Admin_Offers_ShirtInOfferTooltip" xml:space="preserve">
+    <value>Esta camiseta ya está incluida en una oferta activa ({0}).</value>
+  </data>
+
+  <data name="Admin_Products_ActivateTooltip" xml:space="preserve">
+    <value>Activar (establecer Activo)</value>
+  </data>
+
+  <data name="Admin_Products_DeactivateTooltip" xml:space="preserve">
+    <value>Desactivar (establecer Inactivo)</value>
+  </data>
+
+  <data name="Admin_Products_CurrentImage" xml:space="preserve">
+    <value>Imagen actual: {0}</value>
+  </data>
+
+  <data name="Admin_Products_CurrentGallery" xml:space="preserve">
+    <value>Galería actual: {0}</value>
+  </data>
+
+  <data name="Admin_Products_NoGallery" xml:space="preserve">
+    <value>Sin imágenes de galería subidas.</value>
+  </data>
+
+  <data name="Admin_Coupons_StatusDepleted" xml:space="preserve">
+    <value>Agotado</value>
+  </data>
+
+  <data name="Admin_Products_Title" xml:space="preserve">
+    <value>Administrar Productos</value>
+  </data>
+  <data name="Admin_Products_AddNew" xml:space="preserve">
+    <value>Agregar Nueva Camiseta</value>
+  </data>
+  <data name="Admin_Products_ShirtNameEn" xml:space="preserve">
+    <value>Nombre de Camiseta (EN)</value>
+  </data>
+  <data name="Admin_Products_ShirtNameEs" xml:space="preserve">
+    <value>Nombre de Camiseta (ES)</value>
+  </data>
+  <data name="Admin_Products_DescEn" xml:space="preserve">
+    <value>Descripción (EN)</value>
+  </data>
+  <data name="Admin_Products_DescEs" xml:space="preserve">
+    <value>Descripción (ES)</value>
+  </data>
+  <data name="Admin_Products_Optional" xml:space="preserve">
+    <value>opcional</value>
+  </data>
+  <data name="Admin_Products_GenerateWithAi" xml:space="preserve">
+    <value>Generar con IA</value>
+  </data>
+  <data name="Admin_Products_PriceUsd" xml:space="preserve">
+    <value>Precio (USD)</value>
+  </data>
+  <data name="Admin_Products_ProductImageLabel" xml:space="preserve">
+    <value>Imagen del Producto</value>
+  </data>
+  <data name="Admin_Products_GalleryImagesLabel" xml:space="preserve">
+    <value>Imágenes de Galería</value>
+  </data>
+  <data name="Admin_Products_StockLevel" xml:space="preserve">
+    <value>Nivel de Stock</value>
+  </data>
+  <data name="Admin_Products_SearchByName" xml:space="preserve">
+    <value>Buscar por Nombre</value>
+  </data>
+  <data name="Admin_Products_Clear" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="Admin_Products_HeaderId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Admin_Products_HeaderShirtNameEn" xml:space="preserve">
+    <value>Nombre (EN)</value>
+  </data>
+  <data name="Admin_Products_HeaderShirtNameEs" xml:space="preserve">
+    <value>Nombre (ES)</value>
+  </data>
+  <data name="Admin_Products_HeaderPrice" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="Admin_Products_HeaderStatus" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Admin_Products_HeaderActions" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="Admin_Products_EmptyGrid" xml:space="preserve">
+    <value>No se encontraron camisetas que coincidan con los filtros actuales.</value>
+  </data>
+  <data name="Admin_Products_LowStockBadge" xml:space="preserve">
+    <value>STOCK BAJO</value>
+  </data>
+  <data name="Admin_Products_AttachedReady" xml:space="preserve">
+    <value>{0} imagen(es) adjuntada(s) lista(s) para subir</value>
+  </data>
+  <data name="Admin_Products_AiGenTitle" xml:space="preserve">
+    <value>Generando Descripción...</value>
+  </data>
+  <data name="Admin_Products_AiGenText" xml:space="preserve">
+    <value>La IA está redactando una descripción del producto. Por favor espere...</value>
+  </data>
+  <data name="Admin_Products_AiSuccess" xml:space="preserve">
+    <value>¡Descripción generada con éxito!</value>
+  </data>
+  <data name="Admin_Products_TranslateSuccess" xml:space="preserve">
+    <value>¡Traducido con éxito!</value>
+  </data>
+  <data name="Alert_Products_AiMissingInfo" xml:space="preserve">
+    <value>Por favor ingrese al menos Nombre, Marca y Equipo antes de generar la descripción.</value>
+  </data>
+  <data name="Alert_Products_AiErrorTitle" xml:space="preserve">
+    <value>Error de IA</value>
+  </data>
+  <data name="Alert_Products_AiConnectError" xml:space="preserve">
+    <value>No se pudo comunicar con el servicio de IA.</value>
   </data>
 
 </root>

@@ -46,18 +46,21 @@ namespace OFFSIDESHOP
                 {
                     // Bind administrator details
                     lblAdminName.Text = Session["Admin"] != null ? Session["Admin"].ToString() : "Admin";
+                    bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
                     if (role == 2)
                     {
                         phAdminPermissions.Visible = true;
                         List<string> permissions = new List<string>();
-                        if (Security.HasPermission(Session, "Perm_Products")) permissions.Add("Products");
-                        if (Security.HasPermission(Session, "Perm_Orders")) permissions.Add("Orders");
-                        if (Security.HasPermission(Session, "Perm_Offers")) permissions.Add("Offers");
-                        if (Security.HasPermission(Session, "Perm_Coupons")) permissions.Add("Coupons");
-                        if (Security.HasPermission(Session, "Perm_Banners")) permissions.Add("Banners");
-                        if (Security.HasPermission(Session, "Perm_Tickets")) permissions.Add("Tickets");
+                        if (Security.HasPermission(Session, "Perm_Products")) permissions.Add(isSpanish ? "Productos" : "Products");
+                        if (Security.HasPermission(Session, "Perm_Orders")) permissions.Add(isSpanish ? "Pedidos" : "Orders");
+                        if (Security.HasPermission(Session, "Perm_Offers")) permissions.Add(isSpanish ? "Ofertas" : "Offers");
+                        if (Security.HasPermission(Session, "Perm_Coupons")) permissions.Add(isSpanish ? "Cupones" : "Coupons");
+                        if (Security.HasPermission(Session, "Perm_Banners")) permissions.Add(isSpanish ? "Banners" : "Banners");
+                        if (Security.HasPermission(Session, "Perm_Tickets")) permissions.Add(isSpanish ? "Tickets" : "Tickets");
 
-                        lblAdminPermissions.Text = "You have permissions for: " + (permissions.Count > 0 ? string.Join(", ", permissions) : "None");
+                        string prefix = isSpanish ? "Tienes permisos para: " : "You have permissions for: ";
+                        string noneStr = isSpanish ? "Ninguno" : "None";
+                        lblAdminPermissions.Text = prefix + (permissions.Count > 0 ? string.Join(", ", permissions) : noneStr);
                     }
                     else
                     {
@@ -180,29 +183,38 @@ namespace OFFSIDESHOP
                     }
 
                     // 9. Camiseta Más Vendida (Tabla: order_details, Columnas: ProductName, Quantity)
+                    bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
                     string queryTopShirt = @"
-                        SELECT ProductName 
-                        FROM order_details 
-                        GROUP BY ProductName 
-                        ORDER BY SUM(Quantity) DESC 
+                        SELECT 
+                            CASE 
+                                WHEN @Lang = 'es' AND tt.Name IS NOT NULL AND tt.Name != '' THEN tt.Name 
+                                ELSE od.ProductName 
+                            END AS TopShirtName
+                        FROM order_details od
+                        LEFT JOIN tshirts t ON od.ProductName = t.Name
+                        LEFT JOIN tshirt_translations tt ON t.ID = tt.Id_Tshirt AND tt.LanguageCode = 'es'
+                        GROUP BY od.ProductName, TopShirtName
+                        ORDER BY SUM(od.Quantity) DESC 
                         LIMIT 1;";
 
                     using (MySqlCommand cmdTopShirt = new MySqlCommand(queryTopShirt, con))
                     {
+                        cmdTopShirt.Parameters.AddWithValue("@Lang", isSpanish ? "es" : "en");
                         object result = cmdTopShirt.ExecuteScalar();
-                        if (result != null && result != DBNull.Value)
+                        if (result != null && result != DBNull.Value && !string.IsNullOrWhiteSpace(result.ToString()))
                         {
                             lblTopShirt.Text = result.ToString();
                         }
                         else
                         {
-                            lblTopShirt.Text = "None yet";
+                            lblTopShirt.Text = isSpanish ? "Ninguno aún" : "None yet";
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
                 // Respaldo seguro para evitar caídas de interfaz
                 lblUserCount.Text = "0";
                 lblShirtCount.Text = "0";
@@ -212,7 +224,7 @@ namespace OFFSIDESHOP
                 lblPurchasesLast7Days.Text = "0";
                 lblPendingOrders.Text = "0";
                 lblTotalOrders.Text = "0";
-                lblTopShirt.Text = "Error loading";
+                lblTopShirt.Text = isSpanish ? "Error al cargar" : "Error loading";
 
                 System.Diagnostics.Debug.WriteLine("Error crítico en estadísticas del Dashboard: " + ex.Message);
             }
@@ -323,13 +335,17 @@ namespace OFFSIDESHOP
         {
             try
             {
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                string shirtNameCol = isSpanish ? "COALESCE(tt.Name, t.Name)" : "t.Name";
+
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
-                    string query = @"
-                        SELECT t.Name AS ShirtName, s.Size_Code AS SizeName, v.Stock
+                    string query = $@"
+                        SELECT {shirtNameCol} AS ShirtName, s.Size_Code AS SizeName, v.Stock
                         FROM tshirt_variants v
                         INNER JOIN tshirts t ON v.Id_Tshirt = t.ID
+                        LEFT JOIN tshirt_translations tt ON t.ID = tt.Id_Tshirt AND tt.LanguageCode = 'es'
                         INNER JOIN sizes s ON v.Id_Size = s.Id_Size
                         WHERE v.Stock <= 2
                         ORDER BY v.Stock ASC;";
@@ -360,7 +376,7 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
                     string query = @"
-                        SELECT t.Id_Ticket, r.Reason_Name, t.Subject, t.User_Email
+                        SELECT t.Id_Ticket, r.Id_ContactReason, r.Reason_Name, t.Subject, t.User_Email
                         FROM contact_tickets t
                         INNER JOIN contact_reasons r ON t.Id_ContactReason = r.Id_ContactReason
                         WHERE t.Status = 1
@@ -373,6 +389,17 @@ namespace OFFSIDESHOP
                         {
                             da.Fill(dt);
                         }
+
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            string key = "Reason_" + dr["Id_ContactReason"];
+                            string locName = AlertHelper.GetResourceString(this, key);
+                            if (!string.IsNullOrEmpty(locName) && !locName.StartsWith("[Resource"))
+                            {
+                                dr["Reason_Name"] = locName;
+                            }
+                        }
+
                         gvPendingTickets.DataSource = dt;
                         gvPendingTickets.DataBind();
                     }

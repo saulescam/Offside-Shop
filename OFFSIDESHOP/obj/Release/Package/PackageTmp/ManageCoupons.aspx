@@ -5,7 +5,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Manage Coupons | OffsideShop</title>
+    <title><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Coupons_Title %>" /> | OffsideShop</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,600,700&display=swap" rel="stylesheet" />

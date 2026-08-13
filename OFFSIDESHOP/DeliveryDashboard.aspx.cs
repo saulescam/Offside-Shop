@@ -78,28 +78,26 @@ namespace OFFSIDESHOP
             if (Session["Id_User"] != null)
             {
                 int driverId = Convert.ToInt32(Session["Id_User"]);
-                string query = "SELECT Name, Mail FROM users WHERE Id_User = @Id";
-
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                try
                 {
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    using (MySqlConnection con = new MySqlConnection(connectionString))
                     {
+                        con.Open();
+                        MySqlCommand cmd = new MySqlCommand("SELECT Name, Surname, Mail FROM users WHERE Id_User = @Id", con);
                         cmd.Parameters.AddWithValue("@Id", driverId);
-                        try
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            conn.Open();
-                            MySqlDataReader reader = cmd.ExecuteReader();
                             if (reader.Read())
                             {
-                                if (lblDriverName != null) lblDriverName.Text = reader["Name"].ToString();
+                                if (lblDriverName != null) lblDriverName.Text = $"{reader["Name"]} {reader["Surname"]}".Trim();
                                 if (lblDriverEmail != null) lblDriverEmail.Text = reader["Mail"].ToString();
                             }
                         }
-                        catch (Exception)
-                        {
-                            if (lblDriverName != null) lblDriverName.Text = "Driver";
-                        }
                     }
+                }
+                catch (Exception)
+                {
+                    if (lblDriverName != null) lblDriverName.Text = GetGlobalResourceObject("Strings", "Driver_DefaultName")?.ToString() ?? "Driver";
                 }
             }
         }
@@ -294,7 +292,8 @@ namespace OFFSIDESHOP
 
                         // Configuración de botones de contacto
                         btnCallClient.HRef = "tel:" + phone;
-                        btnWhatsappClient.HRef = $"https://wa.me/503{phone}?text=" + HttpUtility.UrlEncode($"Hola {clientName}, soy tu repartidor de OffsideShop con tu pedido #{orderId}.");
+                        string greetingPattern = GetGlobalResourceObject("Strings", "Driver_WhatsappGreeting")?.ToString() ?? "Hola {0}, soy tu repartidor de OffsideShop con tu pedido #{1}.";
+                        btnWhatsappClient.HRef = $"https://wa.me/503{phone}?text=" + HttpUtility.UrlEncode(string.Format(greetingPattern, clientName, orderId));
 
                         // Configuración de botones GPS externos
                         if (!string.IsNullOrEmpty(lat) && !string.IsNullOrEmpty(lng))

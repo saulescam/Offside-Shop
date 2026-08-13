@@ -13,7 +13,8 @@ namespace OFFSIDESHOP
         {
             if (!IsPostBack)
             {
-                rptCarousel.DataSource = AuthCarousel.GetActiveSlides();
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+                rptCarousel.DataSource = AuthCarousel.GetActiveSlides(currentLang);
                 rptCarousel.DataBind();
             }
         }
@@ -32,12 +33,10 @@ namespace OFFSIDESHOP
                 {
                     string inputUser = txtcuenta.Text.Trim();
 
-                    // Modificación: Usamos la connectionString centralizada del Web.config
                     using (MySqlConnection conexion = new MySqlConnection(connectionString))
                     {
                         conexion.Open();
 
-                        // Seguridad: Cambiado a consulta parametrizada para evitar SQL Injection
                         string queryUser = "SELECT Name_User FROM users WHERE Name_User = @Input OR Mail = @Input;";
                         string actualUsername = "";
 
@@ -50,24 +49,23 @@ namespace OFFSIDESHOP
 
                         if (string.IsNullOrEmpty(actualUsername))
                         {
-                            alertas.Text = AlertHelper.GetAlertScript(this, "Alert_Login_WrongTitle", "Alert_Recover_UserNotFound", "error");
+                            // CAMBIO AQUI: Usar el Literal 'alertas'
+                            string scriptNotFound = AlertHelper.GetSafeAlertScript(this, "Alert_Login_WrongTitle", "Alert_Recover_UserNotFound", "error");
+                            alertas.Text = scriptNotFound;
                             return;
                         }
 
                         ForgetGlobalPassword.ValorGlobal = actualUsername;
 
-                        // Segmento para generar un número aleatorio de 6 dígitos
                         Random rand = new Random();
                         string randomCode = rand.Next(100000, 999999).ToString();
                         string eventName = "ev_reset_" + actualUsername.Replace("@", "_").Replace(".", "_").Replace(" ", "_");
 
-                        // Limpiar evento anterior si existe para este usuario
                         using (MySqlCommand dropEvento = new MySqlCommand($"DROP EVENT IF EXISTS {eventName}", conexion))
                         {
                             dropEvento.ExecuteNonQuery();
                         }
 
-                        // Actualizar el token del usuario
                         using (MySqlCommand comando = new MySqlCommand("UPDATE users SET Token = @token WHERE Name_User = @user", conexion))
                         {
                             comando.Parameters.AddWithValue("@token", randomCode);
@@ -75,7 +73,6 @@ namespace OFFSIDESHOP
                             comando.ExecuteNonQuery();
                         }
 
-                        // Crear evento para borrar el token después de 2 minutos
                         string createEventQuery = $"CREATE EVENT {eventName} ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 2 MINUTE DO UPDATE users SET Token = NULL WHERE Name_User = @user";
                         using (MySqlCommand evento = new MySqlCommand(createEventQuery, conexion))
                         {
@@ -83,7 +80,6 @@ namespace OFFSIDESHOP
                             evento.ExecuteNonQuery();
                         }
 
-                        // Consultas optimizadas usando parámetros
                         string mail = "";
                         string nombrecliente = "";
 
@@ -101,23 +97,27 @@ namespace OFFSIDESHOP
                             }
                         }
 
-                        // ──────────────────────────────────────────────────────────────
-                        // LLAMADA A LA NUEVA CLASE DINÁMICA DE EMAIL
-                        // ──────────────────────────────────────────────────────────────
                         EmailService.SendPasswordRecoveryToken(mail, nombrecliente, randomCode);
                     }
 
-                    alertas.Text = AlertHelper.GetRedirectAlertScript(this, "Alert_Recover_SentTitle", "Alert_Recover_EmailSent", "success", 3000, "Token.aspx");
+                    // CAMBIO AQUI: Usar el Literal 'alertas'
+                    string scriptSent = AlertHelper.GetRedirectAlertScript(this, "Alert_Recover_SentTitle", "Alert_Recover_EmailSent", "success", 3000, "Token.aspx");
+                    alertas.Text = scriptSent;
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine("Error en recuperación: " + ex.Message);
-                    alertas.Text = AlertHelper.GetAlertScript(this, "Alert_Login_WrongTitle", "Alert_Recover_ErrorProcessing", "error");
+
+                    // CAMBIO AQUI: Usar el Literal 'alertas'
+                    string scriptErr = AlertHelper.GetSafeAlertScript(this, "Alert_Login_WrongTitle", "Alert_Recover_ErrorProcessing", "error");
+                    alertas.Text = scriptErr;
                 }
             }
             else
             {
-                alertas.Text = AlertHelper.Error(this, "Alert_Login_BlankSpaces");
+                // CAMBIO AQUI: Usar el Literal 'alertas'
+                string scriptBlank = AlertHelper.GetSafeAlertScript(this, "Alert_Login_OopsTitle", "Alert_Login_BlankSpaces", "error");
+                alertas.Text = scriptBlank;
             }
         }
 

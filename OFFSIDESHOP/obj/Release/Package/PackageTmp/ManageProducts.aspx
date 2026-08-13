@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Manage Products | OffsideShop</title>
+    <title><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Title %>" /> | OffsideShop</title>
 
     <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -418,20 +418,20 @@
                 <div class="container-fluid">
 
                     <h1 class="page-title"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageProducts %>" /></h1>
-                    <p class="text-muted mb-4">Add, edit, toggle visibility, or permanently delete jersey products in multiple languages.</p>
+                    <p class="text-muted mb-4"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SubTitle %>" /></p>
 
                     <!-- ACTION FORM PANEL -->
                     <asp:Panel ID="pnlProductForm" runat="server" Visible="false" CssClass="form-panel">
                         <asp:HiddenField ID="hfSelectedProductId" runat="server" Value="" />
-                        <h4><asp:Label ID="lblFormTitle" runat="server" Text="Add New Shirt"></asp:Label></h4>
+                        <h4><asp:Label ID="lblFormTitle" runat="server" Text="<%$ Resources:Strings, Admin_Products_AddNew %>"></asp:Label></h4>
 
                         <!-- SUB-TABS IDIOMAS PARA PRODUCTO -->
                         <ul class="nav nav-tabs sub-nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="prod-en-tab" data-toggle="tab" href="#prod-en" role="tab"><i class="fas fa-globe-americas me-1"></i> English (Default)</a>
+                                <a class="nav-link active" id="prod-en-tab" data-toggle="tab" href="#prod-en" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_EnglishTab %>" /></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="prod-es-tab" data-toggle="tab" href="#prod-es" role="tab"><i class="fas fa-globe-americas me-1"></i> Spanish (Español)</a>
+                                <a class="nav-link" id="prod-es-tab" data-toggle="tab" href="#prod-es" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishTab %>" /></a>
                             </li>
                         </ul>
 
@@ -439,7 +439,7 @@
                             <!-- ENGLISH TRANSLATABLE FIELDS -->
                             <div class="tab-pane active" id="prod-en" role="tabpanel">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-warning font-weight-bold">Primary English Information</small>
+                                    <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_PrimaryEnglishInfo %>" /></small>
                                     <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtName', 'txtDescription'], ['txtName_ES', 'txtDescription_ES'])">
                                         <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEs %>" />
                                     </button>
@@ -465,7 +465,7 @@
                             <!-- SPANISH TRANSLATABLE FIELDS -->
                             <div class="tab-pane" id="prod-es" role="tabpanel">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-warning font-weight-bold">Información en Español</small>
+                                    <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishInfo %>" /></small>
                                     <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtName_ES', 'txtDescription_ES'], ['txtName', 'txtDescription'])">
                                         <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEn %>" />
                                     </button>
@@ -482,7 +482,7 @@
                         </div>
 
                         <!-- UNIVERSAL FIELDS -->
-                        <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> Universal Product Specifications</h6>
+                        <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_UniversalSpecs %>" /></h6>
 
                         <!-- Row 1: Price & Year -->
                         <div class="row">
@@ -535,7 +535,7 @@
                         <!-- Row 3: Stock per Size -->
                         <div class="row">
                             <div class="col-12">
-                                <label class="d-block mb-2" style="color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">Stock per Size <small class="text-muted">(enter 0 to skip a size)</small></label>
+                                <label class="d-block mb-2" style="color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockPerSize %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockPerSizeHelp %>" />)</small></label>
                             </div>
                             <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">S</label><asp:TextBox ID="txtStockS" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
                             <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">M</label><asp:TextBox ID="txtStockM" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
@@ -551,7 +551,7 @@
                                     <label>Product Image <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
                                     <div class="drop-zone" id="dzMainImage">
                                         <i class="fas fa-cloud-upload-alt"></i>
-                                        <p id="lblMainImageText">Drag & Drop main image here or click to browse</p>
+                                        <p id="lblMainImageText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_MainImageDrag %>" /></p>
                                         <asp:FileUpload ID="fileImagen" ClientIDMode="Static" runat="server" accept="image/png, image/jpeg, image/jpg, image/webp" />
                                     </div>
                                     <asp:Label ID="lblCurrentImage" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
@@ -563,10 +563,10 @@
                                     <label>Gallery Images <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
                                     <div class="drop-zone" id="dzGalleryImages">
                                         <i class="fas fa-images"></i>
-                                        <p id="lblGalleryImagesText">Drag & Drop up to 4 images here or click to browse</p>
+                                        <p id="lblGalleryImagesText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageDrag %>" /></p>
                                         <asp:FileUpload ID="fuExtraImages" ClientIDMode="Static" runat="server" AllowMultiple="true" accept="image/png, image/jpeg, image/jpg, image/webp" />
                                     </div>
-                                    <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 4px;">Optional: Upload up to 4 extra gallery images.</span>
+                                    <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageHelp %>" /></span>
                                     <asp:Label ID="lblCurrentExtraImages" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
 
                                     <!-- CONTENEDOR PARA PREVISUALIZAR IMÁGENES DE GALERÍA -->
@@ -639,7 +639,7 @@
 
                     <!-- GRID SECTION HEADER -->
                     <div class="section-header">
-                        <h3><i class="fas fa-tshirt mr-2" style="color: #3b82f6;"></i>All Shirts</h3>
+                        <h3><i class="fas fa-tshirt mr-2" style="color: #3b82f6;"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_AllShirtsHeader %>" /></h3>
                         <asp:LinkButton ID="lbAddNew" runat="server" CssClass="btn-add-new" CausesValidation="false" OnClick="lbAddNew_Click">
                             <i class="fas fa-plus mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_AddNew %>" />
                         </asp:LinkButton>

@@ -62,7 +62,7 @@ namespace OFFSIDESHOP
                 DataTable dtBrands = new DataTable();
                 new MySqlDataAdapter(cmdBrands).Fill(dtBrands);
                 ddlShirtBrand.Items.Clear();
-                ddlShirtBrand.Items.Add(new ListItem("-- All Brands --", "0"));
+                ddlShirtBrand.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_AllBrands"), "0"));
                 foreach (DataRow row in dtBrands.Rows)
                     ddlShirtBrand.Items.Add(new ListItem(row["Name_Brand"].ToString(), row["Id_Brand"].ToString()));
 
@@ -70,7 +70,7 @@ namespace OFFSIDESHOP
                 DataTable dtLeagues = new DataTable();
                 new MySqlDataAdapter(cmdLeagues).Fill(dtLeagues);
                 ddlShirtLeague.Items.Clear();
-                ddlShirtLeague.Items.Add(new ListItem("-- All Leagues --", "0"));
+                ddlShirtLeague.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_AllLeagues"), "0"));
                 foreach (DataRow row in dtLeagues.Rows)
                     ddlShirtLeague.Items.Add(new ListItem(row["Name_League"].ToString(), row["Id_League"].ToString()));
             }
@@ -80,7 +80,7 @@ namespace OFFSIDESHOP
         private void LoadTeamsByLeague(string leagueId)
         {
             ddlShirtTeam.Items.Clear();
-            ddlShirtTeam.Items.Add(new ListItem("-- All Teams --", "0"));
+            ddlShirtTeam.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Dropdown_AllTeams"), "0"));
 
             if (string.IsNullOrEmpty(leagueId) || leagueId == "0") return;
 
@@ -212,7 +212,8 @@ namespace OFFSIDESHOP
 
                 if (existingCount > 0)
                 {
-                    string offerName = drv["ExistingOfferName"] != DBNull.Value ? drv["ExistingOfferName"].ToString() : "Active Offer";
+                    string activeStatusText = AlertHelper.GetResourceString(this, "Status_Active");
+                    string offerName = drv["ExistingOfferName"] != DBNull.Value ? drv["ExistingOfferName"].ToString() : activeStatusText;
                     if (chk != null)
                     {
                         chk.Checked = false;
@@ -220,9 +221,13 @@ namespace OFFSIDESHOP
                     }
                     if (lblStatus != null)
                     {
-                        lblStatus.Text = $"<span class=\"badge bg-warning text-dark font-weight-bold\" title=\"En oferta en: {HttpUtility.HtmlEncode(offerName)}\"><i class=\"fas fa-tag mr-1\"></i>En Oferta</span>";
+                        string onOfferText = AlertHelper.GetResourceString(this, "Status_OnOffer");
+                        string tooltipPattern = AlertHelper.GetResourceString(this, "Admin_Offers_OfferTooltip");
+                        string tooltip = string.Format(tooltipPattern, offerName);
+                        lblStatus.Text = $"<span class=\"badge bg-warning text-dark font-weight-bold\" title=\"{HttpUtility.HtmlEncode(tooltip)}\"><i class=\"fas fa-tag mr-1\"></i>{HttpUtility.HtmlEncode(onOfferText)}</span>";
                     }
-                    e.Row.ToolTip = $"Esta camiseta ya está incluida en una oferta activa ({offerName}).";
+                    string shirtOfferTooltipPattern = AlertHelper.GetResourceString(this, "Admin_Offers_ShirtInOfferTooltip");
+                    e.Row.ToolTip = string.Format(shirtOfferTooltipPattern, offerName);
                 }
                 else
                 {
@@ -232,7 +237,8 @@ namespace OFFSIDESHOP
                     }
                     if (lblStatus != null)
                     {
-                        lblStatus.Text = "<span class=\"badge bg-secondary text-light\" style=\"font-size:0.75rem; opacity:0.7;\">Disponible</span>";
+                        string availableText = AlertHelper.GetResourceString(this, "Status_Available");
+                        lblStatus.Text = $"<span class=\"badge bg-secondary text-light\" style=\"font-size:0.75rem; opacity:0.7;\">{HttpUtility.HtmlEncode(availableText)}</span>";
                     }
                 }
             }
@@ -473,7 +479,8 @@ namespace OFFSIDESHOP
                 }
 
                 Session["SelectedShirtIds"] = connectedShirts;
-                lblFormTitle.Text = $"Edit Promotional Context Block #{offerId}";
+                string editTitlePattern = AlertHelper.GetResourceString(this, "Admin_Offers_EditBlockTitle");
+                lblFormTitle.Text = string.Format(editTitlePattern, offerId);
                 pnlOfferForm.Visible = true;
                 LoadShirtsSelection();
             }
@@ -538,13 +545,16 @@ namespace OFFSIDESHOP
             {
                 if (isExpired)
                 {
-                    lblStatus.Text = "<span class=\"status-badge bg-secondary text-light\">Expired</span>";
+                    string expiredText = AlertHelper.GetResourceString(this, "Status_Expired");
+                    lblStatus.Text = $"<span class=\"status-badge bg-secondary text-light\">{HttpUtility.HtmlEncode(expiredText)}</span>";
                 }
                 else
                 {
+                    string activeText = AlertHelper.GetResourceString(this, "Status_Active");
+                    string suspendedText = AlertHelper.GetResourceString(this, "Status_Suspended");
                     lblStatus.Text = isActive
-                        ? "<span class=\"status-badge status-active\">Active</span>"
-                        : "<span class=\"status-badge status-inactive\">Suspended</span>";
+                        ? $"<span class=\"status-badge status-active\">{HttpUtility.HtmlEncode(activeText)}</span>"
+                        : $"<span class=\"status-badge status-inactive\">{HttpUtility.HtmlEncode(suspendedText)}</span>";
                 }
             }
         }

@@ -447,10 +447,10 @@
                                             </p>
                                         </div>
                                         <div class="d-flex gap-2 align-items-center">
-                                            <a id="btnCallClient" runat="server" href="#" class="call-btn" title="Call Customer">
+                                            <a id="btnCallClient" runat="server" href="#" class="call-btn" title="<%$ Resources:Strings, Driver_CallTooltip %>">
                                                 <i class="fas fa-phone-alt"></i>
                                             </a>
-                                            <a id="btnWhatsappClient" runat="server" href="#" target="_blank" class="call-btn whatsapp-btn" title="WhatsApp Customer">
+                                            <a id="btnWhatsappClient" runat="server" href="#" target="_blank" class="call-btn whatsapp-btn" title="<%$ Resources:Strings, Driver_WhatsappTooltip %>">
                                                 <i class="fab fa-whatsapp"></i>
                                             </a>
                                         </div>

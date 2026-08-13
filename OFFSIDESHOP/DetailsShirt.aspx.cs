@@ -1087,6 +1087,12 @@ namespace OFFSIDESHOP
                 return;
             }
 
+            if (!IsCustomNameAllowed(comment))
+            {
+                TriggerAlert("Alert_Details_AttentionTitle", "Alert_Details_ForbiddenReviewText", "warning");
+                return;
+            }
+
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -1174,6 +1180,12 @@ namespace OFFSIDESHOP
                     return;
                 }
 
+                if (!IsCustomNameAllowed(replyText))
+                {
+                    TriggerAlert("Alert_Details_AttentionTitle", "Alert_Details_ForbiddenReviewText", "warning");
+                    return;
+                }
+
                 try
                 {
                     using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -1211,21 +1223,24 @@ namespace OFFSIDESHOP
         {
             if (string.IsNullOrWhiteSpace(customName)) return true;
 
-            // Quitar espacios y pasar a minúsculas
-            string cleanedName = customName.Trim().ToLower().Replace(" ", "");
+            string rawText = customName.Trim().ToLower();
+            string cleanedName = rawText.Replace(" ", "").Replace("\r", "").Replace("\n", "");
 
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
-                // Usamos LOWER() en MySQL para asegurar que la comparación sea case-insensitive
-                string query = "SELECT COUNT(*) FROM censorship WHERE LOWER(@CleanedName) LIKE CONCAT('%', LOWER(pattern), '%');";
+                // Verificamos si el texto original o sin espacios contiene algún patrón censurado
+                string query = @"SELECT COUNT(*) FROM censorship 
+                                 WHERE LOWER(@RawText) LIKE CONCAT('%', LOWER(pattern), '%')
+                                    OR LOWER(@CleanedName) LIKE CONCAT('%', LOWER(pattern), '%');";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
+                    cmd.Parameters.AddWithValue("@RawText", rawText);
                     cmd.Parameters.AddWithValue("@CleanedName", cleanedName);
                     long count = Convert.ToInt64(cmd.ExecuteScalar());
 
-                    return count == 0; // Si es 0, el nombre ES PERMITIDO
+                    return count == 0; // Si es 0, el contenido ES PERMITIDO
                 }
             }
         }

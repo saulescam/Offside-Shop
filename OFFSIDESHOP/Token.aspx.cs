@@ -14,7 +14,8 @@ namespace OFFSIDESHOP
         {
             if (!IsPostBack)
             {
-                rptCarousel.DataSource = AuthCarousel.GetActiveSlides();
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+                rptCarousel.DataSource = AuthCarousel.GetActiveSlides(currentLang);
                 rptCarousel.DataBind();
             }
 

@@ -189,15 +189,18 @@ namespace OFFSIDESHOP
 
                 if (used >= max)
                 {
-                    lblStatus.Text = "<span class='status-badge status-depleted'><i class='fas fa-ban mr-1'></i> Depleted</span>";
+                    string depletedText = AlertHelper.GetResourceString(this, "Status_Depleted");
+                    lblStatus.Text = $"<span class='status-badge status-depleted'><i class='fas fa-ban mr-1'></i> {HttpUtility.HtmlEncode(depletedText)}</span>";
                 }
                 else if (isActive)
                 {
-                    lblStatus.Text = "<span class='status-badge status-active'><i class='fas fa-check mr-1'></i> Active</span>";
+                    string activeText = AlertHelper.GetResourceString(this, "Status_Active");
+                    lblStatus.Text = $"<span class='status-badge status-active'><i class='fas fa-check mr-1'></i> {HttpUtility.HtmlEncode(activeText)}</span>";
                 }
                 else
                 {
-                    lblStatus.Text = "<span class='status-badge status-inactive'><i class='fas fa-times mr-1'></i> Inactive</span>";
+                    string inactiveText = AlertHelper.GetResourceString(this, "Status_Inactive");
+                    lblStatus.Text = $"<span class='status-badge status-inactive'><i class='fas fa-times mr-1'></i> {HttpUtility.HtmlEncode(inactiveText)}</span>";
                 }
             }
         }

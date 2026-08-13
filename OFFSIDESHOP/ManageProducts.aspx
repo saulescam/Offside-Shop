@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Manage Products | OffsideShop</title>
+    <title><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Title %>" /> | OffsideShop</title>
 
     <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -418,20 +418,20 @@
                 <div class="container-fluid">
 
                     <h1 class="page-title"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageProducts %>" /></h1>
-                    <p class="text-muted mb-4">Add, edit, toggle visibility, or permanently delete jersey products in multiple languages.</p>
+                    <p class="text-muted mb-4"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SubTitle %>" /></p>
 
                     <!-- ACTION FORM PANEL -->
                     <asp:Panel ID="pnlProductForm" runat="server" Visible="false" CssClass="form-panel">
                         <asp:HiddenField ID="hfSelectedProductId" runat="server" Value="" />
-                        <h4><asp:Label ID="lblFormTitle" runat="server" Text="Add New Shirt"></asp:Label></h4>
+                        <h4><asp:Label ID="lblFormTitle" runat="server" Text="<%$ Resources:Strings, Admin_Products_AddNew %>"></asp:Label></h4>
 
                         <!-- SUB-TABS IDIOMAS PARA PRODUCTO -->
                         <ul class="nav nav-tabs sub-nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="prod-en-tab" data-toggle="tab" href="#prod-en" role="tab"><i class="fas fa-globe-americas me-1"></i> English (Default)</a>
+                                <a class="nav-link active" id="prod-en-tab" data-toggle="tab" href="#prod-en" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_EnglishTab %>" /></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="prod-es-tab" data-toggle="tab" href="#prod-es" role="tab"><i class="fas fa-globe-americas me-1"></i> Spanish (Español)</a>
+                                <a class="nav-link" id="prod-es-tab" data-toggle="tab" href="#prod-es" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishTab %>" /></a>
                             </li>
                         </ul>
 
@@ -439,23 +439,23 @@
                             <!-- ENGLISH TRANSLATABLE FIELDS -->
                             <div class="tab-pane active" id="prod-en" role="tabpanel">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-warning font-weight-bold">Primary English Information</small>
+                                    <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_PrimaryEnglishInfo %>" /></small>
                                     <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtName', 'txtDescription'], ['txtName_ES', 'txtDescription_ES'])">
                                         <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEs %>" />
                                     </button>
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label>Shirt Name (EN) <span class="text-danger">*</span></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ShirtNameEn %>" /> <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtName" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. FC Barcelona Home 2024" MaxLength="200"></asp:TextBox>
                                 </div>
                                 <div class="form-group mb-0">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <label class="mb-0">Description (EN) <small class="text-muted">(optional)</small></label>
+                                        <label class="mb-0"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_DescEn %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Optional %>" />)</small></label>
                                         <!-- BOTÓN DE IA CLIENTE (SIN POSTBACK) -->
                                         <button type="button" id="btnAiGen" class="btn btn-sm"
                                             style="background: linear-gradient(135deg, #FFC800, #d97706); color: #fff; font-weight: 700; border: none; border-radius: 6px; padding: 2px 10px; font-size: 0.78rem;"
                                             onclick="generateAiDescription(); return false;">
-                                            <i class="fas fa-magic mr-1"></i> Generate with AI
+                                            <i class="fas fa-magic mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GenerateWithAi %>" />
                                         </button>
                                     </div>
                                     <asp:TextBox ID="txtDescription" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Short product description in English..."></asp:TextBox>
@@ -465,30 +465,30 @@
                             <!-- SPANISH TRANSLATABLE FIELDS -->
                             <div class="tab-pane" id="prod-es" role="tabpanel">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-warning font-weight-bold">Información en Español</small>
+                                    <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishInfo %>" /></small>
                                     <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtName_ES', 'txtDescription_ES'], ['txtName', 'txtDescription'])">
                                         <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEn %>" />
                                     </button>
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label>Nombre de Camiseta (ES) <span class="text-danger">*</span></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ShirtNameEs %>" /> <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtName_ES" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="ej. Camiseta Local FC Barcelona 2024" MaxLength="200"></asp:TextBox>
                                 </div>
                                 <div class="form-group mb-0">
-                                    <label>Descripción (ES) <small class="text-muted">(opcional)</small></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_DescEs %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Optional %>" />)</small></label>
                                     <asp:TextBox ID="txtDescription_ES" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Descripción en español..."></asp:TextBox>
                                 </div>
                             </div>
                         </div>
 
                         <!-- UNIVERSAL FIELDS -->
-                        <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> Universal Product Specifications</h6>
+                        <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_UniversalSpecs %>" /></h6>
 
                         <!-- Row 1: Price & Year -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Price (USD) <span class="text-danger">*</span></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_PriceUsd %>" /> <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtPrice" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. 89.99" MaxLength="10" onkeypress="return validarPrecio(event, this)" onpaste="return false"></asp:TextBox>
                                 </div>
                             </div>
@@ -535,7 +535,7 @@
                         <!-- Row 3: Stock per Size -->
                         <div class="row">
                             <div class="col-12">
-                                <label class="d-block mb-2" style="color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">Stock per Size <small class="text-muted">(enter 0 to skip a size)</small></label>
+                                <label class="d-block mb-2" style="color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockPerSize %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockPerSizeHelp %>" />)</small></label>
                             </div>
                             <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">S</label><asp:TextBox ID="txtStockS" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
                             <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">M</label><asp:TextBox ID="txtStockM" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
@@ -548,10 +548,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Product Image <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ProductImageLabel %>" /> <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
                                     <div class="drop-zone" id="dzMainImage">
                                         <i class="fas fa-cloud-upload-alt"></i>
-                                        <p id="lblMainImageText">Drag & Drop main image here or click to browse</p>
+                                        <p id="lblMainImageText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_MainImageDrag %>" /></p>
                                         <asp:FileUpload ID="fileImagen" ClientIDMode="Static" runat="server" accept="image/png, image/jpeg, image/jpg, image/webp" />
                                     </div>
                                     <asp:Label ID="lblCurrentImage" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
@@ -560,13 +560,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Gallery Images <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImagesLabel %>" /> <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
                                     <div class="drop-zone" id="dzGalleryImages">
                                         <i class="fas fa-images"></i>
-                                        <p id="lblGalleryImagesText">Drag & Drop up to 4 images here or click to browse</p>
+                                        <p id="lblGalleryImagesText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageDrag %>" /></p>
                                         <asp:FileUpload ID="fuExtraImages" ClientIDMode="Static" runat="server" AllowMultiple="true" accept="image/png, image/jpeg, image/jpg, image/webp" />
                                     </div>
-                                    <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 4px;">Optional: Upload up to 4 extra gallery images.</span>
+                                    <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageHelp %>" /></span>
                                     <asp:Label ID="lblCurrentExtraImages" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
 
                                     <!-- CONTENEDOR PARA PREVISUALIZAR IMÁGENES DE GALERÍA -->
@@ -621,25 +621,23 @@
                                 <asp:DropDownList ID="ddlFilterKitType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filters_Changed"></asp:DropDownList>
                             </div>
                             <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
-                                <label>Stock Level</label>
+                                <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockLevel %>" /></label>
                                 <asp:DropDownList ID="ddlFilterStock" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filters_Changed">
-                                    <asp:ListItem Text="-- All Stock --" Value="0"></asp:ListItem>
-                                    <asp:ListItem Text="Low Stock (< 5)" Value="1"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
-                                <label>Search by Name</label>
+                                <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SearchByName %>" /></label>
                                 <asp:TextBox ID="txtSearchName" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Placeholder_SearchShirt %>" AutoPostBack="true" OnTextChanged="Filters_Changed"></asp:TextBox>
                             </div>
                             <div class="col-md-1 col-sm-6 text-right">
-                                <asp:LinkButton ID="lbClearFilters" runat="server" CssClass="text-muted" Style="font-size: 0.8rem; text-decoration: underline; display: block; margin-top: 20px;" CausesValidation="false" OnClick="lbClearFilters_Click">Clear</asp:LinkButton>
+                                <asp:LinkButton ID="lbClearFilters" runat="server" CssClass="text-muted" Style="font-size: 0.8rem; text-decoration: underline; display: block; margin-top: 20px;" CausesValidation="false" OnClick="lbClearFilters_Click"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Clear %>" /></asp:LinkButton>
                             </div>
                         </div>
                     </div>
 
                     <!-- GRID SECTION HEADER -->
                     <div class="section-header">
-                        <h3><i class="fas fa-tshirt mr-2" style="color: #3b82f6;"></i>All Shirts</h3>
+                        <h3><i class="fas fa-tshirt mr-2" style="color: #3b82f6;"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_AllShirtsHeader %>" /></h3>
                         <asp:LinkButton ID="lbAddNew" runat="server" CssClass="btn-add-new" CausesValidation="false" OnClick="lbAddNew_Click">
                             <i class="fas fa-plus mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_AddNew %>" />
                         </asp:LinkButton>
@@ -647,30 +645,30 @@
 
                     <!-- PRODUCTS GRIDVIEW -->
                     <div class="table-responsive">
-                        <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="ID" AllowPaging="true" PageSize="24" OnRowCommand="gvProducts_RowCommand" OnRowDataBound="gvProducts_RowDataBound" OnPageIndexChanging="gvProducts_PageIndexChanging" EmptyDataText="No shirts found matching the current filters.">
+                        <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="ID" AllowPaging="true" PageSize="24" OnRowCommand="gvProducts_RowCommand" OnRowDataBound="gvProducts_RowDataBound" OnPageIndexChanging="gvProducts_PageIndexChanging" EmptyDataText="<%$ Resources:Strings, Admin_Products_EmptyGrid %>">
                             <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
                             <Columns>
-                                <asp:BoundField DataField="ID" HeaderText="ID" ItemStyle-Width="50px" />
-                                <asp:TemplateField HeaderText="Shirt Name (EN)" ItemStyle-HorizontalAlign="Left">
+                                <asp:BoundField DataField="ID" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderId %>" ItemStyle-Width="50px" />
+                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderShirtNameEn %>" ItemStyle-HorizontalAlign="Left">
                                     <ItemTemplate>
                                         <asp:PlaceHolder ID="phLowStockBadge" runat="server" Visible='<%# Convert.ToInt32(Eval("TotalStock")) < 5 %>'>
                                             <span class="badge bg-danger text-white me-1" style="font-size: 0.75rem; padding: 2px 6px;" title="Low Stock Alert">
-                                                <i class="fas fa-exclamation-triangle"></i> LOW STOCK (<%# Eval("TotalStock") %>)
+                                                <i class="fas fa-exclamation-triangle"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_LowStockBadge %>" /> (<%# Eval("TotalStock") %>)
                                             </span>
                                         </asp:PlaceHolder>
                                         <span class="fw-bold text-white"><%# Eval("Name") %></span>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="Name_ES" HeaderText="Nombre (ES)" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
-                                <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:N2}" HtmlEncode="false" />
-                                <asp:BoundField DataField="Year" HeaderText="Year" />
-                                <asp:BoundField DataField="BrandName" HeaderText="Brand" />
-                                <asp:BoundField DataField="TeamName" HeaderText="Team" />
-                                <asp:BoundField DataField="KitTypeName" HeaderText="Kit Type" />
-                                <asp:TemplateField HeaderText="Status">
+                                <asp:BoundField DataField="Name_ES" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderShirtNameEs %>" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
+                                <asp:BoundField DataField="Price" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderPrice %>" DataFormatString="{0:N2}" HtmlEncode="false" />
+                                <asp:BoundField DataField="Year" HeaderText="<%$ Resources:Strings, Detail_Year %>" />
+                                <asp:BoundField DataField="BrandName" HeaderText="<%$ Resources:Strings, Search_BrandLabel %>" />
+                                <asp:BoundField DataField="TeamName" HeaderText="<%$ Resources:Strings, Sidebar_Team %>" />
+                                <asp:BoundField DataField="KitTypeName" HeaderText="<%$ Resources:Strings, Search_KitLabel %>" />
+                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderStatus %>">
                                     <ItemTemplate><asp:Label ID="lblStatus" runat="server"></asp:Label></ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Actions" ItemStyle-Width="140px">
+                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderActions %>" ItemStyle-Width="140px">
                                     <ItemTemplate>
                                         <asp:Button ID="btnEdit" runat="server" CssClass="btn-action btn-edit" CommandName="EditProduct" CommandArgument='<%# Eval("ID") %>' Text="&#xf044;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
                                         <asp:Button ID="btnToggle" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleStatus" CommandArgument='<%# Eval("ID") %>' Text="&#xf06e;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
@@ -727,7 +725,7 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             });
-                            Toast.fire({ icon: 'success', title: 'Translated successfully!' });
+                            Toast.fire({ icon: 'success', title: '<%= GetGlobalResourceObject("Strings", "Admin_Products_TranslateSuccess") %>' });
                         }
                     })
                     .catch(function (err) {
@@ -749,13 +747,13 @@
             let kitType = (kitElem && kitElem.selectedIndex > 0) ? kitElem.options[kitElem.selectedIndex].text : 'Jersey';
 
             if (!name || brandElem.value === "0" || teamElem.value === "0") {
-                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfoTitle") %>', 'Please enter at least Name, Brand, and Team before generating the description.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfoTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_AiMissingInfo") %>', 'warning');
                 return;
             }
 
             Swal.fire({
-                title: 'Generating Description...',
-                text: 'AI is crafting a compelling product description. Please wait...',
+                title: '<%= GetGlobalResourceObject("Strings", "Admin_Products_AiGenTitle") %>',
+                text: '<%= GetGlobalResourceObject("Strings", "Admin_Products_AiGenText") %>',
                 allowOutsideClick: false,
                 didOpen: () => { Swal.showLoading(); }
             });
@@ -775,7 +773,7 @@
                 success: function (response) {
                     Swal.close();
                     if (response.d && response.d.indexOf("ERROR:") === 0) {
-                        Swal.fire('AI Error', response.d, 'error');
+                        Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Products_AiErrorTitle") %>', response.d, 'error');
                     } else if (response.d) {
                         document.getElementById('txtDescription').value = response.d;
                         const Toast = Swal.mixin({
@@ -784,12 +782,12 @@
                             showConfirmButton: false,
                             timer: 2500
                         });
-                        Toast.fire({ icon: 'success', title: 'Description generated successfully!' });
+                        Toast.fire({ icon: 'success', title: '<%= GetGlobalResourceObject("Strings", "Admin_Products_AiSuccess") %>' });
                     }
                 },
                 error: function (xhr, status, error) {
                     Swal.close();
-                    Swal.fire('Error', 'Failed to communicate with AI service.', 'error');
+                    Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_AiConnectError") %>', 'error');
                 }
             });
         }
@@ -941,7 +939,7 @@
                             reader.readAsDataURL(files[i]);
                         }
                     }
-                    textLabel.innerText = `${limit} image(s) attached ready for upload`;
+                    textLabel.innerText = '<%= GetGlobalResourceObject("Strings", "Admin_Products_AttachedReady") %>'.replace('{0}', limit);
                     textLabel.style.color = "#1a7a4a";
                 } else {
                     dataTransfer.items.add(files[0]);
