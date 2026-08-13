@@ -31,7 +31,72 @@ namespace OFFSIDESHOP
 
             if (!IsPostBack)
             {
+                LocalizeDropdowns();
                 LoadUsers();
+            }
+        }
+
+        private void LocalizeDropdowns()
+        {
+            string selFilterRole = ddlFilterRole.SelectedValue;
+            ddlFilterRole.Items.Clear();
+            ddlFilterRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Admin_Users_AllRoles"), "0"));
+            ddlFilterRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Owner"), "1"));
+            ddlFilterRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Admin"), "2"));
+            ddlFilterRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Customer"), "3"));
+            ddlFilterRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Delivery"), "4"));
+            if (!string.IsNullOrEmpty(selFilterRole) && ddlFilterRole.Items.FindByValue(selFilterRole) != null)
+            {
+                ddlFilterRole.SelectedValue = selFilterRole;
+            }
+
+            string selDeliveryStatus = ddlFilterDeliveryStatus.SelectedValue;
+            ddlFilterDeliveryStatus.Items.Clear();
+            ddlFilterDeliveryStatus.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Admin_Users_AllDeliveryStatuses"), "ALL"));
+            ddlFilterDeliveryStatus.Items.Add(new ListItem("🟢 " + AlertHelper.GetResourceString(this, "Admin_Users_StatusAvailable"), "AVAILABLE"));
+            ddlFilterDeliveryStatus.Items.Add(new ListItem("🔵 " + AlertHelper.GetResourceString(this, "Admin_Users_StatusDelivering"), "DELIVERING"));
+            ddlFilterDeliveryStatus.Items.Add(new ListItem("⚪ " + AlertHelper.GetResourceString(this, "Admin_Users_StatusOffDuty"), "OFFDUTY"));
+            if (!string.IsNullOrEmpty(selDeliveryStatus) && ddlFilterDeliveryStatus.Items.FindByValue(selDeliveryStatus) != null)
+            {
+                ddlFilterDeliveryStatus.SelectedValue = selDeliveryStatus;
+            }
+
+            string selNewRole = ddlNewRole.SelectedValue;
+            ddlNewRole.Items.Clear();
+            ddlNewRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Customer"), "3"));
+            ddlNewRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Admin"), "2"));
+            ddlNewRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Delivery"), "4"));
+            if (!string.IsNullOrEmpty(selNewRole) && ddlNewRole.Items.FindByValue(selNewRole) != null)
+            {
+                ddlNewRole.SelectedValue = selNewRole;
+            }
+
+            string selEditRole = ddlEditRole.SelectedValue;
+            ddlEditRole.Items.Clear();
+            ddlEditRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Customer"), "3"));
+            ddlEditRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Admin"), "2"));
+            ddlEditRole.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Role_Delivery"), "4"));
+            if (!string.IsNullOrEmpty(selEditRole) && ddlEditRole.Items.FindByValue(selEditRole) != null)
+            {
+                ddlEditRole.SelectedValue = selEditRole;
+            }
+        }
+
+        protected string GetLocalizedRoleName(object idRoleObj, object roleNameObj)
+        {
+            int idRole = 0;
+            if (idRoleObj != null && idRoleObj != DBNull.Value)
+            {
+                int.TryParse(idRoleObj.ToString(), out idRole);
+            }
+
+            switch (idRole)
+            {
+                case 1: return AlertHelper.GetResourceString(this, "Role_Owner");
+                case 2: return AlertHelper.GetResourceString(this, "Role_Admin");
+                case 3: return AlertHelper.GetResourceString(this, "Role_Customer");
+                case 4: return AlertHelper.GetResourceString(this, "Role_Delivery");
+                default: return roleNameObj != null ? roleNameObj.ToString() : "";
             }
         }
 
@@ -163,7 +228,11 @@ namespace OFFSIDESHOP
                 if (btnEdit != null) btnEdit.Visible = false;
                 if (btnPermissions != null) btnPermissions.Visible = false;
                 if (btnDelete != null) btnDelete.Visible = false;
-                if (lblOwnerProtect != null) lblOwnerProtect.Visible = true;
+                if (lblOwnerProtect != null)
+                {
+                    lblOwnerProtect.Text = $"<span class='text-muted'><i class='fas fa-crown'></i> {AlertHelper.GetResourceString(this, "Role_Owner")}</span>";
+                    lblOwnerProtect.Visible = true;
+                }
             }
             else
             {

@@ -233,6 +233,21 @@ namespace OFFSIDESHOP
 
                     int idStatus = 0;
                     int idPaymentMethod = 0;
+                    DateTime orderDate = DateTime.MinValue;
+                    string shippingAddress = "";
+                    decimal totalAmount = 0;
+                    string customerPhone = "";
+                    string customerName = "";
+                    string orderNotes = "";
+                    decimal shippingCost = 0;
+                    string lat = "";
+                    string lng = "";
+                    string city = "";
+                    string municipality = "";
+                    string district = "";
+                    string orderStatus = "";
+                    string paymentMethod = "";
+                    bool hasOrder = false;
 
                     using (MySqlCommand cmdMaster = new MySqlCommand(queryMaster, conn))
                     {
@@ -241,75 +256,119 @@ namespace OFFSIDESHOP
                         {
                             if (reader.Read())
                             {
+                                hasOrder = true;
                                 idStatus = reader["Id_Status"] != DBNull.Value ? Convert.ToInt32(reader["Id_Status"]) : 0;
                                 idPaymentMethod = reader["Id_PaymentMethod"] != DBNull.Value ? Convert.ToInt32(reader["Id_PaymentMethod"]) : 0;
 
-                                ViewState["IdStatus"] = idStatus;
-                                ViewState["IdPaymentMethod"] = idPaymentMethod;
+                                if (reader["order_date"] != DBNull.Value) orderDate = Convert.ToDateTime(reader["order_date"]);
+                                shippingAddress = reader["shipping_address"] != DBNull.Value ? reader["shipping_address"].ToString() : "";
+                                if (reader["total_amount"] != DBNull.Value) totalAmount = Convert.ToDecimal(reader["total_amount"]);
+                                customerPhone = reader["customer_phone"] != DBNull.Value ? reader["customer_phone"].ToString() : "";
+                                customerName = reader["customer_name"] != DBNull.Value ? reader["customer_name"].ToString() : "";
+                                orderNotes = reader["order_notes"] != DBNull.Value ? reader["order_notes"].ToString() : "";
+                                if (reader["shipping_cost"] != DBNull.Value) shippingCost = Convert.ToDecimal(reader["shipping_cost"]);
 
-                                // --- CÃ“DIGO NUEVO: LLENAR LOS HIDDEN FIELDS PARA EL MAPA ---
-                                hfTrackOrderId.Value = idOrder.ToString();
+                                lat = reader["Latitude"] != DBNull.Value ? reader["Latitude"].ToString() : "";
+                                lng = reader["Longitude"] != DBNull.Value ? reader["Longitude"].ToString() : "";
 
-                                if (reader["Latitude"] != DBNull.Value && reader["Longitude"] != DBNull.Value)
-                                {
-                                    hfOrderLat.Value = reader["Latitude"].ToString();
-                                    hfOrderLng.Value = reader["Longitude"].ToString();
-                                }
-
-                                // LÃ“GICA DE INTERFAZ DE ESTADOS 
-                                UpdateStatusUI(idStatus);
-
-                                lblOrderDate.Text = Convert.ToDateTime(reader["order_date"]).ToString("dd/MM/yyyy");
-                                lblStatusBadge.Text = GetLocalizedStatusName(idStatus, reader["order_status"] != DBNull.Value ? reader["order_status"].ToString() : "Pending");
-
-                                lblCustomerName.Text = reader["customer_name"].ToString();
-                                lblPhone.Text = (reader["customer_phone"] != DBNull.Value && reader["customer_phone"].ToString() != "") ? reader["customer_phone"].ToString() : "N/A";
-                                lblAddress.Text = reader["shipping_address"].ToString();
-
-                                lblCity.Text = reader["city"] != DBNull.Value ? reader["city"].ToString() : "N/A";
-                                lblMunicipality.Text = reader["municipality"] != DBNull.Value ? reader["municipality"].ToString() : "N/A";
-                                lblDistrict.Text = reader["district"] != DBNull.Value ? reader["district"].ToString() : "N/A";
-
-                                bool issSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
-                                if (idPaymentMethod == 1)
-                                {
-                                    lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayCash")?.ToString() ?? "Cash on Delivery";
-                                }
-                                else if (idPaymentMethod == 2)
-                                {
-                                    lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayPaypal")?.ToString() ?? "PayPal";
-                                }
-                                else if (idPaymentMethod == 3)
-                                {
-                                    lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayWallet")?.ToString() ?? "Virtual Wallet";
-                                }
-                                else
-                                {
-                                    lblPaymentMethod.Text = reader["payment_method"] != DBNull.Value ? reader["payment_method"].ToString() : "Not Specified";
-                                }
-
-                                if (idPaymentMethod == 2) // PayPal
-                                {
-                                    phPayPal.Visible = true;
-                                    lblTransactionId.Text = "PP-" + idOrder.ToString().PadLeft(6, '0');
-                                }
-                                else
-                                {
-                                    phPayPal.Visible = false;
-                                }
-
-                                string notes = reader["order_notes"] != DBNull.Value ? reader["order_notes"].ToString().Trim() : "";
-                                lblNotes.Text = notes != "" ? notes : (GetGlobalResourceObject("Strings", "OrderDetail_NoNotes")?.ToString() ?? "No notes provided.");
-
-                                decimal orderTotal = Convert.ToDecimal(reader["total_amount"]);
-                                decimal shippingCost = Convert.ToDecimal(reader["shipping_cost"]);
-
-                                lblShippingCost.Text = shippingCost == 0 ? (issSpanish ? "GRATIS" : "FREE") : "$" + shippingCost.ToString("F2");
-                                lblItemsSubtotal.Text = (orderTotal - shippingCost).ToString("F2");
-                                lblOrderTotal.Text = orderTotal.ToString("F2");
+                                city = reader["city"] != DBNull.Value ? reader["city"].ToString() : "";
+                                municipality = reader["municipality"] != DBNull.Value ? reader["municipality"].ToString() : "";
+                                district = reader["district"] != DBNull.Value ? reader["district"].ToString() : "";
+                                orderStatus = reader["order_status"] != DBNull.Value ? reader["order_status"].ToString() : "Pending";
+                                paymentMethod = reader["payment_method"] != DBNull.Value ? reader["payment_method"].ToString() : "";
                             }
                         }
                     }
+
+                    if (!hasOrder) return;
+
+                    ViewState["IdStatus"] = idStatus;
+                    ViewState["IdPaymentMethod"] = idPaymentMethod;
+                    hfTrackOrderId.Value = idOrder.ToString();
+
+                    if (!string.IsNullOrEmpty(lat) && !string.IsNullOrEmpty(lng))
+                    {
+                        hfOrderLat.Value = lat;
+                        hfOrderLng.Value = lng;
+                    }
+
+                    string reasonTitle = "";
+                    string reasonText = "";
+                    try
+                    {
+                        string queryReason = @"
+                            SELECT CASE WHEN @Lang = 'es' THEN COALESCE(rc.Reason_Title_es, rc.Reason_Title) ELSE rc.Reason_Title END AS Reason_Title,
+                                   r.Reason_Text
+                            FROM order_reasons r
+                            LEFT JOIN reason_catalog rc ON r.Id_CatalogReason = rc.Id_CatalogReason
+                            WHERE r.Id_Order = @IdOrder
+                            ORDER BY r.Created_At DESC LIMIT 1;";
+                        using (MySqlCommand cmdReason = new MySqlCommand(queryReason, conn))
+                        {
+                            cmdReason.Parameters.AddWithValue("@Lang", isSpanish ? "es" : "en");
+                            cmdReason.Parameters.AddWithValue("@IdOrder", idOrder);
+                            using (MySqlDataReader rReader = cmdReason.ExecuteReader())
+                            {
+                                if (rReader.Read())
+                                {
+                                    reasonTitle = rReader["Reason_Title"] != DBNull.Value ? rReader["Reason_Title"].ToString() : "";
+                                    reasonText = rReader["Reason_Text"] != DBNull.Value ? rReader["Reason_Text"].ToString() : "";
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Error loading reason title: " + ex.Message);
+                    }
+
+                    // LÓGICA DE INTERFAZ DE ESTADOS 
+                    UpdateStatusUI(idStatus, reasonTitle);
+
+                    lblOrderDate.Text = orderDate != DateTime.MinValue ? orderDate.ToString("dd/MM/yyyy") : "";
+                    lblStatusBadge.Text = GetLocalizedStatusName(idStatus, orderStatus);
+
+                    lblCustomerName.Text = customerName;
+                    lblPhone.Text = !string.IsNullOrEmpty(customerPhone) ? customerPhone : "N/A";
+                    lblAddress.Text = shippingAddress;
+
+                    lblCity.Text = !string.IsNullOrEmpty(city) ? city : "N/A";
+                    lblMunicipality.Text = !string.IsNullOrEmpty(municipality) ? municipality : "N/A";
+                    lblDistrict.Text = !string.IsNullOrEmpty(district) ? district : "N/A";
+
+                    if (idPaymentMethod == 1)
+                    {
+                        lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayCash")?.ToString() ?? "Cash on Delivery";
+                    }
+                    else if (idPaymentMethod == 2)
+                    {
+                        lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayPaypal")?.ToString() ?? "PayPal";
+                    }
+                    else if (idPaymentMethod == 3)
+                    {
+                        lblPaymentMethod.Text = GetGlobalResourceObject("Strings", "Checkout_PayWallet")?.ToString() ?? "Virtual Wallet";
+                    }
+                    else
+                    {
+                        lblPaymentMethod.Text = !string.IsNullOrEmpty(paymentMethod) ? paymentMethod : "Not Specified";
+                    }
+
+                    if (idPaymentMethod == 2) // PayPal
+                    {
+                        phPayPal.Visible = true;
+                        lblTransactionId.Text = "PP-" + idOrder.ToString().PadLeft(6, '0');
+                    }
+                    else
+                    {
+                        phPayPal.Visible = false;
+                    }
+
+                    string notes = orderNotes.Trim();
+                    lblNotes.Text = notes != "" ? notes : (GetGlobalResourceObject("Strings", "OrderDetail_NoNotes")?.ToString() ?? "No notes provided.");
+
+                    lblShippingCost.Text = shippingCost == 0 ? (isSpanish ? "GRATIS" : "FREE") : "$" + shippingCost.ToString("F2");
+                    lblItemsSubtotal.Text = (totalAmount - shippingCost).ToString("F2");
+                    lblOrderTotal.Text = totalAmount.ToString("F2");
 
                     using (MySqlCommand cmdDetails = new MySqlCommand(queryDetails, conn))
                     {
@@ -333,7 +392,7 @@ namespace OFFSIDESHOP
             }
         }
 
-        private void UpdateStatusUI(int idStatus)
+        private void UpdateStatusUI(int idStatus, string reasonTitle = "")
         {
             statusAlertBox.Attributes["class"] = "alert d-flex align-items-center mb-0";
             trackerButtonContainer.Visible = false;
@@ -384,7 +443,7 @@ namespace OFFSIDESHOP
                     statusIcon.Attributes["class"] = "fas fa-times-circle fa-2x me-3 text-danger";
                     statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Cancelled_Title");
                     statusTitle.Style["color"] = "#b91c1c";
-                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Cancelled_Desc");
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Cancelled_Desc") + (!string.IsNullOrEmpty(reasonTitle) ? $" ({reasonTitle})" : "");
                     statusDescription.Style["color"] = "#991b1b";
                     break;
                 case 6: // Refund Requested
@@ -394,7 +453,7 @@ namespace OFFSIDESHOP
                     statusIcon.Style["color"] = "#ea580c";
                     statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundReq_Title");
                     statusTitle.Style["color"] = "#c2410c";
-                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundReq_Desc");
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundReq_Desc") + (!string.IsNullOrEmpty(reasonTitle) ? $" ({reasonTitle})" : "");
                     statusDescription.Style["color"] = "#9a3412";
                     break;
                 case 7: // Refunded
@@ -403,7 +462,7 @@ namespace OFFSIDESHOP
                     statusIcon.Attributes["class"] = "fas fa-hand-holding-usd fa-2x me-3 text-success";
                     statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Refunded_Title");
                     statusTitle.Style["color"] = "#047857";
-                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Refunded_Desc");
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_Refunded_Desc") + (!string.IsNullOrEmpty(reasonTitle) ? $" ({reasonTitle})" : "");
                     statusDescription.Style["color"] = "#065f46";
                     break;
                 case 8: // Refund Rejected
@@ -412,7 +471,7 @@ namespace OFFSIDESHOP
                     statusIcon.Attributes["class"] = "fas fa-exclamation-circle fa-2x me-3 text-danger";
                     statusTitle.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundDeclined_Title");
                     statusTitle.Style["color"] = "#b91c1c";
-                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundDeclined_Desc");
+                    statusDescription.InnerText = AlertHelper.GetResourceString(this, "OrderStatus_RefundDeclined_Desc") + (!string.IsNullOrEmpty(reasonTitle) ? $" ({reasonTitle})" : "");
                     statusDescription.Style["color"] = "#991b1b";
                     break;
                 case 9: // Ready for Pickup (El cliente lo ve como Empaquetado)
@@ -469,7 +528,10 @@ namespace OFFSIDESHOP
         {
             ddlReasons.Items.Clear();
 
-            string query = "SELECT Id_CatalogReason, Reason_Title FROM reason_catalog WHERE Action_Type = @ActionType ORDER BY Id_CatalogReason ASC;";
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+            string reasonColumn = isSpanish ? "COALESCE(Reason_Title_es, Reason_Title) AS Reason_Title" : "Reason_Title";
+
+            string query = $"SELECT Id_CatalogReason, {reasonColumn} FROM reason_catalog WHERE Action_Type = @ActionType ORDER BY Id_CatalogReason ASC;";
 
             using (MySqlConnection conn = data.ObtenerConexion())
             {

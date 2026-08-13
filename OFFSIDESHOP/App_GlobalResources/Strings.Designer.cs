@@ -7414,6 +7414,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ask for jerseys, sizes....
+        /// </summary>
+        internal static string ChatBot_HI {
+            get {
+                return ResourceManager.GetString("ChatBot_HI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Address.
         /// </summary>
         internal static string Checkout_Address {
@@ -9556,7 +9565,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Consign / Sell a Retro Shirt.
+        ///   Busca una cadena traducida similar a Returns &amp; Exchanges.
         /// </summary>
         internal static string Reason_2 {
             get {
@@ -9565,7 +9574,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Returns &amp; Exchanges.
+        ///   Busca una cadena traducida similar a Consign / Sell a Retro Shirt.
         /// </summary>
         internal static string Reason_3 {
             get {

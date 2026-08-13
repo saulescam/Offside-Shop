@@ -3363,4 +3363,215 @@
 	<data name="Admin_Banners_PhTitleES" xml:space="preserve">
     <value>ej. Herencia de la Copa Mundial</value>
   </data>
+	<data name="ChatBot_HI" xml:space="preserve">
+    <value> Hola, soy tu asistente virtual de OFFSIDE SHOP. ¿Cómo puedo ayudarte a encontrar la camiseta de tus sueños hoy?</value>
+  </data>
+	<data name="ChatBot_HI" xml:space="preserve">
+    <value>Pregunta por camisetas, tallas...</value>
+  </data>
+	<data name="Admin_Banners_PrimaryEn" xml:space="preserve">
+    <value>Texto principal en inglés</value>
+  </data>
+	<data name="Admin_Banners_PrimaryEs" xml:space="preserve">
+    <value>Texto en español</value>
+  </data>
+	<data name="Admin_Banners_SupportsImg" xml:space="preserve">
+    <value>Soporta JPG, WEBP, PNG (máx. 2MB)</value>
+  </data>
+	<data name="Admin_Banners_EmptyBanners" xml:space="preserve">
+    <value>No hay banners subidos actualmente. Añade un nuevo banner arriba.</value>
+  </data>
+	<data name="Admin_Banners_EmptyCategories" xml:space="preserve">
+    <value>No hay categorías disponibles.</value>
+  </data>
+	<data name="Admin_Banners_EmptyCollections" xml:space="preserve">
+    <value>No hay colecciones creadas actualmente.</value>
+  </data>
+	<data name="Admin_Banners_EmptyAuth" xml:space="preserve">
+    <value>No hay diapositivas disponibles.</value>
+  </data>
+	<data name="Admin_Banners_AuthQuoteRoleEN" xml:space="preserve">
+    <value>Cita y Rol en inglés</value>
+  </data>
+	<data name="Admin_Banners_UnivAuthStatus" xml:space="preserve">
+    <value>Autor universal y Estado</value>
+  </data>
+	<data name="Admin_Banners_BgImageLabel" xml:space="preserve">
+    <value>Imagen de fondo</value>
+  </data>
+	<data name="Admin_Banners_SelectCategory" xml:space="preserve">
+    <value>- Seleccionar categoría -</value>
+  </data>
+
+	<!-- Placeholders -->
+	<data name="Admin_Banners_PhTitleEN" xml:space="preserve">
+    <value>ej. Herencia del Mundial</value>
+  </data>
+	<data name="Admin_Banners_PhSubEN" xml:space="preserve">
+    <value>ej. Revive la magia con nuestras camisetas auténticas</value>
+  </data>
+	<data name="Admin_Banners_PhCatEN" xml:space="preserve">
+    <value>ej. Clásico</value>
+  </data>
+	<data name="Admin_Banners_PhQuoteEN" xml:space="preserve">
+    <value>ej. Cualquiera puede correr. Jugar al fútbol...</value>
+  </data>
+	<data name="Admin_Banners_PhRoleEN" xml:space="preserve">
+    <value>ej. Leyenda del Barcelona y Países Bajos</value>
+  </data>
+	<data name="Admin_Banners_PhAuthor" xml:space="preserve">
+    <value>ej. Johan Cruyff</value>
+  </data>
+
+	<!-- Alertas Javascript (SweetAlert) y CodeBehind (.cs) -->
+	<data name="Alert_MissingInfo" xml:space="preserve">
+    <value>Información faltante</value>
+  </data>
+	<data name="Alert_Banners_MissingEn" xml:space="preserve">
+    <value>Por favor completa todos los campos requeridos en la pestaña de inglés.</value>
+  </data>
+	<data name="Alert_Banners_MissingEs" xml:space="preserve">
+    <value>Por favor completa todos los campos requeridos en la pestaña de español.</value>
+  </data>
+	<data name="Alert_Banners_MissingCat" xml:space="preserve">
+    <value>Por favor ingresa el nombre de la categoría tanto en inglés como en español.</value>
+  </data>
+	<data name="Alert_Banners_MissingQuoteEn" xml:space="preserve">
+    <value>Por favor ingresa la cita en inglés.</value>
+  </data>
+	<data name="Alert_Banners_MissingQuoteEs" xml:space="preserve">
+    <value>Por favor ingresa la cita en español.</value>
+  </data>
+	<data name="Alert_Banners_MissingAuthor" xml:space="preserve">
+    <value>Por favor ingresa el nombre del autor.</value>
+  </data>
+	<data name="Alert_Banners_Translated" xml:space="preserve">
+    <value>¡Traducido exitosamente!</value>
+  </data>
+	<data name="Alert_Banners_TitleSubEnReq" xml:space="preserve">
+    <value>El título y subtítulo en inglés son obligatorios.</value>
+  </data>
+	<data name="Alert_Banners_TitleSubEsReq" xml:space="preserve">
+    <value>El título y subtítulo en español son obligatorios.</value>
+  </data>
+	<data name="Alert_Banners_BannerUpdated" xml:space="preserve">
+    <value>¡Banner actualizado exitosamente!</value>
+  </data>
+	<data name="Alert_Banners_BannerAdded" xml:space="preserve">
+    <value>¡Banner añadido exitosamente!</value>
+  </data>
+	<data name="Alert_Banners_CatReq" xml:space="preserve">
+    <value>El nombre de la categoría es obligatorio en inglés y español.</value>
+  </data>
+	<data name="Alert_Banners_CatAdded" xml:space="preserve">
+    <value>¡Categoría añadida exitosamente!</value>
+  </data>
+	<data name="Alert_Banners_ColFieldsReq" xml:space="preserve">
+    <value>El título, la categoría y el enlace son obligatorios.</value>
+  </data>
+	<data name="Alert_Banners_ColAdded" xml:space="preserve">
+    <value>¡Colección añadida exitosamente!</value>
+  </data>
+	<data name="Alert_Banners_ColUpdated" xml:space="preserve">
+    <value>¡Colección actualizada exitosamente!</value>
+  </data>
+	<data name="Alert_Banners_AuthFieldsReqEn" xml:space="preserve">
+    <value>La cita y el nombre del autor en inglés son obligatorios.</value>
+  </data>
+	<data name="Alert_Banners_AuthFieldsReqEs" xml:space="preserve">
+    <value>La cita en español es obligatoria.</value>
+  </data>
+	<data name="Alert_Banners_AuthAdded" xml:space="preserve">
+    <value>¡Diapositiva añadida exitosamente!</value>
+  </data>
+	<data name="Alert_Banners_AuthUpdated" xml:space="preserve">
+    <value>¡Diapositiva actualizada exitosamente!</value>
+  </data>
+	<data name="Alert_Banners_ImgFormat" xml:space="preserve">
+    <value>Solo se permiten archivos .jpg, .png, .jpeg y .webp.</value>
+  </data>
+	<data name="Alert_Banners_ImgSize" xml:space="preserve">
+    <value>El tamaño máximo de la imagen es 2 MB.</value>
+  </data>
+	<data name="Alert_Banners_ImgReq" xml:space="preserve">
+    <value>Por favor sube una imagen.</value>
+  </data>
+	<data name="Alert_Banners_OrderUpdated" xml:space="preserve">
+    <value>¡Orden actualizado exitosamente!</value>
+  </data>
+	<data name="Admin_Banners_PhTitleES" xml:space="preserve">
+    <value>ej. Herencia del Mundial</value>
+  </data>
+	<data name="Admin_Products_ReplaceImgHint" xml:space="preserve">
+    <value>Soporta JPG, WEBP, PNG (máx. 2MB — dejar vacío para conservar la actual)</value>
+  </data>
+	<data name="Role_Owner" xml:space="preserve">
+    <value>Propietario</value>
+  </data>
+	<data name="Role_Admin" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+	<data name="Role_Customer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+	<data name="Role_Delivery" xml:space="preserve">
+    <value>Repartidor</value>
+  </data>
+	<data name="Admin_Users_NewPassLabel" xml:space="preserve">
+    <value>Nueva contraseña</value>
+  </data>
+	<data name="Admin_Audit_AllActionTypes" xml:space="preserve">
+    <value>-- Todos los tipos de acción --</value>
+  </data>
+	<data name="Admin_Audit_AllModules" xml:space="preserve">
+    <value>-- Todos los módulos --</value>
+  </data>
+	<data name="Audit_Action_CREATE" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+	<data name="Audit_Action_UPDATE" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+	<data name="Audit_Action_DELETE" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+	<data name="Audit_Action_RESOLVE" xml:space="preserve">
+    <value>Resolver</value>
+  </data>
+	<data name="Audit_Action_APPROVE" xml:space="preserve">
+    <value>Aprobar</value>
+  </data>
+	<data name="Audit_Action_REJECT" xml:space="preserve">
+    <value>Rechazar</value>
+  </data>
+	<data name="Audit_Module_AddLeague" xml:space="preserve">
+    <value>Añadir Liga</value>
+  </data>
+	<data name="Audit_Module_AddTeam" xml:space="preserve">
+    <value>Añadir Equipo</value>
+  </data>
+	<data name="Audit_Module_AddBrand" xml:space="preserve">
+    <value>Añadir Marca</value>
+  </data>
+	<data name="Audit_Module_ManageOffers" xml:space="preserve">
+    <value>Gestión de Ofertas</value>
+  </data>
+	<data name="Audit_Module_ManageProducts" xml:space="preserve">
+    <value>Gestión de Productos</value>
+  </data>
+	<data name="Audit_Module_ManageSellerRequests" xml:space="preserve">
+    <value>Solicitudes de Vendedor</value>
+  </data>
+	<data name="Audit_Module_ManageOrders" xml:space="preserve">
+    <value>Gestión de Pedidos</value>
+  </data>
+	<data name="Audit_Module_ManageUsers" xml:space="preserve">
+    <value>Gestión de Usuarios</value>
+  </data>
+	<data name="Audit_Module_ManageCoupons" xml:space="preserve">
+    <value>Gestión de Cupones</value>
+  </data>
+	<data name="Audit_Module_AdminBanners" xml:space="preserve">
+    <value>Gestión de Banners</value>
+  </data>
 </root>

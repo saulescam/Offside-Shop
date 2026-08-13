@@ -292,7 +292,7 @@ namespace OFFSIDESHOP
                 txtCategoryName_ES.Text = "";
                 LoadCategories();
                 Alert(GetGlobalResourceObject("Strings", "Alert_Banners_CatAdded")?.ToString(), "success");
-                AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created category  {txtCategoryName.Text.Trim()}");
+                AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created category {txtCategoryName.Text.Trim()}");
 
             }
             catch (Exception ex)
@@ -315,6 +315,7 @@ namespace OFFSIDESHOP
         {
             hfColEditId.Value = "0";
             txtColTitle.Text = "";
+            txtColTitle_ES.Text = "";
             txtColLink.Text = "";
             ddlColCategory.SelectedIndex = 0;
             ddlColStatus.SelectedIndex = 0;
@@ -372,8 +373,8 @@ namespace OFFSIDESHOP
 
         protected void btnColSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtColTitle.Text) || string.IsNullOrWhiteSpace(ddlColCategory.SelectedValue) || string.IsNullOrWhiteSpace(txtColLink.Text))
-            { Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ColFieldsReq")?.ToString(), "error"); return; }
+            if (string.IsNullOrWhiteSpace(txtColTitle.Text) || string.IsNullOrWhiteSpace(txtColTitle_ES.Text) || string.IsNullOrWhiteSpace(ddlColCategory.SelectedValue) || string.IsNullOrWhiteSpace(txtColLink.Text))
+            { Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ColFieldsReq")?.ToString() ?? "Please fill in all required fields in both languages.", "error"); return; }
 
             bool isEditing = Convert.ToInt32(hfColEditId.Value) > 0;
             string imgFile = HandleImageUpload(fileColImagen, "collections", isEditing);
@@ -387,9 +388,10 @@ namespace OFFSIDESHOP
                     if (!isEditing)
                     {
                         int sort = Convert.ToInt32(new MySqlCommand("SELECT IFNULL(MAX(SortOrder), 0) + 1 FROM collections", con).ExecuteScalar());
-                        MySqlCommand cmd = new MySqlCommand("INSERT INTO collections (Id_Category, Title, ImageURL, LinkURL, SortOrder, IsActive) VALUES (@Cat, @T, @Img, @L, @SO, @A)", con);
+                        MySqlCommand cmd = new MySqlCommand("INSERT INTO collections (Id_Category, Title, Title_es, ImageURL, LinkURL, SortOrder, IsActive) VALUES (@Cat, @T, @TES, @Img, @L, @SO, @A)", con);
                         cmd.Parameters.AddWithValue("@Cat", ddlColCategory.SelectedValue);
                         cmd.Parameters.AddWithValue("@T", txtColTitle.Text.Trim());
+                        cmd.Parameters.AddWithValue("@TES", txtColTitle_ES.Text.Trim());
                         cmd.Parameters.AddWithValue("@Img", imgFile);
                         cmd.Parameters.AddWithValue("@L", txtColLink.Text.Trim());
                         cmd.Parameters.AddWithValue("@SO", sort);
@@ -397,14 +399,17 @@ namespace OFFSIDESHOP
                         cmd.ExecuteNonQuery();
                         Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ColAdded")?.ToString(), "success");
                         AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created collection ID #{ddlColCategory.SelectedValue}");
-
                     }
                     else
                     {
-                        string sql = imgFile != null ? "UPDATE collections SET Id_Category=@Cat, Title=@T, ImageURL=@Img, LinkURL=@L, IsActive=@A WHERE Id_Collection=@Id" : "UPDATE collections SET Id_Category=@Cat, Title=@T, LinkURL=@L, IsActive=@A WHERE Id_Collection=@Id";
+                        string sql = imgFile != null ?
+                            "UPDATE collections SET Id_Category=@Cat, Title=@T, Title_es=@TES, ImageURL=@Img, LinkURL=@L, IsActive=@A WHERE Id_Collection=@Id" :
+                            "UPDATE collections SET Id_Category=@Cat, Title=@T, Title_es=@TES, LinkURL=@L, IsActive=@A WHERE Id_Collection=@Id";
+
                         MySqlCommand cmd = new MySqlCommand(sql, con);
                         cmd.Parameters.AddWithValue("@Cat", ddlColCategory.SelectedValue);
                         cmd.Parameters.AddWithValue("@T", txtColTitle.Text.Trim());
+                        cmd.Parameters.AddWithValue("@TES", txtColTitle_ES.Text.Trim());
                         if (imgFile != null) cmd.Parameters.AddWithValue("@Img", imgFile);
                         cmd.Parameters.AddWithValue("@L", txtColLink.Text.Trim());
                         cmd.Parameters.AddWithValue("@A", ddlColStatus.SelectedValue);
@@ -438,6 +443,7 @@ namespace OFFSIDESHOP
                         {
                             hfColEditId.Value = r["Id_Collection"].ToString();
                             txtColTitle.Text = r["Title"].ToString();
+                            txtColTitle_ES.Text = r["Title_es"] != DBNull.Value ? r["Title_es"].ToString() : "";
                             ddlColCategory.SelectedValue = r["Id_Category"].ToString();
                             txtColLink.Text = r["LinkURL"].ToString();
                             ddlColStatus.SelectedValue = r["IsActive"].ToString();

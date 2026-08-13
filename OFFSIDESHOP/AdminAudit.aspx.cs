@@ -54,11 +54,11 @@ namespace OFFSIDESHOP
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             ddlFilterAction.Items.Clear();
-                            ddlFilterAction.Items.Add(new ListItem("-- All Action Types --", ""));
+                            ddlFilterAction.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Admin_Audit_AllActionTypes"), ""));
                             while (reader.Read())
                             {
                                 string val = reader["Action_Type"].ToString();
-                                ddlFilterAction.Items.Add(new ListItem(val, val));
+                                ddlFilterAction.Items.Add(new ListItem(GetLocalizedActionType(val), val));
                             }
                         }
                     }
@@ -70,11 +70,11 @@ namespace OFFSIDESHOP
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             ddlFilterModule.Items.Clear();
-                            ddlFilterModule.Items.Add(new ListItem("-- All Modules --", ""));
+                            ddlFilterModule.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Admin_Audit_AllModules"), ""));
                             while (reader.Read())
                             {
                                 string val = reader["Module"].ToString();
-                                ddlFilterModule.Items.Add(new ListItem(val, val));
+                                ddlFilterModule.Items.Add(new ListItem(GetLocalizedModule(val), val));
                             }
                         }
                     }
@@ -84,6 +84,24 @@ namespace OFFSIDESHOP
             {
                 System.Diagnostics.Debug.WriteLine("Error loading filters: " + ex.Message);
             }
+        }
+
+        protected string GetLocalizedActionType(object actionObj)
+        {
+            if (actionObj == null || actionObj == DBNull.Value) return "";
+            string action = actionObj.ToString();
+            string resKey = "Audit_Action_" + action;
+            string loc = AlertHelper.GetResourceString(this, resKey);
+            return string.IsNullOrEmpty(loc) || loc == resKey ? action : loc;
+        }
+
+        protected string GetLocalizedModule(object moduleObj)
+        {
+            if (moduleObj == null || moduleObj == DBNull.Value) return "";
+            string module = moduleObj.ToString();
+            string resKey = "Audit_Module_" + module;
+            string loc = AlertHelper.GetResourceString(this, resKey);
+            return string.IsNullOrEmpty(loc) || loc == resKey ? module : loc;
         }
 
         private void LoadLogs()
