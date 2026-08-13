@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace OFFSIDESHOP
 {
-    public partial class Dashboard : BasePage
+    public partial class Dashboard : System.Web.UI.Page
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
@@ -541,12 +541,18 @@ namespace OFFSIDESHOP
         // Método para forzar la cultura en esta página según la Sesión
         protected override void InitializeCulture()
         {
-            string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
-            string cultureName = (lang == "es") ? "es-SV" : "en-US";
-            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
-            ci.NumberFormat.CurrencySymbol = "$";
-            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+            string lang = "en";
+            if (Session["Language"] != null)
+            {
+                lang = Session["Language"].ToString();
+            }
+            else
+            {
+                Session["Language"] = lang;
+            }
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
             base.InitializeCulture();
         }
 
