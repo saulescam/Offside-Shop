@@ -59,7 +59,7 @@ namespace OFFSIDESHOP
             txtTitle_ES.Text = ""; txtSubtitle_ES.Text = "";
             txtLinkURL.Text = "";
             ddlIsActive.SelectedIndex = 0;
-            lblFormTitle.Text = "Add New Banner";
+            lblFormTitle.Text = GetGlobalResourceObject("Strings", "Admin_Banners_AddTitle")?.ToString() ?? "Add New Banner";
             lblImageRequired.Visible = true;
             pnlCurrentImage.Visible = false;
             lblCurrentImagePath.Text = "";
@@ -88,7 +88,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error loading banners: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -101,7 +101,7 @@ namespace OFFSIDESHOP
                 LinkButton btnToggle = (LinkButton)e.Row.FindControl("btnToggle");
                 bool isActive = Convert.ToInt32(row["IsActive"]) == 1;
 
-                if (lblStatus != null) lblStatus.Text = isActive ? "<span class='status-badge status-active'>Active</span>" : "<span class='status-badge status-inactive'>Inactive</span>";
+                if (lblStatus != null) lblStatus.Text = isActive ? $"<span class='status-badge status-active'>{GetGlobalResourceObject("Strings", "Status_Active")}</span>" : $"<span class='status-badge status-inactive'>{GetGlobalResourceObject("Strings", "Status_Inactive")}</span>";
                 if (btnToggle != null)
                 {
                     btnToggle.CssClass = isActive ? "action-icon toggle-icon" : "action-icon toggle-on";
@@ -122,12 +122,12 @@ namespace OFFSIDESHOP
         {
             if (string.IsNullOrWhiteSpace(txtTitle.Text) || string.IsNullOrWhiteSpace(txtSubtitle.Text))
             {
-                Alert("Title and Subtitle in English are required.", "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_Banners_TitleSubEnReq")?.ToString(), "error");
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtTitle_ES.Text) || string.IsNullOrWhiteSpace(txtSubtitle_ES.Text))
             {
-                Alert("El Título y Subtítulo en Español son requeridos.", "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_Banners_TitleSubEsReq")?.ToString(), "error");
                 return;
             }
 
@@ -186,7 +186,7 @@ namespace OFFSIDESHOP
                         transCmd.ExecuteNonQuery();
 
                         tx.Commit();
-                        Alert(isEditing ? "Banner updated!" : "Banner added!", "success");
+                        Alert(isEditing ? GetGlobalResourceObject("Strings", "Alert_Banners_BannerUpdated")?.ToString() : GetGlobalResourceObject("Strings", "Alert_Banners_BannerAdded")?.ToString(), "success");
                         AuditLogger.LogActivity(isEditing ? "UPDATE" : "CREATE", "AdminBanners", $"Banner ID #{bannerId}");
 
                     }
@@ -196,7 +196,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error saving banner: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -227,7 +227,7 @@ namespace OFFSIDESHOP
                             txtLinkURL.Text = r["LinkURL"].ToString();
                             ddlIsActive.SelectedValue = r["IsActive"].ToString();
 
-                            lblFormTitle.Text = "Edit Banner";
+                            lblFormTitle.Text = GetGlobalResourceObject("Strings", "Admin_Banners_EditTitle")?.ToString() ?? "Edit Banner";
                             lblImageRequired.Visible = false;
                             if (r["ImageURL"] != DBNull.Value) { pnlCurrentImage.Visible = true; lblCurrentImagePath.Text = r["ImageURL"].ToString(); }
                         }
@@ -236,7 +236,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error loading banner for edit: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -261,12 +261,12 @@ namespace OFFSIDESHOP
                     ddlColCategory.DataTextField = "Name_Category";
                     ddlColCategory.DataValueField = "Id_Category";
                     ddlColCategory.DataBind();
-                    ddlColCategory.Items.Insert(0, new ListItem("- Select Category -", ""));
+                    ddlColCategory.Items.Insert(0, new ListItem(GetGlobalResourceObject("Strings", "Admin_Banners_SelectCategory")?.ToString() ?? "- Select Category -", ""));
                 }
             }
             catch (Exception ex)
             {
-                Alert("Error loading categories: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -274,7 +274,7 @@ namespace OFFSIDESHOP
         {
             if (string.IsNullOrWhiteSpace(txtCategoryName.Text) || string.IsNullOrWhiteSpace(txtCategoryName_ES.Text))
             {
-                Alert("Category Name is required in both English and Spanish.", "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_Banners_CatReq")?.ToString(), "error");
                 return;
             }
 
@@ -291,13 +291,13 @@ namespace OFFSIDESHOP
                 txtCategoryName.Text = "";
                 txtCategoryName_ES.Text = "";
                 LoadCategories();
-                Alert("Category added successfully!", "success");
+                Alert(GetGlobalResourceObject("Strings", "Alert_Banners_CatAdded")?.ToString(), "success");
                 AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created category  {txtCategoryName.Text.Trim()}");
 
             }
             catch (Exception ex)
             {
-                Alert("Error adding category: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -318,7 +318,7 @@ namespace OFFSIDESHOP
             txtColLink.Text = "";
             ddlColCategory.SelectedIndex = 0;
             ddlColStatus.SelectedIndex = 0;
-            lblColFormTitle.Text = "Add New Collection";
+            lblColFormTitle.Text = GetGlobalResourceObject("Strings", "Admin_Banners_ColFormAdd")?.ToString() ?? "Add New Collection";
             lblColImgReq.Visible = true;
             pnlColImg.Visible = false;
             lblColImgPath.Text = "";
@@ -340,7 +340,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error loading collections: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -353,7 +353,7 @@ namespace OFFSIDESHOP
                 LinkButton btnToggle = (LinkButton)e.Row.FindControl("btnToggleCol");
                 bool isActive = Convert.ToInt32(row["IsActive"]) == 1;
 
-                if (lblStatus != null) lblStatus.Text = isActive ? "<span class='status-badge status-active'>Active</span>" : "<span class='status-badge status-inactive'>Inactive</span>";
+                if (lblStatus != null) lblStatus.Text = isActive ? $"<span class='status-badge status-active'>{GetGlobalResourceObject("Strings", "Status_Active")}</span>" : $"<span class='status-badge status-inactive'>{GetGlobalResourceObject("Strings", "Status_Inactive")}</span>";
                 if (btnToggle != null)
                 {
                     btnToggle.CssClass = isActive ? "action-icon toggle-icon" : "action-icon toggle-on";
@@ -373,7 +373,7 @@ namespace OFFSIDESHOP
         protected void btnColSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtColTitle.Text) || string.IsNullOrWhiteSpace(ddlColCategory.SelectedValue) || string.IsNullOrWhiteSpace(txtColLink.Text))
-            { Alert("Title, Category and Link are required.", "error"); return; }
+            { Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ColFieldsReq")?.ToString(), "error"); return; }
 
             bool isEditing = Convert.ToInt32(hfColEditId.Value) > 0;
             string imgFile = HandleImageUpload(fileColImagen, "collections", isEditing);
@@ -395,7 +395,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@SO", sort);
                         cmd.Parameters.AddWithValue("@A", ddlColStatus.SelectedValue);
                         cmd.ExecuteNonQuery();
-                        Alert("Collection added!", "success");
+                        Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ColAdded")?.ToString(), "success");
                         AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created collection ID #{ddlColCategory.SelectedValue}");
 
                     }
@@ -410,8 +410,8 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@A", ddlColStatus.SelectedValue);
                         cmd.Parameters.AddWithValue("@Id", hfColEditId.Value);
                         cmd.ExecuteNonQuery();
-                        Alert("Collection updated!", "success");
-                        AuditLogger.LogActivity("UPDATE", "AdminBanners", $"Updated collection ID #{hfColEditId.Value}");   
+                        Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ColUpdated")?.ToString(), "success");
+                        AuditLogger.LogActivity("UPDATE", "AdminBanners", $"Updated collection ID #{hfColEditId.Value}");
                     }
                 }
                 ResetColForm();
@@ -419,7 +419,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error saving collection: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -441,7 +441,7 @@ namespace OFFSIDESHOP
                             ddlColCategory.SelectedValue = r["Id_Category"].ToString();
                             txtColLink.Text = r["LinkURL"].ToString();
                             ddlColStatus.SelectedValue = r["IsActive"].ToString();
-                            lblColFormTitle.Text = "Edit Collection";
+                            lblColFormTitle.Text = GetGlobalResourceObject("Strings", "Admin_Banners_ColFormEdit")?.ToString() ?? "Edit Collection";
                             lblColImgReq.Visible = false;
                             if (r["ImageURL"] != DBNull.Value) { pnlColImg.Visible = true; lblColImgPath.Text = r["ImageURL"].ToString(); }
                         }
@@ -450,7 +450,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error loading collection for edit: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -465,7 +465,7 @@ namespace OFFSIDESHOP
             txtAuthQuote_ES.Text = ""; txtAuthAuthorRole_ES.Text = "";
             txtAuthAuthorName.Text = "";
             ddlAuthIsActive.SelectedIndex = 0;
-            lblAuthFormTitle.Text = "Add New Slide (Login/SignUp)";
+            lblAuthFormTitle.Text = GetGlobalResourceObject("Strings", "Admin_Banners_AuthFormAdd")?.ToString() ?? "Add New Slide (Login/SignUp)";
             lblAuthImageRequired.Visible = true;
             pnlAuthCurrentImage.Visible = false;
             lblAuthCurrentImagePath.Text = "";
@@ -487,7 +487,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error loading auth carousel: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -500,7 +500,7 @@ namespace OFFSIDESHOP
                 LinkButton btnToggle = (LinkButton)e.Row.FindControl("btnToggleAuth");
                 bool isActive = Convert.ToInt32(row["IsActive"]) == 1;
 
-                if (lblStatus != null) lblStatus.Text = isActive ? "<span class='status-badge status-active'>Active</span>" : "<span class='status-badge status-inactive'>Inactive</span>";
+                if (lblStatus != null) lblStatus.Text = isActive ? $"<span class='status-badge status-active'>{GetGlobalResourceObject("Strings", "Status_Active")}</span>" : $"<span class='status-badge status-inactive'>{GetGlobalResourceObject("Strings", "Status_Inactive")}</span>";
                 if (btnToggle != null)
                 {
                     btnToggle.CssClass = isActive ? "action-icon toggle-icon" : "action-icon toggle-on";
@@ -520,9 +520,9 @@ namespace OFFSIDESHOP
         protected void btnSaveAuth_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtAuthQuote.Text) || string.IsNullOrWhiteSpace(txtAuthAuthorName.Text))
-            { Alert("Quote and Author Name in English are required.", "error"); return; }
+            { Alert(GetGlobalResourceObject("Strings", "Alert_Banners_AuthFieldsReqEn")?.ToString(), "error"); return; }
             if (string.IsNullOrWhiteSpace(txtAuthQuote_ES.Text))
-            { Alert("La Cita en Español es requerida.", "error"); return; }
+            { Alert(GetGlobalResourceObject("Strings", "Alert_Banners_AuthFieldsReqEs")?.ToString(), "error"); return; }
 
             bool isEditing = Convert.ToInt32(hfAuthEditId.Value) > 0;
             string imgFile = HandleImageUpload(fileAuthImagen, "auth", isEditing);
@@ -544,7 +544,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@SO", sort);
                         cmd.Parameters.AddWithValue("@A", ddlAuthIsActive.SelectedValue);
                         cmd.ExecuteNonQuery();
-                        Alert("Slide added!", "success");
+                        Alert(GetGlobalResourceObject("Strings", "Alert_Banners_AuthAdded")?.ToString(), "success");
                         AuditLogger.LogActivity("CREATE", "AdminBanners", $"Created auth slide ID #{txtAuthAuthorName.Text.Trim()}");
                     }
                     else
@@ -558,7 +558,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@A", ddlAuthIsActive.SelectedValue);
                         cmd.Parameters.AddWithValue("@Id", hfAuthEditId.Value);
                         cmd.ExecuteNonQuery();
-                        Alert("Slide updated!", "success");
+                        Alert(GetGlobalResourceObject("Strings", "Alert_Banners_AuthUpdated")?.ToString(), "success");
                         AuditLogger.LogActivity("UPDATE", "AdminBanners", $"Updated auth slide ID #{hfAuthEditId.Value}");
                     }
                 }
@@ -567,7 +567,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error saving auth slide: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -590,7 +590,7 @@ namespace OFFSIDESHOP
                             txtAuthAuthorRole.Text = r["AuthorRole"].ToString();
                             ddlAuthIsActive.SelectedValue = r["IsActive"].ToString();
 
-                            lblAuthFormTitle.Text = "Edit Slide";
+                            lblAuthFormTitle.Text = GetGlobalResourceObject("Strings", "Admin_Banners_AuthFormEdit")?.ToString() ?? "Edit Slide";
                             lblAuthImageRequired.Visible = false;
                             if (r["ImageURL"] != DBNull.Value) { pnlAuthCurrentImage.Visible = true; lblAuthCurrentImagePath.Text = r["ImageURL"].ToString(); }
                         }
@@ -599,7 +599,7 @@ namespace OFFSIDESHOP
             }
             catch (Exception ex)
             {
-                Alert("Error loading auth slide for edit: " + ex.Message, "error");
+                Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error");
             }
         }
 
@@ -613,8 +613,8 @@ namespace OFFSIDESHOP
             if (fileUpload.HasFile)
             {
                 string ext = Path.GetExtension(fileUpload.FileName).ToLower();
-                if (ext != ".jpg" && ext != ".png" && ext != ".jpeg" && ext != ".webp") { Alert("Only .jpg, .png, .jpeg, and .webp allowed.", "error"); return "ERROR"; }
-                if (fileUpload.PostedFile.ContentLength > 2 * 1024 * 1024) { Alert("Maximum image size is 2 MB.", "error"); return "ERROR"; }
+                if (ext != ".jpg" && ext != ".png" && ext != ".jpeg" && ext != ".webp") { Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ImgFormat")?.ToString(), "error"); return "ERROR"; }
+                if (fileUpload.PostedFile.ContentLength > 2 * 1024 * 1024) { Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ImgSize")?.ToString(), "error"); return "ERROR"; }
 
                 string path = Server.MapPath($"~/images/{folder}/");
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
@@ -623,12 +623,12 @@ namespace OFFSIDESHOP
                 fileUpload.SaveAs(Path.Combine(path, fileName));
                 return fileName;
             }
-            if (!isEditing) { Alert("Please upload an image.", "error"); return "ERROR"; }
+            if (!isEditing) { Alert(GetGlobalResourceObject("Strings", "Alert_Banners_ImgReq")?.ToString(), "error"); return "ERROR"; }
             return null;
         }
 
-        private void ExecuteToggle(string sql, int id) { try { using (MySqlConnection con = new MySqlConnection(connectionString)) { con.Open(); MySqlCommand cmd = new MySqlCommand(sql, con); cmd.Parameters.AddWithValue("@Id", id); cmd.ExecuteNonQuery(); } } catch (Exception ex) { Alert("Error: " + ex.Message, "error"); } }
-        private void ExecuteDelete(string sql, int id) { try { using (MySqlConnection con = new MySqlConnection(connectionString)) { con.Open(); MySqlCommand cmd = new MySqlCommand(sql, con); cmd.Parameters.AddWithValue("@Id", id); cmd.ExecuteNonQuery(); } } catch (Exception ex) { Alert("Error: " + ex.Message, "error"); } }
+        private void ExecuteToggle(string sql, int id) { try { using (MySqlConnection con = new MySqlConnection(connectionString)) { con.Open(); MySqlCommand cmd = new MySqlCommand(sql, con); cmd.Parameters.AddWithValue("@Id", id); cmd.ExecuteNonQuery(); } } catch (Exception ex) { Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error"); } }
+        private void ExecuteDelete(string sql, int id) { try { using (MySqlConnection con = new MySqlConnection(connectionString)) { con.Open(); MySqlCommand cmd = new MySqlCommand(sql, con); cmd.Parameters.AddWithValue("@Id", id); cmd.ExecuteNonQuery(); } } catch (Exception ex) { Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error"); } }
 
         private void SaveOrder(string hfValue, string sql)
         {
@@ -642,15 +642,15 @@ namespace OFFSIDESHOP
                     using (MySqlTransaction tx = con.BeginTransaction())
                     {
                         for (int i = 0; i < ids.Length; i++) { MySqlCommand cmd = new MySqlCommand(sql, con, tx); cmd.Parameters.AddWithValue("@order", i + 1); cmd.Parameters.AddWithValue("@id", ids[i]); cmd.ExecuteNonQuery(); }
-                        tx.Commit(); Alert("Order updated!", "success");
+                        tx.Commit(); Alert(GetGlobalResourceObject("Strings", "Alert_Banners_OrderUpdated")?.ToString(), "success");
                         AuditLogger.LogActivity("UPDATE", "AdminBanners", $"Updated order for banner IDs: {hfValue}");
                     }
                 }
             }
-            catch (Exception ex) { Alert("Error saving order: " + ex.Message, "error"); }
+            catch (Exception ex) { Alert(GetGlobalResourceObject("Strings", "Alert_ErrorTitle") + ": " + ex.Message, "error"); }
         }
 
-        private void Alert(string text, string icon) { alerta.Text = $"<script>Swal.fire('Notification', '{HttpUtility.HtmlEncode(text)}', '{icon}');</script>"; }
+        private void Alert(string text, string icon) { alerta.Text = $"<script>Swal.fire('{GetGlobalResourceObject("Strings", "Alert_InfoTitle")}', '{HttpUtility.HtmlEncode(text)}', '{icon}');</script>"; }
 
         // Navigation
         protected void btnManageProducts_Click(object sender, EventArgs e) { Response.Redirect("ManageProducts.aspx"); }

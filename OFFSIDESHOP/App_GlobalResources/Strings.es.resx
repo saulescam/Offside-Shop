@@ -3360,4 +3360,7 @@
   <data name="Alert_Products_AiConnectError" xml:space="preserve">
     <value>No se pudo comunicar con el servicio de IA.</value>
   </data>
+	<data name="Admin_Banners_PhTitleES" xml:space="preserve">
+    <value>ej. Herencia de la Copa Mundial</value>
+  </data>
 </root>

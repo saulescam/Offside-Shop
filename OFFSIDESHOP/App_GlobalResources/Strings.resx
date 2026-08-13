@@ -3360,4 +3360,146 @@
   <data name="Alert_Products_AiConnectError" xml:space="preserve">
     <value>Failed to communicate with AI service.</value>
   </data>
+	<data name="Admin_Banners_PageTitle" xml:space="preserve">
+    <value>Manage Banners &amp; Collections | OffsideShop</value>
+  </data>
+	<data name="Admin_Banners_EnglishTab" xml:space="preserve">
+    <value>English (Default)</value>
+  </data>
+	<data name="Admin_Banners_SpanishTab" xml:space="preserve">
+    <value>Spanish (Español)</value>
+  </data>
+	<data name="Admin_Banners_PrimaryEn" xml:space="preserve">
+    <value>Primary English Text</value>
+  </data>
+	<data name="Admin_Banners_PrimaryEs" xml:space="preserve">
+    <value>Spanish Text</value>
+  </data>
+	<data name="Admin_Banners_SupportsImg" xml:space="preserve">
+    <value>Supports JPG, WEBP, PNG (max 2MB)</value>
+  </data>
+	<data name="Admin_Banners_EmptyBanners" xml:space="preserve">
+    <value>No banners currently uploaded. Add a new banner above.</value>
+  </data>
+	<data name="Admin_Banners_EmptyCategories" xml:space="preserve">
+    <value>No categories available.</value>
+  </data>
+	<data name="Admin_Banners_EmptyCollections" xml:space="preserve">
+    <value>No collections currently created.</value>
+  </data>
+	<data name="Admin_Banners_EmptyAuth" xml:space="preserve">
+    <value>No slides available.</value>
+  </data>
+	<data name="Admin_Banners_AuthQuoteRoleEN" xml:space="preserve">
+    <value>English Quote &amp; Role</value>
+  </data>
+	<data name="Admin_Banners_UnivAuthStatus" xml:space="preserve">
+    <value>Universal Author &amp; Status</value>
+  </data>
+	<data name="Admin_Banners_BgImageLabel" xml:space="preserve">
+    <value>Background Image</value>
+  </data>
+	<data name="Admin_Banners_SelectCategory" xml:space="preserve">
+    <value>- Select Category -</value>
+  </data>
+
+	<!-- Placeholders -->
+	<data name="Admin_Banners_PhTitleEN" xml:space="preserve">
+    <value>e.g. World Cup Heritage</value>
+  </data>
+	<data name="Admin_Banners_PhSubEN" xml:space="preserve">
+    <value>e.g. Relive the magic with our authentic jerseys</value>
+  </data>
+	<data name="Admin_Banners_PhCatEN" xml:space="preserve">
+    <value>e.g. Classic</value>
+  </data>
+	<data name="Admin_Banners_PhQuoteEN" xml:space="preserve">
+    <value>e.g. Anyone can run. Playing football...</value>
+  </data>
+	<data name="Admin_Banners_PhRoleEN" xml:space="preserve">
+    <value>e.g. Barcelona and Netherlands legend</value>
+  </data>
+	<data name="Admin_Banners_PhAuthor" xml:space="preserve">
+    <value>e.g. Johan Cruyff</value>
+  </data>
+
+	<!-- Alertas Javascript (SweetAlert) y CodeBehind (.cs) -->
+	<data name="Alert_MissingInfo" xml:space="preserve">
+    <value>Missing Information</value>
+  </data>
+	<data name="Alert_Banners_MissingEn" xml:space="preserve">
+    <value>Please fill in all required fields in the English tab.</value>
+  </data>
+	<data name="Alert_Banners_MissingEs" xml:space="preserve">
+    <value>Please fill in all required fields in the Spanish tab.</value>
+  </data>
+	<data name="Alert_Banners_MissingCat" xml:space="preserve">
+    <value>Please fill in the category name in both English and Spanish.</value>
+  </data>
+	<data name="Alert_Banners_MissingQuoteEn" xml:space="preserve">
+    <value>Please fill in the quote in English.</value>
+  </data>
+	<data name="Alert_Banners_MissingQuoteEs" xml:space="preserve">
+    <value>Please enter the quote in Spanish.</value>
+  </data>
+	<data name="Alert_Banners_MissingAuthor" xml:space="preserve">
+    <value>Please enter the Author Name.</value>
+  </data>
+	<data name="Alert_Banners_Translated" xml:space="preserve">
+    <value>Translated successfully!</value>
+  </data>
+	<data name="Alert_Banners_TitleSubEnReq" xml:space="preserve">
+    <value>Title and Subtitle in English are required.</value>
+  </data>
+	<data name="Alert_Banners_TitleSubEsReq" xml:space="preserve">
+    <value>Title and Subtitle in Spanish are required.</value>
+  </data>
+	<data name="Alert_Banners_BannerUpdated" xml:space="preserve">
+    <value>Banner updated successfully!</value>
+  </data>
+	<data name="Alert_Banners_BannerAdded" xml:space="preserve">
+    <value>Banner added successfully!</value>
+  </data>
+	<data name="Alert_Banners_CatReq" xml:space="preserve">
+    <value>Category Name is required in both English and Spanish.</value>
+  </data>
+	<data name="Alert_Banners_CatAdded" xml:space="preserve">
+    <value>Category added successfully!</value>
+  </data>
+	<data name="Alert_Banners_ColFieldsReq" xml:space="preserve">
+    <value>Title, Category and Link are required.</value>
+  </data>
+	<data name="Alert_Banners_ColAdded" xml:space="preserve">
+    <value>Collection added successfully!</value>
+  </data>
+	<data name="Alert_Banners_ColUpdated" xml:space="preserve">
+    <value>Collection updated successfully!</value>
+  </data>
+	<data name="Alert_Banners_AuthFieldsReqEn" xml:space="preserve">
+    <value>Quote and Author Name in English are required.</value>
+  </data>
+	<data name="Alert_Banners_AuthFieldsReqEs" xml:space="preserve">
+    <value>Quote in Spanish is required.</value>
+  </data>
+	<data name="Alert_Banners_AuthAdded" xml:space="preserve">
+    <value>Slide added successfully!</value>
+  </data>
+	<data name="Alert_Banners_AuthUpdated" xml:space="preserve">
+    <value>Slide updated successfully!</value>
+  </data>
+	<data name="Alert_Banners_ImgFormat" xml:space="preserve">
+    <value>Only .jpg, .png, .jpeg, and .webp allowed.</value>
+  </data>
+	<data name="Alert_Banners_ImgSize" xml:space="preserve">
+    <value>Maximum image size is 2 MB.</value>
+  </data>
+	<data name="Alert_Banners_ImgReq" xml:space="preserve">
+    <value>Please upload an image.</value>
+  </data>
+	<data name="Alert_Banners_OrderUpdated" xml:space="preserve">
+    <value>Order updated successfully!</value>
+  </data>
+	<data name="Admin_Banners_PhTitleES" xml:space="preserve">
+    <value>e.g. World Cup Heritage</value>
+  </data>
 </root>

@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="OFFSIDESHOP.Dashboard" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="OFFSIDESHOP.Dashboard" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Admin Dashboard | OffsideShop</title>
+    <title><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_Title %>" /> | OffsideShop</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,600,700&display=swap" rel="stylesheet" />
@@ -397,12 +397,12 @@
                                 <div class="table-responsive">
                                     <asp:GridView ID="gvRecentOrders" runat="server" AutoGenerateColumns="false" CssClass="table table-custom m-0" GridLines="None" BorderStyle="None">
                                         <Columns>
-                                            <asp:BoundField DataField="Id_Order" HeaderText="Order ID" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
-                                            <asp:BoundField DataField="Name" HeaderText="First Name" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
-                                            <asp:BoundField DataField="LastName" HeaderText="Last Name" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
-                                            <asp:BoundField DataField="City" HeaderText="City" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
-                                            <asp:BoundField DataField="Total" HeaderText="Total" DataFormatString="{0:C}" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-success" />
-                                            <asp:TemplateField HeaderText="Status" HeaderStyle-CssClass="text-warning font-weight-bold">
+                                            <asp:BoundField DataField="Id_Order" HeaderText="<%$ Resources:Strings, Admin_Orders_HeaderOrderId %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
+                                            <asp:BoundField DataField="Name" HeaderText="<%$ Resources:Strings, Admin_Orders_HeaderFirstName %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="LastName" HeaderText="<%$ Resources:Strings, Admin_Orders_HeaderLastName %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="City" HeaderText="<%$ Resources:Strings, Admin_Orders_HeaderCity %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="Total" HeaderText="<%$ Resources:Strings, Admin_Orders_HeaderTotal %>" DataFormatString="{0:C}" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-success" />
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Orders_HeaderStatus %>" HeaderStyle-CssClass="text-warning font-weight-bold">
                                                 <ItemTemplate>
                                                     <span class='<%# GetStatusBadgeClass(Eval("Status_Name").ToString()) %>'>
                                                         <%# Eval("Status_Name") %>
@@ -433,9 +433,9 @@
                                 <div class="table-responsive">
                                     <asp:GridView ID="gvCriticalStock" runat="server" AutoGenerateColumns="false" CssClass="table table-custom m-0" GridLines="None" BorderStyle="None">
                                         <Columns>
-                                            <asp:BoundField DataField="ShirtName" HeaderText="Jersey Name" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
-                                            <asp:BoundField DataField="SizeName" HeaderText="Size" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
-                                            <asp:TemplateField HeaderText="Stock Status" HeaderStyle-CssClass="text-warning font-weight-bold">
+                                            <asp:BoundField DataField="ShirtName" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderShirtName %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="SizeName" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderSize %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderStockStatus %>" HeaderStyle-CssClass="text-warning font-weight-bold">
                                                 <ItemTemplate>
                                                     <span class="badge badge-danger px-3 py-1 font-weight-bold">
                                                         <%# Eval("Stock") %> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_UnitsLeft %>" />
@@ -466,10 +466,10 @@
                                 <div class="table-responsive">
                                     <asp:GridView ID="gvPendingTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-custom m-0" GridLines="None" BorderStyle="None">
                                         <Columns>
-                                            <asp:BoundField DataField="Id_Ticket" HeaderText="Ticket ID" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
-                                            <asp:BoundField DataField="Reason_Name" HeaderText="Reason" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
-                                            <asp:BoundField DataField="Subject" HeaderText="Subject" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
-                                            <asp:BoundField DataField="User_Email" HeaderText="User Email" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="Id_Ticket" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderTicketId %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
+                                            <asp:BoundField DataField="Reason_Name" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderReason %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="Subject" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderSubject %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="User_Email" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderUserEmail %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
                                         </Columns>
                                         <EmptyDataTemplate>
                                             <div class="text-center text-muted py-5">
@@ -494,10 +494,10 @@
                                 <div class="table-responsive">
                                     <asp:GridView ID="gvAuditLogs" runat="server" AutoGenerateColumns="false" CssClass="table table-custom m-0" GridLines="None" BorderStyle="None">
                                         <Columns>
-                                            <asp:BoundField DataField="Created_At" HeaderText="Date/Time" DataFormatString="{0:MM/dd/yyyy hh:mm tt}" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
-                                            <asp:BoundField DataField="Operator" HeaderText="Operator" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
-                                            <asp:BoundField DataField="Module" HeaderText="Module" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
-                                            <asp:BoundField DataField="Description" HeaderText="Description" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="Created_At" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderDateTime %>" DataFormatString="{0:MM/dd/yyyy hh:mm tt}" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="Operator" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderOperator %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
+                                            <asp:BoundField DataField="Module" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderModule %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:BoundField DataField="Description" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderDescription %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
                                         </Columns>
                                         <EmptyDataTemplate>
                                             <div class="text-center text-muted py-5">
