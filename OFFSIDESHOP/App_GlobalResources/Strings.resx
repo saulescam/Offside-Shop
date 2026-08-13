@@ -3548,6 +3548,9 @@
     <value>e.g. World Cup Heritage</value>
   </data>
 	<data name="ChatBot_HI" xml:space="preserve">
+    <value>Hi! I am your OFFSIDESHOP virtual assistant. Ask me for your dream jersey!</value>
+  </data>
+	<data name="ChatBot_Ask" xml:space="preserve">
     <value>Ask for jerseys, sizes...</value>
   </data>
 	<data name="Admin_Products_ReplaceImgHint" xml:space="preserve">

@@ -3411,7 +3411,7 @@
 	<data name="ChatBot_HI" xml:space="preserve">
     <value> Hola, soy tu asistente virtual de OFFSIDE SHOP. ¿Cómo puedo ayudarte a encontrar la camiseta de tus sueños hoy?</value>
   </data>
-	<data name="ChatBot_HI" xml:space="preserve">
+	<data name="ChatBot_Ask" xml:space="preserve">
     <value>Pregunta por camisetas, tallas...</value>
   </data>
 	<data name="Admin_Banners_PrimaryEn" xml:space="preserve">

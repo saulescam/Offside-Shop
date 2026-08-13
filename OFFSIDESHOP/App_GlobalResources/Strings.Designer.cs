@@ -448,6 +448,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a -- All Action Types --.
+        /// </summary>
+        internal static string Admin_Audit_AllActionTypes {
+            get {
+                return ResourceManager.GetString("Admin_Audit_AllActionTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a -- All Modules --.
+        /// </summary>
+        internal static string Admin_Audit_AllModules {
+            get {
+                return ResourceManager.GetString("Admin_Audit_AllModules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Clear Filters.
         /// </summary>
         internal static string Admin_Audit_ClearFilters {
@@ -3337,6 +3355,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Supports JPG, WEBP, PNG (max 2MB — leave empty to keep current).
+        /// </summary>
+        internal static string Admin_Products_ReplaceImgHint {
+            get {
+                return ResourceManager.GetString("Admin_Products_ReplaceImgHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Save Product.
         /// </summary>
         internal static string Admin_Products_Save {
@@ -3490,6 +3517,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Product.
+        /// </summary>
+        internal static string Admin_Seller_ColProduct {
+            get {
+                return ResourceManager.GetString("Admin_Seller_ColProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Category Reason.
         /// </summary>
         internal static string Admin_Seller_ColReason {
@@ -3522,6 +3558,24 @@ namespace Resources {
         internal static string Admin_Seller_ColTicketId {
             get {
                 return ResourceManager.GetString("Admin_Seller_ColTicketId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a User.
+        /// </summary>
+        internal static string Admin_Seller_ColUser {
+            get {
+                return ResourceManager.GetString("Admin_Seller_ColUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No product reviews found..
+        /// </summary>
+        internal static string Admin_Seller_EmptyReviews {
+            get {
+                return ResourceManager.GetString("Admin_Seller_EmptyReviews", resourceCulture);
             }
         }
         
@@ -3580,6 +3634,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Close Details.
+        /// </summary>
+        internal static string Admin_Seller_ModalClose {
+            get {
+                return ResourceManager.GetString("Admin_Seller_ModalClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Declared Wear Condition:.
         /// </summary>
         internal static string Admin_Seller_ModalCondition {
@@ -3603,6 +3666,15 @@ namespace Resources {
         internal static string Admin_Seller_ModalDisplayName {
             get {
                 return ResourceManager.GetString("Admin_Seller_ModalDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fullscreen.
+        /// </summary>
+        internal static string Admin_Seller_ModalFullscreen {
+            get {
+                return ResourceManager.GetString("Admin_Seller_ModalFullscreen", resourceCulture);
             }
         }
         
@@ -3675,6 +3747,15 @@ namespace Resources {
         internal static string Admin_Seller_ModalResolution {
             get {
                 return ResourceManager.GetString("Admin_Seller_ModalResolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Save Resolution.
+        /// </summary>
+        internal static string Admin_Seller_ModalSaveResolution {
+            get {
+                return ResourceManager.GetString("Admin_Seller_ModalSaveResolution", resourceCulture);
             }
         }
         
@@ -4350,6 +4431,15 @@ namespace Resources {
         internal static string Admin_Users_FilterRole {
             get {
                 return ResourceManager.GetString("Admin_Users_FilterRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a New Password.
+        /// </summary>
+        internal static string Admin_Users_NewPassLabel {
+            get {
+                return ResourceManager.GetString("Admin_Users_NewPassLabel", resourceCulture);
             }
         }
         
@@ -5938,6 +6028,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a League deleted successfully..
+        /// </summary>
+        internal static string Alert_League_Deleted {
+            get {
+                return ResourceManager.GetString("Alert_League_Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please enter a league name..
+        /// </summary>
+        internal static string Alert_League_Empty {
+            get {
+                return ResourceManager.GetString("Alert_League_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a League saved successfully!.
+        /// </summary>
+        internal static string Alert_League_Saved {
+            get {
+                return ResourceManager.GetString("Alert_League_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Do not leave any blank spaces.
         /// </summary>
         internal static string Alert_Login_BlankSpaces {
@@ -6060,6 +6177,15 @@ namespace Resources {
         internal static string Alert_Offers_LoadCatalogError {
             get {
                 return ResourceManager.GetString("Alert_Offers_LoadCatalogError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The offer name in Spanish is required..
+        /// </summary>
+        internal static string Alert_Offers_NameEsRequired {
+            get {
+                return ResourceManager.GetString("Alert_Offers_NameEsRequired", resourceCulture);
             }
         }
         
@@ -6685,6 +6811,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Team deleted successfully..
+        /// </summary>
+        internal static string Alert_Team_Deleted {
+            get {
+                return ResourceManager.GetString("Alert_Team_Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please enter a team name..
+        /// </summary>
+        internal static string Alert_Team_Empty {
+            get {
+                return ResourceManager.GetString("Alert_Team_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Invalid league selection..
+        /// </summary>
+        internal static string Alert_Team_InvalidLeague {
+            get {
+                return ResourceManager.GetString("Alert_Team_InvalidLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Team saved successfully!.
+        /// </summary>
+        internal static string Alert_Team_Saved {
+            get {
+                return ResourceManager.GetString("Alert_Team_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please select a league..
+        /// </summary>
+        internal static string Alert_Team_SelectLeague {
+            get {
+                return ResourceManager.GetString("Alert_Team_SelectLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The code does not match, please check your email again..
         /// </summary>
         internal static string Alert_Token_IncorrectText {
@@ -6807,6 +6978,150 @@ namespace Resources {
         internal static string Alert_WarningTitle {
             get {
                 return ResourceManager.GetString("Alert_WarningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Approve.
+        /// </summary>
+        internal static string Audit_Action_APPROVE {
+            get {
+                return ResourceManager.GetString("Audit_Action_APPROVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create.
+        /// </summary>
+        internal static string Audit_Action_CREATE {
+            get {
+                return ResourceManager.GetString("Audit_Action_CREATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete.
+        /// </summary>
+        internal static string Audit_Action_DELETE {
+            get {
+                return ResourceManager.GetString("Audit_Action_DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reject.
+        /// </summary>
+        internal static string Audit_Action_REJECT {
+            get {
+                return ResourceManager.GetString("Audit_Action_REJECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Resolve.
+        /// </summary>
+        internal static string Audit_Action_RESOLVE {
+            get {
+                return ResourceManager.GetString("Audit_Action_RESOLVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Update.
+        /// </summary>
+        internal static string Audit_Action_UPDATE {
+            get {
+                return ResourceManager.GetString("Audit_Action_UPDATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add Brand.
+        /// </summary>
+        internal static string Audit_Module_AddBrand {
+            get {
+                return ResourceManager.GetString("Audit_Module_AddBrand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add League.
+        /// </summary>
+        internal static string Audit_Module_AddLeague {
+            get {
+                return ResourceManager.GetString("Audit_Module_AddLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Add Team.
+        /// </summary>
+        internal static string Audit_Module_AddTeam {
+            get {
+                return ResourceManager.GetString("Audit_Module_AddTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage Banners.
+        /// </summary>
+        internal static string Audit_Module_AdminBanners {
+            get {
+                return ResourceManager.GetString("Audit_Module_AdminBanners", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage Coupons.
+        /// </summary>
+        internal static string Audit_Module_ManageCoupons {
+            get {
+                return ResourceManager.GetString("Audit_Module_ManageCoupons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage Offers.
+        /// </summary>
+        internal static string Audit_Module_ManageOffers {
+            get {
+                return ResourceManager.GetString("Audit_Module_ManageOffers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage Orders.
+        /// </summary>
+        internal static string Audit_Module_ManageOrders {
+            get {
+                return ResourceManager.GetString("Audit_Module_ManageOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage Products.
+        /// </summary>
+        internal static string Audit_Module_ManageProducts {
+            get {
+                return ResourceManager.GetString("Audit_Module_ManageProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Seller Requests.
+        /// </summary>
+        internal static string Audit_Module_ManageSellerRequests {
+            get {
+                return ResourceManager.GetString("Audit_Module_ManageSellerRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage Users.
+        /// </summary>
+        internal static string Audit_Module_ManageUsers {
+            get {
+                return ResourceManager.GetString("Audit_Module_ManageUsers", resourceCulture);
             }
         }
         
@@ -7415,6 +7730,15 @@ namespace Resources {
         
         /// <summary>
         ///   Busca una cadena traducida similar a Ask for jerseys, sizes....
+        /// </summary>
+        internal static string ChatBot_Ask {
+            get {
+                return ResourceManager.GetString("ChatBot_Ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hi! I am your OFFSIDESHOP virtual assistant. Ask me for your dream jersey!.
         /// </summary>
         internal static string ChatBot_HI {
             get {
@@ -9822,6 +10146,42 @@ namespace Resources {
         internal static string Review_SubmitBtn {
             get {
                 return ResourceManager.GetString("Review_SubmitBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Admin.
+        /// </summary>
+        internal static string Role_Admin {
+            get {
+                return ResourceManager.GetString("Role_Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Customer.
+        /// </summary>
+        internal static string Role_Customer {
+            get {
+                return ResourceManager.GetString("Role_Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delivery.
+        /// </summary>
+        internal static string Role_Delivery {
+            get {
+                return ResourceManager.GetString("Role_Delivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Owner.
+        /// </summary>
+        internal static string Role_Owner {
+            get {
+                return ResourceManager.GetString("Role_Owner", resourceCulture);
             }
         }
         
