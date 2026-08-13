@@ -3619,4 +3619,7 @@
 	<data name="Audit_Module_AdminBanners" xml:space="preserve">
     <value>Gestión de Banners</value>
   </data>
+	<data name="Admin_Dash_OwnerOnly" xml:space="preserve">
+    <value>Solo Propietario</value>
+  </data>
 </root>

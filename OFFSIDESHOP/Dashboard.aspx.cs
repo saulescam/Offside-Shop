@@ -443,6 +443,15 @@ namespace OFFSIDESHOP
             }
         }
 
+        protected string GetLocalizedModule(object moduleObj)
+        {
+            if (moduleObj == null || moduleObj == DBNull.Value) return "";
+            string module = moduleObj.ToString();
+            string resKey = "Audit_Module_" + module;
+            string loc = AlertHelper.GetResourceString(this, resKey);
+            return string.IsNullOrEmpty(loc) || loc == resKey ? module : loc;
+        }
+
         protected string GetStatusBadgeClass(string statusName)
         {
             if (string.IsNullOrEmpty(statusName)) return "badge badge-secondary";

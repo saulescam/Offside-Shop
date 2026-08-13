@@ -3625,4 +3625,7 @@
 	<data name="Audit_Module_AdminBanners" xml:space="preserve">
     <value>Manage Banners</value>
   </data>
+	<data name="Admin_Dash_OwnerOnly" xml:space="preserve">
+    <value>Owner Only</value>
+  </data>
 </root>
