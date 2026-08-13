@@ -3548,6 +3548,9 @@
     <value>e.g. World Cup Heritage</value>
   </data>
 	<data name="ChatBot_HI" xml:space="preserve">
+    <value>Hi! I am your OFFSIDESHOP virtual assistant. Ask me for your dream jersey!</value>
+  </data>
+	<data name="ChatBot_Ask" xml:space="preserve">
     <value>Ask for jerseys, sizes...</value>
   </data>
 	<data name="Admin_Products_ReplaceImgHint" xml:space="preserve">
@@ -3622,58 +3625,7 @@
 	<data name="Audit_Module_AdminBanners" xml:space="preserve">
     <value>Manage Banners</value>
   </data>
-  <data name="Admin_Stats_PageTitle" xml:space="preserve">
-    <value>Store Statistics | OffsideShop</value>
-  </data>
-  <data name="Admin_Stats_Title" xml:space="preserve">
-    <value>Store Statistics</value>
-  </data>
-  <data name="Admin_Stats_Subtitle" xml:space="preserve">
-    <value>Real-time sales performance metrics, order activity, and revenue distribution</value>
-  </data>
-  <data name="Admin_Stats_Weekly" xml:space="preserve">
-    <value>Weekly</value>
-  </data>
-  <data name="Admin_Stats_Monthly" xml:space="preserve">
-    <value>Monthly</value>
-  </data>
-  <data name="Admin_Stats_Annual" xml:space="preserve">
-    <value>Annual</value>
-  </data>
-  <data name="Admin_Stats_ExportPdf" xml:space="preserve">
-    <value>Export to PDF</value>
-  </data>
-  <data name="Admin_Stats_KpiRevenue" xml:space="preserve">
-    <value>Total Revenue</value>
-  </data>
-  <data name="Admin_Stats_KpiOrders" xml:space="preserve">
-    <value>Total Orders</value>
-  </data>
-  <data name="Admin_Stats_KpiUsers" xml:space="preserve">
-    <value>Registered Customers</value>
-  </data>
-  <data name="Admin_Stats_KpiPending" xml:space="preserve">
-    <value>Pending Orders</value>
-  </data>
-  <data name="Admin_Stats_ChartRevenue" xml:space="preserve">
-    <value>Revenue (Last 7 Days)</value>
-  </data>
-  <data name="Admin_Stats_ChartStatus" xml:space="preserve">
-    <value>Orders by Status</value>
-  </data>
-  <data name="Admin_Stats_ChartTopProducts" xml:space="preserve">
-    <value>Top 5 Best-Selling Products</value>
-  </data>
-  <data name="Admin_Stats_GeneratingPdfTitle" xml:space="preserve">
-    <value>Generating Report...</value>
-  </data>
-  <data name="Admin_Stats_GeneratingPdfText" xml:space="preserve">
-    <value>Crunching sales data and drawing charts. This might take a few seconds.</value>
-  </data>
-  <data name="Admin_Stats_ChartRevenueLabel" xml:space="preserve">
-    <value>Revenue ($)</value>
-  </data>
-  <data name="Admin_Stats_ChartUnitsSoldLabel" xml:space="preserve">
-    <value>Units Sold</value>
+	<data name="Admin_Dash_OwnerOnly" xml:space="preserve">
+    <value>Owner Only</value>
   </data>
 </root>
