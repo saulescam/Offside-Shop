@@ -655,6 +655,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a English Quote &amp; Role.
+        /// </summary>
+        internal static string Admin_Banners_AuthQuoteRoleEN {
+            get {
+                return ResourceManager.GetString("Admin_Banners_AuthQuoteRoleEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Background Image.
+        /// </summary>
+        internal static string Admin_Banners_BgImageLabel {
+            get {
+                return ResourceManager.GetString("Admin_Banners_BgImageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Add Category.
         /// </summary>
         internal static string Admin_Banners_BtnAddCategory {
@@ -880,6 +898,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No slides available..
+        /// </summary>
+        internal static string Admin_Banners_EmptyAuth {
+            get {
+                return ResourceManager.GetString("Admin_Banners_EmptyAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No banners currently uploaded. Add a new banner above..
+        /// </summary>
+        internal static string Admin_Banners_EmptyBanners {
+            get {
+                return ResourceManager.GetString("Admin_Banners_EmptyBanners", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No categories available..
+        /// </summary>
+        internal static string Admin_Banners_EmptyCategories {
+            get {
+                return ResourceManager.GetString("Admin_Banners_EmptyCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No collections currently created..
+        /// </summary>
+        internal static string Admin_Banners_EmptyCollections {
+            get {
+                return ResourceManager.GetString("Admin_Banners_EmptyCollections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a English (Default).
+        /// </summary>
+        internal static string Admin_Banners_EnglishTab {
+            get {
+                return ResourceManager.GetString("Admin_Banners_EnglishTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Banner Image.
         /// </summary>
         internal static string Admin_Banners_ImageLabel {
@@ -925,11 +988,101 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Manage Banners &amp; Collections | OffsideShop.
+        /// </summary>
+        internal static string Admin_Banners_PageTitle {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a e.g. Johan Cruyff.
+        /// </summary>
+        internal static string Admin_Banners_PhAuthor {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PhAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a e.g. Classic.
+        /// </summary>
+        internal static string Admin_Banners_PhCatEN {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PhCatEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a e.g. Anyone can run. Playing football....
+        /// </summary>
+        internal static string Admin_Banners_PhQuoteEN {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PhQuoteEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a e.g. Barcelona and Netherlands legend.
+        /// </summary>
+        internal static string Admin_Banners_PhRoleEN {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PhRoleEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a e.g. Relive the magic with our authentic jerseys.
+        /// </summary>
+        internal static string Admin_Banners_PhSubEN {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PhSubEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a e.g. World Cup Heritage.
+        /// </summary>
+        internal static string Admin_Banners_PhTitleEN {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PhTitleEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a e.g. World Cup Heritage.
+        /// </summary>
+        internal static string Admin_Banners_PhTitleES {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PhTitleES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Preview.
         /// </summary>
         internal static string Admin_Banners_Preview {
             get {
                 return ResourceManager.GetString("Admin_Banners_Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Primary English Text.
+        /// </summary>
+        internal static string Admin_Banners_PrimaryEn {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PrimaryEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Spanish Text.
+        /// </summary>
+        internal static string Admin_Banners_PrimaryEs {
+            get {
+                return ResourceManager.GetString("Admin_Banners_PrimaryEs", resourceCulture);
             }
         }
         
@@ -988,6 +1141,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a - Select Category -.
+        /// </summary>
+        internal static string Admin_Banners_SelectCategory {
+            get {
+                return ResourceManager.GetString("Admin_Banners_SelectCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Spanish (Español).
+        /// </summary>
+        internal static string Admin_Banners_SpanishTab {
+            get {
+                return ResourceManager.GetString("Admin_Banners_SpanishTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Status.
         /// </summary>
         internal static string Admin_Banners_Status {
@@ -1038,6 +1209,15 @@ namespace Resources {
         internal static string Admin_Banners_SubtitleES {
             get {
                 return ResourceManager.GetString("Admin_Banners_SubtitleES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Supports JPG, WEBP, PNG (max 2MB).
+        /// </summary>
+        internal static string Admin_Banners_SupportsImg {
+            get {
+                return ResourceManager.GetString("Admin_Banners_SupportsImg", resourceCulture);
             }
         }
         
@@ -1110,6 +1290,15 @@ namespace Resources {
         internal static string Admin_Banners_TranslateToEs {
             get {
                 return ResourceManager.GetString("Admin_Banners_TranslateToEs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Universal Author &amp; Status.
+        /// </summary>
+        internal static string Admin_Banners_UnivAuthStatus {
+            get {
+                return ResourceManager.GetString("Admin_Banners_UnivAuthStatus", resourceCulture);
             }
         }
         
@@ -4534,6 +4723,222 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Slide added successfully!.
+        /// </summary>
+        internal static string Alert_Banners_AuthAdded {
+            get {
+                return ResourceManager.GetString("Alert_Banners_AuthAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Quote and Author Name in English are required..
+        /// </summary>
+        internal static string Alert_Banners_AuthFieldsReqEn {
+            get {
+                return ResourceManager.GetString("Alert_Banners_AuthFieldsReqEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Quote in Spanish is required..
+        /// </summary>
+        internal static string Alert_Banners_AuthFieldsReqEs {
+            get {
+                return ResourceManager.GetString("Alert_Banners_AuthFieldsReqEs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Slide updated successfully!.
+        /// </summary>
+        internal static string Alert_Banners_AuthUpdated {
+            get {
+                return ResourceManager.GetString("Alert_Banners_AuthUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Banner added successfully!.
+        /// </summary>
+        internal static string Alert_Banners_BannerAdded {
+            get {
+                return ResourceManager.GetString("Alert_Banners_BannerAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Banner updated successfully!.
+        /// </summary>
+        internal static string Alert_Banners_BannerUpdated {
+            get {
+                return ResourceManager.GetString("Alert_Banners_BannerUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Category added successfully!.
+        /// </summary>
+        internal static string Alert_Banners_CatAdded {
+            get {
+                return ResourceManager.GetString("Alert_Banners_CatAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Category Name is required in both English and Spanish..
+        /// </summary>
+        internal static string Alert_Banners_CatReq {
+            get {
+                return ResourceManager.GetString("Alert_Banners_CatReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Collection added successfully!.
+        /// </summary>
+        internal static string Alert_Banners_ColAdded {
+            get {
+                return ResourceManager.GetString("Alert_Banners_ColAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Title, Category and Link are required..
+        /// </summary>
+        internal static string Alert_Banners_ColFieldsReq {
+            get {
+                return ResourceManager.GetString("Alert_Banners_ColFieldsReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Collection updated successfully!.
+        /// </summary>
+        internal static string Alert_Banners_ColUpdated {
+            get {
+                return ResourceManager.GetString("Alert_Banners_ColUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Only .jpg, .png, .jpeg, and .webp allowed..
+        /// </summary>
+        internal static string Alert_Banners_ImgFormat {
+            get {
+                return ResourceManager.GetString("Alert_Banners_ImgFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please upload an image..
+        /// </summary>
+        internal static string Alert_Banners_ImgReq {
+            get {
+                return ResourceManager.GetString("Alert_Banners_ImgReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Maximum image size is 2 MB..
+        /// </summary>
+        internal static string Alert_Banners_ImgSize {
+            get {
+                return ResourceManager.GetString("Alert_Banners_ImgSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please enter the Author Name..
+        /// </summary>
+        internal static string Alert_Banners_MissingAuthor {
+            get {
+                return ResourceManager.GetString("Alert_Banners_MissingAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill in the category name in both English and Spanish..
+        /// </summary>
+        internal static string Alert_Banners_MissingCat {
+            get {
+                return ResourceManager.GetString("Alert_Banners_MissingCat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill in all required fields in the English tab..
+        /// </summary>
+        internal static string Alert_Banners_MissingEn {
+            get {
+                return ResourceManager.GetString("Alert_Banners_MissingEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill in all required fields in the Spanish tab..
+        /// </summary>
+        internal static string Alert_Banners_MissingEs {
+            get {
+                return ResourceManager.GetString("Alert_Banners_MissingEs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please fill in the quote in English..
+        /// </summary>
+        internal static string Alert_Banners_MissingQuoteEn {
+            get {
+                return ResourceManager.GetString("Alert_Banners_MissingQuoteEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Please enter the quote in Spanish..
+        /// </summary>
+        internal static string Alert_Banners_MissingQuoteEs {
+            get {
+                return ResourceManager.GetString("Alert_Banners_MissingQuoteEs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order updated successfully!.
+        /// </summary>
+        internal static string Alert_Banners_OrderUpdated {
+            get {
+                return ResourceManager.GetString("Alert_Banners_OrderUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Title and Subtitle in English are required..
+        /// </summary>
+        internal static string Alert_Banners_TitleSubEnReq {
+            get {
+                return ResourceManager.GetString("Alert_Banners_TitleSubEnReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Title and Subtitle in Spanish are required..
+        /// </summary>
+        internal static string Alert_Banners_TitleSubEsReq {
+            get {
+                return ResourceManager.GetString("Alert_Banners_TitleSubEsReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Translated successfully!.
+        /// </summary>
+        internal static string Alert_Banners_Translated {
+            get {
+                return ResourceManager.GetString("Alert_Banners_Translated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Brand deleted successfully..
         /// </summary>
         internal static string Alert_Brand_Deleted {
@@ -5583,6 +5988,15 @@ namespace Resources {
         internal static string Alert_Login_WrongTitle {
             get {
                 return ResourceManager.GetString("Alert_Login_WrongTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Missing Information.
+        /// </summary>
+        internal static string Alert_MissingInfo {
+            get {
+                return ResourceManager.GetString("Alert_MissingInfo", resourceCulture);
             }
         }
         

@@ -445,17 +445,17 @@
                                     </button>
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label>Shirt Name (EN) <span class="text-danger">*</span></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ShirtNameEn %>" /> <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtName" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. FC Barcelona Home 2024" MaxLength="200"></asp:TextBox>
                                 </div>
                                 <div class="form-group mb-0">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <label class="mb-0">Description (EN) <small class="text-muted">(optional)</small></label>
+                                        <label class="mb-0"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_DescEn %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Optional %>" />)</small></label>
                                         <!-- BOTÓN DE IA CLIENTE (SIN POSTBACK) -->
                                         <button type="button" id="btnAiGen" class="btn btn-sm"
                                             style="background: linear-gradient(135deg, #FFC800, #d97706); color: #fff; font-weight: 700; border: none; border-radius: 6px; padding: 2px 10px; font-size: 0.78rem;"
                                             onclick="generateAiDescription(); return false;">
-                                            <i class="fas fa-magic mr-1"></i> Generate with AI
+                                            <i class="fas fa-magic mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GenerateWithAi %>" />
                                         </button>
                                     </div>
                                     <asp:TextBox ID="txtDescription" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Short product description in English..."></asp:TextBox>
@@ -471,11 +471,11 @@
                                     </button>
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label>Nombre de Camiseta (ES) <span class="text-danger">*</span></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ShirtNameEs %>" /> <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtName_ES" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="ej. Camiseta Local FC Barcelona 2024" MaxLength="200"></asp:TextBox>
                                 </div>
                                 <div class="form-group mb-0">
-                                    <label>Descripción (ES) <small class="text-muted">(opcional)</small></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_DescEs %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Optional %>" />)</small></label>
                                     <asp:TextBox ID="txtDescription_ES" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Descripción en español..."></asp:TextBox>
                                 </div>
                             </div>
@@ -488,7 +488,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Price (USD) <span class="text-danger">*</span></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_PriceUsd %>" /> <span class="text-danger">*</span></label>
                                     <asp:TextBox ID="txtPrice" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. 89.99" MaxLength="10" onkeypress="return validarPrecio(event, this)" onpaste="return false"></asp:TextBox>
                                 </div>
                             </div>
@@ -548,7 +548,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Product Image <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ProductImageLabel %>" /> <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
                                     <div class="drop-zone" id="dzMainImage">
                                         <i class="fas fa-cloud-upload-alt"></i>
                                         <p id="lblMainImageText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_MainImageDrag %>" /></p>
@@ -560,7 +560,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Gallery Images <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
+                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImagesLabel %>" /> <small class="text-muted">(.jpg / .png / .webp, max 2 MB)</small></label>
                                     <div class="drop-zone" id="dzGalleryImages">
                                         <i class="fas fa-images"></i>
                                         <p id="lblGalleryImagesText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageDrag %>" /></p>
@@ -621,18 +621,16 @@
                                 <asp:DropDownList ID="ddlFilterKitType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filters_Changed"></asp:DropDownList>
                             </div>
                             <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
-                                <label>Stock Level</label>
+                                <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockLevel %>" /></label>
                                 <asp:DropDownList ID="ddlFilterStock" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filters_Changed">
-                                    <asp:ListItem Text="-- All Stock --" Value="0"></asp:ListItem>
-                                    <asp:ListItem Text="Low Stock (< 5)" Value="1"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
-                                <label>Search by Name</label>
+                                <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SearchByName %>" /></label>
                                 <asp:TextBox ID="txtSearchName" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Placeholder_SearchShirt %>" AutoPostBack="true" OnTextChanged="Filters_Changed"></asp:TextBox>
                             </div>
                             <div class="col-md-1 col-sm-6 text-right">
-                                <asp:LinkButton ID="lbClearFilters" runat="server" CssClass="text-muted" Style="font-size: 0.8rem; text-decoration: underline; display: block; margin-top: 20px;" CausesValidation="false" OnClick="lbClearFilters_Click">Clear</asp:LinkButton>
+                                <asp:LinkButton ID="lbClearFilters" runat="server" CssClass="text-muted" Style="font-size: 0.8rem; text-decoration: underline; display: block; margin-top: 20px;" CausesValidation="false" OnClick="lbClearFilters_Click"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Clear %>" /></asp:LinkButton>
                             </div>
                         </div>
                     </div>
@@ -647,30 +645,30 @@
 
                     <!-- PRODUCTS GRIDVIEW -->
                     <div class="table-responsive">
-                        <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="ID" AllowPaging="true" PageSize="24" OnRowCommand="gvProducts_RowCommand" OnRowDataBound="gvProducts_RowDataBound" OnPageIndexChanging="gvProducts_PageIndexChanging" EmptyDataText="No shirts found matching the current filters.">
+                        <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="ID" AllowPaging="true" PageSize="24" OnRowCommand="gvProducts_RowCommand" OnRowDataBound="gvProducts_RowDataBound" OnPageIndexChanging="gvProducts_PageIndexChanging" EmptyDataText="<%$ Resources:Strings, Admin_Products_EmptyGrid %>">
                             <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
                             <Columns>
-                                <asp:BoundField DataField="ID" HeaderText="ID" ItemStyle-Width="50px" />
-                                <asp:TemplateField HeaderText="Shirt Name (EN)" ItemStyle-HorizontalAlign="Left">
+                                <asp:BoundField DataField="ID" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderId %>" ItemStyle-Width="50px" />
+                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderShirtNameEn %>" ItemStyle-HorizontalAlign="Left">
                                     <ItemTemplate>
                                         <asp:PlaceHolder ID="phLowStockBadge" runat="server" Visible='<%# Convert.ToInt32(Eval("TotalStock")) < 5 %>'>
                                             <span class="badge bg-danger text-white me-1" style="font-size: 0.75rem; padding: 2px 6px;" title="Low Stock Alert">
-                                                <i class="fas fa-exclamation-triangle"></i> LOW STOCK (<%# Eval("TotalStock") %>)
+                                                <i class="fas fa-exclamation-triangle"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_LowStockBadge %>" /> (<%# Eval("TotalStock") %>)
                                             </span>
                                         </asp:PlaceHolder>
                                         <span class="fw-bold text-white"><%# Eval("Name") %></span>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="Name_ES" HeaderText="Nombre (ES)" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
-                                <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:N2}" HtmlEncode="false" />
-                                <asp:BoundField DataField="Year" HeaderText="Year" />
-                                <asp:BoundField DataField="BrandName" HeaderText="Brand" />
-                                <asp:BoundField DataField="TeamName" HeaderText="Team" />
-                                <asp:BoundField DataField="KitTypeName" HeaderText="Kit Type" />
-                                <asp:TemplateField HeaderText="Status">
+                                <asp:BoundField DataField="Name_ES" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderShirtNameEs %>" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
+                                <asp:BoundField DataField="Price" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderPrice %>" DataFormatString="{0:N2}" HtmlEncode="false" />
+                                <asp:BoundField DataField="Year" HeaderText="<%$ Resources:Strings, Detail_Year %>" />
+                                <asp:BoundField DataField="BrandName" HeaderText="<%$ Resources:Strings, Search_BrandLabel %>" />
+                                <asp:BoundField DataField="TeamName" HeaderText="<%$ Resources:Strings, Sidebar_Team %>" />
+                                <asp:BoundField DataField="KitTypeName" HeaderText="<%$ Resources:Strings, Search_KitLabel %>" />
+                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderStatus %>">
                                     <ItemTemplate><asp:Label ID="lblStatus" runat="server"></asp:Label></ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Actions" ItemStyle-Width="140px">
+                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderActions %>" ItemStyle-Width="140px">
                                     <ItemTemplate>
                                         <asp:Button ID="btnEdit" runat="server" CssClass="btn-action btn-edit" CommandName="EditProduct" CommandArgument='<%# Eval("ID") %>' Text="&#xf044;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
                                         <asp:Button ID="btnToggle" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleStatus" CommandArgument='<%# Eval("ID") %>' Text="&#xf06e;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
@@ -727,7 +725,7 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             });
-                            Toast.fire({ icon: 'success', title: 'Translated successfully!' });
+                            Toast.fire({ icon: 'success', title: '<%= GetGlobalResourceObject("Strings", "Admin_Products_TranslateSuccess") %>' });
                         }
                     })
                     .catch(function (err) {
@@ -749,13 +747,13 @@
             let kitType = (kitElem && kitElem.selectedIndex > 0) ? kitElem.options[kitElem.selectedIndex].text : 'Jersey';
 
             if (!name || brandElem.value === "0" || teamElem.value === "0") {
-                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfoTitle") %>', 'Please enter at least Name, Brand, and Team before generating the description.', 'warning');
+                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_MissingInfoTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_AiMissingInfo") %>', 'warning');
                 return;
             }
 
             Swal.fire({
-                title: 'Generating Description...',
-                text: 'AI is crafting a compelling product description. Please wait...',
+                title: '<%= GetGlobalResourceObject("Strings", "Admin_Products_AiGenTitle") %>',
+                text: '<%= GetGlobalResourceObject("Strings", "Admin_Products_AiGenText") %>',
                 allowOutsideClick: false,
                 didOpen: () => { Swal.showLoading(); }
             });
@@ -775,7 +773,7 @@
                 success: function (response) {
                     Swal.close();
                     if (response.d && response.d.indexOf("ERROR:") === 0) {
-                        Swal.fire('AI Error', response.d, 'error');
+                        Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Products_AiErrorTitle") %>', response.d, 'error');
                     } else if (response.d) {
                         document.getElementById('txtDescription').value = response.d;
                         const Toast = Swal.mixin({
@@ -784,12 +782,12 @@
                             showConfirmButton: false,
                             timer: 2500
                         });
-                        Toast.fire({ icon: 'success', title: 'Description generated successfully!' });
+                        Toast.fire({ icon: 'success', title: '<%= GetGlobalResourceObject("Strings", "Admin_Products_AiSuccess") %>' });
                     }
                 },
                 error: function (xhr, status, error) {
                     Swal.close();
-                    Swal.fire('Error', 'Failed to communicate with AI service.', 'error');
+                    Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_ErrorTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Products_AiConnectError") %>', 'error');
                 }
             });
         }
@@ -941,7 +939,7 @@
                             reader.readAsDataURL(files[i]);
                         }
                     }
-                    textLabel.innerText = `${limit} image(s) attached ready for upload`;
+                    textLabel.innerText = '<%= GetGlobalResourceObject("Strings", "Admin_Products_AttachedReady") %>'.replace('{0}', limit);
                     textLabel.style.color = "#1a7a4a";
                 } else {
                     dataTransfer.items.add(files[0]);

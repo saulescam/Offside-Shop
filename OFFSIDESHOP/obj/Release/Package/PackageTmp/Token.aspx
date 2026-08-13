@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Token.aspx.cs" Inherits="OFFSIDESHOP.Token" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Token.aspx.cs" Inherits="OFFSIDESHOP.Token" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,7 +9,7 @@
 
     <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="Font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap" rel="stylesheet" />
     <link href="EstilosCss/AuthSplit.css" rel="stylesheet" />
 
@@ -17,6 +17,7 @@
     <script src="SweetAlert/sweetalert2.all.min.js"></script>
     <script src="SweetAlert/sweetalert2.js"></script>
 
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -33,7 +34,7 @@
                         <asp:Repeater ID="rptCarousel" runat="server">
                             <ItemTemplate>
                                 <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
-                                    <img src='<%# ResolveUrl(Eval("ImageURL").ToString()) %>' alt="Slide" />
+                                    <img src='<%# ResolveUrl(Eval("ImageURL").ToString()) %>' alt="Slide" style='object-fit: cover; width: 100%; height: 100%; object-position: <%# Eval("Id_Slide").ToString() == "5" ? "top center" : "center center" %>;' />
                                     <div class="carousel-caption-custom">
                                         <div class="carousel-text-area">
                                             <h2>"<%# Eval("QuoteText") %>"</h2>
@@ -51,10 +52,10 @@
                     <!-- BOTONES FUERA DEL REPEATER (ESTATICOS) -->
                     <div class="carousel-static-nav">
                         <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="prev" data-bs-slide="prev">
-                            <i class="fa fa-arrow-left"></i>
+                            <i class="fas fa-arrow-left"></i>
                         </a>
                         <a class="nav-btn-circle" href="#authCarousel" role="button" data-slide="next" data-bs-slide="next">
-                            <i class="fa fa-arrow-right"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
