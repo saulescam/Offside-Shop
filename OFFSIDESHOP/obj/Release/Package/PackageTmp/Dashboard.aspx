@@ -489,14 +489,16 @@
                             <div class="form-card p-0 workspace-card" style="overflow: hidden;">
                                 <div class="p-3 bg-dark border-bottom border-warning d-flex justify-content-between align-items-center">
                                     <h4 class="m-0 text-white" style="font-weight: 600;"><i class="fas fa-shield-alt text-warning mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_AuditFeed %>" /></h4>
-                                    <span class="badge badge-secondary px-3 py-1 font-weight-bold">Owner Only</span>
+                                    <span class="badge badge-secondary px-3 py-1 font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Dash_OwnerOnly %>" /></span>
                                 </div>
                                 <div class="table-responsive">
                                     <asp:GridView ID="gvAuditLogs" runat="server" AutoGenerateColumns="false" CssClass="table table-custom m-0" GridLines="None" BorderStyle="None">
                                         <Columns>
                                             <asp:BoundField DataField="Created_At" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderDateTime %>" DataFormatString="{0:MM/dd/yyyy hh:mm tt}" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
                                             <asp:BoundField DataField="Operator" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderOperator %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="font-weight-bold text-white" />
-                                            <asp:BoundField DataField="Module" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderModule %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderModule %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white">
+                                                <ItemTemplate><%# GetLocalizedModule(Eval("Module")) %></ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:BoundField DataField="Description" HeaderText="<%$ Resources:Strings, Admin_Dash_HeaderDescription %>" HeaderStyle-CssClass="text-warning font-weight-bold" ItemStyle-CssClass="text-white" />
                                         </Columns>
                                         <EmptyDataTemplate>

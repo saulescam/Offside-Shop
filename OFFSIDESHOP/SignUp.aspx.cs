@@ -1,6 +1,7 @@
 using Nemiro.OAuth;
 using MySql.Data.MySqlClient;
 using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -9,6 +10,7 @@ namespace OFFSIDESHOP
     public partial class SignUp : System.Web.UI.Page
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
+
         protected override void InitializeCulture()
         {
             string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
@@ -16,6 +18,7 @@ namespace OFFSIDESHOP
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
             base.InitializeCulture();
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -28,7 +31,7 @@ namespace OFFSIDESHOP
                 rptCarousel.DataBind();
             }
 
-            // If already authenticated, redirect to the appropriate page
+            // Si ya está autenticado, redirigir según su rol
             if (Session["UserRole"] != null)
             {
                 int role = Convert.ToInt32(Session["UserRole"]);
@@ -37,7 +40,7 @@ namespace OFFSIDESHOP
                 else if (role == 3)
                     Response.Redirect("Homepage.aspx");
                 else if (role == 4)
-                    Response.Redirect("DeliveryDashboard.aspx"); // Redirección automática para el Repartidor
+                    Response.Redirect("DeliveryDashboard.aspx");
             }
         }
 
@@ -115,7 +118,6 @@ namespace OFFSIDESHOP
         {
             if (Session["Reg_Token"] != null && txtToken.Text.Trim() == Session["Reg_Token"].ToString())
             {
-                // Código válido: Insertar usuario
                 try
                 {
                     using (MySqlConnection con = new MySqlConnection(connectionString))
@@ -137,7 +139,6 @@ namespace OFFSIDESHOP
                     Session.Remove("Reg_Hash"); Session.Remove("Reg_Token");
 
                     string scriptSuccess = AlertHelper.GetRedirectAlertScriptNoTags(this, "Alert_SignUp_VerifiedTitle", "Alert_SignUp_VerifiedText", "success", 2000, "Login.aspx");
-
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "regSuccess", scriptSuccess, true);
                 }
                 catch (Exception ex)
@@ -147,12 +148,10 @@ namespace OFFSIDESHOP
             }
             else
             {
-                // Código Inválido
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidToken", AlertHelper.GetSafeAlertScript(this, "Alert_SignUp_InvalidTokenTitle", "Alert_SignUp_InvalidToken", "error"), true);
             }
         }
 
-        // Si el usuario se equivocó al escribir su correo, le permitimos regresar al formulario
         protected void btnBack_Click(object sender, EventArgs e)
         {
             pnlVerify.Visible = false;
@@ -161,9 +160,39 @@ namespace OFFSIDESHOP
             Session.Remove("Reg_Token");
         }
 
+        private string GetGoogleCallbackUrl()
+        {
+            // 1. Detectar el Host (si viene por ngrok toma X-Forwarded-Host; en local toma Request.Url.Authority)
+            string host = Request.Headers["X-Forwarded-Host"];
+            if (string.IsNullOrEmpty(host))
+            {
+                host = Request.Url.Authority;
+            }
+
+            // 2. Detectar el protocolo (https para ngrok; o el esquema del Request)
+            string proto = Request.Headers["X-Forwarded-Proto"];
+            if (string.IsNullOrEmpty(proto))
+            {
+                proto = Request.Url.Scheme;
+            }
+
+            // 3. Obtener ruta de la aplicación
+            string appPath = Request.ApplicationPath.TrimEnd('/');
+            return $"{proto}://{host}{appPath}/ExternalLoginResult.aspx";
+        }
+
         protected void btnGoogleSign_Click(object sender, EventArgs e)
         {
-            string callbackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/ExternalLoginResult.aspx");
+            // 1. Leemos directamente la URL de ngrok desde tu Web.config
+            string callbackUrl = System.Configuration.ConfigurationManager.AppSettings["GoogleRedirectUri"];
+
+            // 2. Si por algún motivo no existe en el config, usamos la URL local como respaldo
+            if (string.IsNullOrWhiteSpace(callbackUrl))
+            {
+                callbackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/ExternalLoginResult.aspx");
+            }
+
+            // 3. Enviamos la URL de ngrok a Google
             OAuthWeb.RedirectToAuthorization("google", callbackUrl);
         }
 
