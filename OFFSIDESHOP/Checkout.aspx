@@ -573,8 +573,8 @@
                                             <script
                                                 src="http://192.168.3.27:8000/api/v1/widget/checkout.js"
                                                 data-vw-widget="true"
-                                                data-client-id="pk_sandbox_z7HAhorZnXVtsCBW"
-                                                data-secret-key="sk_live_tBpZJvNwx661"
+                                                data-client-id="pk_sandbox_7hYP5Mdfg9cdLxH20XC5AmFR"
+                                                data-secret-key="sk_live_P5iFosZtwGjbc4Kk6iBSBrgt"
                                                 data-amount-id="vw_monto"
                                                 data-desc-id="DescCarrito">
                                             </script>
@@ -584,7 +584,7 @@
                                 </div>
 
                                 <div class="input-checkbox mt-3">
-                                <input type="checkbox" id="terms">
+                                    <input type="checkbox" id="terms">
                                 <label for="terms"><span></span><%= Resources.Strings.Checkout_TermsText1 %> <a href="#"><%= Resources.Strings.Checkout_TermsText2 %></a></label>
                             </div>
 
@@ -683,15 +683,15 @@
         <script
             src="http://192.168.3.27:8000/api/v1/widget/checkout.js"
             data-vw-widget="true"
-            data-client-id="pk_sandbox_z7HAhorZnXVtsCBW"
-            data-secret-key="sk_live_tBpZJvNwx661"
+            data-client-id="pk_sandbox_7hYP5Mdfg9cdLxH20XC5AmFR"
+            data-secret-key="sk_live_P5iFosZtwGjbc4Kk6iBSBrgt"
             data-amount-id="vw_monto"
             data-desc-id="DescCarrito">
         </script>
 
-            <script src="https://www.paypal.com/sdk/js?client-id=AejQEmRXV3PTfVnwchx6ti6AlPsYbETlZgM4AtfUXa2IO4AykiJkUtL6wPJcafyn5kzlagVr4fH60nyH&currency=USD"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=AejQEmRXV3PTfVnwchx6ti6AlPsYbETlZgM4AtfUXa2IO4AykiJkUtL6wPJcafyn5kzlagVr4fH60nyH&currency=USD"></script>
 
-            <script type="text/javascript">
+        <script type="text/javascript">
                 window.addEventListener('load', function () {
                     // Sincronizar montos iniciales
                     sincronizarMontosBilletera();

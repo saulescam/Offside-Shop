@@ -201,7 +201,11 @@
                                     GridLines="None"
                                     CssClass="table table-custom text-center"
                                     DataKeyNames="Id_Brand"
+                                    AllowPaging="True"
+                                    PageSize="10"
+                                    OnPageIndexChanging="gvBrands_PageIndexChanging"
                                     OnRowDeleting="gvBrands_RowDeleting">
+                                    <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
                                     <Columns>
                                         <asp:BoundField DataField="Id_Brand" HeaderText="<%$ Resources:Strings, Admin_Brand_ColID %>" />
                                         <asp:BoundField DataField="Name_Brand" HeaderText="<%$ Resources:Strings, Admin_Brand_ColName %>" />

@@ -1861,6 +1861,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Owner Only.
+        /// </summary>
+        internal static string Admin_Dash_OwnerOnly {
+            get {
+                return ResourceManager.GetString("Admin_Dash_OwnerOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Pending Orders.
         /// </summary>
         internal static string Admin_Dash_PendingOrders {
@@ -4165,6 +4174,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Name (Spanish).
+        /// </summary>
+        internal static string Admin_Team_ColNameES {
+            get {
+                return ResourceManager.GetString("Admin_Team_ColNameES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Delete.
         /// </summary>
         internal static string Admin_Team_Delete {
@@ -4201,7 +4219,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Team Name.
+        ///   Busca una cadena traducida similar a Name in Spanish (Optional / National Teams).
+        /// </summary>
+        internal static string Admin_Team_NameESLabel {
+            get {
+                return ResourceManager.GetString("Admin_Team_NameESLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Leave empty for club teams where the name does not change..
+        /// </summary>
+        internal static string Admin_Team_NameESNote {
+            get {
+                return ResourceManager.GetString("Admin_Team_NameESNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Team Name (Primary / English).
         /// </summary>
         internal static string Admin_Team_NameLabel {
             get {

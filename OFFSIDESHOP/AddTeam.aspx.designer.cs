@@ -24,6 +24,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Control ScriptManager1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+
+        /// <summary>
         /// Control btnLanguageToggle.
         /// </summary>
         /// <remarks>
@@ -168,6 +177,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.LinkButton btncerrar;
 
         /// <summary>
+        /// Control upMainTeams.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upMainTeams;
+
+        /// <summary>
         /// Control ddlLeagues.
         /// </summary>
         /// <remarks>
@@ -186,6 +204,15 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.TextBox txtTeamName;
 
         /// <summary>
+        /// Control txtTeamNameES.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTeamNameES;
+
+        /// <summary>
         /// Control btnSaveTeam.
         /// </summary>
         /// <remarks>
@@ -193,6 +220,33 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnSaveTeam;
+
+        /// <summary>
+        /// Control ddlFilterLeague.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFilterLeague;
+
+        /// <summary>
+        /// Control txtFilterTeam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFilterTeam;
+
+        /// <summary>
+        /// Control btnClearTeamFilter.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnClearTeamFilter;
 
         /// <summary>
         /// Control gvTeams.

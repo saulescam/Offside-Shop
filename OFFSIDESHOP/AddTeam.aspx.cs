@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Web;
 using System.Web.UI;
@@ -10,6 +11,7 @@ namespace OFFSIDESHOP
     public partial class AddTeam : System.Web.UI.Page
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
+
         // ──────────────────────────────────────────────────────────────
         //  Page_Load
         // ──────────────────────────────────────────────────────────────
@@ -54,7 +56,7 @@ namespace OFFSIDESHOP
         }
 
         // ──────────────────────────────────────────────────────────────
-        //  Populate the Leagues DropDownList
+        //  Populate the Leagues DropDownList and Filter DropDownList
         // ──────────────────────────────────────────────────────────────
         private void LoadLeaguesDropdown()
         {
@@ -68,30 +70,61 @@ namespace OFFSIDESHOP
 
                 bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
                 string selectLeagueText = isSpanish ? "-- Seleccionar Liga --" : "-- Select League --";
+                string allLeaguesText = isSpanish ? "-- Todas las Ligas --" : "-- All Leagues --";
+
                 ddlLeagues.Items.Clear();
                 ddlLeagues.Items.Add(new ListItem(selectLeagueText, ""));
+
+                ddlFilterLeague.Items.Clear();
+                ddlFilterLeague.Items.Add(new ListItem(allLeaguesText, ""));
+
                 foreach (DataRow row in dt.Rows)
-                    ddlLeagues.Items.Add(new ListItem(row["Name_League"].ToString(), row["Id_League"].ToString()));
+                {
+                    string id = row["Id_League"].ToString();
+                    string name = row["Name_League"].ToString();
+                    ddlLeagues.Items.Add(new ListItem(name, id));
+                    ddlFilterLeague.Items.Add(new ListItem(name, id));
+                }
             }
         }
 
         // ──────────────────────────────────────────────────────────────
-        //  Load all teams with league name into GridView
+        //  Load teams with league name into GridView with filtering
         // ──────────────────────────────────────────────────────────────
         private void LoadTeams()
         {
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
-                MySqlCommand cmd = new MySqlCommand(
-                    @"SELECT t.Id_Team, t.Name_Team, l.Name_League
-                      FROM teams t
-                      INNER JOIN leagues l ON t.Id_League = l.Id_League
-                      ORDER BY l.Name_League ASC, t.Name_Team ASC;", con);
-                DataTable dt = new DataTable();
-                new MySqlDataAdapter(cmd).Fill(dt);
-                gvTeams.DataSource = dt;
-                gvTeams.DataBind();
+                string query = @"SELECT t.Id_Team, t.Name_Team, t.Name_Team_ES, l.Name_League
+                                 FROM teams t
+                                 INNER JOIN leagues l ON t.Id_League = l.Id_League
+                                 WHERE 1=1 ";
+
+                List<MySqlParameter> parameters = new List<MySqlParameter>();
+
+                if (ddlFilterLeague != null && !string.IsNullOrEmpty(ddlFilterLeague.SelectedValue))
+                {
+                    query += " AND t.Id_League = @FilterLeague ";
+                    parameters.Add(new MySqlParameter("@FilterLeague", ddlFilterLeague.SelectedValue));
+                }
+
+                if (txtFilterTeam != null && !string.IsNullOrWhiteSpace(txtFilterTeam.Text))
+                {
+                    query += " AND (t.Name_Team LIKE @SearchTeam OR t.Name_Team_ES LIKE @SearchTeam) ";
+                    parameters.Add(new MySqlParameter("@SearchTeam", "%" + txtFilterTeam.Text.Trim() + "%"));
+                }
+
+                query += " ORDER BY l.Name_League ASC, t.Name_Team ASC;";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddRange(parameters.ToArray());
+                    DataTable dt = new DataTable();
+                    new MySqlDataAdapter(cmd).Fill(dt);
+                    gvTeams.DataSource = dt;
+                    gvTeams.DataBind();
+                }
             }
         }
 
@@ -101,6 +134,7 @@ namespace OFFSIDESHOP
         protected void btnSaveTeam_Click(object sender, EventArgs e)
         {
             string teamName = txtTeamName.Text.Trim();
+            string teamNameES = txtTeamNameES.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(teamName))
             {
@@ -120,8 +154,9 @@ namespace OFFSIDESHOP
                 return;
             }
 
-            // XSS protection
+            // XSS sanitization
             string safeTeamName = HttpUtility.HtmlEncode(teamName);
+            string safeTeamNameES = string.IsNullOrWhiteSpace(teamNameES) ? null : HttpUtility.HtmlEncode(teamNameES);
 
             try
             {
@@ -129,15 +164,18 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
                     MySqlCommand cmd = new MySqlCommand(
-                        "INSERT INTO teams (Name_Team, Id_League) VALUES (@Name, @IdLeague);", con);
+                        "INSERT INTO teams (Name_Team, Name_Team_ES, Id_League) VALUES (@Name, @NameES, @IdLeague);", con);
                     cmd.Parameters.AddWithValue("@Name", safeTeamName);
+                    cmd.Parameters.AddWithValue("@NameES", (object)safeTeamNameES ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@IdLeague", leagueId);
                     cmd.ExecuteNonQuery();
                 }
 
                 alerta.Text = AlertHelper.Success(this, "Alert_Team_Saved");
-                AuditLogger.LogActivity("CREATE", "AddTeam", $"Created new team '{safeTeamName}' in League ID #{leagueId}");
-                txtTeamName.Text = "";
+                AuditLogger.LogActivity("CREATE", "AddTeam", $"Created new team '{safeTeamName}' (ES: '{safeTeamNameES ?? "N/A"}') in League ID #{leagueId}");
+
+                txtTeamName.Text = string.Empty;
+                txtTeamNameES.Text = string.Empty;
                 LoadTeams();
             }
             catch (Exception ex)
@@ -151,7 +189,6 @@ namespace OFFSIDESHOP
         // ──────────────────────────────────────────────────────────────
         protected void gvTeams_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            // Safely retrieve the primary key from DataKeys
             int idTeam = Convert.ToInt32(gvTeams.DataKeys[e.RowIndex].Value);
 
             try
@@ -177,62 +214,52 @@ namespace OFFSIDESHOP
                 LoadTeams();
             }
         }
-        protected void btnManageProducts_Click(object sender, EventArgs e)
+
+        // ──────────────────────────────────────────────────────────────
+        //  GridView PageIndexChanging & Filtering Handlers
+        // ──────────────────────────────────────────────────────────────
+        protected void gvTeams_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            Response.Redirect("ManageProducts.aspx");
+            gvTeams.PageIndex = e.NewPageIndex;
+            LoadTeams();
         }
 
-        protected void btnManageOrders_Click(object sender, EventArgs e)
+        protected void FilterTeams_Changed(object sender, EventArgs e)
         {
-            Response.Redirect("ManageOrders.aspx");
+            gvTeams.PageIndex = 0;
+            LoadTeams();
         }
 
+        protected void btnClearTeamFilter_Click(object sender, EventArgs e)
+        {
+            if (ddlFilterLeague != null && ddlFilterLeague.Items.Count > 0)
+                ddlFilterLeague.SelectedIndex = 0;
+            if (txtFilterTeam != null)
+                txtFilterTeam.Text = string.Empty;
+            gvTeams.PageIndex = 0;
+            LoadTeams();
+        }
+
+        // Navigation Handlers
+        protected void btnManageProducts_Click(object sender, EventArgs e) => Response.Redirect("ManageProducts.aspx");
+        protected void btnManageOrders_Click(object sender, EventArgs e) => Response.Redirect("ManageOrders.aspx");
         protected void btncerrar_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();
             Response.Redirect("Login.aspx");
         }
-        protected void btnManageOffers_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("ManageOffers.aspx");
-        }
-        protected void btnAddLeague_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AddLeague.aspx");
-        }
+        protected void btnManageOffers_Click(object sender, EventArgs e) => Response.Redirect("ManageOffers.aspx");
+        protected void btnAddLeague_Click(object sender, EventArgs e) => Response.Redirect("AddLeague.aspx");
+        protected void btnAddTeam_Click(object sender, EventArgs e) => Response.Redirect("AddTeam.aspx");
+        protected void btnAddBrand_Click(object sender, EventArgs e) => Response.Redirect("AddBrand.aspx");
+        protected void btnManageUsers_Click(object sender, EventArgs e) => Response.Redirect("ManageUsers.aspx");
+        protected void btnAdminBanners_Click(object sender, EventArgs e) => Response.Redirect("AdminBanners.aspx");
+        protected void btnSmtpSettings_Click(object sender, EventArgs e) => Response.Redirect("SmtpSettings.aspx");
+        protected void btnStats_Click(object sender, EventArgs e) => Response.Redirect("AdminStats.aspx");
+        protected void btnManageCoupons_Click(object sender, EventArgs e) => Response.Redirect("ManageCoupons.aspx");
+        protected void btnAuditLogs_Click(object sender, EventArgs e) => Response.Redirect("AdminAudit.aspx");
 
-        protected void btnAddTeam_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AddTeam.aspx");
-        }
-
-        protected void btnAddBrand_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AddBrand.aspx");
-        }
-
-        protected void btnManageUsers_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("ManageUsers.aspx");
-        }
-
-        protected void btnAdminBanners_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AdminBanners.aspx");
-        }
-        protected void btnSmtpSettings_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("SmtpSettings.aspx");
-        }
-        protected void btnStats_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AdminStats.aspx");
-        }
-        protected void btnManageCoupons_Click(object sender, EventArgs e)
-        { Response.Redirect("ManageCoupons.aspx"); }
-        protected void btnAuditLogs_Click(object sender, EventArgs e)
-        { Response.Redirect("AdminAudit.aspx"); }
         protected override void InitializeCulture()
         {
             string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
@@ -251,4 +278,3 @@ namespace OFFSIDESHOP
         }
     }
 }
-

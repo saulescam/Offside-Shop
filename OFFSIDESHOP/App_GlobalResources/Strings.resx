@@ -1347,6 +1347,18 @@
   <data name="Admin_Team_SaveBtn" xml:space="preserve">
     <value>Save Team</value>
   </data>
+	<data name="Admin_Team_ColNameES" xml:space="preserve">
+    <value>Name (Spanish)</value>
+  </data>
+	<data name="Admin_Team_NameLabel" xml:space="preserve">
+    <value>Team Name (Primary / English)</value>
+  </data>
+	<data name="Admin_Team_NameESLabel" xml:space="preserve">
+    <value>Name in Spanish (Optional / National Teams)</value>
+  </data>
+	<data name="Admin_Team_NameESNote" xml:space="preserve">
+    <value>Leave empty for club teams where the name does not change.</value>
+  </data>
   <data name="Admin_Team_NoLeagueNote" xml:space="preserve">
     <value>Don't see a league?</value>
   </data>

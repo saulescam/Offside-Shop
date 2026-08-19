@@ -1362,6 +1362,9 @@
   <data name="Admin_Team_ColName" xml:space="preserve">
     <value>Nombre del Equipo</value>
   </data>
+	<data name="Admin_Team_ColNameES" xml:space="preserve">
+    <value>Nombre (Español)</value>
+  </data>
   <data name="Admin_Team_ColLeague" xml:space="preserve">
     <value>Liga</value>
   </data>
@@ -1373,6 +1376,15 @@
   </data>
   <data name="Admin_Team_DeleteConfirm" xml:space="preserve">
     <value>¿Estás seguro de que deseas eliminar este equipo?</value>
+  </data>
+	<data name="Admin_Team_NameLabel" xml:space="preserve">
+    <value>Nombre del Equipo (Principal / Inglés)</value>
+  </data>
+	<data name="Admin_Team_NameESLabel" xml:space="preserve">
+    <value>Nombre en Español (Opcional / Selecciones)</value>
+  </data>
+	<data name="Admin_Team_NameESNote" xml:space="preserve">
+    <value>Déjalo vacío para equipos de clubes donde el nombre no cambie.</value>
   </data>
   <data name="Admin_Offers_Title" xml:space="preserve">
     <value>Gestión de Ofertas y Promociones</value>

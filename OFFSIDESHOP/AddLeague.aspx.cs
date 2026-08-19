@@ -136,6 +136,16 @@ namespace OFFSIDESHOP
                 LoadLeagues();
             }
         }
+
+        // ──────────────────────────────────────────────────────────────
+        //  GridView PageIndexChanging
+        // ──────────────────────────────────────────────────────────────
+        protected void gvLeagues_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvLeagues.PageIndex = e.NewPageIndex;
+            LoadLeagues();
+        }
+
         protected void btnManageProducts_Click(object sender, EventArgs e)
         {
             Response.Redirect("ManageProducts.aspx");

@@ -136,6 +136,16 @@ namespace OFFSIDESHOP
                 LoadBrands();
             }
         }
+
+        // ──────────────────────────────────────────────────────────────
+        //  GridView PageIndexChanging
+        // ──────────────────────────────────────────────────────────────
+        protected void gvBrands_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvBrands.PageIndex = e.NewPageIndex;
+            LoadBrands();
+        }
+
         protected void btnManageProducts_Click(object sender, EventArgs e)
         {
             Response.Redirect("ManageProducts.aspx");
