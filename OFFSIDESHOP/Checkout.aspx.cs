@@ -673,12 +673,6 @@ namespace OFFSIDESHOP
             DataTable dtCart = Session["Cart"] as DataTable;
             if (dtCart == null || dtCart.Rows.Count == 0) return;
 
-            if (Session["Id_User"] == null || !int.TryParse(Session["Id_User"].ToString(), out int userId) || userId <= 0)
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "sessionExpired", "Swal.fire('Error', 'Tu sesión ha expirado. Por favor inicia sesión nuevamente.', 'warning');", true);
-                return;
-            }
-
             if (!IsPhoneValid(txtTel.Text))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "invalidPhoneWallet", "Swal.fire('Invalid Phone', 'The phone number must contain exactly 8 digits.', 'error');", true);
@@ -693,6 +687,7 @@ namespace OFFSIDESHOP
             }
 
             decimal shippingCost = CalcularCostoEnvio();
+            int userId = Convert.ToInt32(Session["Id_User"]);
             object idCoupon = ViewState["CouponId"] ?? DBNull.Value;
             decimal discountApplied = ViewState["DiscountAmount"] != null ? Convert.ToDecimal(ViewState["DiscountAmount"], System.Globalization.CultureInfo.InvariantCulture) : 0m;
             string transactionId = hfTransactionID.Value;
@@ -701,23 +696,13 @@ namespace OFFSIDESHOP
             string munName = ddlMunicipality.SelectedIndex > 0 ? ddlMunicipality.SelectedItem.Text : "";
             string distName = ddlDistrict.SelectedIndex > 0 ? ddlDistrict.SelectedItem.Text : "";
 
-            // Parseo seguro de coordenadas con InvariantCulture para evitar fallos por comas/puntos decimales
-            bool hasLat = decimal.TryParse(hfLatitude.Value, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal mapLat);
-            bool hasLng = decimal.TryParse(hfLongitude.Value, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal mapLng);
+            decimal mapLat, mapLng;
+            if (!decimal.TryParse(hfLatitude.Value, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out mapLat)) GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
+            if (!decimal.TryParse(hfLongitude.Value, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out mapLng)) GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
 
-            if (!hasLat || !hasLng)
-            {
-                GetCoordinatesFromAddress(txtAddress.Text, distName, munName, cityName, out mapLat, out mapLng);
-            }
-
-            // Recorte seguro validando nulos
-            string rawNotes = txtNotes.Text ?? "";
-            string rawName = (txtName.Text ?? "").Trim();
-            string rawLastName = (txtLastName.Text ?? "").Trim();
-
-            string safeNotes = rawNotes.Length > 200 ? rawNotes.Substring(0, 200) : rawNotes;
-            string safeName = rawName.Length > 50 ? rawName.Substring(0, 50) : rawName;
-            string safeLastName = rawLastName.Length > 50 ? rawLastName.Substring(0, 50) : rawLastName;
+            string safeNotes = txtNotes.Text.Length > 200 ? txtNotes.Text.Substring(0, 200) : txtNotes.Text;
+            string safeName = txtName.Text.Trim().Length > 50 ? txtName.Text.Trim().Substring(0, 50) : txtName.Text.Trim();
+            string safeLastName = txtLastName.Text.Trim().Length > 50 ? txtLastName.Text.Trim().Substring(0, 50) : txtLastName.Text.Trim();
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -726,6 +711,7 @@ namespace OFFSIDESHOP
                 {
                     try
                     {
+                        // INSERTA LA ORDEN
                         string orderQuery = @"INSERT INTO orders 
                      (Id_User, Name, LastName, Mail, Address, Latitude, Longitude, id_City, Id_Municipality, Id_District, Phone, OrderNotes, Total, Id_Coupon, DiscountApplied, Id_PaymentMethod, TransactionID, shipping_cost, Id_Status) 
                      VALUES 
@@ -753,12 +739,14 @@ namespace OFFSIDESHOP
                             cmd.Parameters.AddWithValue("@IdPaymentMethod", 3); // Billetera Virtual
                             cmd.Parameters.AddWithValue("@TransactionID", string.IsNullOrEmpty(transactionId) ? (object)DBNull.Value : transactionId);
                             cmd.Parameters.AddWithValue("@ShippingCost", shippingCost);
-                            cmd.Parameters.AddWithValue("@IdStatus", 1); // Pendiente
+
+                            // IMPORTANTE: GUARDAR COMO PAGADO (2)
+                            cmd.Parameters.AddWithValue("@IdStatus", 2);
 
                             orderId = Convert.ToInt32(cmd.ExecuteScalar());
                         }
 
-                        // Reutilización de comando para los detalles del pedido
+                        // INSERTA DETALLES Y DESCUENTA INVENTARIO
                         string detailQuery = @"INSERT INTO order_details (Id_Order, Id_Tshirt, ProductName, Size, Price, Quantity, Subtotal) 
                                        VALUES (@IdOrder, @IdTshirt, @Name, @Size, @Price, @Qty, @Subtotal)";
 
@@ -774,6 +762,16 @@ namespace OFFSIDESHOP
 
                             foreach (DataRow row in dtCart.Rows)
                             {
+                                // DESCONTAR INVENTARIO
+                                string updateStock = @"UPDATE tshirt_variants SET Stock = Stock - @Qty WHERE Id_Tshirt = @IdTshirt AND Id_Size = (SELECT Id_Size FROM sizes WHERE Size_Code = @Size)";
+                                using (MySqlCommand stockCmd = new MySqlCommand(updateStock, conn, trans))
+                                {
+                                    stockCmd.Parameters.AddWithValue("@Qty", row["Quantity"]);
+                                    stockCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
+                                    stockCmd.Parameters.AddWithValue("@Size", row["Size"]);
+                                    stockCmd.ExecuteNonQuery();
+                                }
+
                                 string dbProductName = row["Name"].ToString();
                                 if (dtCart.Columns.Contains("IsCustomized") && row["IsCustomized"] != DBNull.Value && Convert.ToBoolean(row["IsCustomized"]))
                                 {
