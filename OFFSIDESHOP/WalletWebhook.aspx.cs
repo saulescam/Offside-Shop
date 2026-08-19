@@ -8,7 +8,6 @@ namespace OFFSIDESHOP
 {
     public partial class WalletWebhook : System.Web.UI.Page
     {
-        // Ruta calificada completa para evitar cualquier error de ambigüedad
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -17,21 +16,12 @@ namespace OFFSIDESHOP
             Response.Clear();
             Response.ContentType = "application/json";
             Response.AddHeader("Access-Control-Allow-Origin", "*");
-            Response.AddHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+            Response.AddHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 
             // Permitir peticiones preflight (CORS)
             if (Request.HttpMethod == "OPTIONS")
             {
                 Response.StatusCode = 200;
-                Response.End();
-                return;
-            }
-
-            // Validar que sea método POST
-            if (Request.HttpMethod != "POST")
-            {
-                Response.StatusCode = 405; // Method Not Allowed
-                Response.Write("{\"error\": \"Solo se permiten peticiones POST\"}");
                 Response.End();
                 return;
             }
@@ -45,12 +35,12 @@ namespace OFFSIDESHOP
                     jsonPayload = reader.ReadToEnd();
                 }
 
-                // Si el body está vacío (Healthcheck/Ping de la billetera)
+                // Si el body está vacío (Ping de la billetera o entraste desde el navegador)
                 if (string.IsNullOrWhiteSpace(jsonPayload))
                 {
                     Response.StatusCode = 200;
                     Response.Write("{\"status\":\"ping_ok\"}");
-                    Response.End();
+                    Response.End(); // Esto lanza un ThreadAbortException
                     return;
                 }
 
@@ -132,7 +122,7 @@ namespace OFFSIDESHOP
                                     cmdOrder.ExecuteNonQuery();
                                 }
 
-                                // B.2) Descontar el stock en `tshirt_variants` basándose en los detalles de la orden
+                                // B.2) Descontar el stock en `tshirt_variants`
                                 string updateStockQuery = @"
                                     UPDATE tshirt_variants tv
                                     INNER JOIN sizes s ON tv.Id_Size = s.Id_Size
@@ -165,13 +155,19 @@ namespace OFFSIDESHOP
                 Response.StatusCode = 200;
                 Response.Write("{\"status\":\"received\"}");
             }
+            catch (System.Threading.ThreadAbortException)
+            {
+                // IGNORAR ESTE ERROR. 
+                // ASP.NET lanza esta excepción intencionalmente al ejecutar Response.End() para detener la carga de la página.
+            }
             catch (Exception ex)
             {
+                // Este atrapará errores reales de programación o Base de datos
                 Response.StatusCode = 500;
                 Response.Write("{\"error\":\"" + HttpUtility.JavaScriptStringEncode(ex.Message) + "\"}");
             }
 
-            // Terminar inmediatamente la respuesta para no enviar nada más
+            // Terminar inmediatamente la respuesta
             Response.End();
         }
     }
