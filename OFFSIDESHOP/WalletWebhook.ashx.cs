@@ -32,6 +32,7 @@ namespace OFFSIDESHOP
                 }
 
                 if (string.IsNullOrWhiteSpace(jsonPayload))
+
                 {
                     // Responde 200 OK si es un healthcheck/ping de prueba del panel
                     context.Response.StatusCode = 200;
@@ -42,6 +43,7 @@ namespace OFFSIDESHOP
 
                 // 3. Parsear JSON
                 JObject webhookData = JObject.Parse(jsonPayload);
+                Console.WriteLine("webhook" + webhookData.ToString());
 
                 string paymentStatus = webhookData["status"]?.ToString()?.ToLower();
                 string transactionId = webhookData["transaction_id"]?.ToString();

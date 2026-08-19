@@ -649,3 +649,72 @@ body .stat-icon-dark.text-danger { background-color: rgba(220, 53, 69, 0.1) !imp
 .swal2-container {
     z-index: 9999999 !important;
 }
+
+/* Custom Pagination Styles */
+.pagination-custom td { padding: 24px 4px 10px 4px; }
+.pagination-custom a, .pagination-custom span {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 4px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+.pagination-custom a {
+    background-color: #f9fafb;
+    color: #b45309;
+    border: 1px solid #f59e0b;
+}
+.pagination-custom a:hover {
+    background: linear-gradient(135deg, #ffc800 0%, #d4a000 100%);
+    color: #111111 !important;
+    border-color: transparent;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 200, 0, 0.35);
+}
+.pagination-custom span {
+    background: linear-gradient(135deg, #ffc800 0%, #d4a000 100%);
+    color: #111111;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 12px rgba(255, 200, 0, 0.4);
+}
+body.dark-mode .pagination-custom a, html.dark-mode .pagination-custom a {
+    background-color: #1f2937;
+    color: #ffc800;
+    border: 1px solid #ffc800;
+}
+body.dark-mode .pagination-custom a:hover, html.dark-mode .pagination-custom a:hover {
+    background: linear-gradient(135deg, #ffc800 0%, #d4a000 100%);
+    color: #111111 !important;
+    border-color: transparent;
+    box-shadow: 0 5px 15px rgba(255, 200, 0, 0.4);
+}
+body.dark-mode .pagination-custom span, html.dark-mode .pagination-custom span {
+    background: linear-gradient(135deg, #ffc800 0%, #d4a000 100%);
+    color: #111111;
+    border: 1px solid transparent;
+    box-shadow: 0 5px 15px rgba(255, 200, 0, 0.5);
+}
+
+/* Filter Card Styles */
+.filter-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+.filter-card label {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+}
+
+

@@ -201,7 +201,11 @@
                                     GridLines="None"
                                     CssClass="table table-custom text-center"
                                     DataKeyNames="Id_League"
+                                    AllowPaging="True"
+                                    PageSize="10"
+                                    OnPageIndexChanging="gvLeagues_PageIndexChanging"
                                     OnRowDeleting="gvLeagues_RowDeleting">
+                                    <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
                                     <Columns>
                                         <asp:BoundField DataField="Id_League" HeaderText="<%$ Resources:Strings, Admin_League_ColID %>" />
                                         <asp:BoundField DataField="Name_League" HeaderText="<%$ Resources:Strings, Admin_League_ColName %>" />

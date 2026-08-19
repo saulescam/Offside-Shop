@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddTeam.aspx.cs" Inherits="OFFSIDESHOP.AddTeam" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddTeam.aspx.cs" Inherits="OFFSIDESHOP.AddTeam" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -57,6 +57,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <!-- ScriptManager necesario para UpdatePanels AJAX -->
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" />
+
         <!-- Top Navbar -->
         <nav class="top-navbar">
             <div style="display: flex; align-items: center; gap: 20px;">
@@ -161,85 +164,144 @@
                     <h1 class="page-title"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_Title %>" /></h1>
                     <p class="text-muted mb-4"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_Subtitle %>" /></p>
 
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-8">
-                            <div class="form-card">
+                    <!-- UpdatePanel para Formulario y GridView sin recarga -->
+                    <asp:UpdatePanel ID="upMainTeams" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-8">
+                                    <div class="form-card">
 
-                                <!-- League Dropdown -->
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_LeagueLabel %>" /> <span class="text-danger">*</span></label>
-                                    <asp:DropDownList ID="ddlLeagues" runat="server" CssClass="form-control">
-                                    </asp:DropDownList>
-                                </div>
+                                        <!-- League Dropdown -->
+                                        <div class="form-group">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_LeagueLabel %>" /> <span class="text-danger">*</span></label>
+                                            <asp:DropDownList ID="ddlLeagues" runat="server" CssClass="form-control">
+                                            </asp:DropDownList>
+                                        </div>
 
-                                <!-- Team Name -->
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_NameLabel %>" /> <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtTeamName" runat="server"
-                                        placeholder="e.g. FC Barcelona, Real Madrid..."
-                                        CssClass="form-control"
-                                        MaxLength="100"
-                                        onpaste="return false">
-                                    </asp:TextBox>
-                                </div>
+                                        <!-- Team Name (Principal / Inglés) -->
+                                        <div class="form-group">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_NameLabel %>" /> <span class="text-danger">*</span></label>
+                                            <asp:TextBox ID="txtTeamName" runat="server"
+                                                placeholder="e.g. FC Barcelona, Germany, Real Madrid..."
+                                                CssClass="form-control"
+                                                MaxLength="100"
+                                                onpaste="return false">
+                                            </asp:TextBox>
+                                        </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-12">
-                                        <asp:LinkButton ID="btnSaveTeam" runat="server"
-                                            CssClass="mybtn"
-                                            OnClick="btnSaveTeam_Click"
-                                            Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600; padding: 12px 24px; text-decoration: none; display: inline-block;">
-                                            &#xf0c7;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_SaveBtn %>" />
-                                        </asp:LinkButton>
+                                        <!-- Team Name Spanish (Opcional para Selecciones) -->
+                                        <div class="form-group">
+                                            <label>
+                                                <i class="fas fa-globe-americas mr-1"></i>
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_NameESLabel %>" />
+                                            </label>
+                                            <asp:TextBox ID="txtTeamNameES" runat="server"
+                                                placeholder="e.g. Alemania, Países Bajos, Estados Unidos..."
+                                                CssClass="form-control"
+                                                MaxLength="100"
+                                                onpaste="return false">
+                                            </asp:TextBox>
+                                            <small class="form-text text-muted">
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_NameESNote %>" />
+                                            </small>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <asp:LinkButton ID="btnSaveTeam" runat="server"
+                                                    CssClass="mybtn"
+                                                    OnClick="btnSaveTeam_Click"
+                                                    Style="font-family: 'Raleway', 'Font Awesome 5 Free'; font-weight: 600; padding: 12px 24px; text-decoration: none; display: inline-block;">
+                                                    &#xf0c7;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_SaveBtn %>" />
+                                                </asp:LinkButton>
+                                            </div>
+                                        </div>
+
+                                        <!-- Helper note -->
+                                        <p class="form-text text-muted mt-3" style="font-size: 0.85rem;">
+                                            <i class="fas fa-info-circle mr-1"></i>
+                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_NoLeagueNote %>" /> 
+                                            <a href="AddLeague.aspx" style="color: var(--accent-color);"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_RegisterFirst %>" /></a>.
+                                        </p>
                                     </div>
                                 </div>
-
-                                <!-- Helper note -->
-                                <p class="form-text text-muted mt-3" style="font-size: 0.85rem;">
-                                    <i class="fas fa-info-circle mr-1"></i>
-                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_NoLeagueNote %>" /> 
-                                    <a href="AddLeague.aspx" style="color: var(--accent-color);"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_RegisterFirst %>" /></a>.
-                                </p>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- Teams GridView -->
-                    <div class="row mt-5">
-                        <div class="col-12">
-                            <h3 class="text-white mb-4" style="font-weight: 600;">
-                                <i class="fas fa-list mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_ListTitle %>" />
-                            </h3>
-                            <div class="table-responsive">
-                                <asp:GridView ID="gvTeams" runat="server"
-                                    AutoGenerateColumns="False"
-                                    GridLines="None"
-                                    CssClass="table table-custom text-center"
-                                    DataKeyNames="Id_Team"
-                                    OnRowDeleting="gvTeams_RowDeleting">
-                                    <Columns>
-                                        <asp:BoundField DataField="Id_Team" HeaderText="<%$ Resources:Strings, Admin_Team_ColID %>" />
-                                        <asp:BoundField DataField="Name_Team" HeaderText="<%$ Resources:Strings, Admin_Team_ColName %>" />
-                                        <asp:BoundField DataField="Name_League" HeaderText="<%$ Resources:Strings, Admin_Team_ColLeague %>" />
-                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Team_ColActions %>">
-                                            <ItemTemplate>
-                                                <asp:LinkButton ID="lbDeleteTeam" runat="server"
-                                                    CommandName="Delete"
-                                                    CssClass="btn btn-sm btn-danger"
-                                                    OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteTeam") + "\");" %>'
-                                                    Style="font-weight: 600; border-radius: 6px; padding: 4px 12px;">
-                                                    <i class="fas fa-trash-alt mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_Delete %>" />
+                            <!-- Teams GridView Section -->
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <h3 class="text-white mb-4" style="font-weight: 600;">
+                                        <i class="fas fa-list mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_ListTitle %>" />
+                                    </h3>
+
+                                    <!-- Filter Card -->
+                                    <div class="filter-card">
+                                        <div class="row align-items-end">
+                                            <div class="col-md-5 col-sm-6 mb-2 mb-md-0">
+                                                <label for="ddlFilterLeague"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Offers_FilterLeague %>" /></label>
+                                                <asp:DropDownList ID="ddlFilterLeague" runat="server"
+                                                    CssClass="form-control"
+                                                    AutoPostBack="true"
+                                                    OnSelectedIndexChanged="FilterTeams_Changed">
+                                                </asp:DropDownList>
+                                            </div>
+                                            <div class="col-md-5 col-sm-6 mb-2 mb-md-0">
+                                                <label for="txtFilterTeam"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Offers_FilterTeam %>" /></label>
+                                                <asp:TextBox ID="txtFilterTeam" runat="server"
+                                                    CssClass="form-control"
+                                                    placeholder="<%$ Resources:Strings, Placeholder_SearchShirt %>"
+                                                    AutoPostBack="true"
+                                                    OnTextChanged="FilterTeams_Changed">
+                                                </asp:TextBox>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12 text-right">
+                                                <asp:LinkButton ID="btnClearTeamFilter" runat="server"
+                                                    CssClass="btn btn-secondary btn-block font-weight-bold"
+                                                    OnClick="btnClearTeamFilter_Click" Style="border-radius: 8px; padding: 10px; text-decoration: none; display: block;">
+                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_ClearFilters %>" />
                                                 </asp:LinkButton>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                    </Columns>
-                                </asp:GridView>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <asp:Literal ID="alerta" runat="server" Text="" EnableViewState="false"></asp:Literal>
+                                    <div class="table-responsive">
+                                        <asp:GridView ID="gvTeams" runat="server"
+                                            AutoGenerateColumns="False"
+                                            GridLines="None"
+                                            CssClass="table table-custom text-center"
+                                            DataKeyNames="Id_Team"
+                                            AllowPaging="True"
+                                            PageSize="10"
+                                            OnPageIndexChanging="gvTeams_PageIndexChanging"
+                                            OnRowDeleting="gvTeams_RowDeleting">
+                                            <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
+                                            <Columns>
+                                                <asp:BoundField DataField="Id_Team" HeaderText="<%$ Resources:Strings, Admin_Team_ColID %>" />
+                                                <asp:BoundField DataField="Name_Team" HeaderText="<%$ Resources:Strings, Admin_Team_ColName %>" />
+                                                <asp:BoundField DataField="Name_Team_ES" HeaderText="Nombre (ES)" NullDisplayText="-" />
+                                                <asp:BoundField DataField="Name_League" HeaderText="<%$ Resources:Strings, Admin_Team_ColLeague %>" />
+                                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Team_ColActions %>">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lbDeleteTeam" runat="server"
+                                                            CommandName="Delete"
+                                                            CssClass="btn btn-sm btn-danger"
+                                                            OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteTeam") + "\");" %>'
+                                                            Style="font-weight: 600; border-radius: 6px; padding: 4px 12px;">
+                                                            <i class="fas fa-trash-alt mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Team_Delete %>" />
+                                                        </asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Alerta dentro del UpdatePanel -->
+                            <asp:Literal ID="alerta" runat="server" Text="" EnableViewState="false"></asp:Literal>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
             </main>
         </div>
     </form>
