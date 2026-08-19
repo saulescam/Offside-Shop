@@ -324,6 +324,7 @@
     <Content Include="SweetAlert\sweetalert2.all.min.js" />
     <Content Include="SweetAlert\sweetalert2.js" />
     <Content Include="Token.aspx" />
+    <Content Include="WalletWebhook.aspx" />
     <Content Include="Web.config" />
     <Content Include="SmtpSettings.aspx" />
   </ItemGroup>
@@ -598,8 +599,12 @@
     <Compile Include="SmtpSettings.aspx.designer.cs">
       <DependentUpon>SmtpSettings.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WalletWebhook.ashx.cs">
-      <DependentUpon>WalletWebhook.ashx</DependentUpon>
+    <Compile Include="WalletWebhook.aspx.cs">
+      <DependentUpon>WalletWebhook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WalletWebhook.aspx.designer.cs">
+      <DependentUpon>WalletWebhook.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -620,7 +625,6 @@
     <Content Include="fonts\slick.woff" />
     <Content Include="ChatHandler.ashx" />
     <None Include="packages.config" />
-    <Content Include="WalletWebhook.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
