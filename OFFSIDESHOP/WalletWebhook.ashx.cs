@@ -1,157 +1,182 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Web;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 
 namespace OFFSIDESHOP
 {
     public class WalletWebhook : IHttpHandler
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
         public void ProcessRequest(HttpContext context)
         {
-            // 1. Validar que la petición sea estrictamente POST (enviada por el servidor de la Billetera)
-            if (context.Request.HttpMethod != "POST")
+            // Configurar cabeceras de respuesta y permitir llamadas CORS
+            context.Response.ContentType = "application/json";
+            context.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            context.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+            context.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type");
+
+            if (context.Request.HttpMethod == "OPTIONS")
             {
-                context.Response.StatusCode = 405; // Method Not Allowed
-                context.Response.Write("Solo se permiten peticiones POST enviadas por el servidor de la Billetera.");
+                context.Response.StatusCode = 200;
                 return;
             }
 
             try
             {
-                // 2. Leer el cuerpo de la petición (JSON)
-                string jsonPayload;
+                // 1. Leer el cuerpo de la petición si viene como Stream
+                string payload = string.Empty;
                 using (var reader = new StreamReader(context.Request.InputStream))
                 {
-                    jsonPayload = reader.ReadToEnd();
+                    payload = reader.ReadToEnd();
                 }
 
-                if (string.IsNullOrWhiteSpace(jsonPayload))
+                string orderIdStr = null;
+                string transactionId = null;
 
+                // 2. Extraer datos (soporta tanto JSON como Form/QueryString)
+                if (!string.IsNullOrWhiteSpace(payload))
                 {
-                    // Responde 200 OK si es un healthcheck/ping de prueba del panel
+                    try
+                    {
+                        JObject data = JObject.Parse(payload);
+                        orderIdStr = data["order_id"]?.ToString()
+                                  ?? data["reference"]?.ToString()
+                                  ?? data["Id_Order"]?.ToString()
+                                  ?? data["custom"]?.ToString();
+
+                        transactionId = data["transaction_id"]?.ToString()
+                                     ?? data["tx_id"]?.ToString()
+                                     ?? data["id"]?.ToString();
+                    }
+                    catch
+                    {
+                        // Si no es JSON estándar, continúa buscando en parámetros normales
+                    }
+                }
+
+                // Si no se encontró en el cuerpo JSON, buscar en Form o QueryString
+                if (string.IsNullOrEmpty(orderIdStr))
+                {
+                    orderIdStr = context.Request["order_id"]
+                              ?? context.Request["reference"]
+                              ?? context.Request["Id_Order"]
+                              ?? context.Request["custom"];
+                }
+
+                if (string.IsNullOrEmpty(transactionId))
+                {
+                    transactionId = context.Request["transaction_id"]
+                                 ?? context.Request["tx_id"]
+                                 ?? context.Request["id"];
+                }
+
+                // Respuesta rápida para pings o pruebas de conectividad sin datos
+                if (string.IsNullOrEmpty(orderIdStr) && string.IsNullOrEmpty(transactionId))
+                {
                     context.Response.StatusCode = 200;
-                    context.Response.ContentType = "application/json";
-                    context.Response.Write("{\"status\":\"ping_ok\"}");
+                    context.Response.Write("{\"status\":\"ok\",\"message\":\"Webhook activo\"}");
                     return;
                 }
 
-                // 3. Parsear JSON
-                JObject webhookData = JObject.Parse(jsonPayload);
-                Console.WriteLine("webhook" + webhookData.ToString());
+                int.TryParse(orderIdStr, out int orderId);
 
-                string paymentStatus = webhookData["status"]?.ToString()?.ToLower();
-                string transactionId = webhookData["transaction_id"]?.ToString();
-                string referenceStr = webhookData["reference"]?.ToString() ?? webhookData["order_id"]?.ToString();
-
-                int.TryParse(referenceStr, out int orderIdFromRef);
-
-                // 4. Procesar el pago si el estado indica éxito
-                if (paymentStatus == "success" || paymentStatus == "paid" || paymentStatus == "completed")
+                // 3. Procesar en Base de Datos
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
-                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    conn.Open();
+
+                    int targetOrderId = 0;
+                    int currentStatus = 0;
+
+                    // Buscar la orden por ID o por TransactionID
+                    string findOrderQuery = @"SELECT Id_Order, Id_Status FROM orders 
+                                              WHERE (@OrderId > 0 AND Id_Order = @OrderId) 
+                                                 OR (TransactionID IS NOT NULL AND TransactionID = @TransId) 
+                                              LIMIT 1";
+
+                    using (MySqlCommand findCmd = new MySqlCommand(findOrderQuery, conn))
                     {
-                        conn.Open();
+                        findCmd.Parameters.AddWithValue("@OrderId", orderId);
+                        findCmd.Parameters.AddWithValue("@TransId", (object)transactionId ?? DBNull.Value);
 
-                        // Buscar la orden por Id_Order O por TransactionID
-                        int targetOrderId = 0;
-                        int currentStatus = 0;
-
-                        string findOrderQuery = @"SELECT Id_Order, Id_Status FROM orders 
-                                                  WHERE (Id_Order = @OrderId AND @OrderId > 0) 
-                                                     OR (TransactionID IS NOT NULL AND TransactionID = @TransId) 
-                                                  LIMIT 1";
-
-                        using (MySqlCommand findCmd = new MySqlCommand(findOrderQuery, conn))
+                        using (MySqlDataReader reader = findCmd.ExecuteReader())
                         {
-                            findCmd.Parameters.AddWithValue("@OrderId", orderIdFromRef);
-                            findCmd.Parameters.AddWithValue("@TransId", (object)transactionId ?? DBNull.Value);
-
-                            using (MySqlDataReader reader = findCmd.ExecuteReader())
+                            if (reader.Read())
                             {
-                                if (reader.Read())
-                                {
-                                    targetOrderId = Convert.ToInt32(reader["Id_Order"]);
-                                    currentStatus = Convert.ToInt32(reader["Id_Status"]);
-                                }
+                                targetOrderId = Convert.ToInt32(reader["Id_Order"]);
+                                currentStatus = Convert.ToInt32(reader["Id_Status"]);
                             }
                         }
+                    }
 
-                        // Si no se encuentra la orden
-                        if (targetOrderId == 0)
-                        {
-                            context.Response.StatusCode = 404; // Not Found
-                            context.Response.Write("{\"error\":\"Orden no encontrada en la base de datos\"}");
-                            return;
-                        }
+                    if (targetOrderId == 0)
+                    {
+                        context.Response.StatusCode = 404;
+                        context.Response.Write("{\"error\":\"Orden no encontrada\"}");
+                        return;
+                    }
 
-                        // Idempotencia: Si ya está en Estado 2 (Paid/Pagado), respondemos OK y no duplicamos el descuento
-                        if (currentStatus == 2)
-                        {
-                            context.Response.StatusCode = 200;
-                            context.Response.ContentType = "application/json";
-                            context.Response.Write("{\"status\":\"already_processed\"}");
-                            return;
-                        }
+                    // Si ya está pagada (Id_Status = 2), no procesar de nuevo
+                    if (currentStatus == 2)
+                    {
+                        context.Response.StatusCode = 200;
+                        context.Response.Write("{\"status\":\"already_paid\"}");
+                        return;
+                    }
 
-                        // Transacción SQL para actualizar estado y descontar inventario
-                        using (MySqlTransaction transaction = conn.BeginTransaction())
+                    // 4. Actualizar Estado a Pagado (2) y descontar inventario
+                    using (MySqlTransaction trans = conn.BeginTransaction())
+                    {
+                        try
                         {
-                            try
+                            // Actualizar pedido a estado 2 (Paid)
+                            string updateOrderQuery = @"UPDATE orders 
+                                                        SET Id_Status = 2, 
+                                                            TransactionID = COALESCE(@TransId, TransactionID) 
+                                                        WHERE Id_Order = @OrderId";
+
+                            using (MySqlCommand cmdOrder = new MySqlCommand(updateOrderQuery, conn, trans))
                             {
-                                // A) Cambiar orden a Estado 2 (Paid) y asegurar TransactionID
-                                string updateOrderQuery = @"UPDATE orders 
-                                                            SET Id_Status = 2, 
-                                                                TransactionID = COALESCE(TransactionID, @TransId) 
-                                                            WHERE Id_Order = @OrderId;";
-
-                                using (MySqlCommand cmdOrder = new MySqlCommand(updateOrderQuery, conn, transaction))
-                                {
-                                    cmdOrder.Parameters.AddWithValue("@TransId", (object)transactionId ?? DBNull.Value);
-                                    cmdOrder.Parameters.AddWithValue("@OrderId", targetOrderId);
-                                    cmdOrder.ExecuteNonQuery();
-                                }
-
-                                // B) Descontar el stock en `tshirt_variants`
-                                string updateStockQuery = @"
-                                    UPDATE tshirt_variants tv
-                                    INNER JOIN sizes s ON tv.Id_Size = s.Id_Size
-                                    INNER JOIN order_details od ON tv.Id_Tshirt = od.Id_Tshirt 
-                                        AND (s.Size_Code = od.Size OR (od.Id_Size IS NOT NULL AND tv.Id_Size = od.Id_Size))
-                                    SET tv.Stock = GREATEST(0, tv.Stock - od.Quantity)
-                                    WHERE od.Id_Order = @OrderId;";
-
-                                using (MySqlCommand cmdStock = new MySqlCommand(updateStockQuery, conn, transaction))
-                                {
-                                    cmdStock.Parameters.AddWithValue("@OrderId", targetOrderId);
-                                    cmdStock.ExecuteNonQuery();
-                                }
-
-                                transaction.Commit();
+                                cmdOrder.Parameters.AddWithValue("@TransId", (object)transactionId ?? DBNull.Value);
+                                cmdOrder.Parameters.AddWithValue("@OrderId", targetOrderId);
+                                cmdOrder.ExecuteNonQuery();
                             }
-                            catch (Exception ex)
+
+                            // Descontar inventario
+                            string updateStockQuery = @"
+                                UPDATE tshirt_variants tv
+                                INNER JOIN sizes s ON tv.Id_Size = s.Id_Size
+                                INNER JOIN order_details od ON tv.Id_Tshirt = od.Id_Tshirt AND s.Size_Code = od.Size
+                                SET tv.Stock = GREATEST(0, tv.Stock - od.Quantity)
+                                WHERE od.Id_Order = @OrderId";
+
+                            using (MySqlCommand cmdStock = new MySqlCommand(updateStockQuery, conn, trans))
                             {
-                                transaction.Rollback();
-                                throw new Exception("Error en transacción de BD: " + ex.Message);
+                                cmdStock.Parameters.AddWithValue("@OrderId", targetOrderId);
+                                cmdStock.ExecuteNonQuery();
                             }
+
+                            trans.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            trans.Rollback();
+                            throw;
                         }
                     }
                 }
 
-                // 5. Responder 200 OK a la billetera
                 context.Response.StatusCode = 200;
-                context.Response.ContentType = "application/json";
-                context.Response.Write("{\"status\":\"received\"}");
+                context.Response.Write("{\"status\":\"success\",\"message\":\"Pago procesado con exito\"}");
             }
             catch (Exception ex)
             {
                 context.Response.StatusCode = 500;
-                context.Response.ContentType = "application/json";
                 context.Response.Write("{\"error\":\"" + HttpUtility.JavaScriptStringEncode(ex.Message) + "\"}");
             }
         }
