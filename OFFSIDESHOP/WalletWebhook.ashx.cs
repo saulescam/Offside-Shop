@@ -33,8 +33,10 @@ namespace OFFSIDESHOP
 
                 if (string.IsNullOrWhiteSpace(jsonPayload))
                 {
-                    context.Response.StatusCode = 400; // Bad Request
-                    context.Response.Write("Payload vacío");
+                    // Responde 200 OK si es un healthcheck/ping de prueba del panel
+                    context.Response.StatusCode = 200;
+                    context.Response.ContentType = "application/json";
+                    context.Response.Write("{\"status\":\"ping_ok\"}");
                     return;
                 }
 
