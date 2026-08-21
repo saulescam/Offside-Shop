@@ -699,19 +699,56 @@
                         }
 
                         if (isSuccess) {
-                            if (txId) {
-                                document.getElementById('<%= hfTransactionID.ClientID %>').value = txId;
-                            }
+                            if (isPaymentSubmitting) return;
+                            isPaymentSubmitting = true;
 
                             var loader = document.getElementById('payment-loader');
                             if (loader) loader.style.display = 'flex';
-                            
-                            isPaymentSubmitting = true;
 
-                            setTimeout(function () {
-                                var btnWallet = document.getElementById('<%= btnConfirmWalletPayment.ClientID %>');
-                                if (btnWallet) btnWallet.click();
-                            }, 800);
+                            var payload = {
+                                is_frontend: true,
+                                transaction_id: txId,
+                                name: document.getElementById('<%= txtName.ClientID %>').value,
+                                lastName: document.getElementById('<%= txtLastName.ClientID %>').value,
+                                email: document.getElementById('<%= txtEmail.ClientID %>').value,
+                                address: document.getElementById('<%= txtAddress.ClientID %>').value,
+                                tel: document.getElementById('<%= txtTel.ClientID %>').value,
+                                city: document.getElementById('<%= ddlCity.ClientID %>').value,
+                                municipality: document.getElementById('<%= ddlMunicipality.ClientID %>') ? document.getElementById('<%= ddlMunicipality.ClientID %>').value : "",
+                                district: document.getElementById('<%= ddlDistrict.ClientID %>') ? document.getElementById('<%= ddlDistrict.ClientID %>').value : "",
+                                lat: document.getElementById('<%= hfLatitude.ClientID %>').value,
+                                lng: document.getElementById('<%= hfLongitude.ClientID %>').value,
+                                notes: document.getElementById('<%= txtNotes.ClientID %>').value,
+                                total: document.getElementById('<%= hfTotalAmount.ClientID %>').value
+                            };
+
+                            fetch('WalletWebhook.aspx', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            })
+                            .then(response => response.json())
+                            .then(result => {
+                                if (result.status === 'success') {
+                                    Swal.fire({
+                                        title: 'Payment & Order Completed!',
+                                        text: 'Your order has been placed successfully via Virtual Wallet.',
+                                        icon: 'success',
+                                        confirmButtonColor: '#FFC800'
+                                    }).then(() => {
+                                        window.location.href = 'MyOrders.aspx';
+                                    });
+                                } else {
+                                    Swal.fire('Error', result.error || 'Failed to process order', 'error');
+                                    if (loader) loader.style.display = 'none';
+                                    isPaymentSubmitting = false;
+                                }
+                            })
+                            .catch(err => {
+                                Swal.fire('Error', 'Network error while processing your order.', 'error');
+                                if (loader) loader.style.display = 'none';
+                                isPaymentSubmitting = false;
+                            });
                         }
                     });
 
