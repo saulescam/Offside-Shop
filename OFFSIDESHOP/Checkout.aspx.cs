@@ -965,5 +965,15 @@ namespace OFFSIDESHOP
             if (string.IsNullOrWhiteSpace(phone)) return false;
             return System.Text.RegularExpressions.Regex.IsMatch(phone.Trim(), @"^[0-9]{8}$");
         }
+        [System.Web.Services.WebMethod(EnableSession = true)]
+        public static string SaveCheckoutData(System.Collections.Generic.Dictionary<string, string> data)
+        {
+            if (HttpContext.Current != null && HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["CheckoutData"] = data;
+                return "OK";
+            }
+            return "Error";
+        }
     }
 }

@@ -38,6 +38,183 @@ namespace OFFSIDESHOP
                 // Si el body está vacío (Ping de la billetera o entraste desde el navegador)
                 if (string.IsNullOrWhiteSpace(jsonPayload))
                 {
+                    // VERIFICAR SI ES REDIRECCION DESDE LA BILLETERA (GET)
+                    if (Request.HttpMethod == "GET" || Request.HttpMethod == "POST")
+                    {
+                        string getTxId = Request.QueryString["transaction_id"] ?? Request.QueryString["tx_id"] ?? Request.QueryString["id"] ?? Request.QueryString["reference"] ?? Request.Form["transaction_id"];
+                        
+                        System.Data.DataTable dtCart = Session["Cart"] as System.Data.DataTable;
+                        var checkoutData = Session["CheckoutData"] as System.Collections.Generic.Dictionary<string, string>;
+
+                        // Si tenemos el carrito y los datos, procesamos la orden para el frontend
+                        if (dtCart != null && dtCart.Rows.Count > 0 && checkoutData != null)
+                        {
+                            decimal total = checkoutData.ContainsKey("total") ? Convert.ToDecimal(checkoutData["total"], System.Globalization.CultureInfo.InvariantCulture) : 0m;
+                            decimal mapLat = checkoutData.ContainsKey("lat") ? Convert.ToDecimal(checkoutData["lat"], System.Globalization.CultureInfo.InvariantCulture) : 0m;
+                            decimal mapLng = checkoutData.ContainsKey("lng") ? Convert.ToDecimal(checkoutData["lng"], System.Globalization.CultureInfo.InvariantCulture) : 0m;
+                            int userId = Session["Id_User"] != null ? Convert.ToInt32(Session["Id_User"]) : 0;
+                            
+                            object idCoupon = Session["CouponId"] ?? DBNull.Value;
+                            decimal discountApplied = Session["DiscountAmount"] != null ? Convert.ToDecimal(Session["DiscountAmount"], System.Globalization.CultureInfo.InvariantCulture) : 0m;
+                            decimal shippingCost = 3.50m;
+
+                            string safeNotes = checkoutData.ContainsKey("notes") ? checkoutData["notes"] : "";
+                            if (safeNotes.Length > 200) safeNotes = safeNotes.Substring(0, 200);
+
+                            string safeName = checkoutData.ContainsKey("name") ? checkoutData["name"] : "";
+                            if (safeName.Length > 50) safeName = safeName.Substring(0, 50);
+
+                            string safeLastName = checkoutData.ContainsKey("lastName") ? checkoutData["lastName"] : "";
+                            if (safeLastName.Length > 50) safeLastName = safeLastName.Substring(0, 50);
+
+                            string email = checkoutData.ContainsKey("email") ? checkoutData["email"] : "";
+                            string address = checkoutData.ContainsKey("address") ? checkoutData["address"] : "";
+                            string tel = checkoutData.ContainsKey("tel") ? checkoutData["tel"] : "";
+                            string idCity = checkoutData.ContainsKey("city") ? checkoutData["city"] : "";
+                            string idMun = checkoutData.ContainsKey("municipality") ? checkoutData["municipality"] : "";
+                            string idDist = checkoutData.ContainsKey("district") ? checkoutData["district"] : "";
+
+                            using (MySqlConnection conn = new MySqlConnection(connectionString))
+                            {
+                                conn.Open();
+                                using (MySqlTransaction trans = conn.BeginTransaction())
+                                {
+                                    try
+                                    {
+                                        string orderQuery = @"INSERT INTO orders 
+                                         (Id_User, Name, LastName, Mail, Address, Latitude, Longitude, id_City, Id_Municipality, Id_District, Phone, OrderNotes, Total, Id_Coupon, DiscountApplied, Id_PaymentMethod, TransactionID, shipping_cost, Id_Status) 
+                                         VALUES 
+                                         (@IdUser, @Name, @LastName, @Mail, @Address, @Lat, @Lng, @IdCity, @IdMunicipality, @IdDistrict, @Phone, @Notes, @Total, @IdCoupon, @DiscountApplied, @IdPaymentMethod, @TransactionID, @ShippingCost, @IdStatus); 
+                                         SELECT LAST_INSERT_ID();";
+
+                                        int orderId;
+                                        using (MySqlCommand cmd = new MySqlCommand(orderQuery, conn, trans))
+                                        {
+                                            cmd.Parameters.AddWithValue("@IdUser", userId);
+                                            cmd.Parameters.AddWithValue("@Name", safeName);
+                                            cmd.Parameters.AddWithValue("@LastName", safeLastName);
+                                            cmd.Parameters.AddWithValue("@Mail", email);
+                                            cmd.Parameters.AddWithValue("@Address", address);
+                                            cmd.Parameters.AddWithValue("@Lat", mapLat);
+                                            cmd.Parameters.AddWithValue("@Lng", mapLng);
+                                            cmd.Parameters.AddWithValue("@IdCity", string.IsNullOrEmpty(idCity) ? (object)DBNull.Value : idCity);
+                                            cmd.Parameters.AddWithValue("@IdMunicipality", string.IsNullOrEmpty(idMun) ? (object)DBNull.Value : idMun);
+                                            cmd.Parameters.AddWithValue("@IdDistrict", string.IsNullOrEmpty(idDist) ? (object)DBNull.Value : idDist);
+                                            cmd.Parameters.AddWithValue("@Phone", tel);
+                                            cmd.Parameters.AddWithValue("@Notes", safeNotes);
+                                            cmd.Parameters.AddWithValue("@Total", total);
+                                            cmd.Parameters.AddWithValue("@IdCoupon", idCoupon);
+                                            cmd.Parameters.AddWithValue("@DiscountApplied", discountApplied);
+                                            cmd.Parameters.AddWithValue("@IdPaymentMethod", 3); // Billetera Virtual
+                                            cmd.Parameters.AddWithValue("@TransactionID", string.IsNullOrEmpty(getTxId) ? (object)DBNull.Value : getTxId);
+                                            cmd.Parameters.AddWithValue("@ShippingCost", shippingCost);
+                                            cmd.Parameters.AddWithValue("@IdStatus", 2); // Paid
+                                            orderId = Convert.ToInt32(cmd.ExecuteScalar());
+                                        }
+
+                                        string detailQuery = @"INSERT INTO order_details (Id_Order, Id_Tshirt, ProductName, Size, Price, Quantity, Subtotal) 
+                                                               VALUES (@IdOrder, @IdTshirt, @Name, @Size, @Price, @Qty, @Subtotal)";
+
+                                        using (MySqlCommand detailCmd = new MySqlCommand(detailQuery, conn, trans))
+                                        {
+                                            detailCmd.Parameters.Add("@IdOrder", MySqlDbType.Int32);
+                                            detailCmd.Parameters.Add("@IdTshirt", MySqlDbType.Int32);
+                                            detailCmd.Parameters.Add("@Name", MySqlDbType.VarChar);
+                                            detailCmd.Parameters.Add("@Size", MySqlDbType.VarChar);
+                                            detailCmd.Parameters.Add("@Price", MySqlDbType.Decimal);
+                                            detailCmd.Parameters.Add("@Qty", MySqlDbType.Int32);
+                                            detailCmd.Parameters.Add("@Subtotal", MySqlDbType.Decimal);
+
+                                            foreach (System.Data.DataRow row in dtCart.Rows)
+                                            {
+                                                string updateStock = @"UPDATE tshirt_variants SET Stock = Stock - @Qty WHERE Id_Tshirt = @IdTshirt AND Id_Size = (SELECT Id_Size FROM sizes WHERE Size_Code = @Size)";
+                                                using (MySqlCommand stockCmd = new MySqlCommand(updateStock, conn, trans))
+                                                {
+                                                    stockCmd.Parameters.AddWithValue("@Qty", row["Quantity"]);
+                                                    stockCmd.Parameters.AddWithValue("@IdTshirt", row["ID"]);
+                                                    stockCmd.Parameters.AddWithValue("@Size", row["Size"]);
+                                                    stockCmd.ExecuteNonQuery();
+                                                }
+
+                                                string dbProductName = row["Name"].ToString();
+                                                if (dtCart.Columns.Contains("IsCustomized") && row["IsCustomized"] != DBNull.Value && Convert.ToBoolean(row["IsCustomized"]))
+                                                {
+                                                    string customLabel = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es") ? "Personalizado" : "Customized";
+                                                    dbProductName += $" ({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})";
+                                                }
+
+                                                detailCmd.Parameters["@IdOrder"].Value = orderId;
+                                                detailCmd.Parameters["@IdTshirt"].Value = row["ID"];
+                                                detailCmd.Parameters["@Name"].Value = dbProductName;
+                                                detailCmd.Parameters["@Size"].Value = row["Size"];
+                                                detailCmd.Parameters["@Price"].Value = row["Price"];
+                                                detailCmd.Parameters["@Qty"].Value = row["Quantity"];
+                                                detailCmd.Parameters["@Subtotal"].Value = row["Subtotal"];
+
+                                                detailCmd.ExecuteNonQuery();
+                                            }
+                                        }
+
+                                        if (idCoupon != DBNull.Value)
+                                        {
+                                            string updateCoupon = "UPDATE coupons SET UsedCount = UsedCount + 1 WHERE Id_Coupon = @IdCoupon;";
+                                            using (MySqlCommand cmdCoupon = new MySqlCommand(updateCoupon, conn, trans))
+                                            {
+                                                cmdCoupon.Parameters.AddWithValue("@IdCoupon", idCoupon);
+                                                cmdCoupon.ExecuteNonQuery();
+                                            }
+                                        }
+
+                                        trans.Commit();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        trans.Rollback();
+                                        Response.Clear();
+                                        Response.ContentType = "text/html";
+                                        Response.Write($"<script>alert('Error: {HttpUtility.JavaScriptStringEncode(ex.Message)}'); window.location.href='Checkout.aspx';</script>");
+                                        Response.End();
+                                        return;
+                                    }
+                                }
+                            }
+
+                            // Vaciar carrito
+                            Session.Remove("Cart");
+                            Session.Remove("CouponId");
+                            Session.Remove("DiscountAmount");
+
+                            // MOSTRAR SWEETALERT HTML
+                            Response.Clear();
+                            Response.ContentType = "text/html";
+                            Response.Write(@"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processing Payment...</title>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <style>body { background-color: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; }</style>
+</head>
+<body>
+    <h2>Confirmando tu pago...</h2>
+    <script>
+        Swal.fire({
+            title: 'Payment & Order Completed!',
+            text: 'Your order has been placed successfully via Virtual Wallet.',
+            icon: 'success',
+            confirmButtonColor: '#FFC800',
+            allowOutsideClick: false
+        }).then(() => {
+            window.location.href = 'MyOrders.aspx';
+        });
+    </script>
+</body>
+</html>");
+                            Response.End();
+                            return;
+                        }
+                    }
+
                     Response.StatusCode = 200;
                     Response.Write("{\"status\":\"ping_ok\"}");
                     Response.End(); // Esto lanza un ThreadAbortException

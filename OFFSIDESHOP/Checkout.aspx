@@ -616,13 +616,57 @@
                 }
             }
 
+            function saveCheckoutData() {
+                var ddlMun = document.getElementById('<%= ddlMunicipality.ClientID %>');
+                var ddlDist = document.getElementById('<%= ddlDistrict.ClientID %>');
+                var totalEl = document.getElementById('<%= hfTotalAmount.ClientID %>');
+
+                var data = {
+                    "name": document.getElementById('<%= txtName.ClientID %>').value,
+                    "lastName": document.getElementById('<%= txtLastName.ClientID %>').value,
+                    "email": document.getElementById('<%= txtEmail.ClientID %>').value,
+                    "address": document.getElementById('<%= txtAddress.ClientID %>').value,
+                    "tel": document.getElementById('<%= txtTel.ClientID %>').value,
+                    "city": document.getElementById('<%= ddlCity.ClientID %>').value,
+                    "municipality": ddlMun ? ddlMun.value : "",
+                    "district": ddlDist ? ddlDist.value : "",
+                    "lat": document.getElementById('<%= hfLatitude.ClientID %>').value,
+                    "lng": document.getElementById('<%= hfLongitude.ClientID %>').value,
+                    "notes": document.getElementById('<%= txtNotes.ClientID %>').value,
+                    "total": totalEl ? totalEl.value : "0"
+                };
+
+                fetch('Checkout.aspx/SaveCheckoutData', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: data })
+                }).catch(e => console.log('Auto-save error', e));
+            }
+
             document.addEventListener('DOMContentLoaded', function () {
                 updateNotesCounter();
+                
+                // Auto-save form data for Virtual Wallet redirect
+                var inputs = document.querySelectorAll('.input, select, textarea');
+                inputs.forEach(function(input) {
+                    input.addEventListener('change', saveCheckoutData);
+                    input.addEventListener('blur', saveCheckoutData);
+                });
+                
+                // Save initially just in case user clicks pay immediately
+                setTimeout(saveCheckoutData, 1000);
             });
 
             if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                     updateNotesCounter();
+                    saveCheckoutData();
+                    
+                    var inputs = document.querySelectorAll('.input, select, textarea');
+                    inputs.forEach(function(input) {
+                        input.addEventListener('change', saveCheckoutData);
+                        input.addEventListener('blur', saveCheckoutData);
+                    });
                 });
             }
 
