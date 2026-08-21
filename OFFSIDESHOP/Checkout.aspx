@@ -657,10 +657,56 @@
                 setTimeout(saveCheckoutData, 1000);
             });
 
+            function prepareWalletOrder() {
+                var ddlMun = document.getElementById('<%= ddlMunicipality.ClientID %>');
+                var ddlDist = document.getElementById('<%= ddlDistrict.ClientID %>');
+                var totalEl = document.getElementById('<%= hfTotalAmount.ClientID %>');
+
+                var localReturnUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/MyOrders.aspx';
+
+                var data = {
+                    "name": document.getElementById('<%= txtName.ClientID %>').value,
+                    "lastName": document.getElementById('<%= txtLastName.ClientID %>').value,
+                    "email": document.getElementById('<%= txtEmail.ClientID %>').value,
+                    "address": document.getElementById('<%= txtAddress.ClientID %>').value,
+                    "tel": document.getElementById('<%= txtTel.ClientID %>').value,
+                    "city": document.getElementById('<%= ddlCity.ClientID %>').value,
+                    "municipality": ddlMun ? ddlMun.value : "",
+                    "district": ddlDist ? ddlDist.value : "",
+                    "lat": document.getElementById('<%= hfLatitude.ClientID %>').value,
+                    "lng": document.getElementById('<%= hfLongitude.ClientID %>').value,
+                    "notes": document.getElementById('<%= txtNotes.ClientID %>').value,
+                    "total": totalEl ? totalEl.value : "0",
+                    "returnUrl": localReturnUrl
+                };
+
+                fetch('Checkout.aspx/CreatePendingWalletOrder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: data })
+                }).catch(e => console.log('Prepare order error', e));
+            }
+
+            // Interceptar clic en el botón de la Billetera Virtual en fase de captura para validar antes de abrir la pasarela
+            document.addEventListener('click', function (e) {
+                var btn = e.target.closest('#vw-checkout-btn') || e.target.closest('#virtual-wallet-checkout button');
+                if (btn) {
+                    if (!validarCheckout()) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        return false;
+                    }
+                    sincronizarMontosBilletera();
+                    saveCheckoutData();
+                    prepareWalletOrder();
+                }
+            }, true);
+
             if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                     updateNotesCounter();
                     saveCheckoutData();
+                    sincronizarMontosBilletera();
                     
                     var inputs = document.querySelectorAll('.input, select, textarea');
                     inputs.forEach(function(input) {

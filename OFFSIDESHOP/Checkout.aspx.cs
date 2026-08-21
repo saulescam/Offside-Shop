@@ -271,9 +271,12 @@ namespace OFFSIDESHOP
                 subtotalCamisetas += Convert.ToDecimal(r["Subtotal"]);
             }
 
-            decimal discountPercentage = ViewState["DiscountPercentage"] != null ? Convert.ToDecimal(ViewState["DiscountPercentage"]) : 0m;
+            decimal discountPercentage = ViewState["DiscountPercentage"] != null 
+                ? Convert.ToDecimal(ViewState["DiscountPercentage"]) 
+                : (Session["DiscountPercentage"] != null ? Convert.ToDecimal(Session["DiscountPercentage"]) : 0m);
             decimal discountAmount = Math.Round((subtotalCamisetas * discountPercentage) / 100m, 2);
             ViewState["DiscountAmount"] = discountAmount;
+            Session["DiscountAmount"] = discountAmount;
 
             decimal costoEnvio = CalcularCostoEnvio();
             decimal totalFinalConEnvio = (subtotalCamisetas - discountAmount) + costoEnvio;
@@ -355,6 +358,8 @@ namespace OFFSIDESHOP
                             {
                                 ViewState["CouponId"] = reader["Id_Coupon"];
                                 ViewState["DiscountPercentage"] = reader["DiscountPercentage"];
+                                Session["CouponId"] = reader["Id_Coupon"];
+                                Session["DiscountPercentage"] = reader["DiscountPercentage"];
                                 lblCouponMessage.Text = $"<span class='text-success'><i class='fas fa-check-circle'></i> Coupon applied! ({reader["DiscountPercentage"]}% OFF)</span>";
 
                                 txtCouponCode.Enabled = false;
@@ -974,6 +979,181 @@ namespace OFFSIDESHOP
                 return "OK";
             }
             return "Error";
+        }
+
+        [System.Web.Services.WebMethod(EnableSession = true)]
+        public static object CreatePendingWalletOrder(System.Collections.Generic.Dictionary<string, string> data)
+        {
+            if (HttpContext.Current == null || HttpContext.Current.Session == null)
+            {
+                return new { success = false, message = "No session" };
+            }
+
+            var session = HttpContext.Current.Session;
+            session["CheckoutData"] = data;
+
+            DataTable dtCart = session["Cart"] as DataTable;
+            if (dtCart == null || dtCart.Rows.Count == 0)
+            {
+                return new { success = false, message = "Cart is empty" };
+            }
+
+            int userId = session["Id_User"] != null ? Convert.ToInt32(session["Id_User"]) : 0;
+            object idCoupon = session["CouponId"] ?? DBNull.Value;
+            decimal discountApplied = session["DiscountAmount"] != null ? Convert.ToDecimal(session["DiscountAmount"], System.Globalization.CultureInfo.InvariantCulture) : 0m;
+
+            string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
+
+            string idCity = data.ContainsKey("city") ? data["city"] : "";
+            string idMun = data.ContainsKey("municipality") ? data["municipality"] : "";
+            string idDist = data.ContainsKey("district") ? data["district"] : "";
+
+            decimal shippingCost = 3.50m;
+            if (!string.IsNullOrEmpty(idCity))
+            {
+                try
+                {
+                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    {
+                        conn.Open();
+                        using (MySqlCommand cmdCity = new MySqlCommand("SELECT shipping_cost FROM cities WHERE id_city = @id_city", conn))
+                        {
+                            cmdCity.Parameters.AddWithValue("@id_city", idCity);
+                            object res = cmdCity.ExecuteScalar();
+                            if (res != null && res != DBNull.Value) shippingCost = Convert.ToDecimal(res);
+                        }
+                    }
+                }
+                catch { }
+            }
+
+            decimal total = 0m;
+            if (data.ContainsKey("total") && !string.IsNullOrEmpty(data["total"]))
+            {
+                decimal.TryParse(data["total"], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out total);
+            }
+            if (total <= 0)
+            {
+                decimal sub = 0m;
+                foreach (DataRow r in dtCart.Rows) sub += Convert.ToDecimal(r["Subtotal"]);
+                total = Math.Max(0m, (sub - discountApplied) + shippingCost);
+            }
+
+            decimal mapLat = 13.6929m;
+            decimal mapLng = -89.2182m;
+            if (data.ContainsKey("lat") && !string.IsNullOrEmpty(data["lat"])) decimal.TryParse(data["lat"], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out mapLat);
+            if (data.ContainsKey("lng") && !string.IsNullOrEmpty(data["lng"])) decimal.TryParse(data["lng"], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out mapLng);
+
+            string safeNotes = data.ContainsKey("notes") && data["notes"] != null ? data["notes"] : "";
+            if (safeNotes.Length > 200) safeNotes = safeNotes.Substring(0, 200);
+
+            string safeName = data.ContainsKey("name") && data["name"] != null ? data["name"].Trim() : "";
+            if (safeName.Length > 50) safeName = safeName.Substring(0, 50);
+
+            string safeLastName = data.ContainsKey("lastName") && data["lastName"] != null ? data["lastName"].Trim() : "";
+            if (safeLastName.Length > 50) safeLastName = safeLastName.Substring(0, 50);
+
+            string email = data.ContainsKey("email") ? data["email"].Trim() : "";
+            string address = data.ContainsKey("address") ? data["address"].Trim() : "";
+            if (address.Length > 200) address = address.Substring(0, 200);
+            string tel = data.ContainsKey("tel") ? data["tel"].Trim() : "";
+
+            object valCity = int.TryParse(idCity, out int cityId) ? (object)cityId : DBNull.Value;
+            object valMun = int.TryParse(idMun, out int munId) ? (object)munId : DBNull.Value;
+            object valDist = int.TryParse(idDist, out int distId) ? (object)distId : DBNull.Value;
+
+            string pendingTxId = "PENDING-VW-" + userId + "-" + DateTime.UtcNow.Ticks;
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (MySqlTransaction trans = conn.BeginTransaction())
+                    {
+                        string orderQuery = @"INSERT INTO orders 
+                         (Id_User, Name, LastName, Mail, Address, Latitude, Longitude, id_City, Id_Municipality, Id_District, Phone, OrderNotes, Total, Id_Coupon, DiscountApplied, Id_PaymentMethod, TransactionID, shipping_cost, Id_Status) 
+                         VALUES 
+                         (@IdUser, @Name, @LastName, @Mail, @Address, @Lat, @Lng, @IdCity, @IdMunicipality, @IdDistrict, @Phone, @Notes, @Total, @IdCoupon, @DiscountApplied, 3, @TransactionID, @ShippingCost, 1); 
+                         SELECT LAST_INSERT_ID();";
+
+                        int orderId;
+                        using (MySqlCommand cmd = new MySqlCommand(orderQuery, conn, trans))
+                        {
+                            cmd.Parameters.AddWithValue("@IdUser", userId);
+                            cmd.Parameters.AddWithValue("@Name", safeName);
+                            cmd.Parameters.AddWithValue("@LastName", safeLastName);
+                            cmd.Parameters.AddWithValue("@Mail", email);
+                            cmd.Parameters.AddWithValue("@Address", address);
+                            cmd.Parameters.AddWithValue("@Lat", mapLat);
+                            cmd.Parameters.AddWithValue("@Lng", mapLng);
+                            cmd.Parameters.AddWithValue("@IdCity", valCity);
+                            cmd.Parameters.AddWithValue("@IdMunicipality", valMun);
+                            cmd.Parameters.AddWithValue("@IdDistrict", valDist);
+                            cmd.Parameters.AddWithValue("@Phone", tel);
+                            cmd.Parameters.AddWithValue("@Notes", safeNotes);
+                            cmd.Parameters.AddWithValue("@Total", total);
+                            cmd.Parameters.AddWithValue("@IdCoupon", idCoupon);
+                            cmd.Parameters.AddWithValue("@DiscountApplied", discountApplied);
+                            cmd.Parameters.AddWithValue("@TransactionID", pendingTxId);
+                            cmd.Parameters.AddWithValue("@ShippingCost", shippingCost);
+
+                            orderId = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+
+                        string detailQuery = @"INSERT INTO order_details (Id_Order, Id_Tshirt, ProductName, Size, Price, Quantity, Subtotal) 
+                                               VALUES (@IdOrder, @IdTshirt, @Name, @Size, @Price, @Qty, @Subtotal)";
+
+                        using (MySqlCommand detailCmd = new MySqlCommand(detailQuery, conn, trans))
+                        {
+                            detailCmd.Parameters.Add("@IdOrder", MySqlDbType.Int32);
+                            detailCmd.Parameters.Add("@IdTshirt", MySqlDbType.Int32);
+                            detailCmd.Parameters.Add("@Name", MySqlDbType.VarChar);
+                            detailCmd.Parameters.Add("@Size", MySqlDbType.VarChar);
+                            detailCmd.Parameters.Add("@Price", MySqlDbType.Decimal);
+                            detailCmd.Parameters.Add("@Qty", MySqlDbType.Int32);
+                            detailCmd.Parameters.Add("@Subtotal", MySqlDbType.Decimal);
+
+                            bool isSpanish = session["Language"] != null && session["Language"].ToString().ToLower() == "es";
+
+                            foreach (DataRow row in dtCart.Rows)
+                            {
+                                string dbProductName = row["Name"].ToString();
+                                if (dtCart.Columns.Contains("IsCustomized") && row["IsCustomized"] != DBNull.Value && Convert.ToBoolean(row["IsCustomized"]))
+                                {
+                                    string customLabel = isSpanish ? "Personalizado" : "Customized";
+                                    dbProductName += $" ({customLabel}: {row["CustomName"]} #{row["CustomNumber"]})";
+                                }
+
+                                detailCmd.Parameters["@IdOrder"].Value = orderId;
+                                detailCmd.Parameters["@IdTshirt"].Value = row["ID"];
+                                detailCmd.Parameters["@Name"].Value = dbProductName;
+                                detailCmd.Parameters["@Size"].Value = row["Size"];
+                                detailCmd.Parameters["@Price"].Value = row["Price"];
+                                detailCmd.Parameters["@Qty"].Value = row["Quantity"];
+                                detailCmd.Parameters["@Subtotal"].Value = row["Subtotal"];
+                                detailCmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        trans.Commit();
+                        session["PendingWalletOrderId"] = orderId;
+                        session["PendingWalletTxId"] = pendingTxId;
+
+                        string returnUrl = data.ContainsKey("returnUrl") && !string.IsNullOrEmpty(data["returnUrl"]) ? data["returnUrl"] : "";
+                        if (!string.IsNullOrEmpty(returnUrl))
+                        {
+                            WalletWebhook.RegisterReturnUrl(orderId, pendingTxId, returnUrl);
+                        }
+
+                        return new { success = true, orderId = orderId, txId = pendingTxId };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return new { success = false, message = ex.Message };
+            }
         }
     }
 }

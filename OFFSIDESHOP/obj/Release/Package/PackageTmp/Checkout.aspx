@@ -49,7 +49,7 @@
         .discount-row { color: #d9534f !important; }
         .discount-row strong { color: #d9534f !important; }
 
-        /* Barra de bÃºsqueda del mapa */
+        /* Barra de búsqueda del mapa */
         .map-search-wrapper { position: relative; margin-bottom: 8px; }
         .map-search-input { width: 100%; padding: 9px 40px 9px 14px; border: 1.5px solid #E4E7ED; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; transition: border-color 0.2s; outline: none; }
         .map-search-input:focus { border-color: #D47A00; }
@@ -60,7 +60,7 @@
         .map-location-label.searching { color: #D47A00; }
         .map-location-label.error { color: #dc3545; }
 
-        /* ===== LOADER SOLUTIONS (PAYMENT OVERLAY & LOCALIZED MAP LOADER) ===== */
+        /* ===== LOADER SOLUTIONS ===== */
         #payment-loader {
             position: fixed;
             top: 0;
@@ -261,7 +261,6 @@
             var lat = document.getElementById('<%= hfLatitude.ClientID %>').value;
             var lng = document.getElementById('<%= hfLongitude.ClientID %>').value;
             var tel = document.getElementById('<%= txtTel.ClientID %>').value.trim();
-            // Expresión regular: Valida que sean exactamente 8 dígitos numéricos (Formato El Salvador)
             var telRegex = /^[0-9]{8}$/;
 
             if (tel === '' || !telRegex.test(tel)) {
@@ -296,7 +295,6 @@
                 return false;
             }
 
-            // Trigger payment loader and delay submit for Cash on Delivery to let animations play
             if (payment && payment.value === 'Cash') {
                 isPaymentSubmitting = true;
 
@@ -323,13 +321,11 @@
     <form runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
-        <!-- COORDENADAS DE LOGÍSTICA EN SEGUNDO PLANO -->
         <asp:HiddenField ID="hfLatitude" runat="server" />
         <asp:HiddenField ID="hfLongitude" runat="server" />
         <asp:HiddenField ID="hfUserDefaultLat" runat="server" />
         <asp:HiddenField ID="hfUserDefaultLng" runat="server" />
 
-        <!-- ELEMENTOS DE ENLACE DE DATOS PARA LA BILLETERA VIRTUAL -->
         <input type="hidden" id="vw_monto" value="0.00" />
         <input type="hidden" id="DescCarrito" value="OffsideShop Jersey Collector Settlement Order" />
 
@@ -346,7 +342,6 @@
 
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     
-
                     <asp:PlaceHolder ID="phNavbarGuest" runat="server">
                         <div class="user-menu-container">
                             <button type="button" class="user-icon-btn" onclick="toggleUserMenu(this)">
@@ -435,6 +430,10 @@
                                         <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="input" Enabled="false"></asp:DropDownList>
                                     </div>
                                 </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="ddlCity" EventName="SelectedIndexChanged" />
+                                    <asp:AsyncPostBackTrigger ControlID="ddlMunicipality" EventName="SelectedIndexChanged" />
+                                </Triggers>
                             </asp:UpdatePanel>
 
                             <div class="form-group mt-3">
@@ -458,7 +457,6 @@
                                 </div>
                                 <div class="map-container-wrapper">
                                     <div id="map-canvas" style="height: 320px; width: 100%; border-radius: 12px; border: 2px solid #E4E7ED; z-index: 1;"></div>
-                                    <!-- Localized map loader overlay -->
                                     <div id="map-loader" class="map-loader-overlay">
                                         <div class="map-loader-content">
                                             <div class="map-spinner-ring">
@@ -605,14 +603,12 @@
             </div>
         </div>
 
-
         <script type="text/javascript">
             function updateNotesCounter() {
                 var txt = document.getElementById('<%= txtNotes.ClientID %>');
                 var counter = document.getElementById('notesCounter');
 
                 if (txt && counter) {
-                    // En caso de que se pegue un texto mayor a 200 caracteres
                     if (txt.value.length > 200) {
                         txt.value = txt.value.substring(0, 200);
                     }
@@ -620,18 +616,106 @@
                 }
             }
 
-            // Inicializar el contador al cargar la página (por si ya tiene texto)
+            function saveCheckoutData() {
+                var ddlMun = document.getElementById('<%= ddlMunicipality.ClientID %>');
+                var ddlDist = document.getElementById('<%= ddlDistrict.ClientID %>');
+                var totalEl = document.getElementById('<%= hfTotalAmount.ClientID %>');
+
+                var data = {
+                    "name": document.getElementById('<%= txtName.ClientID %>').value,
+                    "lastName": document.getElementById('<%= txtLastName.ClientID %>').value,
+                    "email": document.getElementById('<%= txtEmail.ClientID %>').value,
+                    "address": document.getElementById('<%= txtAddress.ClientID %>').value,
+                    "tel": document.getElementById('<%= txtTel.ClientID %>').value,
+                    "city": document.getElementById('<%= ddlCity.ClientID %>').value,
+                    "municipality": ddlMun ? ddlMun.value : "",
+                    "district": ddlDist ? ddlDist.value : "",
+                    "lat": document.getElementById('<%= hfLatitude.ClientID %>').value,
+                    "lng": document.getElementById('<%= hfLongitude.ClientID %>').value,
+                    "notes": document.getElementById('<%= txtNotes.ClientID %>').value,
+                    "total": totalEl ? totalEl.value : "0"
+                };
+
+                fetch('Checkout.aspx/SaveCheckoutData', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: data })
+                }).catch(e => console.log('Auto-save error', e));
+            }
+
             document.addEventListener('DOMContentLoaded', function () {
                 updateNotesCounter();
+                
+                // Auto-save form data for Virtual Wallet redirect
+                var inputs = document.querySelectorAll('.input, select, textarea');
+                inputs.forEach(function(input) {
+                    input.addEventListener('change', saveCheckoutData);
+                    input.addEventListener('blur', saveCheckoutData);
+                });
+                
+                // Save initially just in case user clicks pay immediately
+                setTimeout(saveCheckoutData, 1000);
             });
 
-            // Re-vincular si hay un PostBack parcial de UpdatePanel
+            function prepareWalletOrder() {
+                var ddlMun = document.getElementById('<%= ddlMunicipality.ClientID %>');
+                var ddlDist = document.getElementById('<%= ddlDistrict.ClientID %>');
+                var totalEl = document.getElementById('<%= hfTotalAmount.ClientID %>');
+
+                var localReturnUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/MyOrders.aspx';
+
+                var data = {
+                    "name": document.getElementById('<%= txtName.ClientID %>').value,
+                    "lastName": document.getElementById('<%= txtLastName.ClientID %>').value,
+                    "email": document.getElementById('<%= txtEmail.ClientID %>').value,
+                    "address": document.getElementById('<%= txtAddress.ClientID %>').value,
+                    "tel": document.getElementById('<%= txtTel.ClientID %>').value,
+                    "city": document.getElementById('<%= ddlCity.ClientID %>').value,
+                    "municipality": ddlMun ? ddlMun.value : "",
+                    "district": ddlDist ? ddlDist.value : "",
+                    "lat": document.getElementById('<%= hfLatitude.ClientID %>').value,
+                    "lng": document.getElementById('<%= hfLongitude.ClientID %>').value,
+                    "notes": document.getElementById('<%= txtNotes.ClientID %>').value,
+                    "total": totalEl ? totalEl.value : "0",
+                    "returnUrl": localReturnUrl
+                };
+
+                fetch('Checkout.aspx/CreatePendingWalletOrder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: data })
+                }).catch(e => console.log('Prepare order error', e));
+            }
+
+            // Interceptar clic en el botón de la Billetera Virtual en fase de captura para validar antes de abrir la pasarela
+            document.addEventListener('click', function (e) {
+                var btn = e.target.closest('#vw-checkout-btn') || e.target.closest('#virtual-wallet-checkout button');
+                if (btn) {
+                    if (!validarCheckout()) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        return false;
+                    }
+                    sincronizarMontosBilletera();
+                    saveCheckoutData();
+                    prepareWalletOrder();
+                }
+            }, true);
+
             if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                     updateNotesCounter();
+                    saveCheckoutData();
+                    sincronizarMontosBilletera();
+                    
+                    var inputs = document.querySelectorAll('.input, select, textarea');
+                    inputs.forEach(function(input) {
+                        input.addEventListener('change', saveCheckoutData);
+                        input.addEventListener('blur', saveCheckoutData);
+                    });
                 });
             }
-            // SINCRONIZADOR MAESTRO DE MONTOS PARA LA BILLETERA
+
             function sincronizarMontosBilletera() {
                 var hfTotal = document.getElementById('<%= hfTotalAmount.ClientID %>');
                 var walletAmountInput = document.getElementById('vw_monto');
@@ -654,7 +738,6 @@
                 var btnNormal = document.getElementById('<%= btnPlaceOrder.ClientID %>');
                 var btnPayPal = document.getElementById('paypal-button-container');
 
-                // Esconder contenedores de forma segura
                 if (btnNormal) btnNormal.style.setProperty('display', 'none', 'important');
                 if (btnPayPal) btnPayPal.style.setProperty('display', 'none', 'important');
 
@@ -668,64 +751,100 @@
                 }
                 else if (radioElement.id.indexOf('payment4') !== -1) {
                     if (cap4) cap4.style.display = 'block';
-
-                    // Ocultar botones que no son de la billetera
                     if (btnNormal) btnNormal.style.setProperty('display', 'none', 'important');
                     if (btnPayPal) btnPayPal.style.setProperty('display', 'none', 'important');
-
-                    // Sincronizar montos al alternar al mÃ©todo de la billetera
                     sincronizarMontosBilletera();
                 }
             }
-        </script>
-
-
-        <script
-            src="http://192.168.3.27:8000/api/v1/widget/checkout.js"
-            data-vw-widget="true"
-            data-client-id="pk_sandbox_7hYP5Mdfg9cdLxH20XC5AmFR"
-            data-secret-key="sk_live_P5iFosZtwGjbc4Kk6iBSBrgt"
-            data-amount-id="vw_monto"
-            data-desc-id="DescCarrito">
         </script>
 
         <script src="https://www.paypal.com/sdk/js?client-id=AejQEmRXV3PTfVnwchx6ti6AlPsYbETlZgM4AtfUXa2IO4AykiJkUtL6wPJcafyn5kzlagVr4fH60nyH&currency=USD"></script>
 
         <script type="text/javascript">
                 window.addEventListener('load', function () {
-                    // Sincronizar montos iniciales
                     sincronizarMontosBilletera();
-                    // ESCUCHADOR DE Ã‰XITO DE LA BILLETERA VIRTUAL
+
+                    // ================================================================
+                    // ESCUCHADOR ROBUSTO PARA LA BILLETERA VIRTUAL
+                    // ================================================================
                     window.addEventListener('message', function (event) {
-                        // Seguridad bÃ¡sica (opcional, ajusta a la IP/puerto real de la billetera si usa iframes)
-                        // if (event.origin !== "http://192.168.3.27:8000") return;
+                        var data = event.data;
 
-                        // Asumiendo que el widget envÃ­a un mensaje o evento cuando el pago es exitoso
-                        if (event.data === 'vw-payment-success' || event.data.status === 'success') {
+                        // Intentar parsear si viene como JSON string
+                        if (typeof data === 'string') {
+                            try { data = JSON.parse(data); } catch (e) { }
+                        }
 
-                            // 1. Opcional: Guardar el ID de transacciÃ³n de la billetera si te lo envÃ­an
-                            if (event.data.transactionId) {
-                                document.getElementById('<%= hfTransactionID.ClientID %>').value = event.data.transactionId;
+                        var isSuccess = false;
+                        var txId = "";
+
+                        // Validar éxito (soporta strings directos o campos status/type dentro del objeto JSON)
+                        if (data === 'vw-payment-success' || data === 'success') {
+                            isSuccess = true;
+                        } else if (typeof data === 'object' && data !== null) {
+                            if (data.status === 'success' || data.status === 'paid' || data.status === 'COMPLETED' || data.type === 'SUCCESS') {
+                                isSuccess = true;
                             }
+                            txId = data.transaction_id || data.transactionId || data.id || data.tx_id || "";
+                        }
 
-                            // 2. Mostrar la pantalla de carga de tu tienda para congelar la pantalla
-                            var loader = document.getElementById('payment-loader');
-                            if (loader) loader.style.display = 'flex';
+                        if (isSuccess) {
+                            if (isPaymentSubmitting) return;
                             isPaymentSubmitting = true;
 
-                            // 3. Simular el clic en el botÃ³n oculto para ir al C#
-                            setTimeout(function () {
-                                var btnWallet = document.getElementById('<%= btnConfirmWalletPayment.ClientID %>');
-                            if (btnWallet) btnWallet.click();
-                        }, 800);
+                            var loader = document.getElementById('payment-loader');
+                            if (loader) loader.style.display = 'flex';
+
+                            var payload = {
+                                is_frontend: true,
+                                transaction_id: txId,
+                                name: document.getElementById('<%= txtName.ClientID %>').value,
+                                lastName: document.getElementById('<%= txtLastName.ClientID %>').value,
+                                email: document.getElementById('<%= txtEmail.ClientID %>').value,
+                                address: document.getElementById('<%= txtAddress.ClientID %>').value,
+                                tel: document.getElementById('<%= txtTel.ClientID %>').value,
+                                city: document.getElementById('<%= ddlCity.ClientID %>').value,
+                                municipality: document.getElementById('<%= ddlMunicipality.ClientID %>') ? document.getElementById('<%= ddlMunicipality.ClientID %>').value : "",
+                                district: document.getElementById('<%= ddlDistrict.ClientID %>') ? document.getElementById('<%= ddlDistrict.ClientID %>').value : "",
+                                lat: document.getElementById('<%= hfLatitude.ClientID %>').value,
+                                lng: document.getElementById('<%= hfLongitude.ClientID %>').value,
+                                notes: document.getElementById('<%= txtNotes.ClientID %>').value,
+                                total: document.getElementById('<%= hfTotalAmount.ClientID %>').value
+                            };
+
+                            fetch('WalletWebhook.aspx', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            })
+                            .then(response => response.json())
+                            .then(result => {
+                                if (result.status === 'success') {
+                                    Swal.fire({
+                                        title: 'Payment & Order Completed!',
+                                        text: 'Your order has been placed successfully via Virtual Wallet.',
+                                        icon: 'success',
+                                        confirmButtonColor: '#FFC800'
+                                    }).then(() => {
+                                        window.location.href = 'MyOrders.aspx';
+                                    });
+                                } else {
+                                    Swal.fire('Error', result.error || 'Failed to process order', 'error');
+                                    if (loader) loader.style.display = 'none';
+                                    isPaymentSubmitting = false;
+                                }
+                            })
+                            .catch(err => {
+                                Swal.fire('Error', 'Network error while processing your order.', 'error');
+                                if (loader) loader.style.display = 'none';
+                                isPaymentSubmitting = false;
+                            });
                         }
                     });
-                    // Interceptar peticiones parciales asÃ­ncronas para actualizar la billetera ante cupones o envÃ­os
+
                     if (typeof Sys !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
                         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                             sincronizarMontosBilletera();
-
-                            // Re-evaluar el estado del radio button activo tras un postback parcial
                             var checkedRadio = document.querySelector('input[name="payment"]:checked');
                         if (checkedRadio) {
                             togglePaymentCaptions(checkedRadio);
@@ -733,7 +852,6 @@
                     });
                 }
 
-                // PAYPAL SDK ACTIONS CON VALIDADOR INTEGRADO
                 paypal.Buttons({
                     onClick: function (data, actions) {
                         if (!validarCheckout()) {
@@ -756,7 +874,6 @@
                             var trueCaptureId = details.purchase_units[0].payments.captures[0].id;
                             document.getElementById('<%= hfTransactionID.ClientID %>').value = trueCaptureId;
 
-                            // Show the loader overlay immediately so animations play before browser freezes
                             var loader = document.getElementById('payment-loader');
                             if (loader) {
                                 loader.style.display = 'flex';
@@ -786,29 +903,24 @@
                     if (btnPayPal) btnPayPal.style.setProperty('display', 'none', 'important');
                 }
 
-                // Intercept native form submission to apply the payment-loader and block double-submits
                 var mainForm = document.forms[0] || document.getElementById('Form1');
                 if (mainForm) {
                     mainForm.addEventListener('submit', function (e) {
-                        // If not payment submitting, let the postback proceed normally (like city selection, coupons, etc.)
                         if (typeof isPaymentSubmitting === 'undefined' || !isPaymentSubmitting) {
                             return;
                         }
 
-                        // Safely check if ASP.NET client-side validators are present and valid
                         if (typeof Page_ClientValidate === 'function') {
                             if (!Page_ClientValidate()) {
-                                return; // ASP.NET validation failed, abort loader
+                                return; 
                             }
                         }
 
-                        // Show the payment-loader overlay
                         var loader = document.getElementById('payment-loader');
                         if (loader) {
                             loader.style.display = 'flex';
                         }
 
-                        // Programmatically disable submit buttons to block double-clicks
                         var submitBtn = document.getElementById('<%= btnPlaceOrder.ClientID %>');
                         var paypalContainer = document.getElementById('paypal-button-container');
 
@@ -821,7 +933,6 @@
             });
             function isNumberKey(evt) {
                 var charCode = (evt.which) ? evt.evt.which : evt.keyCode;
-                // Permitir solo nÃºmeros (cÃ³digos ASCII del 48 al 57)
                 if (charCode > 31 && (charCode < 48 || charCode > 57)) {
                     return false;
                 }
@@ -829,7 +940,7 @@
             }
             </script>
 
-        <!-- MAPA INTELIGENTE CON GEOCODING CLIENT-SIDE (OPTIMIZADO) -->
+        <!-- MAPA INTELIGENTE CON GEOCODING CLIENT-SIDE -->
         <script type="text/javascript">
             var checkoutMap = null;
             var deliveryMarker = null;
@@ -950,7 +1061,6 @@
             var geocodeTimeout = null;
 
             function geocodeAndMoveMap(queryText) {
-                // Si el usuario sigue cambiando dropdowns rÃ¡pido, cancelamos la bÃºsqueda anterior (Debounce)
                 if (geocodeTimeout) clearTimeout(geocodeTimeout);
 
                 setMapLabel('<i class="fas fa-spinner fa-spin me-1"></i> Searching location...', 'searching');
@@ -974,7 +1084,7 @@
                         .catch(function () {
                             setMapLabel('<i class="fas fa-exclamation-triangle me-1"></i> Connection error. Drag the pin manually.', 'error');
                         });
-                }, 400); // Espera 400 milisegundos antes de disparar la peticiÃ³n HTTP
+                }, 400); 
             }
 
             function searchMapAddress() {

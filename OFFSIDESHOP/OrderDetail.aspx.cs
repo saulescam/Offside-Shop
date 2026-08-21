@@ -204,6 +204,7 @@ namespace OFFSIDESHOP
            o.shipping_cost AS shipping_cost,
            o.Id_Status,
            o.Id_PaymentMethod,
+           o.TransactionID,
            o.Latitude,           
            o.Longitude,        
            c.city_name AS city, 
@@ -233,6 +234,7 @@ namespace OFFSIDESHOP
 
                     int idStatus = 0;
                     int idPaymentMethod = 0;
+                    string transactionId = "";
                     DateTime orderDate = DateTime.MinValue;
                     string shippingAddress = "";
                     decimal totalAmount = 0;
@@ -259,6 +261,7 @@ namespace OFFSIDESHOP
                                 hasOrder = true;
                                 idStatus = reader["Id_Status"] != DBNull.Value ? Convert.ToInt32(reader["Id_Status"]) : 0;
                                 idPaymentMethod = reader["Id_PaymentMethod"] != DBNull.Value ? Convert.ToInt32(reader["Id_PaymentMethod"]) : 0;
+                                transactionId = reader["TransactionID"] != DBNull.Value ? reader["TransactionID"].ToString() : "";
 
                                 if (reader["order_date"] != DBNull.Value) orderDate = Convert.ToDateTime(reader["order_date"]);
                                 shippingAddress = reader["shipping_address"] != DBNull.Value ? reader["shipping_address"].ToString() : "";
@@ -356,7 +359,12 @@ namespace OFFSIDESHOP
                     if (idPaymentMethod == 2) // PayPal
                     {
                         phPayPal.Visible = true;
-                        lblTransactionId.Text = "PP-" + idOrder.ToString().PadLeft(6, '0');
+                        lblTransactionId.Text = !string.IsNullOrEmpty(transactionId) ? transactionId : ("PP-" + idOrder.ToString().PadLeft(6, '0'));
+                    }
+                    else if (idPaymentMethod == 3) // Virtual Wallet
+                    {
+                        phPayPal.Visible = true;
+                        lblTransactionId.Text = !string.IsNullOrEmpty(transactionId) ? transactionId : ("VW-" + idOrder.ToString().PadLeft(6, '0'));
                     }
                     else
                     {
