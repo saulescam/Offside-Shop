@@ -35,9 +35,35 @@ namespace OFFSIDESHOP
                     jsonPayload = reader.ReadToEnd();
                 }
 
-                // Si el body está vacío (Ping de la billetera o entraste desde el navegador)
-                if (string.IsNullOrWhiteSpace(jsonPayload))
+                // ==========================================
+                // LOGGING COMPLETO PARA DEPURAR NGROK / API
+                // ==========================================
+                try
                 {
+                    string logPath = Server.MapPath("~/webhook_log.txt");
+                    using (StreamWriter sw = File.AppendText(logPath))
+                    {
+                        sw.WriteLine("--- NEW WEBHOOK REQUEST ---");
+                        sw.WriteLine("Time: " + DateTime.Now.ToString());
+                        sw.WriteLine("Method: " + Request.HttpMethod);
+                        sw.WriteLine("URL: " + Request.Url.ToString());
+                        sw.WriteLine("Headers: " + Request.Headers.ToString());
+                        sw.WriteLine("QueryString: " + Request.QueryString.ToString());
+                        sw.WriteLine("Form: " + Request.Form.ToString());
+                        sw.WriteLine("Raw Body (jsonPayload): " + jsonPayload);
+                        sw.WriteLine("---------------------------\n");
+                    }
+                }
+                catch { }
+
+                // Si el body está vacío (Ping de la billetera o entraste desde el navegador)
+                if (string.IsNullOrWhiteSpace(jsonPayload) && Request.QueryString.Count == 0 && Request.Form.Count == 0)
+                {
+                    Response.StatusCode = 200;
+                    Response.Write("{\"status\":\"ping_ok\"}");
+                    Response.End(); // Esto lanza un ThreadAbortException
+                    return;
+                }
                     // VERIFICAR SI ES REDIRECCION DESDE LA BILLETERA (GET)
                     if (Request.HttpMethod == "GET" || Request.HttpMethod == "POST")
                     {
