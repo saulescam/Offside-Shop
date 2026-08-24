@@ -91,15 +91,18 @@ namespace OFFSIDESHOP
                         txtCustomName.Text = pendingName;
                         txtCustomNumber.Text = pendingNum;
 
+                        string pendingNameJs = System.Web.HttpUtility.JavaScriptStringEncode(pendingName);
+                        string pendingNumJs = System.Web.HttpUtility.JavaScriptStringEncode(pendingNum);
+
                         // 2. Inyectamos el script con un retraso estratégico para ganarle a $(document).ready
                         string jsRestore = $@"
             setTimeout(function() {{
                 // Llenamos las cajas
                 var txtName = document.getElementById('txtCustomName');
-                if (txtName) txtName.value = '{pendingName}';
+                if (txtName) txtName.value = '{pendingNameJs}';
                 
                 var txtNum = document.getElementById('txtCustomNumber');
-                if (txtNum) txtNum.value = '{pendingNum}';
+                if (txtNum) txtNum.value = '{pendingNumJs}';
 
                 var chk = document.getElementById('chkCustomize');
                 if (chk) chk.checked = true;

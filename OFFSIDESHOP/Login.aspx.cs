@@ -231,7 +231,24 @@ namespace OFFSIDESHOP
         protected void btnGoogleLogin_Click(object sender, EventArgs e)
         {
             string callbackUrl = System.Configuration.ConfigurationManager.AppSettings["GoogleRedirectUri"];
-            OAuthWeb.RedirectToAuthorization("google", callbackUrl);
+
+            string pendingShirtId = Session["PendingShirtId"]?.ToString();
+            if (!string.IsNullOrEmpty(pendingShirtId))
+            {
+                string state = PendingShirtHelper.SerializePendingState(
+                    pendingShirtId,
+                    Session["PendingSizeId"]?.ToString(),
+                    Session["PendingQuantity"]?.ToString(),
+                    Session["PendingIsCustom"] != null && Convert.ToBoolean(Session["PendingIsCustom"]),
+                    Session["PendingCustomName"]?.ToString(),
+                    Session["PendingCustomNumber"]?.ToString()
+                );
+                OAuthWeb.RedirectToAuthorization("google", callbackUrl, state);
+            }
+            else
+            {
+                OAuthWeb.RedirectToAuthorization("google", callbackUrl);
+            }
         }
 
         protected void btnLanguageToggle_Click(object sender, EventArgs e)

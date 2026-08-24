@@ -33,6 +33,17 @@ namespace OFFSIDESHOP
             Session["Perm_Banners"] = datos.PermBanners;
             Session["Perm_Tickets"] = datos.PermTickets;
 
+            // Restablecer datos del producto pendiente en la sesión local si venían en el ticket
+            if (!string.IsNullOrEmpty(datos.PendingShirtId))
+            {
+                Session["PendingShirtId"] = datos.PendingShirtId;
+                Session["PendingSizeId"] = datos.PendingSizeId;
+                Session["PendingQuantity"] = datos.PendingQuantity;
+                Session["PendingIsCustom"] = datos.PendingIsCustom;
+                Session["PendingCustomName"] = datos.PendingCustomName;
+                Session["PendingCustomNumber"] = datos.PendingCustomNumber;
+            }
+
             if (datos.IdRole == 1 || datos.IdRole == 2)
             {
                 Session["Admin"] = System.Web.HttpUtility.HtmlEncode(datos.UserName);

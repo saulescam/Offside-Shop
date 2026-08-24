@@ -44,6 +44,37 @@ namespace OFFSIDESHOP
             string googleId = userInfo.UserId.ToString();
             string email    = userInfo.Email;
 
+            // ── Extract Pending Shirt Details (if user attempted Add to Cart) ──
+            string pendingShirtId = null;
+            string pendingSizeId = null;
+            string pendingQty = null;
+            bool pendingIsCustom = false;
+            string pendingCustomName = null;
+            string pendingCustomNumber = null;
+
+            if (result.State != null && !string.IsNullOrEmpty(result.State.ToString()))
+            {
+                PendingShirtHelper.DeserializeAndRestore(
+                    result.State.ToString(),
+                    out pendingShirtId,
+                    out pendingSizeId,
+                    out pendingQty,
+                    out pendingIsCustom,
+                    out pendingCustomName,
+                    out pendingCustomNumber
+                );
+            }
+
+            if (string.IsNullOrEmpty(pendingShirtId) && Session["PendingShirtId"] != null)
+            {
+                pendingShirtId = Session["PendingShirtId"].ToString();
+                pendingSizeId = Session["PendingSizeId"]?.ToString();
+                pendingQty = Session["PendingQuantity"]?.ToString();
+                pendingIsCustom = Session["PendingIsCustom"] != null && Convert.ToBoolean(Session["PendingIsCustom"]);
+                pendingCustomName = Session["PendingCustomName"]?.ToString();
+                pendingCustomNumber = Session["PendingCustomNumber"]?.ToString();
+            }
+
             // Build display name with fallbacks
             string nombre = userInfo.DisplayName;
             if (string.IsNullOrWhiteSpace(nombre))
@@ -108,7 +139,8 @@ namespace OFFSIDESHOP
                             patchCmd.ExecuteNonQuery();
 
                             // Apply session standard and redirect by role
-                            ApplySessionAndRedirect(userName, idRole, userId, pProd, pOrd, pOff, pCoup, pBan, pTick);
+                            ApplySessionAndRedirect(userName, idRole, userId, pProd, pOrd, pOff, pCoup, pBan, pTick,
+                                                    pendingShirtId, pendingSizeId, pendingQty, pendingIsCustom, pendingCustomName, pendingCustomNumber);
                         }
                         else
                         {
@@ -131,7 +163,8 @@ namespace OFFSIDESHOP
                             int userId = Convert.ToInt32(insertCmd.ExecuteScalar());
 
                             // New Google users always become Customers (Id_Role = 3)
-                            ApplySessionAndRedirect(nameUser, 3, userId, false, false, false, false, false, false);
+                            ApplySessionAndRedirect(nameUser, 3, userId, false, false, false, false, false, false,
+                                                    pendingShirtId, pendingSizeId, pendingQty, pendingIsCustom, pendingCustomName, pendingCustomNumber);
                         }
                     }
                 }
@@ -147,7 +180,9 @@ namespace OFFSIDESHOP
         //  Set sessions using the standardized naming convention
         //  and redirect to the correct page for the user's role.
         // ──────────────────────────────────────────────────────────────
-        private void ApplySessionAndRedirect(string userName, int idRole, int userId, bool pProd, bool pOrd, bool pOff, bool pCoup, bool pBan, bool pTick)
+        private void ApplySessionAndRedirect(string userName, int idRole, int userId, bool pProd, bool pOrd, bool pOff, bool pCoup, bool pBan, bool pTick,
+                                             string pendingShirtId = null, string pendingSizeId = null, string pendingQty = null,
+                                             bool pendingIsCustom = false, string pendingCustomName = null, string pendingCustomNumber = null)
         {
             var datos = new LoginTicketData
             {
@@ -159,13 +194,19 @@ namespace OFFSIDESHOP
                 PermOffers = idRole == 1 ? true : pOff,
                 PermCoupons = idRole == 1 ? true : pCoup,
                 PermBanners = idRole == 1 ? true : pBan,
-                PermTickets = idRole == 1 ? true : pTick
+                PermTickets = idRole == 1 ? true : pTick,
+                PendingShirtId = pendingShirtId,
+                PendingSizeId = pendingSizeId,
+                PendingQuantity = pendingQty,
+                PendingIsCustom = pendingIsCustom,
+                PendingCustomName = pendingCustomName,
+                PendingCustomNumber = pendingCustomNumber
             };
 
             string ticket = LoginTicketStore.CrearTicket(datos);
 
             string logPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "session_bridge_log.txt");
-            string logMsg = $"{DateTime.Now}: ExternalLoginResult ApplySessionAndRedirect called. UserName: {userName}, IdRole: {idRole}, UserId: {userId}, Ticket: {ticket}";
+            string logMsg = $"{DateTime.Now}: ExternalLoginResult ApplySessionAndRedirect called. UserName: {userName}, IdRole: {idRole}, UserId: {userId}, Ticket: {ticket}, PendingShirtId: {pendingShirtId}";
             System.IO.File.AppendAllText(logPath, logMsg + Environment.NewLine);
 
             Response.Redirect(LoginTicketStore.LocalUrl("SessionBridge.aspx?ticket=" + ticket));

@@ -192,8 +192,24 @@ namespace OFFSIDESHOP
                 callbackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/ExternalLoginResult.aspx");
             }
 
-            // 3. Enviamos la URL de ngrok a Google
-            OAuthWeb.RedirectToAuthorization("google", callbackUrl);
+            // 3. Enviamos la URL de ngrok a Google (con estado si existe un producto pendiente)
+            string pendingShirtId = Session["PendingShirtId"]?.ToString();
+            if (!string.IsNullOrEmpty(pendingShirtId))
+            {
+                string state = PendingShirtHelper.SerializePendingState(
+                    pendingShirtId,
+                    Session["PendingSizeId"]?.ToString(),
+                    Session["PendingQuantity"]?.ToString(),
+                    Session["PendingIsCustom"] != null && Convert.ToBoolean(Session["PendingIsCustom"]),
+                    Session["PendingCustomName"]?.ToString(),
+                    Session["PendingCustomNumber"]?.ToString()
+                );
+                OAuthWeb.RedirectToAuthorization("google", callbackUrl, state);
+            }
+            else
+            {
+                OAuthWeb.RedirectToAuthorization("google", callbackUrl);
+            }
         }
 
         protected void btnLanguageToggle_Click(object sender, EventArgs e)
