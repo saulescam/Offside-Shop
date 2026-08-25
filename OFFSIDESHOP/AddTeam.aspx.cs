@@ -154,9 +154,9 @@ namespace OFFSIDESHOP
                 return;
             }
 
-            // XSS sanitization
-            string safeTeamName = HttpUtility.HtmlEncode(teamName);
-            string safeTeamNameES = string.IsNullOrWhiteSpace(teamNameES) ? null : HttpUtility.HtmlEncode(teamNameES);
+            // GUARDADO DIRECTO SIN HtmlEncode PARA CONSERVAR LA 'Ñ' Y LOS ACENTOS CORRECTAMENTE
+            string safeTeamName = teamName;
+            string safeTeamNameES = string.IsNullOrWhiteSpace(teamNameES) ? null : teamNameES;
 
             try
             {

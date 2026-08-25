@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminAudit.aspx.cs" Inherits="OFFSIDESHOP.AdminAudit" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminAudit.aspx.cs" Inherits="OFFSIDESHOP.AdminAudit" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -48,17 +48,20 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
-        .filter-card label {
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 6px;
-        }
+            .filter-card label {
+                color: var(--text-muted);
+                font-weight: 600;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 0.8px;
+                margin-bottom: 6px;
+            }
 
         /* Paginación */
-        .pagination-custom td { padding: 24px 4px 10px 4px; }
+        .pagination-custom td {
+            padding: 24px 4px 10px 4px;
+        }
+
         .pagination-custom a, .pagination-custom span {
             display: inline-block;
             padding: 8px 16px;
@@ -69,27 +72,41 @@
             text-decoration: none;
             transition: all 0.25s ease;
         }
-        .pagination-custom a { background-color: #f9fafb; color: #b45309; border: 1px solid #f59e0b; }
-        .pagination-custom a:hover {
-            background: linear-gradient(135deg, #d97706, #b45309);
-            color: #ffffff !important;
-            border-color: transparent;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+
+        .pagination-custom a {
+            background-color: #f9fafb;
+            color: #b45309;
+            border: 1px solid #f59e0b;
         }
+
+            .pagination-custom a:hover {
+                background: linear-gradient(135deg, #d97706, #b45309);
+                color: #ffffff !important;
+                border-color: transparent;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+            }
+
         .pagination-custom span {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: #ffffff;
             border: 1px solid transparent;
             box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
         }
-        html.dark-mode .pagination-custom a { background-color: #1f2937; color: #fbbf24; border: 1px solid #d97706; }
-        html.dark-mode .pagination-custom a:hover {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #111827 !important;
-            border-color: transparent;
-            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+
+        html.dark-mode .pagination-custom a {
+            background-color: #1f2937;
+            color: #fbbf24;
+            border: 1px solid #d97706;
         }
+
+            html.dark-mode .pagination-custom a:hover {
+                background: linear-gradient(135deg, #f59e0b, #d97706);
+                color: #111827 !important;
+                border-color: transparent;
+                box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+            }
+
         html.dark-mode .pagination-custom span {
             background: linear-gradient(135deg, #fbbf24, #f59e0b);
             color: #111827;
@@ -105,10 +122,11 @@
             letter-spacing: 1px;
             transition: opacity 0.2s ease;
         }
-        .lang-toggle-btn:hover {
-            opacity: 0.8;
-            color: #ffffff !important;
-        }
+
+            .lang-toggle-btn:hover {
+                opacity: 0.8;
+                color: #ffffff !important;
+            }
     </style>
 </head>
 <body>
@@ -120,7 +138,7 @@
                 <a class="navbar-brand" href="Dashboard.aspx" style="margin-right: 0;">
                     <img src="assets/img/offsideshop_logo_white_letras.png" alt="OFFSIDESHOP" />
                 </a>
-                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click" 
+                <asp:LinkButton ID="btnLanguageToggle" runat="server" OnClick="btnLanguageToggle_Click"
                     CssClass="lang-toggle-btn" CausesValidation="false">
                     EN / ES
                 </asp:LinkButton>
@@ -139,8 +157,8 @@
                         </asp:LinkButton>
                     </li>
                     <li>
-                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
-                            &#xf46d; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOrders %>" />
+                        <a id="btnManageOrders" runat="server" href="ManageOrders.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf46d;
+                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_ManageOrders %>" />
                         </a>
                     </li>
                     <li>
@@ -154,8 +172,8 @@
                         </asp:LinkButton>
                     </li>
                     <li>
-                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
-                            &#xf2b5; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SellerRequests %>" />
+                        <a id="btnManageTickets" runat="server" href="ManageSellerRequests.aspx" class="sidebar-btn" style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">&#xf2b5;
+                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Nav_SellerRequests %>" />
                         </a>
                     </li>
                     <li style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
@@ -212,43 +230,41 @@
 
             <main class="main-content fade-in" style="animation-delay: 0.15s;">
                 <div class="container-fluid">
-                    <h1 class="page-title"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_Title %>" /></h1>
-                    <p class="text-muted mb-4"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_Subtitle %>" /></p>
+                    <h1 class="page-title">
+                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_Title %>" /></h1>
+                    <p class="text-muted mb-4">
+                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_Subtitle %>" /></p>
 
                     <asp:UpdatePanel ID="upAuditLogs" runat="server">
                         <ContentTemplate>
                             <div class="filter-card">
                                 <div class="row align-items-end">
-                                    <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
-                                        <label for="ddlFilterAction"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterAction %>" /></label>
-                                        <asp:DropDownList ID="ddlFilterAction" runat="server"
-                                            CssClass="form-control"
-                                            AutoPostBack="true"
-                                            OnSelectedIndexChanged="Filter_Changed">
-                                        </asp:DropDownList>
+                                    <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                        <label for="ddlFilterAction">
+                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterAction %>" /></label>
+                                        <asp:DropDownList ID="ddlFilterAction" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filter_Changed"></asp:DropDownList>
                                     </div>
-                                    <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
-                                        <label for="ddlFilterModule"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterModule %>" /></label>
-                                        <asp:DropDownList ID="ddlFilterModule" runat="server"
-                                            CssClass="form-control"
-                                            AutoPostBack="true"
-                                            OnSelectedIndexChanged="Filter_Changed">
-                                        </asp:DropDownList>
+                                    <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                        <label for="ddlFilterModule">
+                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterModule %>" /></label>
+                                        <asp:DropDownList ID="ddlFilterModule" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Filter_Changed"></asp:DropDownList>
                                     </div>
-                                    <div class="col-md-4 col-sm-6 mb-2 mb-md-0">
-                                        <label for="txtSearch"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterSearch %>" /></label>
-                                        <asp:TextBox ID="txtSearch" runat="server"
-                                            CssClass="form-control"
-                                            placeholder="<%$ Resources:Strings, Admin_Audit_SearchPlaceholder %>"
-                                            AutoPostBack="true"
-                                            OnTextChanged="Filter_Changed">
-                                        </asp:TextBox>
+                                    <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                        <label>Desde / From</label>
+                                        <asp:TextBox ID="txtDateFrom" runat="server" TextMode="Date" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filter_Changed"></asp:TextBox>
                                     </div>
-                                    <div class="col-md-2 col-sm-6 text-right">
-                                        <asp:LinkButton ID="btnClear" runat="server"
-                                            CssClass="btn btn-secondary btn-block font-weight-bold"
-                                            OnClick="btnClear_Click" Style="border-radius: 8px; padding: 8px; text-decoration: none; display: block;">
-                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_ClearFilters %>" />
+                                    <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                        <label>Hasta / To</label>
+                                        <asp:TextBox ID="txtDateTo" runat="server" TextMode="Date" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filter_Changed"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-2 col-sm-6 mb-2 mb-md-0">
+                                        <label for="txtSearch">
+                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_FilterSearch %>" /></label>
+                                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Admin_Audit_SearchPlaceholder %>" AutoPostBack="true" OnTextChanged="Filter_Changed"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-2 col-sm-6 text-right mt-3 mt-md-0">
+                                        <asp:LinkButton ID="btnClear" runat="server" CssClass="btn btn-secondary btn-block font-weight-bold" OnClick="btnClear_Click" Style="border-radius: 8px; padding: 8px; text-decoration: none; display: block;">
+                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Audit_ClearFilters %>" />
                                         </asp:LinkButton>
                                     </div>
                                 </div>

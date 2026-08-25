@@ -1,108 +1,108 @@
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+    using MySql.Data.MySqlClient;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data;
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
 
-namespace OFFSIDESHOP
-{
-    public partial class AdminAudit : System.Web.UI.Page
+    namespace OFFSIDESHOP
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
-
-        protected void Page_Load(object sender, EventArgs e)
+        public partial class AdminAudit : System.Web.UI.Page
         {
-            Response.Buffer = true;
-            Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
-            Response.Expires = -1500;
-            Response.CacheControl = "no-cache";
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
-            Response.Cache.SetNoStore();
+            private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
-            // Strict Security Check: Only Owner (Role 1) can access Audit Log
-            if (Session["UserRole"] == null || Convert.ToInt32(Session["UserRole"]) != 1)
+            protected void Page_Load(object sender, EventArgs e)
             {
-                Response.Redirect("Login.aspx");
-                return;
-            }
+                Response.Buffer = true;
+                Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
+                Response.Expires = -1500;
+                Response.CacheControl = "no-cache";
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+                Response.Cache.SetNoStore();
 
-            Security.ConfigureAdminSidebar(this);
-
-            if (!IsPostBack)
-            {
-                PopulateFilters();
-                LoadLogs();
-            }
-        }
-
-        private void PopulateFilters()
-        {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(connectionString))
+                // Strict Security Check: Only Owner (Role 1) can access Audit Log
+                if (Session["UserRole"] == null || Convert.ToInt32(Session["UserRole"]) != 1)
                 {
-                    con.Open();
+                    Response.Redirect("Login.aspx");
+                    return;
+                }
 
-                    // Load Action Types
-                    string queryActions = "SELECT DISTINCT Action_Type FROM activity_logs WHERE Action_Type IS NOT NULL AND Action_Type != '' ORDER BY Action_Type;";
-                    using (MySqlCommand cmd = new MySqlCommand(queryActions, con))
+                Security.ConfigureAdminSidebar(this);
+
+                if (!IsPostBack)
+                {
+                    PopulateFilters();
+                    LoadLogs();
+                }
+            }
+
+            private void PopulateFilters()
+            {
+                try
+                {
+                    using (MySqlConnection con = new MySqlConnection(connectionString))
                     {
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        con.Open();
+
+                        // Load Action Types
+                        string queryActions = "SELECT DISTINCT Action_Type FROM activity_logs WHERE Action_Type IS NOT NULL AND Action_Type != '' ORDER BY Action_Type;";
+                        using (MySqlCommand cmd = new MySqlCommand(queryActions, con))
                         {
-                            ddlFilterAction.Items.Clear();
-                            ddlFilterAction.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Admin_Audit_AllActionTypes"), ""));
-                            while (reader.Read())
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
                             {
-                                string val = reader["Action_Type"].ToString();
-                                ddlFilterAction.Items.Add(new ListItem(GetLocalizedActionType(val), val));
+                                ddlFilterAction.Items.Clear();
+                                ddlFilterAction.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Admin_Audit_AllActionTypes"), ""));
+                                while (reader.Read())
+                                {
+                                    string val = reader["Action_Type"].ToString();
+                                    ddlFilterAction.Items.Add(new ListItem(GetLocalizedActionType(val), val));
+                                }
                             }
                         }
-                    }
 
-                    // Load Modules
-                    string queryModules = "SELECT DISTINCT Module FROM activity_logs WHERE Module IS NOT NULL AND Module != '' ORDER BY Module;";
-                    using (MySqlCommand cmd = new MySqlCommand(queryModules, con))
-                    {
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        // Load Modules
+                        string queryModules = "SELECT DISTINCT Module FROM activity_logs WHERE Module IS NOT NULL AND Module != '' ORDER BY Module;";
+                        using (MySqlCommand cmd = new MySqlCommand(queryModules, con))
                         {
-                            ddlFilterModule.Items.Clear();
-                            ddlFilterModule.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Admin_Audit_AllModules"), ""));
-                            while (reader.Read())
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
                             {
-                                string val = reader["Module"].ToString();
-                                ddlFilterModule.Items.Add(new ListItem(GetLocalizedModule(val), val));
+                                ddlFilterModule.Items.Clear();
+                                ddlFilterModule.Items.Add(new ListItem(AlertHelper.GetResourceString(this, "Admin_Audit_AllModules"), ""));
+                                while (reader.Read())
+                                {
+                                    string val = reader["Module"].ToString();
+                                    ddlFilterModule.Items.Add(new ListItem(GetLocalizedModule(val), val));
+                                }
                             }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error loading filters: " + ex.Message);
+                }
             }
-            catch (Exception ex)
+
+            protected string GetLocalizedActionType(object actionObj)
             {
-                System.Diagnostics.Debug.WriteLine("Error loading filters: " + ex.Message);
+                if (actionObj == null || actionObj == DBNull.Value) return "";
+                string action = actionObj.ToString();
+                string resKey = "Audit_Action_" + action;
+                string loc = AlertHelper.GetResourceString(this, resKey);
+                return string.IsNullOrEmpty(loc) || loc == resKey ? action : loc;
             }
-        }
 
-        protected string GetLocalizedActionType(object actionObj)
-        {
-            if (actionObj == null || actionObj == DBNull.Value) return "";
-            string action = actionObj.ToString();
-            string resKey = "Audit_Action_" + action;
-            string loc = AlertHelper.GetResourceString(this, resKey);
-            return string.IsNullOrEmpty(loc) || loc == resKey ? action : loc;
-        }
-
-        protected string GetLocalizedModule(object moduleObj)
-        {
-            if (moduleObj == null || moduleObj == DBNull.Value) return "";
-            string module = moduleObj.ToString();
-            string resKey = "Audit_Module_" + module;
-            string loc = AlertHelper.GetResourceString(this, resKey);
-            return string.IsNullOrEmpty(loc) || loc == resKey ? module : loc;
-        }
+            protected string GetLocalizedModule(object moduleObj)
+            {
+                if (moduleObj == null || moduleObj == DBNull.Value) return "";
+                string module = moduleObj.ToString();
+                string resKey = "Audit_Module_" + module;
+                string loc = AlertHelper.GetResourceString(this, resKey);
+                return string.IsNullOrEmpty(loc) || loc == resKey ? module : loc;
+            }
 
         private void LoadLogs()
         {
@@ -112,33 +112,52 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
 
+                    // Consulta base
                     string query = @"SELECT a.Id_Log, a.Id_User, a.Action_Type, a.Module, a.Description, a.IP_Address, a.Created_At,
-                                            CONCAT(u.Name, ' ', u.Lastname) AS AdminName
-                                     FROM activity_logs a
-                                     INNER JOIN users u ON a.Id_User = u.Id_User
-                                     WHERE 1=1 ";
+                                    CONCAT(u.Name, ' ', u.Lastname) AS AdminName
+                             FROM activity_logs a
+                             INNER JOIN users u ON a.Id_User = u.Id_User
+                             WHERE 1=1 ";
 
                     List<MySqlParameter> parameters = new List<MySqlParameter>();
 
+                    // Filtro Acción
                     if (ddlFilterAction != null && !string.IsNullOrEmpty(ddlFilterAction.SelectedValue))
                     {
                         query += " AND a.Action_Type = @ActionType ";
                         parameters.Add(new MySqlParameter("@ActionType", ddlFilterAction.SelectedValue));
                     }
 
+                    // Filtro Módulo
                     if (ddlFilterModule != null && !string.IsNullOrEmpty(ddlFilterModule.SelectedValue))
                     {
                         query += " AND a.Module = @Module ";
                         parameters.Add(new MySqlParameter("@Module", ddlFilterModule.SelectedValue));
                     }
 
+                    // Filtro Fechas
+                    if (!string.IsNullOrEmpty(txtDateFrom.Text))
+                    {
+                        // Se asegura de tomar desde las 00:00:00 de ese día
+                        query += " AND a.Created_At >= @DateFrom ";
+                        parameters.Add(new MySqlParameter("@DateFrom", Convert.ToDateTime(txtDateFrom.Text).ToString("yyyy-MM-dd 00:00:00")));
+                    }
+                    if (!string.IsNullOrEmpty(txtDateTo.Text))
+                    {
+                        // Se asegura de tomar hasta las 23:59:59 de ese día
+                        query += " AND a.Created_At <= @DateTo ";
+                        parameters.Add(new MySqlParameter("@DateTo", Convert.ToDateTime(txtDateTo.Text).ToString("yyyy-MM-dd 23:59:59")));
+                    }
+
+                    // Filtro Búsqueda Texto
                     if (txtSearch != null && !string.IsNullOrWhiteSpace(txtSearch.Text))
                     {
                         query += " AND (a.Description LIKE @Search OR CONCAT(u.Name, ' ', u.Lastname) LIKE @Search OR a.IP_Address LIKE @Search) ";
                         parameters.Add(new MySqlParameter("@Search", "%" + txtSearch.Text.Trim() + "%"));
                     }
 
-                    query += " ORDER BY a.Created_At DESC;";
+                    // Ordenamiento y Límite de seguridad para evitar sobrecarga de memoria
+                    query += " ORDER BY a.Created_At DESC LIMIT 500;";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
@@ -156,6 +175,7 @@ namespace OFFSIDESHOP
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error loading audit logs: " + ex.Message);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "errorLoad", $"Swal.fire('Error', '{HttpUtility.JavaScriptStringEncode(ex.Message)}', 'error');", true);
             }
         }
 
@@ -170,48 +190,53 @@ namespace OFFSIDESHOP
             if (ddlFilterAction.Items.Count > 0) ddlFilterAction.SelectedIndex = 0;
             if (ddlFilterModule.Items.Count > 0) ddlFilterModule.SelectedIndex = 0;
             txtSearch.Text = string.Empty;
+
+            // Limpiar campos de fecha
+            txtDateFrom.Text = string.Empty;
+            txtDateTo.Text = string.Empty;
+
             gvAuditLogs.PageIndex = 0;
             LoadLogs();
         }
 
         protected void gvAuditLogs_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvAuditLogs.PageIndex = e.NewPageIndex;
-            LoadLogs();
-        }
+            {
+                gvAuditLogs.PageIndex = e.NewPageIndex;
+                LoadLogs();
+            }
 
-        protected void btnManageProducts_Click(object sender, EventArgs e) { Response.Redirect("ManageProducts.aspx"); }
-        protected void btnManageOffers_Click(object sender, EventArgs e) { Response.Redirect("ManageOffers.aspx"); }
-        protected void btnManageCoupons_Click(object sender, EventArgs e) { Response.Redirect("ManageCoupons.aspx"); }
-        protected void btnAddLeague_Click(object sender, EventArgs e) { Response.Redirect("AddLeague.aspx"); }
-        protected void btnAddTeam_Click(object sender, EventArgs e) { Response.Redirect("AddTeam.aspx"); }
-        protected void btnAddBrand_Click(object sender, EventArgs e) { Response.Redirect("AddBrand.aspx"); }
-        protected void btnManageUsers_Click(object sender, EventArgs e) { Response.Redirect("ManageUsers.aspx"); }
-        protected void btnSmtpSettings_Click(object sender, EventArgs e) { Response.Redirect("SmtpSettings.aspx"); }
-        protected void btnStats_Click(object sender, EventArgs e) { Response.Redirect("AdminStats.aspx"); }
-        protected void btnAuditLogs_Click(object sender, EventArgs e) { Response.Redirect("AdminAudit.aspx"); }
-        protected void btnAdminBanners_Click(object sender, EventArgs e) { Response.Redirect("AdminBanners.aspx"); }
-        protected void btncerrar_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-            Session.Abandon();
-            Response.Redirect("Login.aspx");
-        }
-        protected override void InitializeCulture()
-        {
-            string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
-            string cultureName = (lang == "es") ? "es-SV" : "en-US";
-            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
-            ci.NumberFormat.CurrencySymbol = "$";
-            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
-            base.InitializeCulture();
-        }
+            protected void btnManageProducts_Click(object sender, EventArgs e) { Response.Redirect("ManageProducts.aspx"); }
+            protected void btnManageOffers_Click(object sender, EventArgs e) { Response.Redirect("ManageOffers.aspx"); }
+            protected void btnManageCoupons_Click(object sender, EventArgs e) { Response.Redirect("ManageCoupons.aspx"); }
+            protected void btnAddLeague_Click(object sender, EventArgs e) { Response.Redirect("AddLeague.aspx"); }
+            protected void btnAddTeam_Click(object sender, EventArgs e) { Response.Redirect("AddTeam.aspx"); }
+            protected void btnAddBrand_Click(object sender, EventArgs e) { Response.Redirect("AddBrand.aspx"); }
+            protected void btnManageUsers_Click(object sender, EventArgs e) { Response.Redirect("ManageUsers.aspx"); }
+            protected void btnSmtpSettings_Click(object sender, EventArgs e) { Response.Redirect("SmtpSettings.aspx"); }
+            protected void btnStats_Click(object sender, EventArgs e) { Response.Redirect("AdminStats.aspx"); }
+            protected void btnAuditLogs_Click(object sender, EventArgs e) { Response.Redirect("AdminAudit.aspx"); }
+            protected void btnAdminBanners_Click(object sender, EventArgs e) { Response.Redirect("AdminBanners.aspx"); }
+            protected void btncerrar_Click(object sender, EventArgs e)
+            {
+                Session.Clear();
+                Session.Abandon();
+                Response.Redirect("Login.aspx");
+            }
+            protected override void InitializeCulture()
+            {
+                string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+                string cultureName = (lang == "es") ? "es-SV" : "en-US";
+                System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
+                ci.NumberFormat.CurrencySymbol = "$";
+                System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+                base.InitializeCulture();
+            }
 
-        protected void btnLanguageToggle_Click(object sender, EventArgs e)
-        {
-            Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
-            Response.Redirect(Request.RawUrl);
+            protected void btnLanguageToggle_Click(object sender, EventArgs e)
+            {
+                Session["Language"] = (Session["Language"] == null || Session["Language"].ToString() == "en") ? "es" : "en";
+                Response.Redirect(Request.RawUrl);
+            }
         }
     }
-}

@@ -520,9 +520,15 @@ namespace OFFSIDESHOP
                     cmd.Parameters.AddWithValue("@Id", productId);
                     cmd.ExecuteNonQuery();
                 }
+
+                // Forzamos al UpdatePanel del Grid a refrescarse
+                if (upGridProducts != null)
+                {
+                    upGridProducts.Update();
+                }
+
                 TriggerToast("Alert_Products_StatusToggled");
                 AuditLogger.LogActivity("UPDATE", "ManageProducts", $"Toggled status for product ID #{productId}");
-
             }
             catch (Exception ex)
             {
@@ -878,14 +884,18 @@ namespace OFFSIDESHOP
 
         private void TriggerAlert(string titleKey, string messageKey, string iconType)
         {
-            alerta.Text = AlertHelper.GetAlertScript(this, titleKey, messageKey, iconType);
+            string title = AlertHelper.GetResourceString(this, titleKey);
+            string text = AlertHelper.GetResourceString(this, messageKey) ?? messageKey; // Fallback al mensaje de error crudo
+
+            string script = $"Swal.fire('{HttpUtility.JavaScriptStringEncode(title)}', '{HttpUtility.JavaScriptStringEncode(text)}', '{iconType}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "sweetalert", script, true);
         }
 
         private void TriggerToast(string titleKey)
         {
             string title = AlertHelper.GetResourceString(this, titleKey);
-            string script = $"<script>Swal.fire({{toast:true,position:'top-end',icon:'success',title:'{title.Replace("'", "\\'")}',showConfirmButton:false,timer:2500}});</script>";
-            alerta.Text = script;
+            string script = $"Swal.fire({{toast:true,position:'top-end',icon:'success',title:'{HttpUtility.JavaScriptStringEncode(title)}',showConfirmButton:false,timer:2500}});";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "toastalert", script, true);
         }
     }
 }
