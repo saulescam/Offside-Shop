@@ -206,6 +206,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="400.aspx" />
+    <Content Include="403.aspx" />
+    <Content Include="404.aspx" />
+    <Content Include="500.aspx" />
     <Content Include="AboutUs.aspx" />
     <Content Include="AddBrand.aspx" />
     <Content Include="AddLeague.aspx" />
@@ -329,6 +333,34 @@
     <Content Include="SmtpSettings.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="400.aspx.cs">
+      <DependentUpon>400.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="400.aspx.designer.cs">
+      <DependentUpon>400.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="403.aspx.cs">
+      <DependentUpon>403.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="403.aspx.designer.cs">
+      <DependentUpon>403.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="500.aspx.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="500.aspx.designer.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AboutUs.aspx.cs">
       <DependentUpon>AboutUs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

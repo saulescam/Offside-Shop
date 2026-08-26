@@ -3640,4 +3640,57 @@
 	<data name="Admin_Dash_OwnerOnly" xml:space="preserve">
     <value>Owner Only</value>
   </data>
+	<data name="Error404_PageTitle" xml:space="preserve">
+    <value>404 Offside | OffsideShop</value>
+  </data>
+	<data name="Error404_Heading" xml:space="preserve">
+    <value>WHOOPS, OFFSIDE!</value>
+  </data>
+	<data name="Error404_Message" xml:space="preserve">
+    <value>The referee has raised the flag. This page doesn't exist, has been moved, or you followed a broken link.</value>
+  </data>
+	<data name="Error404_ReturnButton" xml:space="preserve">
+    <value>Return to Pitch</value>
+  </data>
+	<!-- ERROR 400 -->
+	<data name="Error400_PageTitle" xml:space="preserve">
+    <value>400 Bad Pass | OffsideShop</value>
+  </data>
+	<data name="Error400_Heading" xml:space="preserve">
+    <value>BAD PASS!</value>
+  </data>
+	<data name="Error400_Message" xml:space="preserve">
+    <value>The ball went out of bounds. The request you sent couldn't be understood by our server.</value>
+  </data>
+	<data name="Error400_ReturnButton" xml:space="preserve">
+    <value>Back to the Pitch</value>
+  </data>
+
+	<!-- ERROR 403 -->
+	<data name="Error403_PageTitle" xml:space="preserve">
+    <value>403 Red Card | OffsideShop</value>
+  </data>
+	<data name="Error403_Heading" xml:space="preserve">
+    <value>RED CARD!</value>
+  </data>
+	<data name="Error403_Message" xml:space="preserve">
+    <value>Serious foul! You don't have the necessary credentials to enter this part of the pitch.</value>
+  </data>
+	<data name="Error403_ReturnButton" xml:space="preserve">
+    <value>Return to Locker Room</value>
+  </data>
+
+	<!-- ERROR 500 -->
+	<data name="Error500_PageTitle" xml:space="preserve">
+    <value>500 VAR Review | OffsideShop</value>
+  </data>
+	<data name="Error500_Heading" xml:space="preserve">
+    <value>VAR REVIEW IN PROGRESS</value>
+  </data>
+	<data name="Error500_Message" xml:space="preserve">
+    <value>Our referees are checking the play. We've encountered a technical issue on the pitch. Please try again in a few minutes.</value>
+  </data>
+	<data name="Error500_ReturnButton" xml:space="preserve">
+    <value>Return to Pitch</value>
+  </data>
 </root>

@@ -3634,4 +3634,57 @@
 	<data name="Admin_Dash_OwnerOnly" xml:space="preserve">
     <value>Solo Propietario</value>
   </data>
+	<data name="Error404_PageTitle" xml:space="preserve">
+    <value>404 Fuera de Juego | OffsideShop</value>
+  </data>
+	<data name="Error404_Heading" xml:space="preserve">
+    <value>¡UPS, FUERA DE JUEGO!</value>
+  </data>
+	<data name="Error404_Message" xml:space="preserve">
+    <value>El árbitro ha levantado el banderín. Esta página no existe, ha sido movida o has seguido un enlace roto.</value>
+  </data>
+	<data name="Error404_ReturnButton" xml:space="preserve">
+    <value>Volver a la Cancha</value>
+  </data>
+	<!-- ERROR 400 -->
+	<data name="Error400_PageTitle" xml:space="preserve">
+    <value>400 Mal Pase | OffsideShop</value>
+  </data>
+	<data name="Error400_Heading" xml:space="preserve">
+    <value>¡MAL PASE!</value>
+  </data>
+	<data name="Error400_Message" xml:space="preserve">
+    <value>El balón salió por la línea de banda. El servidor no pudo procesar ni entender la solicitud que enviaste.</value>
+  </data>
+	<data name="Error400_ReturnButton" xml:space="preserve">
+    <value>Volver a la Cancha</value>
+  </data>
+
+	<!-- ERROR 403 -->
+	<data name="Error403_PageTitle" xml:space="preserve">
+    <value>403 Tarjeta Roja | OffsideShop</value>
+  </data>
+	<data name="Error403_Heading" xml:space="preserve">
+    <value>¡TARJETA ROJA!</value>
+  </data>
+	<data name="Error403_Message" xml:space="preserve">
+    <value>¡Falta grave! No tienes autorización para pisar esta parte del campo.</value>
+  </data>
+	<data name="Error403_ReturnButton" xml:space="preserve">
+    <value>Volver a los Vestuarios</value>
+  </data>
+
+	<!-- ERROR 500 -->
+	<data name="Error500_PageTitle" xml:space="preserve">
+    <value>500 Revisión del VAR | OffsideShop</value>
+  </data>
+	<data name="Error500_Heading" xml:space="preserve">
+    <value>REVISIÓN DEL VAR</value>
+  </data>
+	<data name="Error500_Message" xml:space="preserve">
+    <value>Nuestros árbitros están revisando la jugada. Tuvimos un problema técnico en la cancha. Por favor intenta de nuevo en unos minutos.</value>
+  </data>
+	<data name="Error500_ReturnButton" xml:space="preserve">
+    <value>Volver a la Cancha</value>
+  </data>
 </root>

@@ -1087,100 +1087,48 @@ namespace OFFSIDESHOP
 
         private void SynchronizeMainSearchToSidebar()
         {
-            // --- Sincronizar las barras superiores si el usuario las usó ---
+            // 1. Si el usuario seleccionó una LIGA en el dropdown principal superior
             if (ddlLeague.SelectedIndex > 0)
             {
-                ddlSideLeague.SelectedValue = ddlLeague.SelectedValue;
-                using (MySqlConnection conn = new MySqlConnection(connectionString)) { conn.Open(); LoadSideTeams(conn, ddlSideLeague.SelectedValue); }
+                // Encontrar el valor en el dropdown lateral y seleccionarlo
+                if (ddlSideLeague.Items.FindByValue(ddlLeague.SelectedValue) != null)
+                {
+                    ddlSideLeague.SelectedValue = ddlLeague.SelectedValue;
+
+                    // Recargar los equipos del sidebar basados en la liga seleccionada
+                    using (MySqlConnection conn = new MySqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        LoadSideTeams(conn, ddlSideLeague.SelectedValue);
+                    }
+                }
+                // Limpiamos el dropdown principal
                 ddlLeague.SelectedIndex = 0;
             }
+
+            // 2. Si el usuario seleccionó una MARCA en el dropdown principal superior
             if (ddlBrand.SelectedIndex > 0)
             {
-                ddlSideBrand.SelectedValue = ddlBrand.SelectedValue;
+                if (ddlSideBrand.Items.FindByValue(ddlBrand.SelectedValue) != null)
+                {
+                    ddlSideBrand.SelectedValue = ddlBrand.SelectedValue;
+                }
+                // Limpiamos el dropdown principal
                 ddlBrand.SelectedIndex = 0;
             }
+
+            // 3. Si el usuario seleccionó un TIPO DE KIT en el dropdown principal superior
             if (ddlKitType.SelectedIndex > 0)
             {
-                ddlSideKitType.SelectedValue = ddlKitType.SelectedValue;
+                if (ddlSideKitType.Items.FindByValue(ddlKitType.SelectedValue) != null)
+                {
+                    ddlSideKitType.SelectedValue = ddlKitType.SelectedValue;
+                }
+                // Limpiamos el dropdown principal
                 ddlKitType.SelectedIndex = 0;
             }
 
-            // --- Auto-selección inteligente por MÚLTIPLES palabras ---
-            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
-            {
-                // Separamos lo que escribió el usuario por espacios (ej: "bundesliga", "bayern")
-                string[] searchWords = txtSearch.Text.Trim().ToLower().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (string word in searchWords)
-                {
-                    if (word.Length <= 2) continue; // Ignorar palabras muy cortas como "el", "de", "y"
-
-                    // 1. Buscar y seleccionar Liga (solo si no hemos seleccionado una todavía)
-                    if (ddlSideLeague != null && ddlSideLeague.SelectedIndex == 0)
-                    {
-                        foreach (ListItem item in ddlSideLeague.Items)
-                        {
-                            if (item.Value != "ALL" && item.Text.ToLower().Contains(word))
-                            {
-                                ddlSideLeague.SelectedValue = item.Value;
-                                // Recargar equipos de la liga encontrada
-                                using (MySqlConnection conn = new MySqlConnection(connectionString)) { conn.Open(); LoadSideTeams(conn, item.Value); }
-                                break;
-                            }
-                        }
-                    }
-
-                    // 2. Buscar y seleccionar Equipo
-                    if (ddlSideTeam != null && ddlSideTeam.SelectedIndex == 0)
-                    {
-                        foreach (ListItem item in ddlSideTeam.Items)
-                        {
-                            if (item.Value != "ALL" && item.Text.ToLower().Contains(word))
-                            {
-                                ddlSideTeam.SelectedValue = item.Value;
-                                break;
-                            }
-                        }
-                    }
-
-                    // 3. Buscar y seleccionar Marca
-                    if (ddlSideBrand != null && ddlSideBrand.SelectedIndex == 0)
-                    {
-                        foreach (ListItem item in ddlSideBrand.Items)
-                        {
-                            if (item.Value != "ALL" && item.Text.ToLower().Contains(word))
-                            {
-                                ddlSideBrand.SelectedValue = item.Value;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (ddlSideKitType != null && ddlSideKitType.SelectedIndex == 0)
-                    {
-                        foreach (ListItem item in ddlSideKitType.Items)
-                        {
-                            string text = item.Text.ToLower();
-                            bool isMatch = text.Contains(word);
-
-                            // Lógica bilingüe: emparejar traducciones si la palabra escrita está en un idioma y la interfaz en otro
-                            if (!isMatch)
-                            {
-                                if ((word == "local" && text.Contains("home")) || (word == "home" && text.Contains("local"))) isMatch = true;
-                                else if ((word == "visitante" && text.Contains("away")) || (word == "away" && text.Contains("visitante"))) isMatch = true;
-                                else if ((word == "tercera" && text.Contains("third")) || (word == "third" && text.Contains("tercera"))) isMatch = true;
-                                else if ((word == "portero" && text.Contains("goalkeeper")) || (word == "goalkeeper" && text.Contains("portero"))) isMatch = true;
-                            }
-
-                            if (item.Value != "ALL" && isMatch)
-                            {
-                                ddlSideKitType.SelectedValue = item.Value;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+   
         }
 
         protected void btnApplySideFilters_Click(object sender, EventArgs e)

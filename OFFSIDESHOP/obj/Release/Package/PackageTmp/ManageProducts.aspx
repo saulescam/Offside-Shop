@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -643,40 +643,45 @@
                         </asp:LinkButton>
                     </div>
 
-                    <!-- PRODUCTS GRIDVIEW -->
+                   <!-- PRODUCTS GRIDVIEW -->
                     <div class="table-responsive">
-                        <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="ID" AllowPaging="true" PageSize="24" OnRowCommand="gvProducts_RowCommand" OnRowDataBound="gvProducts_RowDataBound" OnPageIndexChanging="gvProducts_PageIndexChanging" EmptyDataText="<%$ Resources:Strings, Admin_Products_EmptyGrid %>">
-                            <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
-                            <Columns>
-                                <asp:BoundField DataField="ID" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderId %>" ItemStyle-Width="50px" />
-                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderShirtNameEn %>" ItemStyle-HorizontalAlign="Left">
-                                    <ItemTemplate>
-                                        <asp:PlaceHolder ID="phLowStockBadge" runat="server" Visible='<%# Convert.ToInt32(Eval("TotalStock")) < 5 %>'>
-                                            <span class="badge bg-danger text-white me-1" style="font-size: 0.75rem; padding: 2px 6px;" title="Low Stock Alert">
-                                                <i class="fas fa-exclamation-triangle"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_LowStockBadge %>" /> (<%# Eval("TotalStock") %>)
-                                            </span>
-                                        </asp:PlaceHolder>
-                                        <span class="fw-bold text-white"><%# Eval("Name") %></span>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:BoundField DataField="Name_ES" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderShirtNameEs %>" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
-                                <asp:BoundField DataField="Price" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderPrice %>" DataFormatString="{0:N2}" HtmlEncode="false" />
-                                <asp:BoundField DataField="Year" HeaderText="<%$ Resources:Strings, Detail_Year %>" />
-                                <asp:BoundField DataField="BrandName" HeaderText="<%$ Resources:Strings, Search_BrandLabel %>" />
-                                <asp:BoundField DataField="TeamName" HeaderText="<%$ Resources:Strings, Sidebar_Team %>" />
-                                <asp:BoundField DataField="KitTypeName" HeaderText="<%$ Resources:Strings, Search_KitLabel %>" />
-                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderStatus %>">
-                                    <ItemTemplate><asp:Label ID="lblStatus" runat="server"></asp:Label></ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderActions %>" ItemStyle-Width="140px">
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnEdit" runat="server" CssClass="btn-action btn-edit" CommandName="EditProduct" CommandArgument='<%# Eval("ID") %>' Text="&#xf044;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
-                                        <asp:Button ID="btnToggle" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleStatus" CommandArgument='<%# Eval("ID") %>' Text="&#xf06e;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
-                                        <asp:Button ID="btnDelete" runat="server" CssClass="btn-action btn-delete" CommandName="PermanentDelete" CommandArgument='<%# Eval("ID") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteProduct") + "\");" %>' Text="&#xf2ed;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
+                        <!-- ENVOLVEMOS EL GRIDVIEW EN UN UPDATEPANEL -->
+                        <asp:UpdatePanel ID="upGridProducts" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="ID" AllowPaging="true" PageSize="24" OnRowCommand="gvProducts_RowCommand" OnRowDataBound="gvProducts_RowDataBound" OnPageIndexChanging="gvProducts_PageIndexChanging" EmptyDataText="<%$ Resources:Strings, Admin_Products_EmptyGrid %>">
+                                    <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
+                                    <Columns>
+                                        <asp:BoundField DataField="ID" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderId %>" ItemStyle-Width="50px" />
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderShirtNameEn %>" ItemStyle-HorizontalAlign="Left">
+                                            <ItemTemplate>
+                                                <asp:PlaceHolder ID="phLowStockBadge" runat="server" Visible='<%# Convert.ToInt32(Eval("TotalStock")) < 5 %>'>
+                                                    <span class="badge bg-danger text-white me-1" style="font-size: 0.75rem; padding: 2px 6px;" title="Low Stock Alert">
+                                                        <i class="fas fa-exclamation-triangle"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_LowStockBadge %>" /> (<%# Eval("TotalStock") %>)
+                                                    </span>
+                                                </asp:PlaceHolder>
+                                                <span class="fw-bold text-white"><%# Eval("Name") %></span>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField DataField="Name_ES" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderShirtNameEs %>" ItemStyle-HorizontalAlign="Left" NullDisplayText="-" />
+                                        <asp:BoundField DataField="Price" HeaderText="<%$ Resources:Strings, Admin_Products_HeaderPrice %>" DataFormatString="{0:N2}" HtmlEncode="false" />
+                                        <asp:BoundField DataField="Year" HeaderText="<%$ Resources:Strings, Detail_Year %>" />
+                                        <asp:BoundField DataField="BrandName" HeaderText="<%$ Resources:Strings, Search_BrandLabel %>" />
+                                        <asp:BoundField DataField="TeamName" HeaderText="<%$ Resources:Strings, Sidebar_Team %>" />
+                                        <asp:BoundField DataField="KitTypeName" HeaderText="<%$ Resources:Strings, Search_KitLabel %>" />
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderStatus %>">
+                                            <ItemTemplate><asp:Label ID="lblStatus" runat="server"></asp:Label></ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Products_HeaderActions %>" ItemStyle-Width="140px">
+                                            <ItemTemplate>
+                                                <asp:Button ID="btnEdit" runat="server" CssClass="btn-action btn-edit" CommandName="EditProduct" CommandArgument='<%# Eval("ID") %>' Text="&#xf044;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
+                                                <asp:Button ID="btnToggle" runat="server" CssClass="btn-action btn-toggle" CommandName="ToggleStatus" CommandArgument='<%# Eval("ID") %>' Text="&#xf06e;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
+                                                <asp:Button ID="btnDelete" runat="server" CssClass="btn-action btn-delete" CommandName="PermanentDelete" CommandArgument='<%# Eval("ID") %>' OnClientClick='<%# "return confirm(\"" + GetGlobalResourceObject("Strings", "Confirm_DeleteProduct") + "\");" %>' Text="&#xf2ed;" Style="font-family: 'Font Awesome 5 Free','Raleway'; font-weight: 900;" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
 
                     <asp:Literal ID="alerta" runat="server" Text="" EnableViewState="false"></asp:Literal>

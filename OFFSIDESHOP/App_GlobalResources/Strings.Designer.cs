@@ -9034,6 +9034,150 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a BAD PASS!.
+        /// </summary>
+        internal static string Error400_Heading {
+            get {
+                return ResourceManager.GetString("Error400_Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The ball went out of bounds. The request you sent couldn&apos;t be understood by our server..
+        /// </summary>
+        internal static string Error400_Message {
+            get {
+                return ResourceManager.GetString("Error400_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 400 Bad Pass | OffsideShop.
+        /// </summary>
+        internal static string Error400_PageTitle {
+            get {
+                return ResourceManager.GetString("Error400_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Back to the Pitch.
+        /// </summary>
+        internal static string Error400_ReturnButton {
+            get {
+                return ResourceManager.GetString("Error400_ReturnButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RED CARD!.
+        /// </summary>
+        internal static string Error403_Heading {
+            get {
+                return ResourceManager.GetString("Error403_Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Serious foul! You don&apos;t have the necessary credentials to enter this part of the pitch..
+        /// </summary>
+        internal static string Error403_Message {
+            get {
+                return ResourceManager.GetString("Error403_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 403 Red Card | OffsideShop.
+        /// </summary>
+        internal static string Error403_PageTitle {
+            get {
+                return ResourceManager.GetString("Error403_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Return to Locker Room.
+        /// </summary>
+        internal static string Error403_ReturnButton {
+            get {
+                return ResourceManager.GetString("Error403_ReturnButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a WHOOPS, OFFSIDE!.
+        /// </summary>
+        internal static string Error404_Heading {
+            get {
+                return ResourceManager.GetString("Error404_Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The referee has raised the flag. This page doesn&apos;t exist, has been moved, or you followed a broken link..
+        /// </summary>
+        internal static string Error404_Message {
+            get {
+                return ResourceManager.GetString("Error404_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 404 Offside | OffsideShop.
+        /// </summary>
+        internal static string Error404_PageTitle {
+            get {
+                return ResourceManager.GetString("Error404_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Return to Pitch.
+        /// </summary>
+        internal static string Error404_ReturnButton {
+            get {
+                return ResourceManager.GetString("Error404_ReturnButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a VAR REVIEW IN PROGRESS.
+        /// </summary>
+        internal static string Error500_Heading {
+            get {
+                return ResourceManager.GetString("Error500_Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Our referees are checking the play. We&apos;ve encountered a technical issue on the pitch. Please try again in a few minutes..
+        /// </summary>
+        internal static string Error500_Message {
+            get {
+                return ResourceManager.GetString("Error500_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 500 VAR Review | OffsideShop.
+        /// </summary>
+        internal static string Error500_PageTitle {
+            get {
+                return ResourceManager.GetString("Error500_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Return to Pitch.
+        /// </summary>
+        internal static string Error500_ReturnButton {
+            get {
+                return ResourceManager.GetString("Error500_ReturnButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No size guide available for this brand..
         /// </summary>
         internal static string Modal_NoSizeGuide {
