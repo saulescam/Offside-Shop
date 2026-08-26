@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Net; // Solución al problema de WebClient
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -29,6 +29,31 @@ namespace OFFSIDESHOP
     {
         private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionDataBase"].ConnectionString;
 
+        // 1. Inicialización de cultura protegida contra NullReference
+        protected override void InitializeCulture()
+        {
+            try
+            {
+                string lang = "en";
+                if (HttpContext.Current != null && HttpContext.Current.Session != null && HttpContext.Current.Session["Language"] != null)
+                {
+                    lang = HttpContext.Current.Session["Language"].ToString();
+                }
+
+                string cultureName = (lang == "es") ? "es-SV" : "en-US";
+                System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
+                ci.NumberFormat.CurrencySymbol = "$";
+                System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+            }
+            catch
+            {
+                // Fallback seguro
+            }
+
+            base.InitializeCulture();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.Buffer = true;
@@ -39,13 +64,22 @@ namespace OFFSIDESHOP
             Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
             Response.Cache.SetNoStore();
 
+            // Verificación de seguridad
             if (Session["UserRole"] == null || Convert.ToInt32(Session["UserRole"]) != 1)
             {
                 Response.Redirect("Login.aspx");
                 return;
             }
 
-            Security.ConfigureAdminSidebar(this);
+            try
+            {
+                Security.ConfigureAdminSidebar(this);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en ConfigureAdminSidebar: " + ex.Message);
+            }
+
             if (phOwnerMenu != null)
             {
                 phOwnerMenu.Visible = (Convert.ToInt32(Session["UserRole"]) == 1);
@@ -79,16 +113,19 @@ namespace OFFSIDESHOP
                         {
                             if (reader.Read())
                             {
-                                lblTotalRevenue.Text = Convert.ToDecimal(reader["TotalRevenue"]).ToString("C");
-                                lblTotalOrders.Text = reader["TotalOrders"].ToString();
-                                lblTotalUsers.Text = reader["TotalCustomers"].ToString();
-                                lblPendingOrders.Text = reader["PendingOrders"].ToString();
+                                if (lblTotalRevenue != null) lblTotalRevenue.Text = Convert.ToDecimal(reader["TotalRevenue"]).ToString("C");
+                                if (lblTotalOrders != null) lblTotalOrders.Text = reader["TotalOrders"].ToString();
+                                if (lblTotalUsers != null) lblTotalUsers.Text = reader["TotalCustomers"].ToString();
+                                if (lblPendingOrders != null) lblPendingOrders.Text = reader["PendingOrders"].ToString();
                             }
                         }
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en LoadKPIs: " + ex.Message);
+            }
         }
 
         private void LoadChartsData()
@@ -101,6 +138,7 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
 
+                    // --- 1. Gráfico de Ingresos ---
                     string queryRevenue = @"SELECT DATE_FORMAT(OrderDate, '%b %d') as OrderDay, SUM(Total) as DailyRevenue FROM orders WHERE Id_Status IN (2, 3, 4) AND OrderDate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) GROUP BY DATE(OrderDate) ORDER BY DATE(OrderDate) ASC;";
                     List<string> revDates = new List<string>();
                     List<decimal> revData = new List<decimal>();
@@ -124,9 +162,10 @@ namespace OFFSIDESHOP
                             }
                         }
                     }
-                    hfRevenueDates.Value = "[" + string.Join(",", revDates) + "]";
-                    hfRevenueData.Value = "[" + string.Join(",", revData.Select(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture))) + "]";
+                    if (hfRevenueDates != null) hfRevenueDates.Value = "[" + string.Join(",", revDates) + "]";
+                    if (hfRevenueData != null) hfRevenueData.Value = "[" + string.Join(",", revData.Select(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture))) + "]";
 
+                    // --- 2. Gráfico de Estados ---
                     string queryStatus = @"
                         SELECT 
                             CASE 
@@ -152,9 +191,10 @@ namespace OFFSIDESHOP
                             }
                         }
                     }
-                    hfStatusLabels.Value = "[" + string.Join(",", statLabels) + "]";
-                    hfStatusData.Value = "[" + string.Join(",", statData) + "]";
+                    if (hfStatusLabels != null) hfStatusLabels.Value = "[" + string.Join(",", statLabels) + "]";
+                    if (hfStatusData != null) hfStatusData.Value = "[" + string.Join(",", statData) + "]";
 
+                    // --- 3. Top Productos ---
                     string queryTop = @"
                         SELECT 
                             CASE 
@@ -183,15 +223,19 @@ namespace OFFSIDESHOP
                             }
                         }
                     }
-                    hfTopProductsLabels.Value = "[" + string.Join(",", topLabels) + "]";
-                    hfTopProductsData.Value = "[" + string.Join(",", topData) + "]";
+                    if (hfTopProductsLabels != null) hfTopProductsLabels.Value = "[" + string.Join(",", topLabels) + "]";
+                    if (hfTopProductsData != null) hfTopProductsData.Value = "[" + string.Join(",", topData) + "]";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                hfRevenueDates.Value = "[]"; hfRevenueData.Value = "[]";
-                hfStatusLabels.Value = "[]"; hfStatusData.Value = "[]";
-                hfTopProductsLabels.Value = "[]"; hfTopProductsData.Value = "[]";
+                System.Diagnostics.Debug.WriteLine("Error en LoadChartsData: " + ex.Message);
+                if (hfRevenueDates != null) hfRevenueDates.Value = "[]";
+                if (hfRevenueData != null) hfRevenueData.Value = "[]";
+                if (hfStatusLabels != null) hfStatusLabels.Value = "[]";
+                if (hfStatusData != null) hfStatusData.Value = "[]";
+                if (hfTopProductsLabels != null) hfTopProductsLabels.Value = "[]";
+                if (hfTopProductsData != null) hfTopProductsData.Value = "[]";
             }
         }
 
@@ -200,7 +244,7 @@ namespace OFFSIDESHOP
             string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
             bool isSpanish = (currentLang == "es");
 
-            string period = ddlReportPeriod.SelectedValue;
+            string period = ddlReportPeriod != null ? ddlReportPeriod.SelectedValue : "WEEK";
             int intervalDays = (period == "MONTH") ? 30 : (period == "YEAR") ? 365 : 7;
 
             string periodText = isSpanish
@@ -263,7 +307,7 @@ namespace OFFSIDESHOP
 
                     List<string> prodLabels = new List<string>();
                     List<decimal> prodData = new List<decimal>();
-                    string[] prodHeaders = isSpanish 
+                    string[] prodHeaders = isSpanish
                         ? new string[] { "Posición", "Nombre de Camiseta", "Unidades Vendidas" }
                         : new string[] { "Rank", "Shirt Name", "Units Sold" };
                     ITextTable prodTable = CreateBaseTable(prodHeaders, boldFont);
@@ -291,7 +335,6 @@ namespace OFFSIDESHOP
                     }
                     doc.Add(prodTable);
 
-
                     // --- 3. LEAGUES PERFORMANCE ---
                     AddSectionTitle(doc, isSpanish ? "2. Rendimiento por Ligas" : "2. Top Leagues Performance", boldFont);
                     string queryLeagues = @"SELECT l.Id_League, l.Name_League, SUM(od.Quantity) AS Qty 
@@ -306,7 +349,7 @@ namespace OFFSIDESHOP
                     List<string> legLabels = new List<string>();
                     List<decimal> legData = new List<decimal>();
                     List<int> leagueIds = new List<int>();
-                    string[] legHeaders = isSpanish 
+                    string[] legHeaders = isSpanish
                         ? new string[] { "Nombre de Liga", "Unidades Vendidas" }
                         : new string[] { "League Name", "Units Sold" };
                     ITextTable legTable = CreateBaseTable(legHeaders, boldFont);
@@ -370,7 +413,7 @@ namespace OFFSIDESHOP
                         if (teamLabels.Count > 0)
                         {
                             doc.Add(new ITextParagraph(isSpanish ? $"Liga: {currentLeagueName}" : $"League: {currentLeagueName}").SetFont(boldFont).SetFontSize(12).SetMarginTop(10));
-                            string[] teamHeaders = isSpanish 
+                            string[] teamHeaders = isSpanish
                                 ? new string[] { "Nombre de Equipo", "Unidades Vendidas" }
                                 : new string[] { "Team Name", "Units Sold" };
                             ITextTable teamTable = CreateBaseTable(teamHeaders, boldFont);
@@ -398,7 +441,7 @@ namespace OFFSIDESHOP
 
                     List<string> brandLabels = new List<string>();
                     List<decimal> brandData = new List<decimal>();
-                    string[] brandHeaders = isSpanish 
+                    string[] brandHeaders = isSpanish
                         ? new string[] { "Marca", "Unidades Vendidas" }
                         : new string[] { "Brand", "Units Sold" };
                     ITextTable brandTable = CreateBaseTable(brandHeaders, boldFont);
@@ -437,7 +480,7 @@ namespace OFFSIDESHOP
 
                         List<string> monthLabels = new List<string>();
                         List<decimal> monthData = new List<decimal>();
-                        string[] monthHeaders = isSpanish 
+                        string[] monthHeaders = isSpanish
                             ? new string[] { "Mes", "Ingresos Brutos" }
                             : new string[] { "Month", "Gross Revenue" };
                         ITextTable monthTable = CreateBaseTable(monthHeaders, boldFont);
@@ -557,16 +600,6 @@ namespace OFFSIDESHOP
         protected void btnAdminBanners_Click(object sender, EventArgs e) { Response.Redirect("AdminBanners.aspx"); }
         protected void btnManageCoupons_Click(object sender, EventArgs e) { Response.Redirect("ManageCoupons.aspx"); }
         protected void btnAuditLogs_Click(object sender, EventArgs e) { Response.Redirect("AdminAudit.aspx"); }
-        protected override void InitializeCulture()
-        {
-            string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
-            string cultureName = (lang == "es") ? "es-SV" : "en-US";
-            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
-            ci.NumberFormat.CurrencySymbol = "$";
-            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
-            base.InitializeCulture();
-        }
 
         protected void btnLanguageToggle_Click(object sender, EventArgs e)
         {

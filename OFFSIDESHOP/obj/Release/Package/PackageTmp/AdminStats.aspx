@@ -1,11 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminStats.aspx.cs" Inherits="OFFSIDESHOP.AdminStats" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminStats.aspx.cs" Inherits="OFFSIDESHOP.AdminStats" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_PageTitle %>" /></title>
+    <title><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Stats_Title %>" /></title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,600,700&display=swap" rel="stylesheet" />

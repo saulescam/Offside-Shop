@@ -21,6 +21,7 @@ namespace OFFSIDESHOP
             get { return ViewState["SearchCurrentPage"] != null ? Convert.ToInt32(ViewState["SearchCurrentPage"]) : 0; }
             set { ViewState["SearchCurrentPage"] = value; }
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Control de caché habitual para evitar re-ingresos con el botón atrás
@@ -36,10 +37,9 @@ namespace OFFSIDESHOP
             phNavbarUser.Visible = false;
             phNavbarAdmin.Visible = false;
 
-            // 2. Evaluamos si el usuario ha iniciado sesión
+            // Evaluamos si el usuario ha iniciado sesión
             if (Session["UserRole"] == null)
             {
-                // Escenario A: No hay sesión activa (Usuario Invitado)
                 phNavbarGuest.Visible = true;
             }
             else
@@ -48,12 +48,10 @@ namespace OFFSIDESHOP
 
                 if (userRole == 1 || userRole == 2)
                 {
-                    // Escenario B: El usuario es Owner (1) o Admin (2) -> Muestra la barra con el Dashboard
                     phNavbarAdmin.Visible = true;
                 }
                 else if (userRole == 3)
                 {
-                    // Escenario C: El usuario es un Cliente normal -> Muestra la barra con el Cart
                     phNavbarUser.Visible = true;
                     if (!IsPostBack)
                     {
@@ -62,44 +60,35 @@ namespace OFFSIDESHOP
                 }
                 else if (userRole == 4)
                 {
-                    // Si un repartidor entra a la página de inicio, lo mandamos a su panel
                     Response.Redirect("DeliveryDashboard.aspx");
                 }
                 else
                 {
-                    // Por seguridad, si hay un rol desconocido, se trata como invitado
                     phNavbarGuest.Visible = true;
                 }
             }
 
             if (!IsPostBack)
             {
-                // 1. Primero cargamos los dropdowns para que existan las opciones en el HTML
                 LoadFilterDropdowns();
                 ActualizarContadorCarrito();
-
-                // 2. Cargar banners dinámicos desde BD
                 LoadBanners();
                 LoadCollections();
 
-                // 3. Comprobar si venimos redirigidos (por ejemplo, desde DetailsShirt) con filtros en la URL
-               // 3. Comprobar si venimos redirigidos (por ejemplo, desde DetailsShirt o Banners) con filtros en la URL
                 if (Request.QueryString["search"] != null ||
                     Request.QueryString["league"] != null ||
                     Request.QueryString["brand"] != null ||
                     Request.QueryString["kit"] != null ||
-                    Request.QueryString["sale"] != null ||    // NUEVO: Escucha ofertas
-                    Request.QueryString["print"] != null)     // NUEVO: Escucha print
+                    Request.QueryString["sale"] != null ||
+                    Request.QueryString["print"] != null)
                 {
-                    // Extraemos los datos de la QueryString de forma segura
                     string search = Request.QueryString["search"] != null ? HttpUtility.UrlDecode(Request.QueryString["search"]) : "";
                     string league = Request.QueryString["league"] ?? "";
                     string brand = Request.QueryString["brand"] ?? "";
                     string kit = Request.QueryString["kit"] ?? "";
-                    string sale = Request.QueryString["sale"] ?? "";   // NUEVO
-                    string print = Request.QueryString["print"] ?? ""; // NUEVO
+                    string sale = Request.QueryString["sale"] ?? "";
+                    string print = Request.QueryString["print"] ?? "";
 
-                    // Asignamos los valores directamente a tus controles superiores
                     txtSearch.Text = search;
 
                     if (ddlLeague.Items.FindByValue(league) != null)
@@ -111,7 +100,6 @@ namespace OFFSIDESHOP
                     if (ddlKitType.Items.FindByValue(kit) != null)
                         ddlKitType.SelectedValue = kit;
 
-                    // Asignamos los valores a los Checkboxes laterales
                     if (sale.ToLower() == "true" && chkSideOnSale != null)
                         chkSideOnSale.Checked = true;
 
@@ -119,15 +107,13 @@ namespace OFFSIDESHOP
                         chkSideCustomizable.Checked = true;
                 }
 
-                // 4. Ejecutamos tu método sin parámetros. 
-                // Si la URL traía datos, LoadProducts() los leerá automáticamente desde los controles que acabamos de llenar.
-                // Si la URL estaba vacía, los controles estarán vacíos y cargará la vitrina normal (Modo Vitrina).
                 LoadProducts();
                 InitSidebarFilters();
                 SynchronizeMainSearchToSidebar();
                 LoadProducts();
             }
         }
+
         private void CargarDatosPerfilUsuario()
         {
             if (Session["Id_User"] != null)
@@ -168,15 +154,12 @@ namespace OFFSIDESHOP
                 lblFullName.Text = "No active session";
             }
 
-            // Solicitamos al UpdatePanel actualizarse con los datos recuperados
             if (upPerfil != null)
             {
                 upPerfil.Update();
             }
         }
-        // ──────────────────────────────────────────────────────────────
-        //  Load Banners from DB (IsActive = 1, ordered by SortOrder)
-        // ──────────────────────────────────────────────────────────────
+
         private void LoadCollections()
         {
             try
@@ -187,14 +170,13 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
 
-                    // 1. Cargar Píldoras de Categorías (Traducido usando Name_Category_es)
                     string queryCats = @"
-                SELECT Id_Category,
-                       CASE 
-                           WHEN @Lang = 'es' THEN COALESCE(Name_Category_es, Name_Category)
-                           ELSE Name_Category 
-                       END AS Name_Category
-                FROM collection_categories;";
+                        SELECT Id_Category,
+                               CASE 
+                                   WHEN @Lang = 'es' THEN COALESCE(Name_Category_es, Name_Category)
+                                   ELSE Name_Category 
+                               END AS Name_Category
+                        FROM collection_categories;";
 
                     using (MySqlCommand cmdCats = new MySqlCommand(queryCats, con))
                     {
@@ -206,29 +188,25 @@ namespace OFFSIDESHOP
                         rptCollectionCats.DataBind();
                     }
 
-                    // 2. Cargar Colecciones (Usando 'Title' en lugar de 'Name', que es el nombre real de tu columna)
                     string queryCols = @"
-    SELECT c.Id_Collection,
-           c.Id_Category,
-           
-           /* AQUÍ AGREGAMOS LA TRADUCCIÓN DEL TÍTULO DE LA COLECCIÓN */
-           CASE 
-               WHEN @Lang = 'es' THEN COALESCE(c.Title_es, c.Title)
-               ELSE c.Title 
-           END AS Title,
-           
-           c.ImageURL,
-           c.LinkURL,
-           c.SortOrder,
-           c.IsActive,
-           CASE 
-               WHEN @Lang = 'es' THEN COALESCE(cat.Name_Category_es, cat.Name_Category)
-               ELSE cat.Name_Category 
-           END AS Name_Category
-    FROM collections c 
-    INNER JOIN collection_categories cat ON c.Id_Category = cat.Id_Category 
-    WHERE c.IsActive = 1
-    ORDER BY c.SortOrder ASC;";
+                        SELECT c.Id_Collection,
+                               c.Id_Category,
+                               CASE 
+                                   WHEN @Lang = 'es' THEN COALESCE(c.Title_es, c.Title)
+                                   ELSE c.Title 
+                               END AS Title,
+                               c.ImageURL,
+                               c.LinkURL,
+                               c.SortOrder,
+                               c.IsActive,
+                               CASE 
+                                   WHEN @Lang = 'es' THEN COALESCE(cat.Name_Category_es, cat.Name_Category)
+                                   ELSE cat.Name_Category 
+                               END AS Name_Category
+                        FROM collections c 
+                        INNER JOIN collection_categories cat ON c.Id_Category = cat.Id_Category 
+                        WHERE c.IsActive = 1
+                        ORDER BY c.SortOrder ASC;";
 
                     using (MySqlCommand cmdCols = new MySqlCommand(queryCols, con))
                     {
@@ -269,31 +247,30 @@ namespace OFFSIDESHOP
 
             return "images/collections/" + imageUrl;
         }
+
         private void LoadBanners()
         {
             try
             {
-                // Obtenemos el idioma actual de la sesión (ej: "es" o "en")
                 string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
 
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
 
-                    // Query con LEFT JOIN a banner_translations y COALESCE para fallback a inglés
                     string query = @"
-                SELECT 
-                    b.ID, 
-                    COALESCE(bt.Title, b.Title) AS Title, 
-                    COALESCE(bt.Subtitle, b.Subtitle) AS Subtitle, 
-                    b.ImageURL, 
-                    b.LinkURL, 
-                    b.SortOrder 
-                FROM banners b
-                LEFT JOIN banner_translations bt 
-                    ON b.ID = bt.Id_Banner AND bt.LanguageCode = @Lang
-                WHERE b.IsActive = 1 
-                ORDER BY b.SortOrder ASC;";
+                        SELECT 
+                            b.ID, 
+                            COALESCE(bt.Title, b.Title) AS Title, 
+                            COALESCE(bt.Subtitle, b.Subtitle) AS Subtitle, 
+                            b.ImageURL, 
+                            b.LinkURL, 
+                            b.SortOrder 
+                        FROM banners b
+                        LEFT JOIN banner_translations bt 
+                            ON b.ID = bt.Id_Banner AND bt.LanguageCode = @Lang
+                        WHERE b.IsActive = 1 
+                        ORDER BY b.SortOrder ASC;";
 
                     MySqlCommand cmd = new MySqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@Lang", currentLang);
@@ -301,7 +278,6 @@ namespace OFFSIDESHOP
                     DataTable dt = new DataTable();
                     new MySqlDataAdapter(cmd).Fill(dt);
 
-                    // Prefix relative image paths
                     foreach (DataRow row in dt.Rows)
                     {
                         string img = row["ImageURL"].ToString();
@@ -316,7 +292,6 @@ namespace OFFSIDESHOP
 
                     if (dt.Rows.Count == 0)
                     {
-                        // No active banners – hide the carousel container
                         phCarousel.Visible = false;
                     }
                     else
@@ -338,6 +313,7 @@ namespace OFFSIDESHOP
                 phLeaguesSection.Visible = false;
             }
         }
+
         protected string BuildBannerImage(string imageUrl, string title, string linkUrl)
         {
             string imgTag = $"<img src='{HttpUtility.HtmlEncode(imageUrl)}' alt='{HttpUtility.HtmlEncode(title)}' />";
@@ -348,19 +324,13 @@ namespace OFFSIDESHOP
             return imgTag;
         }
 
-        // ──────────────────────────────────────────────────────────────
-        //  Dynamic Cart Counter (Sums the Quantity column)
-        // ──────────────────────────────────────────────────────────────
         private void ActualizarContadorCarrito()
         {
-            // Retrieve the cart DataTable from session safely
             DataTable dtCart = Session["Cart"] as DataTable;
 
             if (dtCart != null && dtCart.Rows.Count > 0)
             {
                 int totalProducts = 0;
-
-                // Loop through rows adding actual quantities of each item
                 foreach (DataRow row in dtCart.Rows)
                 {
                     if (row["Quantity"] != DBNull.Value)
@@ -368,20 +338,14 @@ namespace OFFSIDESHOP
                         totalProducts += Convert.ToInt32(row["Quantity"]);
                     }
                 }
-
-                // Assign cumulative total to the navbar Label
                 lblCartCount.Text = totalProducts.ToString();
             }
             else
             {
-                // If cart is empty or session doesn't exist, show 0
                 lblCartCount.Text = "0";
             }
         }
 
-        // ──────────────────────────────────────────────────────────────
-        //  Load filter dropdowns from DB
-        // ──────────────────────────────────────────────────────────────
         private void LoadFilterDropdowns()
         {
             try
@@ -416,15 +380,15 @@ namespace OFFSIDESHOP
                         }
                     }
 
-                    // Kit Types (TRADUCIDO)
+                    // Kit Types
                     string queryKits = @"
-                SELECT Id_KitType, 
-                       CASE 
-                           WHEN @Lang = 'es' THEN COALESCE(Name_KitType_es, Name_KitType)
-                           ELSE Name_KitType 
-                       END AS Name_KitType 
-                FROM kit_types 
-                ORDER BY Name_KitType ASC;";
+                        SELECT Id_KitType, 
+                               CASE 
+                                   WHEN @Lang = 'es' THEN COALESCE(Name_KitType_es, Name_KitType)
+                                   ELSE Name_KitType 
+                               END AS Name_KitType 
+                        FROM kit_types 
+                        ORDER BY Name_KitType ASC;";
 
                     using (MySqlCommand cmdK = new MySqlCommand(queryKits, con))
                     {
@@ -447,24 +411,20 @@ namespace OFFSIDESHOP
             }
         }
 
-        // ──────────────────────────────────────────────────────────────
-        //  Load products with dynamic filters matching DB schema
-        // ──────────────────────────────────────────────────────────────
         private void LoadProducts()
         {
             try
             {
-                // 0. Recuperamos el idioma actual de la sesión
                 string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
 
-                // 1. Detección de filtros principales (Superiores)
+                // 1. Detección de filtros principales
                 string searchText = txtSearch.Text.Trim();
                 bool hasSearchText = !string.IsNullOrEmpty(searchText);
                 bool hasLeagueFilter = ddlLeague.SelectedIndex > 0;
                 bool hasBrandFilter = ddlBrand.SelectedIndex > 0;
                 bool hasKitTypeFilter = ddlKitType.SelectedIndex > 0;
 
-                // 2. Detección de filtros avanzados (Laterales del Sidebar)
+                // 2. Detección de filtros avanzados
                 bool hasSideLeague = ddlSideLeague != null && ddlSideLeague.SelectedIndex > 0;
                 bool hasSideBrand = ddlSideBrand != null && ddlSideBrand.SelectedIndex > 0;
                 bool hasSideKitType = ddlSideKitType != null && ddlSideKitType.SelectedIndex > 0;
@@ -496,62 +456,68 @@ namespace OFFSIDESHOP
                 {
                     con.Open();
 
-                    // 3. CONSULTA SQL ACTUALIZADA CON TRADUCCIÓN DE CAMISETAS Y KIT TYPES
                     string query = @"SELECT
-                t.ID,
-                COALESCE(tr.Name, t.Name) AS Name,
-                COALESCE(tr.Description, t.Description) AS Description,
-                COALESCE(b.Name_Brand, '') AS Brand,
-                COALESCE(tm.Name_Team, '') AS Team,
-                t.Year,
-                
-                /* AQUÍ ESTÁ EL CAMBIO PARA KIT_TYPES SEGÚN EL IDIOMA */
-                CASE 
-                    WHEN @Lang = 'es' THEN COALESCE(kt.Name_KitType_es, kt.Name_KitType, '')
-                    ELSE COALESCE(kt.Name_KitType, '') 
-                END AS Type,
-                
-                t.Price AS OriginalPrice,
-                CASE WHEN o.Id_Offer IS NOT NULL THEN (t.Price - (t.Price * (o.DiscountPercentage / 100.0))) ELSE t.Price END AS FinalPrice,
-                CASE WHEN o.Id_Offer IS NOT NULL THEN 1 ELSE 0 END AS IsOnSale,
-                IFNULL(o.DiscountPercentage, 0) AS DiscountPercentage,
-                
-                COALESCE(t.ImageURL, '')     AS ImageURL,
-                COALESCE(tm.Id_League, 0)    AS Id_League,
-                t.IsCustomizable, 
-                IFNULL(
-                    (SELECT GROUP_CONCAT(
-                        CASE tv2.Id_Size
-                            WHEN 1 THEN 'S'
-                            WHEN 2 THEN 'M'
-                            WHEN 3 THEN 'L'
-                            WHEN 4 THEN 'XL'
-                            WHEN 5 THEN 'XXL'
-                            ELSE CONCAT('Size ',tv2.Id_Size)
-                        END
-                        ORDER BY tv2.Id_Size SEPARATOR ', ')
-                     FROM tshirt_variants tv2
-                     WHERE tv2.Id_Tshirt = t.ID AND tv2.Stock > 0),
-                'N/A') AS Sizes
-           FROM tshirts t
-            LEFT JOIN tshirt_translations tr ON t.ID = tr.Id_Tshirt AND tr.LanguageCode = @Lang
-            LEFT JOIN brands    b  ON t.Id_Brand   = b.Id_Brand
-            LEFT JOIN teams     tm ON t.Id_Team    = tm.Id_Team
-            LEFT JOIN leagues   l  ON tm.Id_League = l.Id_League 
-            LEFT JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
-            LEFT JOIN offer_tshirts ot ON t.ID = ot.Id_Tshirt
-            LEFT JOIN offers o ON ot.Id_Offer = o.Id_Offer AND o.IsActive = 1 AND NOW() BETWEEN o.StartDate AND o.EndDate
-            WHERE t.IsActive = 1 ";
+                        t.ID,
+                        COALESCE(tr.Name, t.Name) AS Name,
+                        COALESCE(tr.Description, t.Description) AS Description,
+                        COALESCE(b.Name_Brand, '') AS Brand,
+                        CASE 
+                            WHEN @Lang = 'es' THEN COALESCE(tm.Name_Team_es, tm.Name_Team, '')
+                            ELSE COALESCE(tm.Name_Team, '')
+                        END AS Team,
+                        t.Year,
+                        CASE 
+                            WHEN @Lang = 'es' THEN COALESCE(kt.Name_KitType_es, kt.Name_KitType, '')
+                            ELSE COALESCE(kt.Name_KitType, '') 
+                        END AS Type,
+                        t.Price AS OriginalPrice,
+                        CASE WHEN o.Id_Offer IS NOT NULL THEN (t.Price - (t.Price * (o.DiscountPercentage / 100.0))) ELSE t.Price END AS FinalPrice,
+                        CASE WHEN o.Id_Offer IS NOT NULL THEN 1 ELSE 0 END AS IsOnSale,
+                        IFNULL(o.DiscountPercentage, 0) AS DiscountPercentage,
+                        COALESCE(t.ImageURL, '')     AS ImageURL,
+                        COALESCE(tm.Id_League, 0)    AS Id_League,
+                        t.IsCustomizable, 
+                        IFNULL(
+                            (SELECT GROUP_CONCAT(
+                                CASE tv2.Id_Size
+                                    WHEN 1 THEN 'S'
+                                    WHEN 2 THEN 'M'
+                                    WHEN 3 THEN 'L'
+                                    WHEN 4 THEN 'XL'
+                                    WHEN 5 THEN 'XXL'
+                                    ELSE CONCAT('Size ',tv2.Id_Size)
+                                END
+                                ORDER BY tv2.Id_Size SEPARATOR ', ')
+                             FROM tshirt_variants tv2
+                             WHERE tv2.Id_Tshirt = t.ID AND tv2.Stock > 0),
+                        'N/A') AS Sizes
+                    FROM tshirts t
+                    LEFT JOIN tshirt_translations tr ON t.ID = tr.Id_Tshirt AND tr.LanguageCode = @Lang
+                    LEFT JOIN brands    b  ON t.Id_Brand   = b.Id_Brand
+                    LEFT JOIN teams     tm ON t.Id_Team    = tm.Id_Team
+                    LEFT JOIN leagues   l  ON tm.Id_League = l.Id_League 
+                    LEFT JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
+                    LEFT JOIN offer_tshirts ot ON t.ID = ot.Id_Tshirt
+                    LEFT JOIN offers o ON ot.Id_Offer = o.Id_Offer AND o.IsActive = 1 AND NOW() BETWEEN o.StartDate AND o.EndDate
+                    WHERE t.IsActive = 1 ";
 
                     if (isSearchMode)
                     {
                         if (hasSearchText)
                         {
-                            // Separar palabras para la consulta SQL
                             string[] words = searchText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                             for (int i = 0; i < words.Length; i++)
                             {
-                                query += $" AND (t.Name LIKE @Search{i} OR b.Name_Brand LIKE @Search{i} OR tm.Name_Team LIKE @Search{i} OR CAST(t.Year AS CHAR) LIKE @Search{i} OR l.Name_League LIKE @Search{i} OR kt.Name_KitType LIKE @Search{i} OR kt.Name_KitType_es LIKE @Search{i}) ";
+                                // Búsqueda adaptada a ambos idiomas y nombres traducidos
+                                query += $" AND (t.Name LIKE @Search{i} " +
+                                         $"OR tr.Name LIKE @Search{i} " +
+                                         $"OR b.Name_Brand LIKE @Search{i} " +
+                                         $"OR tm.Name_Team LIKE @Search{i} " +
+                                         $"OR tm.Name_Team_es LIKE @Search{i} " +
+                                         $"OR CAST(t.Year AS CHAR) LIKE @Search{i} " +
+                                         $"OR l.Name_League LIKE @Search{i} " +
+                                         $"OR kt.Name_KitType LIKE @Search{i} " +
+                                         $"OR kt.Name_KitType_es LIKE @Search{i}) ";
                             }
                         }
 
@@ -593,8 +559,6 @@ namespace OFFSIDESHOP
                     }
 
                     MySqlCommand cmd = new MySqlCommand(query, con);
-
-                    // ¡IMPORTANTE! Pasamos la variable del idioma como parámetro a MySQL
                     cmd.Parameters.AddWithValue("@Lang", currentLang);
 
                     if (isSearchMode)
@@ -646,7 +610,6 @@ namespace OFFSIDESHOP
                     DataTable dt = new DataTable();
                     new MySqlDataAdapter(cmd).Fill(dt);
 
-                    // Mapeo seguro y corrección de rutas relativas de imágenes globales
                     foreach (DataRow row in dt.Rows)
                     {
                         string img = row["ImageURL"].ToString();
@@ -793,47 +756,50 @@ namespace OFFSIDESHOP
 
                         DataTable dtTopSelling = new DataTable();
                         string topSellingQuery = @"SELECT 
-                    t.ID,
-                    COALESCE(tr.Name, t.Name) AS Name,
-                    COALESCE(b.Name_Brand, '')   AS Brand,
-                    COALESCE(tm.Name_Team, '')   AS Team,
-                    t.Year,
-                    CASE 
-                        WHEN @Lang = 'es' THEN COALESCE(kt.Name_KitType_es, kt.Name_KitType, '')
-                        ELSE COALESCE(kt.Name_KitType, '') 
-                    END AS Type,
-                    t.Price AS OriginalPrice,
-                    CASE WHEN o.Id_Offer IS NOT NULL THEN (t.Price - (t.Price * (o.DiscountPercentage / 100.0))) ELSE t.Price END AS FinalPrice,
-                    CASE WHEN o.Id_Offer IS NOT NULL THEN 1 ELSE 0 END AS IsOnSale,
-                    IFNULL(o.DiscountPercentage, 0) AS DiscountPercentage,
-                    COALESCE(t.ImageURL, '')     AS ImageURL,
-                    t.IsCustomizable,
-                    IFNULL(
-                        (SELECT GROUP_CONCAT(
-                            CASE tv2.Id_Size
-                                WHEN 1 THEN 'S'
-                                WHEN 2 THEN 'M'
-                                WHEN 3 THEN 'L'
-                                WHEN 4 THEN 'XL'
-                                WHEN 5 THEN 'XXL'
-                                ELSE CONCAT('Size ',tv2.Id_Size)
-                            END
-                            ORDER BY tv2.Id_Size SEPARATOR ', ')
-                         FROM tshirt_variants tv2
-                         WHERE tv2.Id_Tshirt = t.ID AND tv2.Stock > 0),
-                    'N/A') AS Sizes
-                FROM order_details od
-                INNER JOIN tshirts t ON od.ProductName = t.Name
-                LEFT JOIN tshirt_translations tr ON t.ID = tr.Id_Tshirt AND tr.LanguageCode = @Lang
-                LEFT JOIN brands    b  ON t.Id_Brand   = b.Id_Brand
-                LEFT JOIN teams     tm ON t.Id_Team    = tm.Id_Team
-                LEFT JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
-                LEFT JOIN offer_tshirts ot ON t.ID = ot.Id_Tshirt
-                LEFT JOIN offers o ON ot.Id_Offer = o.Id_Offer AND o.IsActive = 1 AND NOW() BETWEEN o.StartDate AND o.EndDate
-                WHERE t.IsActive = 1
-                GROUP BY t.ID, tr.Name, t.Name, b.Name_Brand, tm.Name_Team, t.Year, kt.Name_KitType_es, kt.Name_KitType, t.Price, t.ImageURL, t.IsCustomizable, o.Id_Offer, o.DiscountPercentage
-                ORDER BY SUM(od.Quantity) DESC
-                LIMIT 8;";
+                            t.ID,
+                            COALESCE(tr.Name, t.Name) AS Name,
+                            COALESCE(b.Name_Brand, '')   AS Brand,
+                            CASE 
+                                WHEN @Lang = 'es' THEN COALESCE(tm.Name_Team_es, tm.Name_Team, '')
+                                ELSE COALESCE(tm.Name_Team, '')
+                            END AS Team,
+                            t.Year,
+                            CASE 
+                                WHEN @Lang = 'es' THEN COALESCE(kt.Name_KitType_es, kt.Name_KitType, '')
+                                ELSE COALESCE(kt.Name_KitType, '') 
+                            END AS Type,
+                            t.Price AS OriginalPrice,
+                            CASE WHEN o.Id_Offer IS NOT NULL THEN (t.Price - (t.Price * (o.DiscountPercentage / 100.0))) ELSE t.Price END AS FinalPrice,
+                            CASE WHEN o.Id_Offer IS NOT NULL THEN 1 ELSE 0 END AS IsOnSale,
+                            IFNULL(o.DiscountPercentage, 0) AS DiscountPercentage,
+                            COALESCE(t.ImageURL, '')     AS ImageURL,
+                            t.IsCustomizable,
+                            IFNULL(
+                                (SELECT GROUP_CONCAT(
+                                    CASE tv2.Id_Size
+                                        WHEN 1 THEN 'S'
+                                        WHEN 2 THEN 'M'
+                                        WHEN 3 THEN 'L'
+                                        WHEN 4 THEN 'XL'
+                                        WHEN 5 THEN 'XXL'
+                                        ELSE CONCAT('Size ',tv2.Id_Size)
+                                    END
+                                    ORDER BY tv2.Id_Size SEPARATOR ', ')
+                                 FROM tshirt_variants tv2
+                                 WHERE tv2.Id_Tshirt = t.ID AND tv2.Stock > 0),
+                            'N/A') AS Sizes
+                        FROM order_details od
+                        INNER JOIN tshirts t ON od.ProductName = t.Name
+                        LEFT JOIN tshirt_translations tr ON t.ID = tr.Id_Tshirt AND tr.LanguageCode = @Lang
+                        LEFT JOIN brands    b  ON t.Id_Brand   = b.Id_Brand
+                        LEFT JOIN teams     tm ON t.Id_Team    = tm.Id_Team
+                        LEFT JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
+                        LEFT JOIN offer_tshirts ot ON t.ID = ot.Id_Tshirt
+                        LEFT JOIN offers o ON ot.Id_Offer = o.Id_Offer AND o.IsActive = 1 AND NOW() BETWEEN o.StartDate AND o.EndDate
+                        WHERE t.IsActive = 1
+                        GROUP BY t.ID, tr.Name, t.Name, b.Name_Brand, tm.Name_Team, tm.Name_Team_es, t.Year, kt.Name_KitType_es, kt.Name_KitType, t.Price, t.ImageURL, t.IsCustomizable, o.Id_Offer, o.DiscountPercentage
+                        ORDER BY SUM(od.Quantity) DESC
+                        LIMIT 8;";
 
                         try
                         {
@@ -879,25 +845,20 @@ namespace OFFSIDESHOP
                 System.Diagnostics.Debug.WriteLine("Error loading products: " + ex.Message);
             }
         }
+
         protected void btnNavCart_Click(object sender, EventArgs e)
         {
-            // Redirect straight to cart page on click
             Response.Redirect("Cart.aspx");
         }
 
-        // ──────────────────────────────────────────────────────────────
-        //  Event Handlers for search/reset buttons
-        // ──────────────────────────────────────────────────────────────
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            // 1. Recargar los equipos ANTES de tocar las selecciones
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
                 LoadSideTeams(conn, "ALL");
             }
 
-            // 2. Limpiar TODOS los filtros laterales forzosamente
             if (ddlSideLeague != null) { ddlSideLeague.ClearSelection(); ddlSideLeague.SelectedIndex = 0; }
             if (ddlSideBrand != null) { ddlSideBrand.ClearSelection(); ddlSideBrand.SelectedIndex = 0; }
             if (ddlSideKitType != null) { ddlSideKitType.ClearSelection(); ddlSideKitType.SelectedIndex = 0; }
@@ -912,10 +873,8 @@ namespace OFFSIDESHOP
                 foreach (ListItem item in cblSideSizes.Items) item.Selected = false;
             }
 
-            // 3. Sincronizar la barra principal (Aquí buscará tu marca "nike" y LA SELECCIONARÁ)
             SynchronizeMainSearchToSidebar();
 
-            // 4. Ejecutar consulta SQL
             SearchCurrentPage = 0;
             LoadProducts();
         }
@@ -927,7 +886,6 @@ namespace OFFSIDESHOP
             ddlBrand.SelectedIndex = 0;
             ddlKitType.SelectedIndex = 0;
 
-            // Reset sidebar filters too
             if (ddlSideLeague != null) ddlSideLeague.SelectedIndex = 0;
             if (ddlSideBrand != null) ddlSideBrand.SelectedIndex = 0;
             if (ddlSideKitType != null) ddlSideKitType.SelectedIndex = 0;
@@ -943,7 +901,7 @@ namespace OFFSIDESHOP
 
             LoadProducts();
         }
-        
+
         protected void btncerrar_Click(object sender, EventArgs e)
         {
             Session.Clear();
@@ -955,6 +913,7 @@ namespace OFFSIDESHOP
         {
             Response.Redirect("MyOrders.aspx");
         }
+
         private void InitSidebarFilters()
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -962,7 +921,6 @@ namespace OFFSIDESHOP
                 string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
                 conn.Open();
 
-                // Populate Leagues
                 using (MySqlCommand cmd = new MySqlCommand("SELECT Id_League, Name_League FROM leagues ORDER BY Name_League ASC", conn))
                 {
                     ddlSideLeague.DataSource = cmd.ExecuteReader();
@@ -974,7 +932,6 @@ namespace OFFSIDESHOP
 
                 LoadSideTeams(conn, "ALL");
 
-                // Populate Brands
                 using (MySqlCommand cmd = new MySqlCommand("SELECT Id_Brand, Name_Brand FROM brands ORDER BY Name_Brand ASC", conn))
                 {
                     ddlSideBrand.DataSource = cmd.ExecuteReader();
@@ -984,15 +941,14 @@ namespace OFFSIDESHOP
                     ddlSideBrand.Items.Insert(0, new ListItem(currentLang == "es" ? "Todas las Marcas" : "All Brands", "ALL"));
                 }
 
-                // Populate Kit Styles
                 string querySideKits = @"
-            SELECT Id_KitType, 
-                   CASE 
-                       WHEN @Lang = 'es' THEN COALESCE(Name_KitType_es, Name_KitType)
-                       ELSE Name_KitType 
-                   END AS Name_KitType 
-            FROM kit_types 
-            ORDER BY Name_KitType ASC;";
+                    SELECT Id_KitType, 
+                           CASE 
+                               WHEN @Lang = 'es' THEN COALESCE(Name_KitType_es, Name_KitType)
+                               ELSE Name_KitType 
+                           END AS Name_KitType 
+                    FROM kit_types 
+                    ORDER BY Name_KitType ASC;";
 
                 using (MySqlCommand cmd = new MySqlCommand(querySideKits, conn))
                 {
@@ -1004,22 +960,17 @@ namespace OFFSIDESHOP
                     ddlSideKitType.Items.Insert(0, new ListItem(currentLang == "es" ? "Todos los Estilos" : "All Styles", "ALL"));
                 }
 
-                // Populate Size List checkboxes
                 using (MySqlCommand cmd = new MySqlCommand("SELECT Id_Size, Size_Code FROM sizes ORDER BY Id_Size ASC", conn))
                 {
                     cblSideSizes.DataSource = cmd.ExecuteReader();
                     cblSideSizes.DataBind();
                 }
 
-                // ------------------------------------------------------------------
-                // NUEVO: Rango de Precios Bilingüe (Sobreescribe el HTML)
-                // ------------------------------------------------------------------
                 if (ddlSidePriceRange != null)
                 {
-                    // Guardamos la selección actual por si el usuario ya había elegido un precio
                     string selectedPrice = ddlSidePriceRange.SelectedValue;
 
-                    ddlSidePriceRange.Items.Clear(); // Borramos los que están en inglés en el HTML
+                    ddlSidePriceRange.Items.Clear();
 
                     if (currentLang == "es")
                     {
@@ -1038,7 +989,6 @@ namespace OFFSIDESHOP
                         ddlSidePriceRange.Items.Add(new ListItem("Over $150", "150-99999"));
                     }
 
-                    // Restaurar la selección
                     if (!string.IsNullOrEmpty(selectedPrice) && ddlSidePriceRange.Items.FindByValue(selectedPrice) != null)
                     {
                         ddlSidePriceRange.SelectedValue = selectedPrice;
@@ -1052,11 +1002,22 @@ namespace OFFSIDESHOP
             string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
 
             string query = (leagueId == "ALL")
-                ? "SELECT Id_Team, Name_Team FROM teams ORDER BY Name_Team ASC"
-                : "SELECT Id_Team, Name_Team FROM teams WHERE Id_League = @IdLeague ORDER BY Name_Team ASC";
+                ? @"SELECT Id_Team, 
+                           CASE 
+                               WHEN @Lang = 'es' THEN COALESCE(Name_Team_es, Name_Team) 
+                               ELSE Name_Team 
+                           END AS Name_Team 
+                    FROM teams ORDER BY Name_Team ASC"
+                : @"SELECT Id_Team, 
+                           CASE 
+                               WHEN @Lang = 'es' THEN COALESCE(Name_Team_es, Name_Team) 
+                               ELSE Name_Team 
+                           END AS Name_Team 
+                    FROM teams WHERE Id_League = @IdLeague ORDER BY Name_Team ASC";
 
             using (MySqlCommand cmd = new MySqlCommand(query, conn))
             {
+                cmd.Parameters.AddWithValue("@Lang", currentLang);
                 if (leagueId != "ALL") cmd.Parameters.AddWithValue("@IdLeague", leagueId);
 
                 DataTable dt = new DataTable();
@@ -1069,9 +1030,7 @@ namespace OFFSIDESHOP
                 ddlSideTeam.DataValueField = "Id_Team";
                 ddlSideTeam.DataBind();
 
-                // Traducción del ítem por defecto
                 ddlSideTeam.Items.Insert(0, new ListItem(currentLang == "es" ? "Todos los Equipos" : "All Clubs", "ALL"));
-
                 ddlSideTeam.SelectedIndex = 0;
             }
         }
@@ -1087,48 +1046,38 @@ namespace OFFSIDESHOP
 
         private void SynchronizeMainSearchToSidebar()
         {
-            // 1. Si el usuario seleccionó una LIGA en el dropdown principal superior
             if (ddlLeague.SelectedIndex > 0)
             {
-                // Encontrar el valor en el dropdown lateral y seleccionarlo
                 if (ddlSideLeague.Items.FindByValue(ddlLeague.SelectedValue) != null)
                 {
                     ddlSideLeague.SelectedValue = ddlLeague.SelectedValue;
 
-                    // Recargar los equipos del sidebar basados en la liga seleccionada
                     using (MySqlConnection conn = new MySqlConnection(connectionString))
                     {
                         conn.Open();
                         LoadSideTeams(conn, ddlSideLeague.SelectedValue);
                     }
                 }
-                // Limpiamos el dropdown principal
                 ddlLeague.SelectedIndex = 0;
             }
 
-            // 2. Si el usuario seleccionó una MARCA en el dropdown principal superior
             if (ddlBrand.SelectedIndex > 0)
             {
                 if (ddlSideBrand.Items.FindByValue(ddlBrand.SelectedValue) != null)
                 {
                     ddlSideBrand.SelectedValue = ddlBrand.SelectedValue;
                 }
-                // Limpiamos el dropdown principal
                 ddlBrand.SelectedIndex = 0;
             }
 
-            // 3. Si el usuario seleccionó un TIPO DE KIT en el dropdown principal superior
             if (ddlKitType.SelectedIndex > 0)
             {
                 if (ddlSideKitType.Items.FindByValue(ddlKitType.SelectedValue) != null)
                 {
                     ddlSideKitType.SelectedValue = ddlKitType.SelectedValue;
                 }
-                // Limpiamos el dropdown principal
                 ddlKitType.SelectedIndex = 0;
             }
-
-   
         }
 
         protected void btnApplySideFilters_Click(object sender, EventArgs e)
@@ -1151,6 +1100,7 @@ namespace OFFSIDESHOP
             SearchCurrentPage++;
             LoadProducts();
         }
+
         protected void btnGoToAccount_Click(object sender, EventArgs e)
         {
             Response.Redirect("MyAccount.aspx");
@@ -1165,7 +1115,7 @@ namespace OFFSIDESHOP
         protected string FormatJerseyName(object nameObj)
         {
             if (nameObj == null || nameObj == DBNull.Value) return "";
-            
+
             string name = nameObj.ToString().ToLower().Trim();
             System.Globalization.TextInfo textInfo = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
             return textInfo.ToTitleCase(name);
