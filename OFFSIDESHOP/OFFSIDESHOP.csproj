@@ -657,6 +657,7 @@
     <Content Include="fonts\slick.woff" />
     <Content Include="ChatHandler.ashx" />
     <None Include="packages.config" />
+    <Content Include="secrets.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

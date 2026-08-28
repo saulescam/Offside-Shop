@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -252,10 +252,14 @@ namespace OFFSIDESHOP
                 string productosHtml = "";
                 foreach (DataRow row in dtCart.Rows)
                 {
+                    string imgName = (row.Table.Columns.Contains("ImageURL") && row["ImageURL"] != DBNull.Value && !string.IsNullOrEmpty(row["ImageURL"].ToString())) 
+                        ? row["ImageURL"].ToString() 
+                        : "default.jpg";
+
                     productosHtml += $@"
                 <tr>
                     <td style='padding: 10px; border-bottom: 1px solid #f4f4f4;'>
-                        <img src='images/camisetas/{row["ImageURL"]}' width='50' style='border-radius:4px; vertical-align: middle; margin-right: 10px;' />
+                        <img src='images/camisetas/{imgName}' width='50' style='border-radius:4px; vertical-align: middle; margin-right: 10px;' />
                         {row["Quantity"]}x {row["Name"]} - Size: {row["Size"]}
                     </td>
                     <td style='padding: 10px; border-bottom: 1px solid #f4f4f4; text-align:right;'>
@@ -319,6 +323,98 @@ namespace OFFSIDESHOP
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Order Email Failed: " + ex.Message);
+            }
+        }
+
+        public static void SendOrderConfirmation(int orderId, string metodoPago = "Virtual Wallet")
+        {
+            try
+            {
+                string customerEmail = "";
+                string customerName = "";
+                decimal total = 0m;
+                decimal shippingCost = 0m;
+                string address = "";
+                string phone = "";
+                string cityName = "";
+                string munName = "";
+                string distName = "";
+
+                string queryOrder = @"
+                    SELECT o.Mail, o.Name, o.LastName, o.Total, o.shipping_cost, o.Address, o.Phone,
+                           c.city_name, m.Municipality_Name, d.District_Name
+                    FROM orders o
+                    LEFT JOIN cities c ON o.id_City = c.id_city
+                    LEFT JOIN municipalities m ON o.Id_Municipality = m.Id_Municipality
+                    LEFT JOIN districts d ON o.Id_District = d.Id_District
+                    WHERE o.Id_Order = @OrderId;";
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(queryOrder, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@OrderId", orderId);
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                customerEmail = reader["Mail"] != DBNull.Value ? reader["Mail"].ToString() : "";
+                                string name = reader["Name"] != DBNull.Value ? reader["Name"].ToString() : "";
+                                string lastName = reader["LastName"] != DBNull.Value ? reader["LastName"].ToString() : "";
+                                customerName = $"{name} {lastName}".Trim();
+                                total = reader["Total"] != DBNull.Value ? Convert.ToDecimal(reader["Total"]) : 0m;
+                                shippingCost = reader["shipping_cost"] != DBNull.Value ? Convert.ToDecimal(reader["shipping_cost"]) : 0m;
+                                address = reader["Address"] != DBNull.Value ? reader["Address"].ToString() : "";
+                                phone = reader["Phone"] != DBNull.Value ? reader["Phone"].ToString() : "";
+                                cityName = reader["city_name"] != DBNull.Value ? reader["city_name"].ToString() : "";
+                                munName = reader["Municipality_Name"] != DBNull.Value ? reader["Municipality_Name"].ToString() : "";
+                                distName = reader["District_Name"] != DBNull.Value ? reader["District_Name"].ToString() : "";
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                    }
+
+                    string queryDetails = @"
+                        SELECT od.Quantity, od.ProductName AS Name, od.Size, od.Subtotal, COALESCE(t.ImageURL, 'default.jpg') AS ImageURL
+                        FROM order_details od
+                        LEFT JOIN tshirts t ON od.Id_Tshirt = t.ID
+                        WHERE od.Id_Order = @OrderId;";
+
+                    DataTable dtCart = new DataTable();
+                    using (MySqlCommand cmdDetails = new MySqlCommand(queryDetails, conn))
+                    {
+                        cmdDetails.Parameters.AddWithValue("@OrderId", orderId);
+                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmdDetails))
+                        {
+                            da.Fill(dtCart);
+                        }
+                    }
+
+                    string shippingText = shippingCost == 0 ? "FREE" : $"${shippingCost:F2}";
+
+                    List<string> locationParts = new List<string>();
+                    if (!string.IsNullOrEmpty(distName)) locationParts.Add(distName);
+                    if (!string.IsNullOrEmpty(munName)) locationParts.Add(munName);
+                    if (!string.IsNullOrEmpty(cityName)) locationParts.Add(cityName);
+                    string locationStr = string.Join(", ", locationParts);
+
+                    string shippingAddressHtml = $@"
+                        <p style='color: #555; font-size: 15px; margin: 0; line-height: 1.5;'>
+                            <strong>Address:</strong> {HttpUtility.HtmlEncode(address)}<br/>
+                            {(string.IsNullOrEmpty(locationStr) ? "" : $"<strong>Location:</strong> {HttpUtility.HtmlEncode(locationStr)}<br/>")}
+                            <strong>Phone:</strong> {HttpUtility.HtmlEncode(phone)}
+                        </p>";
+
+                    SendOrderConfirmation(orderId, total, dtCart, metodoPago, shippingText, shippingAddressHtml, customerEmail, customerName);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("SendOrderConfirmation overload failed: " + ex.Message);
             }
         }
 

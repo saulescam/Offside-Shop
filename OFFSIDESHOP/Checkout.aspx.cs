@@ -520,6 +520,28 @@ namespace OFFSIDESHOP
                         }
 
                         trans.Commit();
+
+                        int createdOrderId = orderId;
+                        DataTable dtCartCopy = dtCart.Copy();
+                        string emailTo = txtEmail.Text.Trim();
+                        string nameTo = $"{safeName} {safeLastName}".Trim();
+                        string shipText = shippingCost == 0 ? "FREE" : $"${shippingCost:F2}";
+                        List<string> locParts = new List<string>();
+                        if (!string.IsNullOrEmpty(distName)) locParts.Add(distName);
+                        if (!string.IsNullOrEmpty(munName)) locParts.Add(munName);
+                        if (!string.IsNullOrEmpty(cityName)) locParts.Add(cityName);
+                        string locStr = string.Join(", ", locParts);
+                        string shipAddrHtml = $@"
+                            <p style='color: #555; font-size: 15px; margin: 0; line-height: 1.5;'>
+                                <strong>Address:</strong> {HttpUtility.HtmlEncode(txtAddress.Text.Trim())}<br/>
+                                {(string.IsNullOrEmpty(locStr) ? "" : $"<strong>Location:</strong> {HttpUtility.HtmlEncode(locStr)}<br/>")}
+                                <strong>Phone:</strong> {HttpUtility.HtmlEncode(txtTel.Text.Trim())}
+                            </p>";
+
+                        System.Threading.Tasks.Task.Run(() =>
+                        {
+                            EmailService.SendOrderConfirmation(createdOrderId, total, dtCartCopy, "Cash on Delivery", shipText, shipAddrHtml, emailTo, nameTo);
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -654,6 +676,28 @@ namespace OFFSIDESHOP
                         }
 
                         trans.Commit();
+
+                        int createdOrderId = orderId;
+                        DataTable dtCartCopy = dtCart.Copy();
+                        string emailTo = txtEmail.Text.Trim();
+                        string nameTo = $"{safeName} {safeLastName}".Trim();
+                        string shipText = shippingCost == 0 ? "FREE" : $"${shippingCost:F2}";
+                        List<string> locParts = new List<string>();
+                        if (!string.IsNullOrEmpty(distName)) locParts.Add(distName);
+                        if (!string.IsNullOrEmpty(munName)) locParts.Add(munName);
+                        if (!string.IsNullOrEmpty(cityName)) locParts.Add(cityName);
+                        string locStr = string.Join(", ", locParts);
+                        string shipAddrHtml = $@"
+                            <p style='color: #555; font-size: 15px; margin: 0; line-height: 1.5;'>
+                                <strong>Address:</strong> {HttpUtility.HtmlEncode(txtAddress.Text.Trim())}<br/>
+                                {(string.IsNullOrEmpty(locStr) ? "" : $"<strong>Location:</strong> {HttpUtility.HtmlEncode(locStr)}<br/>")}
+                                <strong>Phone:</strong> {HttpUtility.HtmlEncode(txtTel.Text.Trim())}
+                            </p>";
+
+                        System.Threading.Tasks.Task.Run(() =>
+                        {
+                            EmailService.SendOrderConfirmation(createdOrderId, total, dtCartCopy, "PayPal", shipText, shipAddrHtml, emailTo, nameTo);
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -807,6 +851,28 @@ namespace OFFSIDESHOP
                         }
 
                         trans.Commit();
+
+                        int createdOrderId = orderId;
+                        DataTable dtCartCopy = dtCart.Copy();
+                        string emailTo = txtEmail.Text.Trim();
+                        string nameTo = $"{safeName} {safeLastName}".Trim();
+                        string shipText = shippingCost == 0 ? "FREE" : $"${shippingCost:F2}";
+                        List<string> locParts = new List<string>();
+                        if (!string.IsNullOrEmpty(distName)) locParts.Add(distName);
+                        if (!string.IsNullOrEmpty(munName)) locParts.Add(munName);
+                        if (!string.IsNullOrEmpty(cityName)) locParts.Add(cityName);
+                        string locStr = string.Join(", ", locParts);
+                        string shipAddrHtml = $@"
+                            <p style='color: #555; font-size: 15px; margin: 0; line-height: 1.5;'>
+                                <strong>Address:</strong> {HttpUtility.HtmlEncode(txtAddress.Text.Trim())}<br/>
+                                {(string.IsNullOrEmpty(locStr) ? "" : $"<strong>Location:</strong> {HttpUtility.HtmlEncode(locStr)}<br/>")}
+                                <strong>Phone:</strong> {HttpUtility.HtmlEncode(txtTel.Text.Trim())}
+                            </p>";
+
+                        System.Threading.Tasks.Task.Run(() =>
+                        {
+                            EmailService.SendOrderConfirmation(createdOrderId, total, dtCartCopy, "Virtual Wallet", shipText, shipAddrHtml, emailTo, nameTo);
+                        });
                     }
                     catch (Exception ex)
                     {

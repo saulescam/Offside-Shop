@@ -463,6 +463,12 @@ namespace OFFSIDESHOP
                         }
 
                         trans.Commit();
+
+                        int confirmedOrderId = orderId;
+                        System.Threading.Tasks.Task.Run(() =>
+                        {
+                            EmailService.SendOrderConfirmation(confirmedOrderId, "Virtual Wallet");
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -733,6 +739,13 @@ namespace OFFSIDESHOP
                         }
 
                         trans.Commit();
+
+                        int confirmedOrderId = orderId;
+                        System.Threading.Tasks.Task.Run(() =>
+                        {
+                            EmailService.SendOrderConfirmation(confirmedOrderId, "Virtual Wallet");
+                        });
+
                         return true;
                     }
                 }

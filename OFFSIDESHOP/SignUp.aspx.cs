@@ -1,6 +1,10 @@
 using Nemiro.OAuth;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -14,8 +18,12 @@ namespace OFFSIDESHOP
         protected override void InitializeCulture()
         {
             string lang = Session["Language"] != null ? Session["Language"].ToString() : "en";
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
+            string cultureName = (lang == "es") ? "es-SV" : "en-US";
+
+            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo(cultureName);
+            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+
             base.InitializeCulture();
         }
 
@@ -55,6 +63,22 @@ namespace OFFSIDESHOP
                     string apellido = txtapellido.Text.Trim();
                     string usuario = txtusuario.Text.Trim();
                     string correo = txtgmail.Text.Trim();
+
+                    // =========================================================
+                    // VALIDACIÓN DE CENSURA (NOMBRE, APELLIDO Y USUARIO)
+                    // =========================================================
+                    if (!IsAllowedText(nombre) || !IsAllowedText(apellido) || !IsAllowedText(usuario))
+                    {
+                        ScriptManager.RegisterStartupScript(
+                            this,
+                            this.GetType(),
+                            "censorAlert",
+                            AlertHelper.GetSafeAlertScript(this, "Alert_Details_AttentionTitle", "Alert_Details_ForbiddenNameText", "warning"),
+                            true
+                        );
+                        return; // Se detiene el registro si contiene palabras prohibidas
+                    }
+
                     string hash = Security.Encrypt(txtclave.Text);
 
                     // 1. Verificamos duplicados en la BD
@@ -160,39 +184,74 @@ namespace OFFSIDESHOP
             Session.Remove("Reg_Token");
         }
 
+        private bool IsAllowedText(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return true;
+
+            string rawText = text.Trim().ToLower();
+            string cleanedText = rawText.Replace(" ", "").Replace("\r", "").Replace("\n", "").Replace("\t", "");
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+                    // Palabras cortas (<= 4 letras) se comprueban como palabra completa con REGEXP.
+                    // Palabras largas (> 4 letras) se evalúan como subcadena en texto plano o comprimido.
+                    string query = @"SELECT COUNT(*) FROM censorship 
+                                     WHERE (
+                                         (CHAR_LENGTH(pattern) <= 4 AND LOWER(@RawText) REGEXP CONCAT('[[:<:]]', LOWER(pattern), '[[:>:]]'))
+                                         OR 
+                                         (CHAR_LENGTH(pattern) > 4 AND (
+                                             LOWER(@RawText) LIKE CONCAT('%', LOWER(pattern), '%') 
+                                             OR LOWER(@CleanedText) LIKE CONCAT('%', LOWER(pattern), '%')
+                                         ))
+                                     );";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@RawText", rawText);
+                        cmd.Parameters.AddWithValue("@CleanedText", cleanedText);
+
+                        long count = Convert.ToInt64(cmd.ExecuteScalar());
+                        return count == 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error en validación de censura: " + ex.Message);
+                return true;
+            }
+        }
+
         private string GetGoogleCallbackUrl()
         {
-            // 1. Detectar el Host (si viene por ngrok toma X-Forwarded-Host; en local toma Request.Url.Authority)
             string host = Request.Headers["X-Forwarded-Host"];
             if (string.IsNullOrEmpty(host))
             {
                 host = Request.Url.Authority;
             }
 
-            // 2. Detectar el protocolo (https para ngrok; o el esquema del Request)
             string proto = Request.Headers["X-Forwarded-Proto"];
             if (string.IsNullOrEmpty(proto))
             {
                 proto = Request.Url.Scheme;
             }
 
-            // 3. Obtener ruta de la aplicación
             string appPath = Request.ApplicationPath.TrimEnd('/');
             return $"{proto}://{host}{appPath}/ExternalLoginResult.aspx";
         }
 
         protected void btnGoogleSign_Click(object sender, EventArgs e)
         {
-            // 1. Leemos directamente la URL de ngrok desde tu Web.config
             string callbackUrl = System.Configuration.ConfigurationManager.AppSettings["GoogleRedirectUri"];
 
-            // 2. Si por algún motivo no existe en el config, usamos la URL local como respaldo
             if (string.IsNullOrWhiteSpace(callbackUrl))
             {
                 callbackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + ResolveUrl("~/ExternalLoginResult.aspx");
             }
 
-            // 3. Enviamos la URL de ngrok a Google (con estado si existe un producto pendiente)
             string pendingShirtId = Session["PendingShirtId"]?.ToString();
             if (!string.IsNullOrEmpty(pendingShirtId))
             {
