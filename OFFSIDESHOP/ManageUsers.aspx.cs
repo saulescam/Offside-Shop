@@ -168,6 +168,7 @@ namespace OFFSIDESHOP
 
         protected void Filter_Changed(object sender, EventArgs e)
         {
+            gvUsers.PageIndex = 0;
             LoadUsers();
         }
 
@@ -176,6 +177,13 @@ namespace OFFSIDESHOP
             ddlFilterRole.SelectedIndex = 0;
             ddlFilterDeliveryStatus.SelectedIndex = 0;
             txtSearchUser.Text = "";
+            gvUsers.PageIndex = 0;
+            LoadUsers();
+        }
+
+        protected void gvUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvUsers.PageIndex = e.NewPageIndex;
             LoadUsers();
         }
 

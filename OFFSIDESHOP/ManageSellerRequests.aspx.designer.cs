@@ -384,31 +384,31 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.Literal litModalItemCondition;
 
         /// <summary>
-        /// Control imgModal1.
+        /// Control pnlModalImages.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgModal1;
+        protected global::System.Web.UI.WebControls.Panel pnlModalImages;
 
         /// <summary>
-        /// Control imgModal2.
+        /// Control litModalImagesTitle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgModal2;
+        protected global::System.Web.UI.WebControls.Literal litModalImagesTitle;
 
         /// <summary>
-        /// Control imgModal3.
+        /// Control litModalImagesGallery.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgModal3;
+        protected global::System.Web.UI.WebControls.Literal litModalImagesGallery;
 
         /// <summary>
         /// Control pnlModalCatalogMapping.

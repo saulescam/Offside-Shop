@@ -407,6 +407,7 @@ namespace OFFSIDESHOP
             ClearFormPanel();
             lblFormTitle.Text = AlertHelper.GetResourceString(this, "Admin_Products_AddNew");
             pnlProductForm.Visible = true;
+            if (upFormPanel != null) upFormPanel.Update();
             LoadProducts();
         }
 
@@ -499,6 +500,8 @@ namespace OFFSIDESHOP
                     string editTitlePattern = AlertHelper.GetResourceString(this, "Admin_Offers_EditBlockTitle");
                     lblFormTitle.Text = string.Format(editTitlePattern, productId);
                     pnlProductForm.Visible = true;
+                    if (upFormPanel != null) upFormPanel.Update();
+                    ScriptManager.RegisterStartupScript(this, GetType(), "scrollToForm", "$('html, body').animate({ scrollTop: $('#pnlProductForm').offset().top - 100 }, 300);", true);
                 }
 
                 LoadProducts();
@@ -819,6 +822,7 @@ namespace OFFSIDESHOP
         {
             ClearFormPanel();
             pnlProductForm.Visible = false;
+            if (upFormPanel != null) upFormPanel.Update();
             LoadProducts();
         }
 

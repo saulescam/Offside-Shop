@@ -1,4 +1,4 @@
-﻿//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // <generado automáticamente>
 //     Este código fue generado por una herramienta.
 //
@@ -186,13 +186,31 @@ namespace OFFSIDESHOP
         protected global::System.Web.UI.WebControls.Panel pnlOrderIssue;
 
         /// <summary>
-        /// Control txtOrderId.
+        /// Control ddlOrders.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOrderId;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrders;
+
+        /// <summary>
+        /// Control pnlRefundEvidence.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlRefundEvidence;
+
+        /// <summary>
+        /// Control fileRefundImages.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fileRefundImages;
 
         /// <summary>
         /// Control pnlSellJersey.
@@ -265,9 +283,14 @@ namespace OFFSIDESHOP
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::OFFSIDESHOP.FooterControl ControlFooter;
+
         /// <summary>
         /// Control btnLanguageToggle.
         /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnLanguageToggle;
     }
 }

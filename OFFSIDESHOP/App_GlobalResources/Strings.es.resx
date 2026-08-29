@@ -726,6 +726,21 @@
   <data name="Contact_UploadDesc" xml:space="preserve">
     <value>Máx. 3 imágenes permitidas. Formatos soportados: JPG, PNG, WEBP. Tamaño máx.: 2MB.</value>
   </data>
+  <data name="Contact_RefundEvidenceTitle" xml:space="preserve">
+    <value>Evidencia Fotográfica Requerida para Reembolso o Cambio</value>
+  </data>
+  <data name="Contact_RefundEvidenceDesc" xml:space="preserve">
+    <value>Para procesar tu solicitud de reembolso o cambio de la manera más rápida y justa posible, es obligatorio adjuntar fotografías claras del producto recibido. Esto permite a nuestro equipo de Control de Calidad verificar el estado del artículo, la autenticidad de las etiquetas y el defecto de fábrica, daño o error de talla reportado antes de autorizar el trámite.</value>
+  </data>
+  <data name="Contact_RefundEvidenceTip1" xml:space="preserve">
+    <value>Foto general de la camiseta completa (mostrando etiquetas y empaque si corresponde).</value>
+  </data>
+  <data name="Contact_RefundEvidenceTip2" xml:space="preserve">
+    <value>Foto en primer plano donde se aprecie claramente la falla, rotura, mancha o etiqueta de talla errónea.</value>
+  </data>
+  <data name="Alert_Contact_RefundImageRequired" xml:space="preserve">
+    <value>La evidencia fotográfica es obligatoria para procesar solicitudes de reembolso o cambio. Por favor, sube al menos una fotografía.</value>
+  </data>
   <data name="Contact_DetailsTitle" xml:space="preserve">
     <value>Descripción / Detalles</value>
   </data>
@@ -3686,5 +3701,20 @@
   </data>
 	<data name="Error500_ReturnButton" xml:space="preserve">
     <value>Volver a la Cancha</value>
+  </data>
+  <data name="Contact_SelectOrder" xml:space="preserve">
+    <value>-- Selecciona tu Pedido --</value>
+  </data>
+  <data name="Contact_NoOrdersFound" xml:space="preserve">
+    <value>No tienes pedidos registrados en tu cuenta</value>
+  </data>
+  <data name="Alert_Contact_SelectOrderRequired" xml:space="preserve">
+    <value>Por favor selecciona el pedido asociado a tu solicitud.</value>
+  </data>
+  <data name="Alert_Contact_OrderNotOwnedText" xml:space="preserve">
+    <value>El pedido seleccionado no pertenece a tu cuenta o no es válido.</value>
+  </data>
+  <data name="Admin_Seller_ColProof" xml:space="preserve">
+    <value>Foto / Prueba</value>
   </data>
 </root>

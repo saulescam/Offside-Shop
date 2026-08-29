@@ -211,6 +211,48 @@
           font-size: 12px;
           font-weight: bold;
       }
+
+      .pagination-controls {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 15px;
+          margin-top: 40px;
+      }
+
+      .btn-pager {
+          background-color: #1a1a1a;
+          color: #ffc800 !important;
+          border: 1px solid #ffc800;
+          padding: 8px 20px;
+          border-radius: 8px;
+          font-weight: 700;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.85rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          transition: all 0.2s ease;
+          text-decoration: none !important;
+          display: inline-flex;
+          align-items: center;
+      }
+
+      .btn-pager:hover:not(.aspNetDisabled) {
+          background: linear-gradient(135deg, #ffc800 0%, #d9a300 100%);
+          color: #000000 !important;
+          border-color: #ffc800;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(255, 200, 0, 0.3);
+      }
+
+      .btn-pager.aspNetDisabled, .btn-pager:disabled {
+          opacity: 0.45;
+          pointer-events: none;
+          cursor: not-allowed;
+          border-color: #666666;
+          color: #888888 !important;
+          background-color: #222222;
+      }
     </style>
 
     <script type="text/javascript">
@@ -366,91 +408,111 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-8">
-                        <asp:Label ID="lblNoOrders" runat="server" Style="display: block; margin: 10px auto; padding: 15px; text-align: center;" CssClass="alert alert-warning" Text="<%$ Resources:Strings, MyOrders_NoOrders %>" Visible="false" />
-                    </div>
-                </div>
+                <asp:UpdatePanel ID="upOrders" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-8">
+                                <asp:Label ID="lblNoOrders" runat="server" Style="display: block; margin: 10px auto; padding: 15px; text-align: center;" CssClass="alert alert-warning" Text="<%$ Resources:Strings, MyOrders_NoOrders %>" Visible="false" />
+                            </div>
+                        </div>
 
-                <div class="row g-4">
-                    <asp:Repeater ID="rptOrders" runat="server">
-                        <ItemTemplate>
-                            <div class="col-12 col-lg-6 d-flex">
-                                <div class="w-100 style-card" style="background-color: #ffffff !important; border: 1px solid #e0e0e0 !important; border-radius: 12px; padding: 25px; box-shadow: 0px 4px 20px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="row g-4">
+                            <asp:Repeater ID="rptOrders" runat="server">
+                                <ItemTemplate>
+                                    <div class="col-12 col-lg-6 d-flex">
+                                        <div class="w-100 style-card" style="background-color: #ffffff !important; border: 1px solid #e0e0e0 !important; border-radius: 12px; padding: 25px; box-shadow: 0px 4px 20px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between;">
 
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3" style="border-color: #eeeeee !important;">
                                             <div>
-                                                <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_OrderRef %>" /></span>
-                                                <strong style="color: #1a1a1a !important; font-size: 20px;">#<%# Eval("id_order") %></strong>
-                                            </div>
+                                                <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3" style="border-color: #eeeeee !important;">
+                                                    <div>
+                                                        <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_OrderRef %>" /></span>
+                                                        <strong style="color: #1a1a1a !important; font-size: 20px;">#<%# Eval("id_order") %></strong>
+                                                    </div>
 
-                                            <div class="text-end">
-                                                <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px; margin-bottom: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_Status %>" /></span>
-                                                 <span class="badge" style="background-color: #1a1a1a !important; color: #ffc800 !important; border: 1px solid #ffc800; font-size: 12px; padding: 6px 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: 20px;">
-                                                     <%# Eval("order_status") %>
-                                                 </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="order-summary">
-                                            <div class="row mb-2" style="font-size: 13px;">
-                                                <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-                                                    <span style="color: #888888; display: block; font-weight: 500; font-size: 11px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_DatePurchased %>" /></span>
-                                                    <span style="color: #333333; font-weight: 600;"><%# Eval("order_date", "{0:dd/MM/yyyy HH:mm}") %></span>
+                                                    <div class="text-end">
+                                                        <span style="color: #999999; text-transform: uppercase; font-size: 11px; font-weight: 600; display: block; letter-spacing: 0.5px; margin-bottom: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_Status %>" /></span>
+                                                         <span class="badge" style="background-color: #1a1a1a !important; color: #ffc800 !important; border: 1px solid #ffc800; font-size: 12px; padding: 6px 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: 20px;">
+                                                             <%# Eval("order_status") %>
+                                                         </span>
+                                                    </div>
                                                 </div>
-                                                <div class="col-12 col-sm-6 text-sm-end">
-                                                    <span style="color: #888888; display: block; font-weight: 500; font-size: 11px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ShippingDetails %>" /></span>
-                                                    <span style="color: #333333; font-weight: 600; display: inline-block; max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%# Eval("shipping_address") %>, <%# Eval("city") %>">
-                                                        <%# Eval("shipping_address") %>, <%# Eval("city") %>
-                                                    </span>
-                                                </div>
-                                            </div>
 
-                                            <hr style="border-top: 1px dashed #cccccc !important; background-color: transparent;" />
-
-                                            <div style="color: #1a1a1a !important; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ProductsOrdered %>" /></div>
-
-                                            <div class="order-products mt-2 ps-1" style="font-size: 14px; line-height: 1.8; color: #333333 !important; max-height: 150px; overflow-y: auto;">
-                                                <asp:Repeater ID="rptProducts" runat="server">
-                                                    <ItemTemplate>
-                                                        <div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #f5f5f5; padding: 6px 0;">
-                                                            <span style="color: #444444 !important; font-size: 13px;"><i class="fa-solid fa-shirt text-muted me-2"></i><%# FormatJerseyName(Eval("Product")) %>
-                                                                <span style="color: #777777; font-size: 12px; margin-left: 4px;">(<%# GetGlobalResourceObject("Strings", "Card_Sizes") %>: <%# Eval("Size") %>)</span>
-                                                                <strong style="color: #1a1a1a; margin-left: 6px;">x<%# Eval("Quantity") %></strong>
-                                                            </span>
-                                                            <span style="color: #1a1a1a !important; font-weight: 600; font-size: 13px;">$<%# Convert.ToDouble(Eval("Price")) * Convert.ToInt32(Eval("Quantity")) %>
+                                                <div class="order-summary">
+                                                    <div class="row mb-2" style="font-size: 13px;">
+                                                        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+                                                            <span style="color: #888888; display: block; font-weight: 500; font-size: 11px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_DatePurchased %>" /></span>
+                                                            <span style="color: #333333; font-weight: 600;"><%# Eval("order_date", "{0:dd/MM/yyyy HH:mm}") %></span>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 text-sm-end">
+                                                            <span style="color: #888888; display: block; font-weight: 500; font-size: 11px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ShippingDetails %>" /></span>
+                                                            <span style="color: #333333; font-weight: 600; display: inline-block; max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%# Eval("shipping_address") %>, <%# Eval("city") %>">
+                                                                <%# Eval("shipping_address") %>, <%# Eval("city") %>
                                                             </span>
                                                         </div>
-                                                    </ItemTemplate>
-                                                </asp:Repeater>
+                                                    </div>
+
+                                                    <hr style="border-top: 1px dashed #cccccc !important; background-color: transparent;" />
+
+                                                    <div style="color: #1a1a1a !important; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ProductsOrdered %>" /></div>
+
+                                                    <div class="order-products mt-2 ps-1" style="font-size: 14px; line-height: 1.8; color: #333333 !important; max-height: 150px; overflow-y: auto;">
+                                                        <asp:Repeater ID="rptProducts" runat="server">
+                                                            <ItemTemplate>
+                                                                <div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #f5f5f5; padding: 6px 0;">
+                                                                    <span style="color: #444444 !important; font-size: 13px;"><i class="fa-solid fa-shirt text-muted me-2"></i><%# FormatJerseyName(Eval("Product")) %>
+                                                                        <span style="color: #777777; font-size: 12px; margin-left: 4px;">(<%# GetGlobalResourceObject("Strings", "Card_Sizes") %>: <%# Eval("Size") %>)</span>
+                                                                        <strong style="color: #1a1a1a; margin-left: 6px;">x<%# Eval("Quantity") %></strong>
+                                                                    </span>
+                                                                    <span style="color: #1a1a1a !important; font-weight: 600; font-size: 13px;">$<%# Convert.ToDouble(Eval("Price")) * Convert.ToInt32(Eval("Quantity")) %>
+                                                                    </span>
+                                                                </div>
+                                                            </ItemTemplate>
+                                                        </asp:Repeater>
+                                                    </div>
+
+                                                    <hr style="border-top: 1px solid #eeeeee !important; background-color: transparent; margin-top: 15px; margin-bottom: 15px;" />
+
+                                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                                        <div>
+                                                            <strong style="color: #1a1a1a !important; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_TotalCharged %>" /></strong>
+                                                        </div>
+                                                        <div>
+                                                            <strong style="color: #1a1a1a !important; font-size: 22px; font-family: 'Montserrat', sans-serif; font-weight: 700;">$<%# Eval("total_amount", "{0:F2}") %></strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <hr style="border-top: 1px solid #eeeeee !important; background-color: transparent; margin-top: 15px; margin-bottom: 15px;" />
-
-                                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                                <div>
-                                                    <strong style="color: #1a1a1a !important; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_TotalCharged %>" /></strong>
-                                                </div>
-                                                <div>
-                                                    <strong style="color: #1a1a1a !important; font-size: 22px; font-family: 'Montserrat', sans-serif; font-weight: 700;">$<%# Eval("total_amount", "{0:F2}") %></strong>
-                                                </div>
+                                            <div class="card-actions mt-auto pt-2">
+                                                <a class="btn w-100 text-center" href="OrderDetail.aspx?id=<%# Eval("id_order") %>"
+                                                    style="color: #000; border: 2px solid #ffc800; background: linear-gradient(135deg, #ffc800 0%, #d9a300 100%); border-radius: 8px; padding: 10px 20px; font-weight: 700; font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; transition: all 0.2s ease;">
+                                                    <i class="fa-solid fa-circle-info me-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ViewDetails %>" />
+                                                </a>
                                             </div>
+
                                         </div>
                                     </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
 
-                                    <div class="card-actions mt-auto pt-2">
-                                        <a class="btn w-100 text-center" href="OrderDetail.aspx?id=<%# Eval("id_order") %>"
-                                            style="color: #000; border: 2px solid #ffc800; background: linear-gradient(135deg, #ffc800 0%, #d9a300 100%); border-radius: 8px; padding: 10px 20px; font-weight: 700; font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; transition: all 0.2s ease;">
-                                            <i class="fa-solid fa-circle-info me-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, MyOrders_ViewDetails %>" />
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </div>
+                        <!-- Paginación -->
+                        <asp:Panel ID="pnlPagination" runat="server" CssClass="pagination-controls" Visible="false">
+                            <asp:LinkButton ID="lnkPrevPage" runat="server" CssClass="btn-pager" OnClick="lnkPrevPage_Click">
+                                <i class="fas fa-chevron-left me-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Pager_Prev %>" />
+                            </asp:LinkButton>
+                            <span class="fw-bold text-muted small">
+                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Pager_Page %>" />
+                                <asp:Label ID="lblPageCurrent" runat="server" Text="1" CssClass="text-dark fw-bold"></asp:Label>
+                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Pager_Of %>" />
+                                <asp:Label ID="lblPageTotal" runat="server" Text="1" CssClass="text-dark fw-bold"></asp:Label>
+                            </span>
+                            <asp:LinkButton ID="lnkNextPage" runat="server" CssClass="btn-pager" OnClick="lnkNextPage_Click">
+                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Pager_Next %>" /><i class="fas fa-chevron-right ms-2"></i>
+                            </asp:LinkButton>
+                        </asp:Panel>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
 
             </div>
         </div>

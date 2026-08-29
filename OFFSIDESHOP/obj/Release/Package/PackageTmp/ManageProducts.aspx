@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="OFFSIDESHOP.ManageProducts" Async="true" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -421,185 +421,192 @@
                     <p class="text-muted mb-4"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SubTitle %>" /></p>
 
                     <!-- ACTION FORM PANEL -->
-                    <asp:Panel ID="pnlProductForm" runat="server" Visible="false" CssClass="form-panel">
-                        <asp:HiddenField ID="hfSelectedProductId" runat="server" Value="" />
-                        <h4><asp:Label ID="lblFormTitle" runat="server" Text="<%$ Resources:Strings, Admin_Products_AddNew %>"></asp:Label></h4>
+                    <asp:UpdatePanel ID="upFormPanel" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:Panel ID="pnlProductForm" runat="server" Visible="false" CssClass="form-panel">
+                                <asp:HiddenField ID="hfSelectedProductId" runat="server" Value="" />
+                                <h4><asp:Label ID="lblFormTitle" runat="server" Text="<%$ Resources:Strings, Admin_Products_AddNew %>"></asp:Label></h4>
 
-                        <!-- SUB-TABS IDIOMAS PARA PRODUCTO -->
-                        <ul class="nav nav-tabs sub-nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="prod-en-tab" data-toggle="tab" href="#prod-en" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_EnglishTab %>" /></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="prod-es-tab" data-toggle="tab" href="#prod-es" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishTab %>" /></a>
-                            </li>
-                        </ul>
+                                <!-- SUB-TABS IDIOMAS PARA PRODUCTO -->
+                                <ul class="nav nav-tabs sub-nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="prod-en-tab" data-toggle="tab" href="#prod-en" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_EnglishTab %>" /></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="prod-es-tab" data-toggle="tab" href="#prod-es" role="tab"><i class="fas fa-globe-americas me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishTab %>" /></a>
+                                    </li>
+                                </ul>
 
-                        <div class="tab-content border-bottom border-secondary pb-3 mb-3">
-                            <!-- ENGLISH TRANSLATABLE FIELDS -->
-                            <div class="tab-pane active" id="prod-en" role="tabpanel">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_PrimaryEnglishInfo %>" /></small>
-                                    <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtName', 'txtDescription'], ['txtName_ES', 'txtDescription_ES'])">
-                                        <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEs %>" />
-                                    </button>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ShirtNameEn %>" /> <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtName" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. FC Barcelona Home 2024" MaxLength="200"></asp:TextBox>
-                                </div>
-                                <div class="form-group mb-0">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <label class="mb-0"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_DescEn %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Optional %>" />)</small></label>
-                                        <!-- BOTÓN DE IA CLIENTE (SIN POSTBACK) -->
-                                        <button type="button" id="btnAiGen" class="btn btn-sm"
-                                            style="background: linear-gradient(135deg, #FFC800, #d97706); color: #fff; font-weight: 700; border: none; border-radius: 6px; padding: 2px 10px; font-size: 0.78rem;"
-                                            onclick="generateAiDescription(); return false;">
-                                            <i class="fas fa-magic mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GenerateWithAi %>" />
-                                        </button>
+                                <div class="tab-content border-bottom border-secondary pb-3 mb-3">
+                                    <!-- ENGLISH TRANSLATABLE FIELDS -->
+                                    <div class="tab-pane active" id="prod-en" role="tabpanel">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_PrimaryEnglishInfo %>" /></small>
+                                            <button type="button" class="btn-translate" onclick="autoTranslate('en', 'es', ['txtName', 'txtDescription'], ['txtName_ES', 'txtDescription_ES'])">
+                                                <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEs %>" />
+                                            </button>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ShirtNameEn %>" /> <span class="text-danger">*</span></label>
+                                            <asp:TextBox ID="txtName" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. FC Barcelona Home 2024" MaxLength="200"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <label class="mb-0"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_DescEn %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Optional %>" />)</small></label>
+                                                <!-- BOTÓN DE IA CLIENTE (SIN POSTBACK) -->
+                                                <button type="button" id="btnAiGen" class="btn btn-sm"
+                                                    style="background: linear-gradient(135deg, #FFC800, #d97706); color: #fff; font-weight: 700; border: none; border-radius: 6px; padding: 2px 10px; font-size: 0.78rem;"
+                                                    onclick="generateAiDescription(); return false;">
+                                                    <i class="fas fa-magic mr-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GenerateWithAi %>" />
+                                                </button>
+                                            </div>
+                                            <asp:TextBox ID="txtDescription" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Short product description in English..."></asp:TextBox>
+                                        </div>
                                     </div>
-                                    <asp:TextBox ID="txtDescription" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Short product description in English..."></asp:TextBox>
-                                </div>
-                            </div>
 
-                            <!-- SPANISH TRANSLATABLE FIELDS -->
-                            <div class="tab-pane" id="prod-es" role="tabpanel">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishInfo %>" /></small>
-                                    <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtName_ES', 'txtDescription_ES'], ['txtName', 'txtDescription'])">
-                                        <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEn %>" />
-                                    </button>
+                                    <!-- SPANISH TRANSLATABLE FIELDS -->
+                                    <div class="tab-pane" id="prod-es" role="tabpanel">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <small class="text-warning font-weight-bold"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_SpanishInfo %>" /></small>
+                                            <button type="button" class="btn-translate" onclick="autoTranslate('es', 'en', ['txtName_ES', 'txtDescription_ES'], ['txtName', 'txtDescription'])">
+                                                <i class="fas fa-language me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_TranslateToEn %>" />
+                                            </button>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ShirtNameEs %>" /> <span class="text-danger">*</span></label>
+                                            <asp:TextBox ID="txtName_ES" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="ej. Camiseta Local FC Barcelona 2024" MaxLength="200"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_DescEs %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Optional %>" />)</small></label>
+                                            <asp:TextBox ID="txtDescription_ES" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Descripción en español..."></asp:TextBox>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group mb-2">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ShirtNameEs %>" /> <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtName_ES" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="ej. Camiseta Local FC Barcelona 2024" MaxLength="200"></asp:TextBox>
-                                </div>
-                                <div class="form-group mb-0">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_DescEs %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Optional %>" />)</small></label>
-                                    <asp:TextBox ID="txtDescription_ES" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Descripción en español..."></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- UNIVERSAL FIELDS -->
-                        <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_UniversalSpecs %>" /></h6>
+                                <!-- UNIVERSAL FIELDS -->
+                                <h6 class="text-muted mb-3 font-weight-bold"><i class="fas fa-cogs me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_UniversalSpecs %>" /></h6>
 
-                        <!-- Row 1: Price & Year -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_PriceUsd %>" /> <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtPrice" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. 89.99" MaxLength="10" onkeypress="return validarPrecio(event, this)" onpaste="return false"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Detail_Year %>" /> <span class="text-danger">*</span></label>
-                                    <asp:TextBox ID="txtYear" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. 2024" MaxLength="4" onkeypress="return validarAnio(event)" onpaste="return false"></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Row 2: Brand / League / Team / Kit Type (EN UPDATEPANEL SEPARADO PARA EVITAR POSTBACK GLOBAL) -->
-                        <asp:UpdatePanel ID="upLeagueTeam" runat="server" UpdateMode="Conditional">
-                            <ContentTemplate>
+                                <!-- Row 1: Price & Year -->
                                 <div class="row">
-                                    <div class="col-md-3 col-sm-6">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_BrandLabel %>" /> <span class="text-danger">*</span></label>
-                                            <asp:DropDownList ID="ddlFormBrand" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_PriceUsd %>" /> <span class="text-danger">*</span></label>
+                                            <asp:TextBox ID="txtPrice" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. 89.99" MaxLength="10" onkeypress="return validarPrecio(event, this)" onpaste="return false"></asp:TextBox>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-6">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_LeagueLabel %>" /> <span class="text-danger">*</span></label>
-                                            <asp:DropDownList ID="ddlFormLeague" ClientIDMode="Static" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlFormLeague_SelectedIndexChanged"></asp:DropDownList>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <div class="form-group">
-                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Sidebar_Team %>" /> <span class="text-danger">*</span></label>
-                                            <asp:DropDownList ID="ddlFormTeam" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <div class="form-group">
-                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_KitLabel %>" /> <span class="text-danger">*</span></label>
-                                            <asp:DropDownList ID="ddlFormKitType" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Detail_Year %>" /> <span class="text-danger">*</span></label>
+                                            <asp:TextBox ID="txtYear" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="e.g. 2024" MaxLength="4" onkeypress="return validarAnio(event)" onpaste="return false"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
 
-                        <!-- Row 3: Stock per Size -->
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="d-block mb-2" style="color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockPerSize %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockPerSizeHelp %>" />)</small></label>
-                            </div>
-                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">S</label><asp:TextBox ID="txtStockS" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
-                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">M</label><asp:TextBox ID="txtStockM" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
-                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">L</label><asp:TextBox ID="txtStockL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
-                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">XL</label><asp:TextBox ID="txtStockXL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
-                            <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">XXL</label><asp:TextBox ID="txtStockXXL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
-                        </div>
+                                <!-- Row 2: Brand / League / Team / Kit Type (EN UPDATEPANEL SEPARADO PARA EVITAR POSTBACK GLOBAL) -->
+                                <asp:UpdatePanel ID="upLeagueTeam" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_BrandLabel %>" /> <span class="text-danger">*</span></label>
+                                                    <asp:DropDownList ID="ddlFormBrand" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_LeagueLabel %>" /> <span class="text-danger">*</span></label>
+                                                    <asp:DropDownList ID="ddlFormLeague" ClientIDMode="Static" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlFormLeague_SelectedIndexChanged"></asp:DropDownList>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Sidebar_Team %>" /> <span class="text-danger">*</span></label>
+                                                    <asp:DropDownList ID="ddlFormTeam" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Search_KitLabel %>" /> <span class="text-danger">*</span></label>
+                                                    <asp:DropDownList ID="ddlFormKitType" ClientIDMode="Static" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
 
-                        <!-- Row 4: Image Upload (DRAG & DROP) CON PREVISUALIZACIÓN MÚLTIPLE -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ProductImageLabel %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SupportsImg %>" />)</small></label>
-                                    <div class="drop-zone" id="dzMainImage">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <p id="lblMainImageText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_MainImageDrag %>" /></p>
-                                        <asp:FileUpload ID="fileImagen" ClientIDMode="Static" runat="server" accept="image/png, image/jpeg, image/jpg, image/webp" />
+                                <!-- Row 3: Stock per Size -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="d-block mb-2" style="color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockPerSize %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_StockPerSizeHelp %>" />)</small></label>
                                     </div>
-                                    <asp:Label ID="lblCurrentImage" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
-                                    <img id="imgPreview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 180px; margin-top: 10px; border-radius: 8px; object-fit: contain;" />
+                                    <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">S</label><asp:TextBox ID="txtStockS" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                                    <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">M</label><asp:TextBox ID="txtStockM" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                                    <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">L</label><asp:TextBox ID="txtStockL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                                    <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">XL</label><asp:TextBox ID="txtStockXL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
+                                    <div class="col"><div class="form-group"><label style="font-size: 0.8rem; font-weight: 600;">XXL</label><asp:TextBox ID="txtStockXXL" runat="server" Text="0" CssClass="form-control text-center" onkeypress="return validarStock(event)" onpaste="return false" MaxLength="5"></asp:TextBox></div></div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImagesLabel %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SupportsImg %>" />)</small></label>
-                                    <div class="drop-zone" id="dzGalleryImages">
-                                        <i class="fas fa-images"></i>
-                                        <p id="lblGalleryImagesText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageDrag %>" /></p>
-                                        <asp:FileUpload ID="fuExtraImages" ClientIDMode="Static" runat="server" AllowMultiple="true" accept="image/png, image/jpeg, image/jpg, image/webp" />
+
+                                <!-- Row 4: Image Upload (DRAG & DROP) CON PREVISUALIZACIÓN MÚLTIPLE -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_ProductImageLabel %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SupportsImg %>" />)</small></label>
+                                            <div class="drop-zone" id="dzMainImage">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                                <p id="lblMainImageText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_MainImageDrag %>" /></p>
+                                                <asp:FileUpload ID="fileImagen" ClientIDMode="Static" runat="server" accept="image/png, image/jpeg, image/jpg, image/webp" />
+                                            </div>
+                                            <asp:Label ID="lblCurrentImage" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
+                                            <img id="imgPreview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 180px; margin-top: 10px; border-radius: 8px; object-fit: contain;" />
+                                        </div>
                                     </div>
-                                    <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageHelp %>" /></span>
-                                    <asp:Label ID="lblCurrentExtraImages" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImagesLabel %>" /> <small class="text-muted">(<asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Banners_SupportsImg %>" />)</small></label>
+                                            <div class="drop-zone" id="dzGalleryImages">
+                                                <i class="fas fa-images"></i>
+                                                <p id="lblGalleryImagesText"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageDrag %>" /></p>
+                                                <asp:FileUpload ID="fuExtraImages" ClientIDMode="Static" runat="server" AllowMultiple="true" accept="image/png, image/jpeg, image/jpg, image/webp" />
+                                            </div>
+                                            <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 4px;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_GalleryImageHelp %>" /></span>
+                                            <asp:Label ID="lblCurrentExtraImages" runat="server" CssClass="text-muted d-block mt-1"></asp:Label>
 
-                                    <!-- CONTENEDOR PARA PREVISUALIZAR IMÁGENES DE GALERÍA -->
-                                    <div id="extraImagesPreview" class="d-flex flex-wrap justify-content-center gap-2 mt-2"></div>
+                                            <!-- CONTENEDOR PARA PREVISUALIZAR IMÁGENES DE GALERÍA -->
+                                            <div id="extraImagesPreview" class="d-flex flex-wrap justify-content-center gap-2 mt-2"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Row 5: Customization Checkbox -->
-                        <div class="row mt-2">
-                            <div class="col-12 d-flex align-items-center">
-                                <div class="form-group mb-0">
-                                    <label class="gold-checkbox">
-                                        <asp:CheckBox ID="chkIsCustomizable" runat="server" ClientIDMode="Static" />
-                                        <span class="checkmark"></span>
-                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_AllowCustom %>" />
-                                    </label>
+                                <!-- Row 5: Customization Checkbox -->
+                                <div class="row mt-2">
+                                    <div class="col-12 d-flex align-items-center">
+                                        <div class="form-group mb-0">
+                                            <label class="gold-checkbox">
+                                                <asp:CheckBox ID="chkIsCustomizable" runat="server" ClientIDMode="Static" />
+                                                <span class="checkmark"></span>
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_AllowCustom %>" />
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Form Action Buttons -->
-                        <div class="row mt-4">
-                            <div class="col-12 d-flex justify-content-start" style="gap: 10px;">
-                                <asp:LinkButton ID="btnSaveProduct" runat="server" CssClass="btn-save" OnClick="btnSaveProduct_Click" OnClientClick="return validateProductForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 700;">
-                                    &#xf0c7;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Save %>" />
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="btnCancelForm" runat="server" CssClass="btn-cancel-form" OnClick="btnCancelForm_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
-                                    &#xf00d;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Cancel %>" />
-                                </asp:LinkButton>
-                            </div>
-                        </div>
-                    </asp:Panel>
+                                <!-- Form Action Buttons -->
+                                <div class="row mt-4">
+                                    <div class="col-12 d-flex justify-content-start" style="gap: 10px;">
+                                        <asp:LinkButton ID="btnSaveProduct" runat="server" CssClass="btn-save" OnClick="btnSaveProduct_Click" OnClientClick="return validateProductForm();" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 700;">
+                                            &#xf0c7;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Save %>" />
+                                        </asp:LinkButton>
+                                        <asp:LinkButton ID="btnCancelForm" runat="server" CssClass="btn-cancel-form" OnClick="btnCancelForm_Click" CausesValidation="false" Style="font-family: 'Raleway','Font Awesome 5 Free'; font-weight: 600;">
+                                            &#xf00d;&nbsp; <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Products_Cancel %>" />
+                                        </asp:LinkButton>
+                                    </div>
+                                </div>
+                            </asp:Panel>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="btnSaveProduct" />
+                        </Triggers>
+                    </asp:UpdatePanel>
 
                     <!-- FILTERS BLOCK -->
                     <div class="filter-card">

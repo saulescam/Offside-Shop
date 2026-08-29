@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Text;
 using MySql.Data.MySqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -131,7 +132,7 @@ namespace OFFSIDESHOP
 
             using (MySqlConnection conn = data.ObtenerConexion())
             {
-                string query = $@"SELECT t.Id_Ticket, t.Created_At, t.User_Email, t.Status, {reasonCol} AS Reason_Name, t.Subject 
+                string query = $@"SELECT t.Id_Ticket, t.Created_At, t.User_Email, t.Status, {reasonCol} AS Reason_Name, t.Subject, t.ImageURL1 
                                  FROM contact_tickets t
                                  INNER JOIN contact_reasons r ON t.Id_ContactReason = r.Id_ContactReason
                                  WHERE t.Status = @Status";
@@ -170,6 +171,45 @@ namespace OFFSIDESHOP
                     }
                 }
             }
+        }
+
+        public string GetThumbnailHtml(object dbImg)
+        {
+            string url = ResolveTicketImageUrl(dbImg);
+            if (string.IsNullOrEmpty(url))
+            {
+                return "<span class='text-muted' style='font-size: 0.85rem;'>-</span>";
+            }
+            return $"<img src='{url}' style='width: 44px; height: 44px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 1px solid var(--border-color);' onclick='openFullscreenImage(this);' onerror=\"this.style.display='none';\" title='Click to zoom' />";
+        }
+
+        private string GetTicketImage(MySqlDataReader reader, int imageIndex)
+        {
+            string[] possibleCols;
+            if (imageIndex == 1)
+                possibleCols = new[] { "ImageURL1", "ImageURL", "Image1", "image_url1", "image_url", "ImageUrl1", "ImageUrl" };
+            else if (imageIndex == 2)
+                possibleCols = new[] { "ImageURL2", "Image2", "image_url2", "ImageUrl2" };
+            else
+                possibleCols = new[] { "ImageURL3", "Image3", "image_url3", "ImageUrl3" };
+
+            foreach (var col in possibleCols)
+            {
+                try
+                {
+                    int ordinal = reader.GetOrdinal(col);
+                    if (!reader.IsDBNull(ordinal))
+                    {
+                        string val = reader[ordinal]?.ToString();
+                        if (!string.IsNullOrWhiteSpace(val))
+                        {
+                            return val.Trim();
+                        }
+                    }
+                }
+                catch { }
+            }
+            return string.Empty;
         }
 
         protected void StatusTab_Click(object sender, EventArgs e)
@@ -269,15 +309,28 @@ namespace OFFSIDESHOP
                         {
                             if (reader.Read())
                             {
+                                int idContactReason = Convert.ToInt32(reader["Id_ContactReason"]);
+                                bool isSeller = (idContactReason == 3);
+                                bool isRefundOrExchange = (idContactReason == 2);
+                                bool reqOrder = Convert.ToBoolean(reader["Requires_Order"]);
+                                bool reqImages = Convert.ToBoolean(reader["Requires_Images"]);
+                                int status = Convert.ToInt32(reader["Status"]);
+
+                                string rawImg1 = GetTicketImage(reader, 1);
+                                string rawImg2 = GetTicketImage(reader, 2);
+                                string rawImg3 = GetTicketImage(reader, 3);
+
                                 ViewState["ActiveTicketId"] = ticketId;
-                                ViewState["ActiveRequiresImages"] = Convert.ToBoolean(reader["Requires_Images"]);
+                                ViewState["ActiveContactReasonId"] = idContactReason;
+                                ViewState["ActiveIsSeller"] = isSeller;
+                                ViewState["ActiveRequiresImages"] = reqImages;
                                 ViewState["ActiveUserId"] = reader["Id_User"];
                                 ViewState["ActiveProposedPrice"] = reader["Proposed_Price"];
                                 ViewState["ActiveItemCondition"] = reader["Item_Condition"];
                                 ViewState["ActiveDescription"] = reader["Message_Body"];
-                                ViewState["ActiveImage1"] = reader["ImageURL1"];
-                                ViewState["ActiveImage2"] = reader["ImageURL2"];
-                                ViewState["ActiveImage3"] = reader["ImageURL3"];
+                                ViewState["ActiveImage1"] = rawImg1;
+                                ViewState["ActiveImage2"] = rawImg2;
+                                ViewState["ActiveImage3"] = rawImg3;
 
                                 litModalTicketId.Text = reader["Id_Ticket"].ToString();
                                 litModalUserEmail.Text = reader["User_Email"].ToString();
@@ -288,63 +341,104 @@ namespace OFFSIDESHOP
                                 txtAdminNotes.Text = reader["Admin_Notes"] != DBNull.Value ? reader["Admin_Notes"].ToString() : "";
                                 lblModalError.Visible = false;
 
-                                bool reqOrder = Convert.ToBoolean(reader["Requires_Order"]);
-                                bool reqImages = Convert.ToBoolean(reader["Requires_Images"]);
-                                int status = Convert.ToInt32(reader["Status"]);
-
-                                // Dynamic panels configuration
+                                // 1. Dynamic Panel: Order ID (for Reason 1, 2, or any Requires_Order)
                                 pnlModalOrder.Visible = reqOrder;
                                 if (reqOrder)
                                 {
                                     litModalOrderId.Text = reader["Id_Order"] != DBNull.Value ? reader["Id_Order"].ToString() : "N/A";
                                 }
 
-                                pnlModalSeller.Visible = reqImages;
-                                if (reqImages)
+                                // 2. Dynamic Panel: Consignment Info (Price & Condition - ONLY for Reason 3: Sell Jersey)
+                                pnlModalSeller.Visible = isSeller;
+                                if (isSeller)
                                 {
                                     litModalProposedPrice.Text = reader["Proposed_Price"] != DBNull.Value ? Convert.ToDecimal(reader["Proposed_Price"]).ToString("F2") : "0.00";
                                     litModalItemCondition.Text = reader["Item_Condition"] != DBNull.Value ? reader["Item_Condition"].ToString() : "Unknown";
+                                }
 
-                                    string path = "~/assets/uploads/tickets/";
+                                // 3. Dynamic Panel: Images Gallery (for Reason 2 Refund/Exchange, Reason 3 Seller, or any ticket with images)
+                                string url1 = ResolveTicketImageUrl(rawImg1);
+                                string url2 = ResolveTicketImageUrl(rawImg2);
+                                string url3 = ResolveTicketImageUrl(rawImg3);
 
-                                    if (reader["ImageURL1"] != DBNull.Value && !string.IsNullOrEmpty(reader["ImageURL1"].ToString()))
+                                bool has1 = !string.IsNullOrEmpty(url1);
+                                bool has2 = !string.IsNullOrEmpty(url2);
+                                bool has3 = !string.IsNullOrEmpty(url3);
+                                bool hasAnyImage = has1 || has2 || has3;
+
+                                if (isRefundOrExchange)
+                                {
+                                    litModalImagesTitle.Text = isSpanish ? "Evidencia Fotográfica del Problema" : "Photographic Evidence of the Issue";
+                                }
+                                else if (isSeller)
+                                {
+                                    litModalImagesTitle.Text = isSpanish ? "Fotos de la Camiseta a Vender" : "Jersey Proof Photos";
+                                }
+                                else
+                                {
+                                    litModalImagesTitle.Text = isSpanish ? "Imágenes Adjuntas" : "Attached Proof Images";
+                                }
+
+                                if (hasAnyImage)
+                                {
+                                    pnlModalImages.Visible = true;
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.Append("<div class='row mb-0'>");
+
+                                    string fullscreenText = GetGlobalResourceObject("Strings", "Admin_Seller_ModalFullscreen")?.ToString() ?? "Full Screen";
+
+                                    if (has1)
                                     {
-                                        imgModal1.Visible = true;
-                                        imgModal1.ImageUrl = path + reader["ImageURL1"].ToString();
-                                    }
-                                    else
-                                    {
-                                        imgModal1.Visible = false;
+                                        sb.Append("<div class='col-md-4 text-center mb-2'>");
+                                        sb.Append($"<img src='{url1}' class='img-fluid rounded border zoom-effect' style='height: 145px; object-fit: cover; width: 100%; cursor: pointer;' onclick='openFullscreenImage(this);' title='Click to zoom' onerror=\"this.onerror=null; this.src='assets/img/default-product.jpg';\" />");
+                                        sb.Append($"<button type='button' class='btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold' onclick='openFullscreenImage(this.previousElementSibling);'>");
+                                        sb.Append($"<i class='fas fa-expand-arrows-alt'></i> {fullscreenText}</button>");
+                                        sb.Append("</div>");
                                     }
 
-                                    if (reader["ImageURL2"] != DBNull.Value && !string.IsNullOrEmpty(reader["ImageURL2"].ToString()))
+                                    if (has2)
                                     {
-                                        imgModal2.Visible = true;
-                                        imgModal2.ImageUrl = path + reader["ImageURL2"].ToString();
-                                    }
-                                    else
-                                    {
-                                        imgModal2.Visible = false;
-                                    }
-
-                                    if (reader["ImageURL3"] != DBNull.Value && !string.IsNullOrEmpty(reader["ImageURL3"].ToString()))
-                                    {
-                                        imgModal3.Visible = true;
-                                        imgModal3.ImageUrl = path + reader["ImageURL3"].ToString();
-                                    }
-                                    else
-                                    {
-                                        imgModal3.Visible = false;
+                                        sb.Append("<div class='col-md-4 text-center mb-2'>");
+                                        sb.Append($"<img src='{url2}' class='img-fluid rounded border zoom-effect' style='height: 145px; object-fit: cover; width: 100%; cursor: pointer;' onclick='openFullscreenImage(this);' title='Click to zoom' onerror=\"this.onerror=null; this.src='assets/img/default-product.jpg';\" />");
+                                        sb.Append($"<button type='button' class='btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold' onclick='openFullscreenImage(this.previousElementSibling);'>");
+                                        sb.Append($"<i class='fas fa-expand-arrows-alt'></i> {fullscreenText}</button>");
+                                        sb.Append("</div>");
                                     }
 
-                                    // Display Catalog mapping if request is not yet resolved/denied
-                                    pnlModalCatalogMapping.Visible = (status == 1 || status == 2);
+                                    if (has3)
+                                    {
+                                        sb.Append("<div class='col-md-4 text-center mb-2'>");
+                                        sb.Append($"<img src='{url3}' class='img-fluid rounded border zoom-effect' style='height: 145px; object-fit: cover; width: 100%; cursor: pointer;' onclick='openFullscreenImage(this);' title='Click to zoom' onerror=\"this.onerror=null; this.src='assets/img/default-product.jpg';\" />");
+                                        sb.Append($"<button type='button' class='btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold' onclick='openFullscreenImage(this.previousElementSibling);'>");
+                                        sb.Append($"<i class='fas fa-expand-arrows-alt'></i> {fullscreenText}</button>");
+                                        sb.Append("</div>");
+                                    }
+
+                                    sb.Append("</div>");
+                                    litModalImagesGallery.Text = sb.ToString();
+                                }
+                                else if (reqImages)
+                                {
+                                    pnlModalImages.Visible = true;
+                                    string noImagesMsg = isSpanish ? "No se adjuntaron imágenes en esta solicitud." : "No proof images were attached to this request.";
+                                    litModalImagesGallery.Text = $"<p class='text-muted small font-italic mb-0'>{noImagesMsg}</p>";
+                                }
+                                else
+                                {
+                                    pnlModalImages.Visible = false;
+                                    litModalImagesGallery.Text = "";
+                                }
+
+                                // 4. Dynamic Panel: Catalog Mapping (ONLY for Reason 3: Sell Jersey and when pending/under review)
+                                pnlModalCatalogMapping.Visible = (isSeller && (status == 1 || status == 2));
+                                if (pnlModalCatalogMapping.Visible)
+                                {
                                     txtNewProductName.Text = reader["Subject"].ToString();
                                     txtYear.Text = "";
                                     ddlBrand.SelectedIndex = 0;
                                     ddlLeague.SelectedIndex = 0;
                                     ddlTeam.Items.Clear();
-                                    ddlTeam.Items.Add(new ListItem("-- Select Team --", ""));
+                                    ddlTeam.Items.Add(new ListItem(isSpanish ? "-- Seleccionar Equipo --" : "-- Select Team --", ""));
                                 }
 
                                 // Configuration of buttons based on state
@@ -360,15 +454,15 @@ namespace OFFSIDESHOP
                                     btnReject.Visible = true;
                                     txtAdminNotes.Enabled = true;
 
-                                    if (reqImages)
+                                    if (isSeller)
                                     {
-                                        btnApprove.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalApprove")?.ToString() ?? "Approve & Publish Catalog";
+                                        btnApprove.Text = isSpanish ? "Aprobar y Publicar en Catálogo" : "Approve & Publish Catalog";
                                     }
                                     else
                                     {
-                                        btnApprove.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalSaveResolution")?.ToString() ?? "Save Resolution";
+                                        btnApprove.Text = isSpanish ? "Aceptar / Resolver Solicitud" : "Accept / Resolve Request";
                                     }
-                                    btnReject.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalReject")?.ToString() ?? "Reject & Deny Request";
+                                    btnReject.Text = isSpanish ? "Rechazar Solicitud" : "Reject & Deny Request";
                                 }
 
                                 btnCancel.Text = GetGlobalResourceObject("Strings", "Admin_Seller_ModalClose")?.ToString() ?? "Close Details";
@@ -444,7 +538,7 @@ namespace OFFSIDESHOP
         {
             if (ViewState["ActiveTicketId"] == null) return;
             int ticketId = Convert.ToInt32(ViewState["ActiveTicketId"]);
-            bool isSeller = ViewState["ActiveRequiresImages"] != null ? Convert.ToBoolean(ViewState["ActiveRequiresImages"]) : false;
+            bool isSeller = ViewState["ActiveIsSeller"] != null ? Convert.ToBoolean(ViewState["ActiveIsSeller"]) : false;
             string notes = txtAdminNotes.Text.Trim();
 
             if (isSeller)
@@ -642,6 +736,29 @@ namespace OFFSIDESHOP
         {
             string titleKey = icon == "error" ? "Alert_ErrorTitle" : "Alert_WarningTitle";
             ShowAlert(titleKey, textKey, icon);
+        }
+
+        public string ResolveTicketImageUrl(object dbVal)
+        {
+            if (dbVal == null || dbVal == DBNull.Value) return string.Empty;
+            string val = dbVal.ToString().Trim();
+            if (string.IsNullOrEmpty(val)) return string.Empty;
+
+            if (val.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || 
+                val.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                return val;
+            }
+
+            string clean = val.TrimStart('~', '/');
+
+            if (clean.StartsWith("assets/", StringComparison.OrdinalIgnoreCase) || 
+                clean.StartsWith("images/", StringComparison.OrdinalIgnoreCase))
+            {
+                return ResolveUrl("~/" + clean);
+            }
+
+            return ResolveUrl("~/assets/uploads/tickets/" + clean);
         }
 
         // Sidebar Redirections

@@ -13,6 +13,11 @@ namespace OFFSIDESHOP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Page.Form != null)
+            {
+                Page.Form.Enctype = "multipart/form-data";
+            }
+
             phNavbarGuest.Visible = false;
             phNavbarUser.Visible = false;
             phNavbarAdmin.Visible = false;
@@ -147,19 +152,89 @@ namespace OFFSIDESHOP
             }
         }
 
+        private void LoadUserOrders()
+        {
+            ddlOrders.Items.Clear();
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+
+            if (Session["Id_User"] == null)
+            {
+                ddlOrders.Items.Add(new System.Web.UI.WebControls.ListItem(isSpanish ? "Inicia sesión para ver tus pedidos" : "Log in to view your orders", ""));
+                return;
+            }
+
+            int userId = Convert.ToInt32(Session["Id_User"]);
+            string statusCol = isSpanish ? "s.Status_Name_es" : "s.Status_Name";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = $@"SELECT o.Id_Order, o.OrderDate, o.Total, {statusCol} AS Status_Name 
+                                  FROM orders o
+                                  INNER JOIN order_statuses s ON o.Id_Status = s.Id_Status
+                                  WHERE o.Id_User = @UserId
+                                  ORDER BY o.Id_Order DESC";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    try
+                    {
+                        conn.Open();
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            bool hasOrders = false;
+                            while (reader.Read())
+                            {
+                                hasOrders = true;
+                                int orderId = Convert.ToInt32(reader["Id_Order"]);
+                                DateTime orderDate = Convert.ToDateTime(reader["OrderDate"]);
+                                decimal total = Convert.ToDecimal(reader["Total"]);
+                                string statusName = reader["Status_Name"].ToString();
+
+                                string displayText = $"#{orderId} - {orderDate:yyyy-MM-dd} (${total:F2}) [{statusName}]";
+                                ddlOrders.Items.Add(new System.Web.UI.WebControls.ListItem(displayText, orderId.ToString()));
+                            }
+
+                            if (hasOrders)
+                            {
+                                string selectPlaceholder = AlertHelper.GetResourceString(this, "Contact_SelectOrder");
+                                if (string.IsNullOrEmpty(selectPlaceholder) || selectPlaceholder.StartsWith("[Resource"))
+                                    selectPlaceholder = isSpanish ? "-- Selecciona tu Pedido --" : "-- Select your Order --";
+                                ddlOrders.Items.Insert(0, new System.Web.UI.WebControls.ListItem(selectPlaceholder, ""));
+                            }
+                            else
+                            {
+                                string noOrdersMsg = AlertHelper.GetResourceString(this, "Contact_NoOrdersFound");
+                                if (string.IsNullOrEmpty(noOrdersMsg) || noOrdersMsg.StartsWith("[Resource"))
+                                    noOrdersMsg = isSpanish ? "No tienes pedidos registrados en tu cuenta" : "No orders found in your account";
+                                ddlOrders.Items.Add(new System.Web.UI.WebControls.ListItem(noOrdersMsg, ""));
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ddlOrders.Items.Add(new System.Web.UI.WebControls.ListItem(isSpanish ? "Error al cargar pedidos" : "Error loading orders", ""));
+                    }
+                }
+            }
+        }
+
         protected void ddlReason_SelectedIndexChanged(object sender, EventArgs e)
         {
             pnlOrderIssue.Visible = false;
+            pnlRefundEvidence.Visible = false;
             pnlSellJersey.Visible = false;
 
             if (string.IsNullOrEmpty(ddlReason.SelectedValue)) return;
+
+            int idReason = Convert.ToInt32(ddlReason.SelectedValue);
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 string query = "SELECT Requires_Order, Requires_Images FROM contact_reasons WHERE Id_ContactReason = @Id";
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", ddlReason.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Id", idReason);
                     try
                     {
                         conn.Open();
@@ -171,7 +246,28 @@ namespace OFFSIDESHOP
                                 bool reqImages = Convert.ToBoolean(reader["Requires_Images"]);
 
                                 pnlOrderIssue.Visible = reqOrder;
-                                pnlSellJersey.Visible = reqImages;
+                                if (reqOrder)
+                                {
+                                    LoadUserOrders();
+                                }
+
+                                if (idReason == 3)
+                                {
+                                    // Solicitud de Venta de Camiseta Retro (Consignación)
+                                    pnlSellJersey.Visible = reqImages;
+                                    pnlRefundEvidence.Visible = false;
+                                }
+                                else if (idReason == 2 || (reqImages && reqOrder))
+                                {
+                                    // Solicitud de Reembolso o Cambio que requiere imágenes de prueba
+                                    pnlSellJersey.Visible = false;
+                                    pnlRefundEvidence.Visible = reqImages;
+                                }
+                                else
+                                {
+                                    pnlSellJersey.Visible = false;
+                                    pnlRefundEvidence.Visible = false;
+                                }
                             }
                         }
                     }
@@ -182,7 +278,7 @@ namespace OFFSIDESHOP
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            // 1. VALIDACIÃ“N MAESTRA DE SESIÃ“N COACTIVA
+            // 1. VALIDACIÓN MAESTRA DE SESIÓN COACTIVA
             if (Session["Id_User"] == null)
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_LoginRequiredTitle", "Alert_Contact_LoginRequiredText", "warning"), true);
@@ -219,44 +315,113 @@ namespace OFFSIDESHOP
 
             if (pnlOrderIssue.Visible)
             {
-                // CORREGIDO: parsedOrderId reemplaza a breweryId
-                if (string.IsNullOrEmpty(txtOrderId.Text) || !int.TryParse(txtOrderId.Text, out int parsedOrderId) || parsedOrderId <= 0)
+                if (string.IsNullOrEmpty(ddlOrders.SelectedValue) || !int.TryParse(ddlOrders.SelectedValue, out int parsedOrderId) || parsedOrderId <= 0)
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_InvalidOrderId", "warning"), true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_SelectOrderRequired", "warning"), true);
                     return;
                 }
+
+                // Validación de seguridad estricta: Verificar en base de datos que el pedido pertenezca al usuario en sesión
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    string verifyQuery = "SELECT COUNT(1) FROM orders WHERE Id_Order = @IdOrder AND Id_User = @UserId";
+                    using (MySqlCommand cmdVerify = new MySqlCommand(verifyQuery, conn))
+                    {
+                        cmdVerify.Parameters.AddWithValue("@IdOrder", parsedOrderId);
+                        cmdVerify.Parameters.AddWithValue("@UserId", idUser);
+
+                        try
+                        {
+                            conn.Open();
+                            int count = Convert.ToInt32(cmdVerify.ExecuteScalar());
+                            if (count == 0)
+                            {
+                                ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_OrderNotOwnedText", "error"), true);
+                                return;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", ex.Message, "error"), true);
+                            return;
+                        }
+                    }
+                }
+
                 idOrder = parsedOrderId;
+            }
+
+            if (pnlRefundEvidence.Visible)
+            {
+                // Validación obligatoria de imágenes de prueba para Reembolso o Cambio
+                if (!fileRefundImages.HasFiles)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_RefundImageRequired", "warning"), true);
+                    return;
+                }
+
+                var uploadedRefundFiles = fileRefundImages.PostedFiles;
+                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".webp" };
+                int maxFileSizeBytes = 2 * 1024 * 1024; // 2 Megabytes
+
+                foreach (var file in uploadedRefundFiles)
+                {
+                    if (file.ContentLength > 0)
+                    {
+                        string ext = Path.GetExtension(file.FileName).ToLower();
+                        if (Array.IndexOf(allowedExtensions, ext) == -1)
+                        {
+                            string invalidFormatMsg = string.Format(AlertHelper.GetResourceString(this, "Alert_Contact_InvalidFormatText"), file.FileName);
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_InvalidFormatTitle", invalidFormatMsg, "error"), true);
+                            return;
+                        }
+
+                        if (file.ContentLength > maxFileSizeBytes)
+                        {
+                            string fileTooLargeMsg = string.Format(AlertHelper.GetResourceString(this, "Alert_Contact_FileTooLargeText"), file.FileName);
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_FileTooLargeTitle", fileTooLargeMsg, "error"), true);
+                            return;
+                        }
+                    }
+                }
+
+                string uploadPath = Server.MapPath("~/assets/uploads/tickets/");
+                if (!Directory.Exists(uploadPath)) Directory.CreateDirectory(uploadPath);
+
+                if (uploadedRefundFiles.Count > 0) { img1 = Guid.NewGuid().ToString("N") + Path.GetExtension(uploadedRefundFiles[0].FileName); uploadedRefundFiles[0].SaveAs(uploadPath + img1); }
+                if (uploadedRefundFiles.Count > 1) { img2 = Guid.NewGuid().ToString("N") + Path.GetExtension(uploadedRefundFiles[1].FileName); uploadedRefundFiles[1].SaveAs(uploadPath + img2); }
+                if (uploadedRefundFiles.Count > 2) { img3 = Guid.NewGuid().ToString("N") + Path.GetExtension(uploadedRefundFiles[2].FileName); uploadedRefundFiles[2].SaveAs(uploadPath + img3); }
             }
 
             if (pnlSellJersey.Visible)
             {
-                // A) ValidaciÃ³n de Presencia de Campos Obligatorios
+                // A) Validación de Presencia de Campos Obligatorios
                 if (string.IsNullOrEmpty(txtCondition.Text) || string.IsNullOrEmpty(txtPrice.Text) || string.IsNullOrEmpty(ddlSize.SelectedValue))
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_FieldsRequired", "warning"), true);
                     return;
                 }
 
-                // B) ValidaciÃ³n Estricta de Precio (CORREGIDO: parsedPrice reemplaza a priceVal)
+                // B) Validación Estricta de Precio
                 if (!decimal.TryParse(txtPrice.Text, out decimal parsedPrice) || parsedPrice <= 0)
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_InvalidPriceTitle", "Alert_Contact_InvalidPriceText", "error"), true);
                     return;
                 }
 
-                // C) ValidaciÃ³n Estricta de Escala NumÃ©rica de CondiciÃ³n (CORREGIDO: parsedCondition reemplaza a conditionVal)
+                // C) Validación Estricta de Escala Numérica de Condición
                 if (!int.TryParse(txtCondition.Text, out int parsedCondition) || parsedCondition < 1 || parsedCondition > 10)
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_InvalidConditionTitle", "Alert_Contact_InvalidConditionText", "error"), true);
                     return;
                 }
 
-                // D) AsignaciÃ³n de Datos Validados Seguros
+                // D) Asignación de Datos Validados Seguros
                 propPrice = parsedPrice;
                 condition = parsedCondition.ToString();
                 size = ddlSize.SelectedValue;
 
-                // E) ValidaciÃ³n de ImÃ¡genes Corporativa
+                // E) Validación de Imágenes Corporativa
                 if (!fileImages.HasFiles)
                 {
                     ScriptManager.RegisterStartupScript(this, GetType(), "alert", AlertHelper.GetSafeAlertScript(this, "Alert_ErrorTitle", "Alert_Contact_ImageRequired", "warning"), true);
@@ -296,7 +461,7 @@ namespace OFFSIDESHOP
                 if (uploadedFiles.Count > 2) { img3 = Guid.NewGuid().ToString("N") + Path.GetExtension(uploadedFiles[2].FileName); uploadedFiles[2].SaveAs(uploadPath + img3); }
             }
 
-            // 3. INSERCIÃ“N PARAMETRIZADA INMUNE A INYECCIÃ“N SQL
+            // 3. INSERCIÓN PARAMETRIZADA INMUNE A INYECCIÓN SQL
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 string query = @"INSERT INTO contact_tickets 
@@ -323,15 +488,16 @@ namespace OFFSIDESHOP
                         conn.Open();
                         cmd.ExecuteNonQuery();
 
-                        // Limpiar formulario tras Ã©xito transaccional
+                        // Limpiar formulario tras éxito transaccional
                         ddlReason.SelectedIndex = 0;
                         txtSubject.Text = "";
                         txtMessage.Text = "";
-                        txtOrderId.Text = "";
+                        ddlOrders.Items.Clear();
                         txtCondition.Text = "";
                         txtPrice.Text = "";
                         if (ddlSize.Items.Count > 0) ddlSize.SelectedIndex = 0;
                         pnlOrderIssue.Visible = false;
+                        pnlRefundEvidence.Visible = false;
                         pnlSellJersey.Visible = false;
 
                         ScriptManager.RegisterStartupScript(this, GetType(), "success", AlertHelper.GetSafeAlertScript(this, "Alert_Contact_SuccessTitle", "Alert_Contact_SuccessText", "success"), true);

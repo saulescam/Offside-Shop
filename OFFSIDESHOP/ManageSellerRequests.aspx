@@ -499,7 +499,12 @@ body.dark-mode .nav-tabs-custom .nav-link.active * {
                                         OnRowDataBound="gvTickets_RowDataBound"
                                         EmptyDataText="<%$ Resources:Strings, Admin_Seller_EmptyTickets %>">
                                         <Columns>
-                                            <asp:BoundField DataField="Id_Ticket" HeaderText="<%$ Resources:Strings, Admin_Seller_ColTicketId %>" ItemStyle-Width="90px" />
+                                            <asp:BoundField DataField="Id_Ticket" HeaderText="<%$ Resources:Strings, Admin_Seller_ColTicketId %>" ItemStyle-Width="80px" />
+                                            <asp:TemplateField HeaderText="<%$ Resources:Strings, Admin_Seller_ColProof %>" ItemStyle-Width="70px">
+                                                <ItemTemplate>
+                                                    <%# GetThumbnailHtml(Eval("ImageURL1")) %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:BoundField DataField="Created_At" HeaderText="<%$ Resources:Strings, Admin_Seller_ColDateReq %>" DataFormatString="{0:yyyy-MM-dd HH:mm}" />
                                             <asp:BoundField DataField="User_Email" HeaderText="<%$ Resources:Strings, Admin_Seller_ColEmail %>" ItemStyle-HorizontalAlign="Left" />
                                             <asp:BoundField DataField="Reason_Name" HeaderText="<%$ Resources:Strings, Admin_Seller_ColReason %>" ItemStyle-Font-Bold="true" />
@@ -649,83 +654,68 @@ body.dark-mode .nav-tabs-custom .nav-link.active * {
                                     </p>
                                 </asp:Panel>
 
-                                <!-- Dynamic conditional content: Seller Request / Reventa -->
+                                <!-- Dynamic conditional content: Seller Request Consignment (ID 3 only) -->
                                 <asp:Panel ID="pnlModalSeller" runat="server" Visible="false" Style="background: var(--bg-panel); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mb-3 p-3 rounded text-left">
                                     <h6 class="text-warning font-weight-bold mb-3 text-left" style="text-align: left;"><i class="fas fa-hand-holding-usd mr-2"></i>
                                         <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalConsignment %>" /></h6>
 
-                                    <div class="row mb-3 text-left" style="color: var(--text-main) !important; text-align: left;">
+                                    <div class="row mb-0 text-left" style="color: var(--text-main) !important; text-align: left;">
                                         <div class="col-md-6 text-left" style="text-align: left;">
                                             <strong>
-                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalPrice %>" /></strong>
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalPrice %>" />:</strong>
                                             <span class="font-weight-bold text-success" style="font-size: 1.05rem;">$<asp:Literal ID="litModalProposedPrice" runat="server" />
                                             </span>
                                         </div>
                                         <div class="col-md-6 text-left" style="text-align: left;">
                                             <strong>
-                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalCondition %>" /></strong>
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalCondition %>" />:</strong>
                                             <span class="badge bg-warning text-dark font-weight-bold px-2 py-1">
                                                 <asp:Literal ID="litModalItemCondition" runat="server" />
                                             </span>
                                         </div>
                                     </div>
+                                </asp:Panel>
 
-                                    <!-- Gallery with zoom-on-hover effect -->
-                                    <small class="text-muted d-block text-uppercase font-weight-bold mb-2 text-left" style="text-align: left;">
-                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalProofImages %>" /></small>
-                                    <div class="row mb-4">
-                                        <div class="col-md-4 text-center">
-                                            <asp:Image ID="imgModal1" runat="server" CssClass="img-fluid rounded border zoom-effect" Style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
-                                            <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
-                                                <i class="fas fa-expand-arrows-alt"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalFullscreen %>" />
-                                            </button>
+                                <!-- Dynamic conditional content: Proof / Evidence Images (ID 2 Refund/Exchange & ID 3 Seller) -->
+                                <asp:Panel ID="pnlModalImages" runat="server" Visible="false" Style="background: var(--bg-panel); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mb-3 p-3 rounded text-left">
+                                    <h6 class="text-warning font-weight-bold mb-3 text-left" style="text-align: left;">
+                                        <i class="fas fa-images mr-2"></i>
+                                        <asp:Literal ID="litModalImagesTitle" runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalProofImages %>" />
+                                    </h6>
+                                    <asp:Literal ID="litModalImagesGallery" runat="server" />
+                                </asp:Panel>
+
+                                <!-- Catalog mapping configuration options (ID 3 Seller Only) -->
+                                <asp:Panel ID="pnlModalCatalogMapping" runat="server" Visible="false" Style="background: var(--bg-card); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mt-3 p-3 rounded text-left">
+                                    <h6 class="text-success font-weight-bold mb-3 text-left" style="text-align: left;"><i class="fas fa-tags mr-2"></i>
+                                        <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalCatalogParams %>" /></h6>
+                                    <div class="form-group text-left" style="text-align: left;">
+                                        <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
+                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalDisplayName %>" /></label>
+                                        <asp:TextBox ID="txtNewProductName" runat="server" CssClass="form-control form-control-sm font-weight-bold" placeholder="e.g. 1998 France Cup Final Jersey" />
+                                    </div>
+                                    <div class="row text-left" style="text-align: left;">
+                                        <div class="col-md-3 form-group text-left" style="text-align: left;">
+                                            <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalBrandMap %>" /></label>
+                                            <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-control form-control-sm" />
                                         </div>
-                                        <div class="col-md-4 text-center">
-                                            <asp:Image ID="imgModal2" runat="server" CssClass="img-fluid rounded border zoom-effect" Style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
-                                            <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
-                                                <i class="fas fa-expand-arrows-alt"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalFullscreen %>" />
-                                            </button>
+                                        <div class="col-md-3 form-group text-left" style="text-align: left;">
+                                            <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalLeagueMap %>" /></label>
+                                            <asp:DropDownList ID="ddlLeague" runat="server" CssClass="form-control form-control-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlLeague_SelectedIndexChanged" />
                                         </div>
-                                        <div class="col-md-4 text-center">
-                                            <asp:Image ID="imgModal3" runat="server" CssClass="img-fluid rounded border zoom-effect" Style="height: 140px; object-fit: cover; width: 100%; cursor: pointer;" onclick="openFullscreenImage(this);" />
-                                            <button type="button" class="btn btn-sm btn-outline-warning mt-2 w-100 font-weight-bold" onclick="openFullscreenImage(this.previousElementSibling);">
-                                                <i class="fas fa-expand-arrows-alt"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalFullscreen %>" />
-                                            </button>
+                                        <div class="col-md-3 form-group text-left" style="text-align: left;">
+                                            <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalTeamMap %>" /></label>
+                                            <asp:DropDownList ID="ddlTeam" runat="server" CssClass="form-control form-control-sm" />
+                                        </div>
+                                        <div class="col-md-3 form-group text-left" style="text-align: left;">
+                                            <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
+                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalYear %>" /></label>
+                                            <asp:TextBox ID="txtYear" runat="server" CssClass="form-control form-control-sm" MaxLength="4" placeholder="e.g. 1998" />
                                         </div>
                                     </div>
-
-                                    <!-- Catalog mapping configuration options -->
-                                    <asp:Panel ID="pnlModalCatalogMapping" runat="server" Style="background: var(--bg-card); border: 1px solid var(--border-color) !important; color: var(--text-main) !important;" class="mt-3 p-3 rounded text-left">
-                                        <h6 class="text-success font-weight-bold mb-3 text-left" style="text-align: left;"><i class="fas fa-tags mr-2"></i>
-                                            <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalCatalogParams %>" /></h6>
-                                        <div class="form-group text-left" style="text-align: left;">
-                                            <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
-                                                <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalDisplayName %>" /></label>
-                                            <asp:TextBox ID="txtNewProductName" runat="server" CssClass="form-control form-control-sm font-weight-bold" placeholder="e.g. 1998 France Cup Final Jersey" />
-                                        </div>
-                                        <div class="row text-left" style="text-align: left;">
-                                            <div class="col-md-3 form-group text-left" style="text-align: left;">
-                                                <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
-                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalBrandMap %>" /></label>
-                                                <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-control form-control-sm" />
-                                            </div>
-                                            <div class="col-md-3 form-group text-left" style="text-align: left;">
-                                                <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
-                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalLeagueMap %>" /></label>
-                                                <asp:DropDownList ID="ddlLeague" runat="server" CssClass="form-control form-control-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlLeague_SelectedIndexChanged" />
-                                            </div>
-                                            <div class="col-md-3 form-group text-left" style="text-align: left;">
-                                                <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
-                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalTeamMap %>" /></label>
-                                                <asp:DropDownList ID="ddlTeam" runat="server" CssClass="form-control form-control-sm" />
-                                            </div>
-                                            <div class="col-md-3 form-group text-left" style="text-align: left;">
-                                                <label class="small text-muted font-weight-bold mb-1 text-left" style="text-align: left;">
-                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Seller_ModalYear %>" /></label>
-                                                <asp:TextBox ID="txtYear" runat="server" CssClass="form-control form-control-sm" MaxLength="4" placeholder="e.g. 1998" />
-                                            </div>
-                                        </div>
-                                    </asp:Panel>
                                 </asp:Panel>
 
                                 <!-- Resolution input: Admin comments -->

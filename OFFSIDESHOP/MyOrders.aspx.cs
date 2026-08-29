@@ -138,11 +138,35 @@ namespace OFFSIDESHOP
 
                             if (dtOrders.Rows.Count > 0)
                             {
+                                int itemsPerPage = 6;
+                                int totalRowsCount = dtOrders.Rows.Count;
+                                int maxTotalPages = (int)Math.Ceiling((double)totalRowsCount / itemsPerPage);
+
+                                int currentPage = ViewState["OrdersCurrentPage"] != null ? Convert.ToInt32(ViewState["OrdersCurrentPage"]) : 0;
+                                if (currentPage >= maxTotalPages) currentPage = maxTotalPages - 1;
+                                if (currentPage < 0) currentPage = 0;
+                                ViewState["OrdersCurrentPage"] = currentPage;
+
+                                lblPageCurrent.Text = (currentPage + 1).ToString();
+                                lblPageTotal.Text = maxTotalPages.ToString();
+                                lnkPrevPage.Enabled = (currentPage > 0);
+                                lnkNextPage.Enabled = (currentPage < maxTotalPages - 1);
+                                pnlPagination.Visible = (maxTotalPages > 1);
+
+                                DataTable dtPaged = dtOrders.Clone();
+                                int startIndex = currentPage * itemsPerPage;
+                                int endIndex = Math.Min(startIndex + itemsPerPage, totalRowsCount);
+
+                                for (int i = startIndex; i < endIndex; i++)
+                                {
+                                    dtPaged.ImportRow(dtOrders.Rows[i]);
+                                }
+
                                 // Vinculamos el evento para cargar los productos de cada orden
                                 rptOrders.ItemDataBound -= rptOrders_ItemDataBound;
                                 rptOrders.ItemDataBound += new RepeaterItemEventHandler(rptOrders_ItemDataBound);
 
-                                rptOrders.DataSource = dtOrders;
+                                rptOrders.DataSource = dtPaged;
                                 rptOrders.DataBind();
 
                                 lblNoOrders.Visible = false;
@@ -153,6 +177,7 @@ namespace OFFSIDESHOP
                                 lblNoOrders.Text = GetGlobalResourceObject("Strings", "MyOrders_NoOrders")?.ToString() ?? "You haven't placed any orders yet!";
                                 lblNoOrders.Visible = true;
                                 rptOrders.Visible = false;
+                                pnlPagination.Visible = false;
                             }
                         }
                         catch (Exception ex)
@@ -162,6 +187,23 @@ namespace OFFSIDESHOP
                     }
                 }
             }
+        }
+
+        protected void lnkPrevPage_Click(object sender, EventArgs e)
+        {
+            int currentPage = ViewState["OrdersCurrentPage"] != null ? Convert.ToInt32(ViewState["OrdersCurrentPage"]) : 0;
+            if (currentPage > 0)
+            {
+                ViewState["OrdersCurrentPage"] = currentPage - 1;
+                LoadOrderHistory();
+            }
+        }
+
+        protected void lnkNextPage_Click(object sender, EventArgs e)
+        {
+            int currentPage = ViewState["OrdersCurrentPage"] != null ? Convert.ToInt32(ViewState["OrdersCurrentPage"]) : 0;
+            ViewState["OrdersCurrentPage"] = currentPage + 1;
+            LoadOrderHistory();
         }
 
         // CONTROLADOR PARA CARGAR LOS PRODUCTOS DE CADA COMPRA

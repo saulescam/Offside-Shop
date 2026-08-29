@@ -726,6 +726,21 @@
   <data name="Contact_UploadDesc" xml:space="preserve">
     <value>Max. 3 images allowed. Supported formats: JPG, PNG, WEBP. Max. file size: 2MB.</value>
   </data>
+  <data name="Contact_RefundEvidenceTitle" xml:space="preserve">
+    <value>Photographic Evidence Required for Returns &amp; Exchanges</value>
+  </data>
+  <data name="Contact_RefundEvidenceDesc" xml:space="preserve">
+    <value>To process your return or exchange request as quickly and fairly as possible, you must attach clear photos showing the received product. This allows our Quality &amp; Warehouse team to verify the factory condition, tag authenticity, and the reported flaw, sizing issue, or transit damage before approving the case.</value>
+  </data>
+  <data name="Contact_RefundEvidenceTip1" xml:space="preserve">
+    <value>Photo showing the full jersey (front/back with tags attached if applicable).</value>
+  </data>
+  <data name="Contact_RefundEvidenceTip2" xml:space="preserve">
+    <value>Close-up photo highlighting the specific defect, incorrect size label, or damage.</value>
+  </data>
+  <data name="Alert_Contact_RefundImageRequired" xml:space="preserve">
+    <value>Photographic evidence is strictly required to process a refund or exchange request. Please upload at least one photo.</value>
+  </data>
   <data name="Contact_DetailsTitle" xml:space="preserve">
     <value>Description / Details</value>
   </data>
@@ -3692,5 +3707,20 @@
   </data>
 	<data name="Error500_ReturnButton" xml:space="preserve">
     <value>Return to Pitch</value>
+  </data>
+  <data name="Contact_SelectOrder" xml:space="preserve">
+    <value>-- Select your Order --</value>
+  </data>
+  <data name="Contact_NoOrdersFound" xml:space="preserve">
+    <value>No orders found in your account</value>
+  </data>
+  <data name="Alert_Contact_SelectOrderRequired" xml:space="preserve">
+    <value>Please select the order associated with your inquiry.</value>
+  </data>
+  <data name="Alert_Contact_OrderNotOwnedText" xml:space="preserve">
+    <value>The selected order does not belong to your account or is invalid.</value>
+  </data>
+  <data name="Admin_Seller_ColProof" xml:space="preserve">
+    <value>Proof / Image</value>
   </data>
 </root>

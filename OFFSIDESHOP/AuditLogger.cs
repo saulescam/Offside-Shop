@@ -8,7 +8,7 @@ namespace OFFSIDESHOP
 {
     public static class AuditLogger
     {
-        public static void LogActivity(string actionType, string module, string description)
+          public static void LogActivity(string actionType, string module, string description)
         {
             try
             {

@@ -39,6 +39,27 @@ namespace OFFSIDESHOP
                 LoadDataUsers();
                 LoadOrderSummary();
                 CargarDatosPerfilUsuario();
+                CheckInitialCouponLockoutState();
+            }
+        }
+
+        private void CheckInitialCouponLockoutState()
+        {
+            CouponRateLimitInfo rateLimit = GetCouponRateLimitInfo();
+            DateTime now = DateTime.UtcNow;
+            if (rateLimit != null && rateLimit.LockoutUntil.HasValue && rateLimit.LockoutUntil.Value > now)
+            {
+                bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+                TimeSpan remaining = rateLimit.LockoutUntil.Value - now;
+                int remainingMinutes = (int)Math.Ceiling(remaining.TotalMinutes);
+                string lockMsg = isSpanish
+                    ? $"<span class='text-danger font-weight-bold'><i class='fas fa-ban'></i> Función de cupones bloqueada por intentos fallidos. Intenta de nuevo en {remainingMinutes} minuto(s).</span>"
+                    : $"<span class='text-danger font-weight-bold'><i class='fas fa-ban'></i> Coupon entry is temporarily locked due to failed attempts. Try again in {remainingMinutes} minute(s).</span>";
+
+                lblCouponMessage.Text = lockMsg;
+                lblCouponMessage.Visible = true;
+                txtCouponCode.Enabled = false;
+                btnApplyCoupon.Enabled = false;
             }
         }
 
@@ -321,15 +342,121 @@ namespace OFFSIDESHOP
             return costoEnvio;
         }
 
+        private class CouponRateLimitInfo
+        {
+            public int FailedAttempts { get; set; }
+            public DateTime? LockoutUntil { get; set; }
+            public DateTime LastAttemptUtc { get; set; }
+        }
+
+        private string GetClientIpAddress()
+        {
+            string ip = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (!string.IsNullOrEmpty(ip))
+            {
+                string[] parts = ip.Split(',');
+                if (parts.Length > 0 && !string.IsNullOrWhiteSpace(parts[0]))
+                {
+                    return parts[0].Trim();
+                }
+            }
+            return Request.UserHostAddress ?? "Unknown";
+        }
+
+        private string GetCouponRateLimitKey()
+        {
+            string ip = GetClientIpAddress();
+            string userId = Session["Id_User"] != null ? Session["Id_User"].ToString() : "guest";
+            return $"CouponRL_{ip}_{userId}";
+        }
+
+        private CouponRateLimitInfo GetCouponRateLimitInfo()
+        {
+            string key = GetCouponRateLimitKey();
+            if (HttpRuntime.Cache[key] is CouponRateLimitInfo info)
+            {
+                return info;
+            }
+            return null;
+        }
+
+        private void SaveCouponRateLimitInfo(CouponRateLimitInfo info)
+        {
+            string key = GetCouponRateLimitKey();
+            HttpRuntime.Cache.Insert(key, info, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(30));
+        }
+
+        private void ResetCouponRateLimit()
+        {
+            string key = GetCouponRateLimitKey();
+            HttpRuntime.Cache.Remove(key);
+        }
+
         protected void btnApplyCoupon_Click(object sender, EventArgs e)
         {
-            string code = txtCouponCode.Text.Trim().ToUpper();
-            if (string.IsNullOrEmpty(code))
+            bool isSpanish = (Session["Language"] != null && Session["Language"].ToString().ToLower() == "es");
+
+            CouponRateLimitInfo rateLimit = GetCouponRateLimitInfo();
+            DateTime now = DateTime.UtcNow;
+
+            // 1. Verificar si está actualmente bloqueado por exceso de intentos fallidos
+            if (rateLimit != null && rateLimit.LockoutUntil.HasValue && rateLimit.LockoutUntil.Value > now)
             {
-                lblCouponMessage.Text = "<span class='text-danger'>Please enter a valid coupon code.</span>";
+                TimeSpan remaining = rateLimit.LockoutUntil.Value - now;
+                int remainingMinutes = (int)Math.Ceiling(remaining.TotalMinutes);
+                string lockMsg = isSpanish
+                    ? $"<span class='text-danger'><i class='fas fa-shield-alt'></i> Demasiados intentos fallidos. Función bloqueada. Intenta de nuevo en {remainingMinutes} minuto(s).</span>"
+                    : $"<span class='text-danger'><i class='fas fa-shield-alt'></i> Too many failed attempts. Coupon feature locked. Please try again in {remainingMinutes} minute(s).</span>";
+
+                lblCouponMessage.Text = lockMsg;
                 lblCouponMessage.Visible = true;
                 return;
             }
+
+            // 2. Control de ráfagas (Burst rate limit: mínimo 1.5s entre intentos para frenar scripts/bots automatizados)
+            if (rateLimit != null && (now - rateLimit.LastAttemptUtc).TotalSeconds < 1.5)
+            {
+                string waitMsg = isSpanish
+                    ? "<span class='text-warning'><i class='fas fa-clock'></i> Por favor, espera un momento antes de volver a ingresar un código.</span>"
+                    : "<span class='text-warning'><i class='fas fa-clock'></i> Please wait a moment before trying another code.</span>";
+
+                lblCouponMessage.Text = waitMsg;
+                lblCouponMessage.Visible = true;
+                return;
+            }
+
+            // Inicializar o actualizar tracking de intento
+            if (rateLimit == null)
+            {
+                rateLimit = new CouponRateLimitInfo { FailedAttempts = 0, LastAttemptUtc = now };
+            }
+            else
+            {
+                if (rateLimit.LockoutUntil.HasValue && rateLimit.LockoutUntil.Value <= now)
+                {
+                    rateLimit.FailedAttempts = 0;
+                    rateLimit.LockoutUntil = null;
+                }
+                rateLimit.LastAttemptUtc = now;
+            }
+
+            string rawCode = txtCouponCode.Text.Trim();
+            if (string.IsNullOrEmpty(rawCode) || rawCode.Length > 20 || !System.Text.RegularExpressions.Regex.IsMatch(rawCode, @"^[a-zA-Z0-9_-]+$"))
+            {
+                rateLimit.FailedAttempts++;
+                SaveCouponRateLimitInfo(rateLimit);
+                int attemptsLeft = Math.Max(0, 5 - rateLimit.FailedAttempts);
+
+                string invalidFormatMsg = isSpanish
+                    ? $"<span class='text-danger'><i class='fas fa-times-circle'></i> Código inválido. Intentos restantes: {attemptsLeft} de 5.</span>"
+                    : $"<span class='text-danger'><i class='fas fa-times-circle'></i> Invalid code format. Remaining attempts: {attemptsLeft} of 5.</span>";
+
+                lblCouponMessage.Text = invalidFormatMsg;
+                lblCouponMessage.Visible = true;
+                return;
+            }
+
+            string code = rawCode.ToUpper();
 
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
@@ -348,33 +475,76 @@ namespace OFFSIDESHOP
 
                             if (!isActive)
                             {
-                                lblCouponMessage.Text = "<span class='text-danger'>This coupon is no longer active.</span>";
+                                RegisterFailedCouponAttempt(rateLimit, isSpanish, code, isSpanish ? "Este cupón ya no se encuentra activo." : "This coupon is no longer active.");
                             }
                             else if (usedCount >= maxUses)
                             {
-                                lblCouponMessage.Text = "<span class='text-danger'>This coupon has reached its usage limit.</span>";
+                                RegisterFailedCouponAttempt(rateLimit, isSpanish, code, isSpanish ? "Este cupón ha alcanzado su límite máximo de usos." : "This coupon has reached its usage limit.");
                             }
                             else
                             {
+                                // Cupón Válido: Limpiar contador de intentos fallidos
+                                ResetCouponRateLimit();
+
                                 ViewState["CouponId"] = reader["Id_Coupon"];
                                 ViewState["DiscountPercentage"] = reader["DiscountPercentage"];
                                 Session["CouponId"] = reader["Id_Coupon"];
                                 Session["DiscountPercentage"] = reader["DiscountPercentage"];
-                                lblCouponMessage.Text = $"<span class='text-success'><i class='fas fa-check-circle'></i> Coupon applied! ({reader["DiscountPercentage"]}% OFF)</span>";
 
+                                string successMsg = isSpanish
+                                    ? $"<span class='text-success font-weight-bold'><i class='fas fa-check-circle'></i> ¡Cupón aplicado! ({reader["DiscountPercentage"]}% de descuento)</span>"
+                                    : $"<span class='text-success font-weight-bold'><i class='fas fa-check-circle'></i> Coupon applied! ({reader["DiscountPercentage"]}% OFF)</span>";
+
+                                lblCouponMessage.Text = successMsg;
                                 txtCouponCode.Enabled = false;
                                 btnApplyCoupon.Enabled = false;
                             }
                         }
                         else
                         {
-                            lblCouponMessage.Text = "<span class='text-danger'>Invalid coupon code.</span>";
+                            // Código inexistente
+                            RegisterFailedCouponAttempt(rateLimit, isSpanish, code, isSpanish ? "El código de cupón no existe." : "Invalid coupon code.");
                         }
                     }
                 }
             }
             lblCouponMessage.Visible = true;
             ActualizarResumenPrecios();
+        }
+
+        private void RegisterFailedCouponAttempt(CouponRateLimitInfo rateLimit, bool isSpanish, string attemptedCode, string baseErrorMsg)
+        {
+            rateLimit.FailedAttempts++;
+            int maxAllowed = 5;
+            int lockoutMinutes = 15;
+
+            if (rateLimit.FailedAttempts >= maxAllowed)
+            {
+                rateLimit.LockoutUntil = DateTime.UtcNow.AddMinutes(lockoutMinutes);
+                SaveCouponRateLimitInfo(rateLimit);
+
+                try
+                {
+                    AuditLogger.LogActivity("SUSPICIOUS_ACTIVITY", "CHECKOUT", $"Anti-Brute Force Lockout triggered for IP {GetClientIpAddress()}. Failed attempts: {rateLimit.FailedAttempts}. Last code tried: {attemptedCode}");
+                }
+                catch { }
+
+                string lockMsg = isSpanish
+                    ? $"<span class='text-danger font-weight-bold'><i class='fas fa-ban'></i> Has alcanzado el límite de {maxAllowed} intentos fallidos. La función de cupones se ha bloqueado por {lockoutMinutes} minutos.</span>"
+                    : $"<span class='text-danger font-weight-bold'><i class='fas fa-ban'></i> You have exceeded {maxAllowed} failed attempts. Coupon entry is locked for {lockoutMinutes} minutes.</span>";
+
+                lblCouponMessage.Text = lockMsg;
+            }
+            else
+            {
+                SaveCouponRateLimitInfo(rateLimit);
+                int attemptsRemaining = maxAllowed - rateLimit.FailedAttempts;
+                string warningMsg = isSpanish
+                    ? $"<span class='text-danger'><i class='fas fa-times-circle'></i> {baseErrorMsg} (Te quedan {attemptsRemaining} de {maxAllowed} intentos antes del bloqueo).</span>"
+                    : $"<span class='text-danger'><i class='fas fa-times-circle'></i> {baseErrorMsg} ({attemptsRemaining} of {maxAllowed} attempts remaining before temporary lockout).</span>";
+
+                lblCouponMessage.Text = warningMsg;
+            }
         }
 
         protected void btnPlaceOrder_Click(object sender, EventArgs e)
