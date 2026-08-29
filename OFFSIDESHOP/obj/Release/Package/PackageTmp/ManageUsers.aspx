@@ -92,6 +92,61 @@
         .btn-delete { background: #ef4444; color: white !important; }
         .btn-delete:hover { background: #dc2626; }
         
+        /* Paginación */
+        .pagination-custom td {
+            padding: 24px 4px 10px 4px;
+        }
+
+        .pagination-custom a, .pagination-custom span {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .pagination-custom a {
+            background-color: #f9fafb;
+            color: #b45309;
+            border: 1px solid #f59e0b;
+        }
+
+        .pagination-custom a:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #ffffff !important;
+            border-color: transparent;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+        }
+
+        .pagination-custom span {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            border: 1px solid transparent;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        html.dark-mode .pagination-custom a {
+            background-color: #1f2937;
+            color: #fbbf24;
+            border: 1px solid #d97706;
+        }
+
+        html.dark-mode .pagination-custom a:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #ffffff !important;
+            border-color: transparent;
+        }
+
+        html.dark-mode .pagination-custom span {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            border: 1px solid transparent;
+        }
+        
         /* Modal custom background overlay */
         .modal-backdrop-custom {
             position: fixed;
@@ -321,7 +376,8 @@
 
                             <h3 class="text-white mb-3" style="font-weight: 700;"><i class="fas fa-users mr-2"></i><asp:Literal runat="server" Text="<%$ Resources:Strings, Admin_Users_RegisteredTitle %>" /></h3>
                             <div class="table-responsive">
-                                <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="Id_User" OnRowCommand="gvUsers_RowCommand" OnRowDataBound="gvUsers_RowDataBound">
+                                <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" GridLines="None" CssClass="table table-custom text-center align-middle" DataKeyNames="Id_User" AllowPaging="true" PageSize="10" OnRowCommand="gvUsers_RowCommand" OnRowDataBound="gvUsers_RowDataBound" OnPageIndexChanging="gvUsers_PageIndexChanging">
+                                    <PagerStyle CssClass="pagination-custom" HorizontalAlign="Center" />
                                     <Columns>
                                         <asp:BoundField DataField="Id_User" HeaderText="ID" ItemStyle-Width="60px" />
                                         <asp:BoundField DataField="Name_User" HeaderText="<%$ Resources:Strings, Admin_Users_Username %>" />

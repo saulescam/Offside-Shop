@@ -155,18 +155,18 @@
         };
 
         // DYNAMIC PREMIUM FILE UPLOADER SYSTEM
-        let uploadedFilesArray = [];
-        let isUpdatingFiles = false;
+        function createDropZoneHandler(dropAreaId, fileInputId, galleryId) {
+            let dropArea = document.getElementById(dropAreaId);
+            let fileInput = document.getElementById(fileInputId);
+            let gallery = document.getElementById(galleryId);
 
-        function initDropArea() {
-            let dropArea = document.getElementById('drop-area');
-            let fileInput = document.getElementById('fileImages') || document.querySelector('.file-upload-input');
-
-            if (!dropArea || !fileInput) return;
+            if (!dropArea || !fileInput || !gallery) return;
             if (dropArea.dataset.initialized === "true") return;
             dropArea.dataset.initialized = "true";
 
-            // Visual highlight on drag events
+            let uploadedFiles = [];
+            let isUpdating = false;
+
             ['dragenter', 'dragover'].forEach(eventName => {
                 dropArea.addEventListener(eventName, e => {
                     e.preventDefault();
@@ -183,143 +183,133 @@
                 }, false);
             });
 
-            // Prevent default drag and drop behavior on window to avoid opening files in browser
-            window.addEventListener('dragover', e => e.preventDefault(), false);
-            window.addEventListener('drop', e => e.preventDefault(), false);
-
-            // Handle file drops
             dropArea.addEventListener('drop', function (e) {
                 if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-                    addFiles(e.dataTransfer.files, true);
+                    handleFiles(e.dataTransfer.files, true);
                 }
             }, false);
 
-            // Handle file inputs via explorer selection
             fileInput.addEventListener('change', function () {
-                if (isUpdatingFiles) return;
+                if (isUpdating) return;
                 if (this.files && this.files.length > 0) {
-                    addFiles(this.files, false);
+                    handleFiles(this.files, false);
                 }
             });
-        }
 
-        function addFiles(files, updateFileInput) {
-            let fileInput = document.getElementById('fileImages') || document.querySelector('.file-upload-input');
-            if (!fileInput) return;
+            function handleFiles(files, updateFileInput) {
+                let fileList = Array.from(files);
+                if (fileList.length === 0) return;
 
-            let fileList = Array.from(files);
-            if (fileList.length === 0) return;
-
-            // Validate file limit count
-            if (fileList.length > 3) {
-                Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_LimitReachedTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Contact_LimitReachedText") %>', 'warning');
-                return;
-            }
-
-            let allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
-            let maxSizeBytes = 2 * 1024 * 1024; // 2MB
-
-            for (let file of fileList) {
-                let ext = '.' + file.name.split('.').pop().toLowerCase();
-                if (!allowedExtensions.includes(ext)) {
-                    let msg = '<%= GetGlobalResourceObject("Strings", "Alert_Contact_FormatErrorText") %>'.replace('{0}', file.name);
-                    Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_FormatErrorTitle") %>', msg, 'error');
+                if (fileList.length > 3) {
+                    Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_LimitReachedTitle") %>', '<%= GetGlobalResourceObject("Strings", "Alert_Contact_LimitReachedText") %>', 'warning');
                     return;
                 }
-                if (file.size > maxSizeBytes) {
-                    let msg = '<%= GetGlobalResourceObject("Strings", "Alert_Contact_TooLargeText") %>'.replace('{0}', file.name);
-                    Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_TooLargeTitle") %>', msg, 'error');
-                    return;
+
+                let allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+                let maxSizeBytes = 2 * 1024 * 1024; // 2MB
+
+                for (let file of fileList) {
+                    let ext = '.' + file.name.split('.').pop().toLowerCase();
+                    if (!allowedExtensions.includes(ext)) {
+                        let msg = '<%= GetGlobalResourceObject("Strings", "Alert_Contact_FormatErrorText") %>'.replace('{0}', file.name);
+                        Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_FormatErrorTitle") %>', msg, 'error');
+                        return;
+                    }
+                    if (file.size > maxSizeBytes) {
+                        let msg = '<%= GetGlobalResourceObject("Strings", "Alert_Contact_TooLargeText") %>'.replace('{0}', file.name);
+                        Swal.fire('<%= GetGlobalResourceObject("Strings", "Alert_Contact_TooLargeTitle") %>', msg, 'error');
+                        return;
+                    }
                 }
+
+                uploadedFiles = fileList;
+                renderThumbnails(updateFileInput);
             }
 
-            uploadedFilesArray = fileList;
-            renderPreviewAndSync(updateFileInput);
-        }
-
-        function removeFile(index) {
-            uploadedFilesArray.splice(index, 1);
-            renderPreviewAndSync(true);
-        }
-
-        function renderPreviewAndSync(updateFileInput) {
-            let fileInput = document.getElementById('fileImages') || document.querySelector('.file-upload-input');
-            let gallery = document.getElementById('gallery');
-            if (!fileInput || !gallery) return;
-
-            if (updateFileInput) {
-                try {
-                    isUpdatingFiles = true;
-                    let dt = new DataTransfer();
-                    uploadedFilesArray.forEach(file => dt.items.add(file));
-                    fileInput.files = dt.files;
-                } catch (e) {
-                    console.error("DataTransfer sync failed: ", e);
-                } finally {
-                    isUpdatingFiles = false;
-                }
+            function removeFile(index) {
+                uploadedFiles.splice(index, 1);
+                renderThumbnails(true);
             }
 
-            // Render thumbnails with dynamic removal trigger
-            gallery.innerHTML = '';
-            uploadedFilesArray.forEach((file, index) => {
-                let reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function (e) {
-                    let container = document.createElement('div');
-                    container.className = 'position-relative m-2 thumbnail-container';
-                    container.style.width = '100px';
-                    container.style.height = '100px';
-                    container.style.display = 'inline-block';
-                    
-                    let img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = 'img-thumbnail w-100 h-100 shadow-sm';
-                    img.style.objectFit = 'cover';
-                    img.style.borderRadius = '8px';
-                    img.style.border = '2px solid #ffc800';
-                    
-                    let removeBtn = document.createElement('button');
-                    removeBtn.type = 'button';
-                    removeBtn.className = 'btn btn-danger btn-sm rounded-circle d-flex align-items-center justify-content-center';
-                    removeBtn.style.position = 'absolute';
-                    removeBtn.style.top = '-8px';
-                    removeBtn.style.right = '-8px';
-                    removeBtn.style.width = '22px';
-                    removeBtn.style.height = '22px';
-                    removeBtn.style.padding = '0';
-                    removeBtn.style.border = '1px solid white';
-                    removeBtn.style.fontSize = '12px';
-                    removeBtn.style.fontWeight = 'bold';
-                    removeBtn.style.zIndex = '10';
-                    removeBtn.innerHTML = '&times;';
-                    
-                    removeBtn.addEventListener('click', function (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        removeFile(index);
-                    });
+            function renderThumbnails(updateFileInput) {
+                if (updateFileInput) {
+                    try {
+                        isUpdating = true;
+                        let dt = new DataTransfer();
+                        uploadedFiles.forEach(file => dt.items.add(file));
+                        fileInput.files = dt.files;
+                    } catch (e) {
+                        console.error("DataTransfer sync failed: ", e);
+                    } finally {
+                        isUpdating = false;
+                    }
+                }
 
-                    container.appendChild(img);
-                    container.appendChild(removeBtn);
-                    gallery.appendChild(container);
-                };
-            });
+                gallery.innerHTML = '';
+                uploadedFiles.forEach((file, index) => {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function (e) {
+                        let container = document.createElement('div');
+                        container.className = 'position-relative m-2 thumbnail-container';
+                        container.style.width = '100px';
+                        container.style.height = '100px';
+                        container.style.display = 'inline-block';
+
+                        let img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'img-thumbnail w-100 h-100 shadow-sm';
+                        img.style.objectFit = 'cover';
+                        img.style.borderRadius = '8px';
+                        img.style.border = '2px solid #ffc800';
+
+                        let removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.className = 'btn btn-danger btn-sm rounded-circle d-flex align-items-center justify-content-center';
+                        removeBtn.style.position = 'absolute';
+                        removeBtn.style.top = '-8px';
+                        removeBtn.style.right = '-8px';
+                        removeBtn.style.width = '22px';
+                        removeBtn.style.height = '22px';
+                        removeBtn.style.padding = '0';
+                        removeBtn.style.border = '1px solid white';
+                        removeBtn.style.fontSize = '12px';
+                        removeBtn.style.fontWeight = 'bold';
+                        removeBtn.style.zIndex = '10';
+                        removeBtn.innerHTML = '&times;';
+
+                        removeBtn.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            removeFile(index);
+                        });
+
+                        container.appendChild(img);
+                        container.appendChild(removeBtn);
+                        gallery.appendChild(container);
+                    };
+                });
+            }
         }
 
-        document.addEventListener('DOMContentLoaded', initDropArea);
+        function initAllDropAreas() {
+            createDropZoneHandler('drop-area', 'fileImages', 'gallery');
+            createDropZoneHandler('drop-area-refund', 'fileRefundImages', 'galleryRefund');
+        }
+
+        document.addEventListener('DOMContentLoaded', initAllDropAreas);
         if (typeof Sys !== 'undefined') {
-            Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(initDropArea);
+            Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(initAllDropAreas);
         }
     </script>
 </head>
 <body id="page-top" style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;"> 
-    <form runat="server" style="flex: 1 0 auto; display: flex; flex-direction: column;">
+    <form runat="server" enctype="multipart/form-data" style="flex: 1 0 auto; display: flex; flex-direction: column;">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <script type="text/javascript">
             Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(function (sender, args) {
-                if (typeof initDropArea === 'function') {
-                    initDropArea();
+                if (typeof initAllDropAreas === 'function') {
+                    initAllDropAreas();
                 }
             });
         </script>
@@ -354,7 +344,7 @@
                             <asp:UpdatePanel ID="upPerfil" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
                                     <button type="button" class="user-icon-btn" onclick="toggleUserMenu(this)">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M 6 20c0-4 2.5-6 6-6s6 2 6 6"></path></svg>
+                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M 6 20c0-4 2.5-6 6-6s6 2 6 6"></path></svg>
                                     </button>
                                     <div id="userDropdownMenuUser" class="user-dropdown-menu dynamic-dropdown" style="display: none;">
                                         <div class="user-info">
@@ -430,12 +420,47 @@
                                 <asp:Panel ID="pnlOrderIssue" runat="server" Visible="false" CssClass="dynamic-panel">
                                     <div class="mb-3">
                                         <label class="form-label"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_OrderId %>" /> <span class="text-danger">*</span></label>
-                                        <asp:TextBox ID="txtOrderId" runat="server" CssClass="form-control" placeholder="<%$ Resources:Strings, Contact_OrderIdPlaceholder %>" TextMode="Number" min="1"></asp:TextBox>
+                                        <asp:DropDownList ID="ddlOrders" runat="server" CssClass="form-select"></asp:DropDownList>
                                         <div class="form-text"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_OrderIdDesc %>" /></div>
                                     </div>
                                 </asp:Panel>
 
-                                <!-- Dynamic Panel: Sell Collector's Jersey -->
+                                <!-- Dynamic Panel: Refund or Exchange Evidence (ID 2) -->
+                                <asp:Panel ID="pnlRefundEvidence" runat="server" Visible="false" CssClass="dynamic-panel">
+                                    <div class="refund-evidence-info mb-4 p-3 rounded" style="background: linear-gradient(135deg, #fffdf2 0%, #fff9e6 100%); border-left: 4px solid #ffc800; box-shadow: 0 2px 8px rgba(255, 200, 0, 0.08);">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <div style="background-color: #ffc800; color: #1a1a1a; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem;">
+                                                <i class="fas fa-camera-retro"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-1" style="font-weight: 700; color: #1a1a1a;">
+                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_RefundEvidenceTitle %>" /> <span class="text-danger">*</span>
+                                                </h5>
+                                                <p class="mb-2" style="font-size: 0.88rem; color: #495057; line-height: 1.5;">
+                                                    <asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_RefundEvidenceDesc %>" />
+                                                </p>
+                                                <div class="d-flex flex-column gap-1" style="font-size: 0.82rem; color: #6c757d;">
+                                                    <div><i class="fas fa-check-circle text-warning me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_RefundEvidenceTip1 %>" /></div>
+                                                    <div><i class="fas fa-check-circle text-warning me-1"></i> <asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_RefundEvidenceTip2 %>" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" style="font-weight: 700;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_UploadTitle %>" /> <span class="text-danger">*</span></label>
+                                        <label for="fileRefundImages" id="drop-area-refund" class="premium-drop-zone">
+                                            <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                                            <h6><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_UploadDrag %>" /></h6>
+                                            <p><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_UploadClick %>" /></p>
+                                        </label>
+                                        <asp:FileUpload ID="fileRefundImages" runat="server" ClientIDMode="Static" AllowMultiple="true" CssClass="file-upload-input" accept=".jpg,.jpeg,.png,.webp" />
+                                        <div id="galleryRefund" class="mt-3 d-flex justify-content-center gap-3 flex-wrap"></div>
+                                        <div class="form-text text-center mt-2"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_UploadDesc %>" /></div>
+                                    </div>
+                                </asp:Panel>
+
+                                <!-- Dynamic Panel: Sell Collector's Jersey (ID 3) -->
                                 <asp:Panel ID="pnlSellJersey" runat="server" Visible="false" CssClass="dynamic-panel">
                                     <h5 class="mb-3" style="font-weight: 700;"><asp:Literal runat="server" Text="<%$ Resources:Strings, Contact_ConsignTitle %>" /></h5>
                                     <div class="row">

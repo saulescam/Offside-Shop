@@ -590,6 +590,8 @@ namespace OFFSIDESHOP
         {
             try
             {
+                string currentLang = Session["Language"] != null ? Session["Language"].ToString() : "en";
+
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
@@ -616,41 +618,54 @@ namespace OFFSIDESHOP
                     }
 
                     string similarQuery = @"
-                SELECT t.ID, t.Name, t.ImageURL, t.Year,
+                SELECT t.ID, 
+                       COALESCE(tr.Name, t.Name) AS Name, 
+                       t.ImageURL, 
+                       t.Year,
                        t.Price AS OriginalPrice,
-                       CASE WHEN o.Id_Offer IS NOT NULL THEN (t.Price - (t.Price * (o.DiscountPercentage / 100.0))) ELSE t.Price END AS FinalPrice,
+                       CASE 
+                           WHEN o.Id_Offer IS NOT NULL THEN (t.Price - (t.Price * (o.DiscountPercentage / 100.0))) 
+                           ELSE t.Price 
+                       END AS FinalPrice,
                        CASE WHEN o.Id_Offer IS NOT NULL THEN 1 ELSE 0 END AS IsOnSale,
                        IFNULL(o.DiscountPercentage, 0) AS DiscountPercentage,
                        COALESCE(b.Name_Brand, 'OffsideBrand') AS Brand,
                        COALESCE(tm.Name_Team, 'OffsideTeam') AS Team,
-                       COALESCE(kt.Name_KitType, 'Special Edition') AS Type,
-                       GROUP_CONCAT(
-                           CASE tv.Id_Size
-                               WHEN 1 THEN 'S' WHEN 2 THEN 'M' WHEN 3 THEN 'L'
-                               WHEN 4 THEN 'XL' WHEN 5 THEN 'XXL'
-                           END ORDER BY tv.Id_Size SEPARATOR ', '
-                       ) AS Sizes,
-                       CASE WHEN t.Id_Team = @TeamId THEN 1 ELSE 0 END AS IsSameTeam,
-                       COALESCE(sales.SalesCount, 0) AS SalesCount
+                       CASE 
+                           WHEN @Lang = 'es' THEN COALESCE(kt.Name_KitType_es, kt.Name_KitType, 'Edición Especial')
+                           ELSE COALESCE(kt.Name_KitType, 'Special Edition')
+                       END AS Type,
+                       IFNULL(
+                           (SELECT GROUP_CONCAT(
+                               CASE tv2.Id_Size
+                                   WHEN 1 THEN 'S'
+                                   WHEN 2 THEN 'M'
+                                   WHEN 3 THEN 'L'
+                                   WHEN 4 THEN 'XL'
+                                   WHEN 5 THEN 'XXL'
+                                   ELSE CONCAT('Size ', tv2.Id_Size)
+                               END
+                               ORDER BY tv2.Id_Size SEPARATOR ', ')
+                            FROM tshirt_variants tv2
+                            WHERE tv2.Id_Tshirt = t.ID AND tv2.Stock > 0),
+                       'N/A') AS Sizes
                 FROM tshirts t
+                LEFT JOIN tshirt_translations tr ON t.ID = tr.Id_Tshirt AND tr.LanguageCode = @Lang
                 LEFT JOIN brands b ON t.Id_Brand = b.Id_Brand
                 LEFT JOIN teams tm ON t.Id_Team = tm.Id_Team
                 LEFT JOIN kit_types kt ON t.Id_KitType = kt.Id_KitType
-                LEFT JOIN tshirt_variants tv ON tv.Id_Tshirt = t.ID AND tv.Stock > 0
                 LEFT JOIN offer_tshirts ot ON t.ID = ot.Id_Tshirt
                 LEFT JOIN offers o ON ot.Id_Offer = o.Id_Offer AND o.IsActive = 1 AND NOW() BETWEEN o.StartDate AND o.EndDate
-                LEFT JOIN (
-                    SELECT Id_Tshirt, SUM(Quantity) AS SalesCount
-                    FROM order_details
-                    GROUP BY Id_Tshirt
-                ) sales ON t.ID = sales.Id_Tshirt
-                WHERE (t.Id_Team = @TeamId OR (tm.Id_League = @LeagueId AND tm.Id_League > 0))
-                  AND t.ID != @ID
+                WHERE t.ID != @ID
                   AND t.IsActive = 1
-                GROUP BY t.ID, t.Name, t.Price, t.ImageURL, t.Year, b.Name_Brand, tm.Name_Team, kt.Name_KitType, o.Id_Offer, o.DiscountPercentage, sales.SalesCount, t.Id_Team
-                ORDER BY IsSameTeam DESC,
-                         CASE WHEN t.Id_Team = @TeamId THEN RAND() ELSE 1 END,
-                         SalesCount DESC
+                GROUP BY t.ID, tr.Name, t.Name, t.Price, t.ImageURL, t.Year, b.Name_Brand, tm.Name_Team, kt.Name_KitType, kt.Name_KitType_es, o.Id_Offer, o.DiscountPercentage, t.Id_Team, tm.Id_League
+                ORDER BY 
+                    CASE 
+                        WHEN @TeamId > 0 AND t.Id_Team = @TeamId THEN 1
+                        WHEN @LeagueId > 0 AND tm.Id_League = @LeagueId THEN 2
+                        ELSE 3
+                    END ASC,
+                    RAND()
                 LIMIT 8;";
 
                     using (MySqlCommand cmd = new MySqlCommand(similarQuery, con))
@@ -658,6 +673,7 @@ namespace OFFSIDESHOP
                         cmd.Parameters.AddWithValue("@TeamId", teamId);
                         cmd.Parameters.AddWithValue("@LeagueId", leagueId);
                         cmd.Parameters.AddWithValue("@ID", shirtId);
+                        cmd.Parameters.AddWithValue("@Lang", currentLang);
 
                         MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                         DataTable dt = new DataTable();
